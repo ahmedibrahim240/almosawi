@@ -1,5 +1,10 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/secreens/Recommendations/recommendations.dart';
+import 'package:almosawii/secreens/courses/courses.dart';
+import 'package:almosawii/secreens/home/home.dart';
+import 'package:almosawii/secreens/more/more.dart';
+import 'package:almosawii/secreens/theBlog/bolg.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -11,11 +16,11 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Center(child: Text('sssdsdsdd')),
-    Center(child: Text('sssdsdsdd')),
-    Center(child: Text('sssdsdsdd')),
-    Center(child: Text('sssdsdsdd')),
-    Center(child: Text('sssdsdsdd')),
+    Home(),
+    Recommendations(),
+    Blog(),
+    Courses(),
+    More(),
   ];
   @override
   Widget build(BuildContext context) {
