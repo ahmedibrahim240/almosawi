@@ -50,6 +50,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         obscureText: obscurePassword,
                         decoration: textFormInputDecorationForPassword(
                           Icons.visibility_off,
+                          Icons.lock,
                           'password',
                           () {
                             setState(() {
@@ -65,7 +66,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                         obscureText: obscureconPassword,
                         decoration: textFormInputDecorationForPassword(
                           Icons.visibility_off,
-                          'Confirm the password',
+                          Icons.lock,
+                          'password',
                           () {
                             setState(() {
                               obscureconPassword = !obscureconPassword;

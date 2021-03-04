@@ -86,10 +86,10 @@ class _RegisterState extends State<Register> {
                                     phoneNumber = val;
                                   });
                                 },
-                                decoration: textFormInputDecoration(
-                                  Icons.person,
-                                  "Full Name",
-                                ),
+                                // decoration: textFormInputDecoration(
+                                //   Icons.person,
+                                //   "Full Name",
+                                // ),
                               ),
                               SizedBox(height: 10),
                               TextFormField(
@@ -103,10 +103,10 @@ class _RegisterState extends State<Register> {
                                     phoneNumber = val;
                                   });
                                 },
-                                decoration: textFormInputDecoration(
-                                  Icons.phone,
-                                  "Phone number",
-                                ),
+                                // decoration: textFormInputDecoration(
+                                //   Icons.phone,
+                                //   "Phone number",
+                                // ),
                               ),
                               SizedBox(height: 10),
                               TextFormField(
@@ -120,16 +120,17 @@ class _RegisterState extends State<Register> {
                                     phoneNumber = val;
                                   });
                                 },
-                                decoration: textFormInputDecoration(
-                                  Icons.email,
-                                  "Email",
-                                ),
+                                // decoration: textFormInputDecoration(
+                                //   Icons.email,
+                                //   "Email",
+                                // ),
                               ),
                               SizedBox(height: 10),
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
                                 decoration: textFormInputDecorationForPassword(
                                   Icons.visibility_off,
+                                  Icons.lock,
                                   'password',
                                   () {
                                     setState(() {
@@ -151,6 +152,7 @@ class _RegisterState extends State<Register> {
                                 style: TextStyle(color: Colors.black),
                                 decoration: textFormInputDecorationForPassword(
                                   Icons.visibility_off,
+                                  Icons.lock,
                                   "Confirm the password",
                                   () {
                                     setState(() {

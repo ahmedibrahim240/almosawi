@@ -14,24 +14,45 @@ const customColorIcon = Color(0xfff7D7D7D);
 const customColorDivider = Color(0xfffe1e1e1);
 const customColorGray = Color(0xfff7d7d7d);
 const customColorbottomBar = Color(0xfffDBD8D2);
+const String emailEror = 'الرجاء إدخال بريد إلكتروني';
+const String passwordEror = 'الرجاء إدخال كليمة المرور';
+const String conPasswordEror = 'الرجاء إدخال بريد إلكتروني';
+const String nameEror = 'الرجاء إدخال الاسم';
+const String phoneEror = 'الرجاء إدخال رقم الهاتف';
 
 /////////////////////////////////////////////////////////////
 class LogoContainar extends StatelessWidget {
+  final String text;
   const LogoContainar({
     Key key,
+    this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('lib/images/logo.png'),
-          fit: BoxFit.fitHeight,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          height: 100,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/images/logo.png'),
+              fit: BoxFit.fitHeight,
+            ),
+          ),
         ),
-      ),
+        SizedBox(height: 10),
+        Text(
+          text,
+          style: AppTheme.heading.copyWith(
+            fontSize: 25,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ],
     );
   }
 }

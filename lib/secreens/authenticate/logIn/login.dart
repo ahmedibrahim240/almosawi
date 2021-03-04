@@ -18,7 +18,7 @@ class _LogInState extends State<LogIn> {
   String error = '';
   bool loading = false;
   bool obscurePassword = true;
-  String phoneNamber;
+  String email;
   String password;
 
   @override
@@ -41,31 +41,15 @@ class _LogInState extends State<LogIn> {
               primary: true,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               children: [
-                LogoContainar(),
+                LogoContainar(
+                  text: 'تسجيل دخول',
+                ),
                 SizedBox(height: 20),
-                Row(
-                  children: [
-                    Text(
-                      'Welcome ',
-                      style: AppTheme.heading.copyWith(
-                        color: customColorGold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      'Back',
-                      style: AppTheme.heading.copyWith(
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      '!',
-                      style: AppTheme.heading.copyWith(
-                        color: customColorGold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'مرحبا بك ',
+                  style: AppTheme.heading.copyWith(
+                    fontSize: 20,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Padding(
@@ -85,17 +69,16 @@ class _LogInState extends State<LogIn> {
                             children: [
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.phone,
+                                keyboardType: TextInputType.emailAddress,
                                 decoration: textFormInputDecoration(
-                                  Icons.phone,
-                                  'Email Or Phome Number',
+                                  prefixIcon: Icons.email,
+                                  label: 'البريد الإلكتروني',
                                 ),
-                                validator: (val) => val.isEmpty
-                                    ? 'please enter an phoneNamber'
-                                    : null,
+                                validator: (val) =>
+                                    val.isEmpty ? emailEror : null,
                                 onChanged: (val) {
                                   setState(() {
-                                    phoneNamber = val;
+                                    email = val;
                                   });
                                 },
                               ),
@@ -104,7 +87,8 @@ class _LogInState extends State<LogIn> {
                                 style: TextStyle(color: Colors.black),
                                 decoration: textFormInputDecorationForPassword(
                                   Icons.visibility_off,
-                                  'password',
+                                  Icons.lock,
+                                  'كلمة المرور',
                                   () {
                                     setState(() {
                                       obscurePassword = !obscurePassword;
@@ -112,9 +96,8 @@ class _LogInState extends State<LogIn> {
                                   },
                                   obscurePassword,
                                 ),
-                                validator: (val) => val.isEmpty
-                                    ? 'please enter a password'
-                                    : null,
+                                validator: (val) =>
+                                    val.isEmpty ? passwordEror : null,
                                 obscureText: obscurePassword,
                                 onChanged: (val) {
                                   setState(() {
@@ -138,7 +121,7 @@ class _LogInState extends State<LogIn> {
                                     (routes) => false,
                                   );
                                 },
-                                text: 'Sign In',
+                                text: 'دخول',
                               ),
                               SizedBox(height: 12),
                               InkWell(
@@ -149,48 +132,10 @@ class _LogInState extends State<LogIn> {
                                     ),
                                   );
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'forget ',
-                                      style:
-                                          AppTheme.headingColorBlue.copyWith(),
-                                    ),
-                                    Text(
-                                      'password?',
-                                      style:
-                                          AppTheme.headingColorBlue.copyWith(),
-                                    ),
-                                  ],
+                                child: Text(
+                                  'نسيت رقم السر ؟ ',
+                                  style: AppTheme.heading,
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 1,
-                                    width: width * .3,
-                                    color: customColor,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'or',
-                                    style: AppTheme.headingColorBlue.copyWith(
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Container(
-                                    height: 1,
-                                    width: width * .3,
-                                    color: customColor,
-                                  ),
-                                ],
                               ),
                               SizedBox(height: 10),
                               Column(
@@ -201,7 +146,7 @@ class _LogInState extends State<LogIn> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Don't have an account?",
+                                        "ليس لديك حساب ؟",
                                         style: AppTheme.subHeadingColorBlue
                                             .copyWith(
                                           fontSize: 12,
@@ -210,33 +155,16 @@ class _LogInState extends State<LogIn> {
                                       InkWell(
                                         onTap: () => widget.toggleView(),
                                         child: Text(
-                                          "Sign Up!",
+                                          "إنشاء حساب",
                                           style: AppTheme.headingColorBlue
                                               .copyWith(
                                             fontWeight: FontWeight.w900,
+                                            color: customColor,
                                             fontSize: 14,
                                           ),
                                         ),
                                       ),
                                     ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    FontAwesomeIcons.google,
-                                    color: Colors.redAccent,
-                                    size: 35,
-                                  ),
-                                  SizedBox(width: 30),
-                                  Icon(
-                                    FontAwesomeIcons.facebook,
-                                    color: Colors.blueAccent,
-                                    size: 35,
                                   ),
                                 ],
                               ),

@@ -55,10 +55,10 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
                       validator: (val) =>
                           val.isEmpty ? 'please enter your phone email' : null,
                       onChanged: (val) {},
-                      decoration: textFormInputDecoration(
-                        Icons.email,
-                        "Email",
-                      ),
+                      // decoration: textFormInputDecoration(
+                      //   Icons.email,
+                      //   "Email",
+                      // ),
                     ),
                     SizedBox(height: 30),
                     CustomButton(

@@ -38,8 +38,8 @@ class AppTheme {
 }
 
 ///////////////////////////////////////////////////////////////////////////
-InputDecoration textFormInputDecorationForPassword(
-    IconData icon, String label, Function obscureText, bool obscurepasswrod) {
+InputDecoration textFormInputDecorationForPassword(IconData icon,
+    IconData iconpr, String label, Function obscureText, bool obscurepasswrod) {
   return InputDecoration(
     errorStyle: AppTheme.subHeading.copyWith(
       color: customColorGray,
@@ -57,7 +57,7 @@ InputDecoration textFormInputDecorationForPassword(
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
         style: BorderStyle.solid,
-        color: customColorGray,
+        color: customColor,
       ),
     ),
     focusedBorder: OutlineInputBorder(
@@ -66,6 +66,10 @@ InputDecoration textFormInputDecorationForPassword(
         style: BorderStyle.solid,
         color: customColorGray,
       ),
+    ),
+    prefixIcon: Icon(
+      iconpr,
+      color: customColorGray,
     ),
     suffixIcon: IconButton(
       onPressed: obscureText,
@@ -83,10 +87,11 @@ InputDecoration textFormInputDecorationForPassword(
 }
 
 //////////////////////////////////////////////////////////////////////
-InputDecoration textFormInputDecoration(
-  IconData icon,
+InputDecoration textFormInputDecoration({
+  IconData suffixIcon,
+  IconData prefixIcon,
   String label,
-) {
+}) {
   return InputDecoration(
     errorStyle: AppTheme.subHeading.copyWith(
       color: customColor,
@@ -100,22 +105,26 @@ InputDecoration textFormInputDecoration(
     filled: true,
     isDense: true,
     contentPadding: EdgeInsets.all(10),
+    prefixIcon: Icon(
+      prefixIcon,
+      color: customColorGray,
+    ),
     suffixIcon: Icon(
-      icon,
+      suffixIcon,
       color: customColorGray,
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
         style: BorderStyle.solid,
-        color: customColorGray,
+        color: customColor,
       ),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
         style: BorderStyle.solid,
-        color: customColorGray,
+        color: customColor,
       ),
     ),
   );
@@ -140,14 +149,14 @@ InputDecoration textFormInpuofEidtProfile({
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
         style: BorderStyle.solid,
-        color: customColorGray,
+        color: customColor,
       ),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
         style: BorderStyle.solid,
-        color: customColorGray,
+        color: customColor,
       ),
     ),
   );
