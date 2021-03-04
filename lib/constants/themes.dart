@@ -31,8 +31,8 @@ class AppTheme {
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
     colors: [
-      Color(0xfff4DC0B1),
-      Color(0xfff2aa293),
+      customColor,
+      customColor2,
     ],
   );
 }

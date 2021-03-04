@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:almosawii/constants/constans.dart';
+import 'package:almosawii/constants/themes.dart';
 
 import 'package:flutter/material.dart';
+
+import 'onboarding/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
   static final route = '/splashScreen';
@@ -18,17 +23,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Timer(
-    //   Duration(seconds: 5),
-    //   () {
-    //     Navigator.of(context).pushAndRemoveUntil(
-    //       MaterialPageRoute(
-    //         builder: (_) => OnBoard(),
-    //       ),
-    //       (routes) => false,
-    //     );
-    //   },
-    // );
+    Timer(
+      Duration(seconds: 5),
+      () {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (_) => OnBoard(),
+          ),
+          (routes) => false,
+        );
+      },
+    );
   }
 
   @override
@@ -58,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 200,
+              height: 150,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -67,8 +72,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 10),
             Text(
               'ALMOSAWI',
+              style: AppTheme.heading.copyWith(
+                fontSize: 30,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ],
         ),
