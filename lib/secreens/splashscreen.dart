@@ -1,10 +1,6 @@
-import 'dart:async';
-
-import 'package:elgawda/constants/constans.dart';
+import 'package:almosawii/constants/constans.dart';
 
 import 'package:flutter/material.dart';
-
-import 'onboarding/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
   static final route = '/splashScreen';
@@ -22,17 +18,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-      Duration(seconds: 5),
-      () {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (_) => OnBoard(),
-          ),
-          (routes) => false,
-        );
-      },
-    );
+    // Timer(
+    //   Duration(seconds: 5),
+    //   () {
+    //     Navigator.of(context).pushAndRemoveUntil(
+    //       MaterialPageRoute(
+    //         builder: (_) => OnBoard(),
+    //       ),
+    //       (routes) => false,
+    //     );
+    //   },
+    // );
   }
 
   @override
@@ -49,17 +45,20 @@ class _SplashScreenState extends State<SplashScreen> {
         toolbarHeight: 0,
         backgroundColor: customColor,
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            height: height,
-            width: width,
+      body: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/images/splachback.jpeg'),
+            fit: BoxFit.fitHeight,
           ),
-          Positioned(
-            top: 200,
-            child: Container(
-              height: 100,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 200,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -68,22 +67,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 50,
-            left: 12,
-            child: Container(
-              height: 250,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('lib/images/logo2.png'),
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
+            Text(
+              'ALMOSAWI',
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
