@@ -35,21 +35,23 @@ class _OnBoardingState extends State<OnBoarding> {
   PageController _controller = PageController();
   List<Widget> _pages = [
     CustomSlider(
-      title: 'Take Video Courses',
-      contant: 'Take Video Courses',
+      title: 'التداول والفوركس',
+      contant:
+          'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
       image: 'lib/images/img3.jpg',
       backImage: 'lib/images/back2.jpg',
     ),
     CustomSlider(
-      title: 'Take Video Courses',
-      contant: 'Take Video Courses',
+      title: 'التداول والفوركس',
+      contant:
+          'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
       image: 'lib/images/img1.jpg',
       backImage: 'lib/images/back3.jpg',
     ),
     CustomSlider(
-      title: 'Take Video Courses',
+      title: 'التداول والفوركس',
       contant:
-          'Title Contant Title Contant Title Contant Title ContantTitle Contant Title Contant Title Contant Title Contant Title Contant Title Contant',
+          'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
       image: 'lib/images/img2.jpg',
       backImage: 'lib/images/back2.jpg',
     ),
@@ -153,67 +155,28 @@ class SliderContoler extends StatelessWidget {
                 child: AnimatedContainer(
                   duration: Duration(milliseconds: 300),
                   height: 40,
-                  width: 100,
+                  width: 200,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                     color: customColor,
                   ),
                   child: (_currentPage == (_pages.length - 1))
                       ? Center(
                           child: Text(
-                            'start',
+                            'ابدا',
                             style:
                                 AppTheme.heading.copyWith(color: Colors.white),
                           ),
                         )
                       : Center(
                           child: Text(
-                            'next',
+                            'التالي',
                             style:
                                 AppTheme.heading.copyWith(color: Colors.white),
                           ),
                         ),
                 ),
               ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.of(context).pushAndRemoveUntil(
-              //       MaterialPageRoute(
-              //         builder: (_) => Authenticate(),
-              //       ),
-              //       (routes) => false,
-              //     );
-              //   },
-              //   child: Container(
-              //     height: 35,
-              //     width: 86,
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(15),
-              //       color: customColorGold,
-              //     ),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         Text(
-              //           (_currentPage == (_pages.length - 1))
-              //               ? 'Start'
-              //               : 'Skip',
-              //           style: AppTheme.heading.copyWith(color: Colors.white),
-              //         ),
-              //         (_currentPage == (_pages.length - 1))
-              //             ? Container()
-              //             : Transform.rotate(
-              //                 angle: 180 * 3.14 / 180,
-              //                 child: Icon(
-              //                   Icons.arrow_back,
-              //                   color: Colors.white,
-              //                 ),
-              //               ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
