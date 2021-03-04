@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/theBolg.dart';
+import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -46,7 +47,15 @@ class _HomeState extends State<Home> {
             itemCount: blogList.length,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => BolgDetailes(
+                        theBolg: blogList[index],
+                      ),
+                    ),
+                  );
+                },
                 child: Card(
                   elevation: 3,
                   shape: RoundedRectangleBorder(
