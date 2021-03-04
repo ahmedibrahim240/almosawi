@@ -11,10 +11,11 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Text('text'),
-    Text('text'),
-    Text('text'),
-    Text('text'),
+    Center(child: Text('sssdsdsdd')),
+    Center(child: Text('sssdsdsdd')),
+    Center(child: Text('sssdsdsdd')),
+    Center(child: Text('sssdsdsdd')),
+    Center(child: Text('sssdsdsdd')),
   ];
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _WrapperState extends State<Wrapper> {
         currentIndex: _currentIndex,
         backgroundColor: Color(0xfffF1F1F1),
         selectedItemColor: customColor,
-        unselectedItemColor: customColor.withOpacity(.60),
+        unselectedItemColor: customColorGray,
         selectedLabelStyle: AppTheme.headingColorBlue,
         unselectedLabelStyle: AppTheme.subHeadingColorBlue,
         onTap: (value) {
@@ -32,21 +33,23 @@ class _WrapperState extends State<Wrapper> {
         },
         items: [
           BottomNavigationBarItem(
-            label: 'Home',
+            label: 'الرئيسية',
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: 'My Courses',
-            icon: Icon(
-              FontAwesomeIcons.youtube,
-            ),
+            label: 'التوصيات',
+            icon: Icon(FontAwesomeIcons.bookmark),
           ),
           BottomNavigationBarItem(
-            label: 'Wishlist',
-            icon: Icon(Icons.favorite),
+            label: 'المدونة',
+            icon: Icon(FontAwesomeIcons.newspaper),
           ),
           BottomNavigationBarItem(
-            label: 'More',
+            label: 'الدورات التدربية',
+            icon: Icon(FontAwesomeIcons.youtube),
+          ),
+          BottomNavigationBarItem(
+            label: 'المزيد',
             icon: Icon(Icons.more_horiz),
           ),
         ],
