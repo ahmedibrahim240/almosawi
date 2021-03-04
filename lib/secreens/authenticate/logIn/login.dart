@@ -2,7 +2,6 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../passwordRecovery.dart';
 
@@ -23,8 +22,6 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,

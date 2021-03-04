@@ -19,15 +19,15 @@ class _RegisterState extends State<Register> {
   String password = '';
   String confirmPassword = '';
   String name = '';
+  String email = '';
   String error = '';
 
   bool obscurePassword = true;
+  bool checkBoxValue = false;
   bool obscureconPassword = true;
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: customColor,
@@ -42,26 +42,17 @@ class _RegisterState extends State<Register> {
           : ListView(
               shrinkWrap: true,
               primary: true,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               children: [
-                LogoContainar(),
+                LogoContainar(
+                  text: 'إنشاء حساب جديد',
+                ),
                 SizedBox(height: 20),
-                Row(
-                  children: [
-                    Text(
-                      'Create ',
-                      style: AppTheme.heading.copyWith(
-                        color: customColorGold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      'an Account',
-                      style: AppTheme.heading.copyWith(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'مرحبا بك ',
+                  style: AppTheme.heading.copyWith(
+                    fontSize: 20,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Padding(
@@ -69,69 +60,70 @@ class _RegisterState extends State<Register> {
                   child: Form(
                     key: _formKey,
                     child: SingleChildScrollView(
+                      primary: true,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 15),
+                          SizedBox(height: 10),
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
-                                validator: (val) => val.isEmpty
-                                    ? 'please enter your phone name'
-                                    : null,
-                                onChanged: (val) {
-                                  setState(() {
-                                    phoneNumber = val;
-                                  });
-                                },
-                                // decoration: textFormInputDecoration(
-                                //   Icons.person,
-                                //   "Full Name",
-                                // ),
-                              ),
-                              SizedBox(height: 10),
-                              TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(color: Colors.black),
-                                validator: (val) => val.isEmpty
-                                    ? 'please enter your phone number'
-                                    : null,
-                                onChanged: (val) {
-                                  setState(() {
-                                    phoneNumber = val;
-                                  });
-                                },
-                                // decoration: textFormInputDecoration(
-                                //   Icons.phone,
-                                //   "Phone number",
-                                // ),
-                              ),
-                              SizedBox(height: 10),
-                              TextFormField(
                                 keyboardType: TextInputType.emailAddress,
+                                decoration: textFormInputDecoration(
+                                  prefixIcon: Icons.person,
+                                  label: 'الاسم',
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? nameEror : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    name = val;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 20),
+                              TextFormField(
                                 style: TextStyle(color: Colors.black),
-                                validator: (val) => val.isEmpty
-                                    ? 'please enter your phone email'
-                                    : null,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: textFormInputDecoration(
+                                  prefixIcon: Icons.phone,
+                                  label: 'رقمم الهاتف',
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? phoneEror : null,
                                 onChanged: (val) {
                                   setState(() {
                                     phoneNumber = val;
                                   });
                                 },
-                                // decoration: textFormInputDecoration(
-                                //   Icons.email,
-                                //   "Email",
-                                // ),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 20),
+                              TextFormField(
+                                style: TextStyle(color: Colors.black),
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: textFormInputDecoration(
+                                  prefixIcon: Icons.email,
+                                  label: 'البريد الإلكتروني',
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? emailEror : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    email = val;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 20),
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
                                 decoration: textFormInputDecorationForPassword(
                                   Icons.visibility_off,
                                   Icons.lock,
-                                  'password',
+                                  'كلمة المرور',
                                   () {
                                     setState(() {
                                       obscurePassword = !obscurePassword;
@@ -147,36 +139,80 @@ class _RegisterState extends State<Register> {
                                   });
                                 },
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 20),
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
                                 decoration: textFormInputDecorationForPassword(
                                   Icons.visibility_off,
                                   Icons.lock,
-                                  "Confirm the password",
+                                  'تاكيد كلمه المرور',
                                   () {
                                     setState(() {
-                                      obscureconPassword = !obscureconPassword;
+                                      obscurePassword = !obscurePassword;
                                     });
                                   },
-                                  obscureconPassword,
+                                  obscurePassword,
                                 ),
                                 validator: (val) => validateConfrimPassord(
                                   val,
                                   password,
                                   confirmPassword,
                                 ),
-                                obscureText: obscureconPassword,
+                                obscureText: obscurePassword,
                                 onChanged: (val) {
                                   setState(() {
                                     confirmPassword = val;
                                   });
                                 },
                               ),
-                              SizedBox(height: 10),
-                              Text(
-                                error,
-                                style: AppTheme.heading,
+                              Center(
+                                child: Text(
+                                  error,
+                                  style: AppTheme.headingColorBlue,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        value: checkBoxValue,
+                                        activeColor: Colors.green,
+                                        onChanged: (bool newValue) {
+                                          setState(() {
+                                            checkBoxValue = newValue;
+                                          });
+                                        },
+                                      ),
+                                      Text(
+                                        "موافق علي الشروط والأحكام",
+                                        style: AppTheme.subHeading.copyWith(
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "الشروط والأحكام",
+                                          style: AppTheme.subHeading.copyWith(
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Icon(
+                                          FontAwesomeIcons.chevronDown,
+                                          size: 15,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(height: 10),
                               CustomButton(
@@ -188,33 +224,7 @@ class _RegisterState extends State<Register> {
                                     (routes) => false,
                                   );
                                 },
-                                text: 'Sign Up',
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 1,
-                                    width: width * .3,
-                                    color: customColor,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'or',
-                                    style: AppTheme.headingColorBlue.copyWith(
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Container(
-                                    height: 1,
-                                    width: width * .3,
-                                    color: customColor,
-                                  ),
-                                ],
+                                text: 'دخول',
                               ),
                               SizedBox(height: 10),
                               Column(
@@ -225,19 +235,19 @@ class _RegisterState extends State<Register> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Already have an account?",
-                                        style: AppTheme.subHeadingColorBlue
-                                            .copyWith(
+                                        "هل لديك حساب بالفعل ؟",
+                                        style: AppTheme.subHeading.copyWith(
                                           fontSize: 12,
                                         ),
                                       ),
                                       InkWell(
                                         onTap: () => widget.toggleView(),
                                         child: Text(
-                                          "Sign In!",
+                                          "تسجيل دخول",
                                           style: AppTheme.headingColorBlue
                                               .copyWith(
                                             fontWeight: FontWeight.w900,
+                                            color: customColor,
                                             fontSize: 14,
                                           ),
                                         ),
@@ -245,23 +255,16 @@ class _RegisterState extends State<Register> {
                                     ],
                                   ),
                                   SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        FontAwesomeIcons.google,
-                                        color: Colors.redAccent,
-                                        size: 35,
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Text(
+                                      "الدخول كزائر ؟",
+                                      style: AppTheme.headingColorBlue.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                        color: customColor,
+                                        fontSize: 14,
                                       ),
-                                      SizedBox(width: 30),
-                                      Icon(
-                                        FontAwesomeIcons.facebook,
-                                        color: Colors.blueAccent,
-                                        size: 35,
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -272,6 +275,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
               ],
             ),
     );
@@ -279,9 +283,9 @@ class _RegisterState extends State<Register> {
 
   String validatePassord(String val) {
     if (val.isEmpty) {
-      return 'please enter a password';
+      return phoneEror;
     } else if (val.length < 6) {
-      return 'the password should be at least 6 character';
+      return 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
     } else {
       return null;
     }
@@ -293,9 +297,9 @@ class _RegisterState extends State<Register> {
     String confrimPassord,
   ) {
     if (val.isEmpty) {
-      return 'please enter a password';
+      return phoneEror;
     } else if (password != confirmPassword) {
-      return 'password not matching';
+      return 'كلمة المرور غير متطابقة';
     } else {
       return null;
     }
