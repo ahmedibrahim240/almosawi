@@ -5,8 +5,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const customColor = Color(0x1dcb83);
-const customColor2 = Color(0x34e89e);
+const customColor = Color(0xfff1dcb83);
+const customColor2 = Color(0xfff34e89e);
 const customColorGold = Color(0xfff9B792C);
 const sliderTextColor = Color(0xfff21496C);
 const sliderTextColorcontaint = Color(0xfff21496C);

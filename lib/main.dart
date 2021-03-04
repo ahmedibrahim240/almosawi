@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constants/constans.dart';
 import 'constants/themes.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(MyApp());
@@ -60,6 +61,14 @@ class _MyAppState extends State<MyApp> {
         accentColor: customColor,
         iconTheme: IconThemeData(color: customColor),
       ),
+      localizationsDelegates: [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('ar'),
+      ],
       home: SplashScreen(),
     );
 
