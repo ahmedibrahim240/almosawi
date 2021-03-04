@@ -12,8 +12,8 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
   final _formKey = GlobalKey<FormState>();
   bool verification = true;
   bool changePass = false;
+  String email = '';
 
-  get customColor => null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +30,14 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
             LogoContainar(),
             SizedBox(height: 40),
             Text(
-              'Password Recovery',
-              style: AppTheme.headingColorBlue.copyWith(
+              'استعادة كلمة السر',
+              style: AppTheme.heading.copyWith(
                 fontSize: 15,
                 color: customColor,
               ),
             ),
             Text(
-              "Please enter a valid email",
+              "يرجى إدخال البريد الإلكتروني الصحيح",
               style: AppTheme.subHeading.copyWith(),
             ),
             SizedBox(height: 40),
@@ -52,13 +52,16 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.black),
-                      validator: (val) =>
-                          val.isEmpty ? 'please enter your phone email' : null,
-                      onChanged: (val) {},
-                      // decoration: textFormInputDecoration(
-                      //   Icons.email,
-                      //   "Email",
-                      // ),
+                      validator: (val) => val.isEmpty ? emailEror : null,
+                      onChanged: (val) {
+                        setState(() {
+                          email = val;
+                        });
+                      },
+                      decoration: textFormInputDecoration(
+                        prefixIcon: Icons.email,
+                        label: 'البريد الإلكتروني',
+                      ),
                     ),
                     SizedBox(height: 30),
                     CustomButton(

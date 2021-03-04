@@ -34,67 +34,79 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
       body: SafeArea(
         child: ListView(
           primary: true,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
           children: [
-            LogoContainar(),
-            SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Confirm",
-                      style: AppTheme.heading.copyWith(
-                        color: customColor,
-                        fontSize: 20,
-                      ),
+            Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "كود التفعيل",
+                    style: AppTheme.heading.copyWith(
+                      color: customColor,
+                      fontSize: 20,
                     ),
-                    SizedBox(height: 40),
-                    Center(
-                      child: Text(
-                        "A code has been sent to an email" + '\n text@text.com',
-                        textAlign: TextAlign.center,
-                        style: AppTheme.subHeading.copyWith(),
-                      ),
+                  ),
+                  SizedBox(height: 40),
+                  Center(
+                    child: Text(
+                      "أدخل كود الذي تم إرسالة علي هذا االربيد" +
+                          '\n text@text.com',
+                      textAlign: TextAlign.center,
+                      style: AppTheme.subHeading.copyWith(),
                     ),
-                    SizedBox(height: 40),
-                    Center(
-                      child: CodeFields(
-                        length: codeLength,
-                        validator: validateCode,
-                        textStyle: TextStyle(color: Colors.black),
-                        autofocus: true,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Center(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Text(
-                          "Resend code ?",
-                          style: AppTheme.headingColorBlue.copyWith(),
+                  ),
+                  SizedBox(height: 40),
+                  Center(
+                    child: CodeFields(
+                      length: codeLength,
+                      validator: validateCode,
+                      inputDecoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            style: BorderStyle.solid,
+                            color: customColorGray,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            style: BorderStyle.solid,
+                            color: customColor,
+                          ),
                         ),
                       ),
+                      textStyle: TextStyle(color: Colors.black),
+                      autofocus: true,
                     ),
-                    SizedBox(height: 20),
-                    Center(
-                      child: CustomButton(
-                        text: 'send',
-                        onPress: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (_) => Wrapper(),
-                            ),
-                            (routes) => false,
-                          );
-                        },
+                  ),
+                  SizedBox(height: 20),
+                  Center(
+                    child: InkWell(
+                      onTap: () {},
+                      child: Text(
+                        "Resend code ?",
+                        style: AppTheme.headingColorBlue.copyWith(),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 20),
+                  Center(
+                    child: CustomButton(
+                      text: 'send',
+                      onPress: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (_) => Wrapper(),
+                          ),
+                          (routes) => false,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

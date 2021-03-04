@@ -46,7 +46,7 @@ class LogoContainar extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          text,
+          text ?? '',
           style: AppTheme.heading.copyWith(
             fontSize: 25,
             fontWeight: FontWeight.normal,
