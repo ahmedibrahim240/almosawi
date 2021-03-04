@@ -1,6 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/wrapper/wrapper.dart';
+import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_fields/code_fields.dart';
