@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomSlider extends StatelessWidget {
   final String title, contant;
@@ -20,12 +21,13 @@ class CustomSlider extends StatelessWidget {
             SizedBox(height: 30),
             Container(
               height: height * .4,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage(image),
+              //     fit: BoxFit.fitHeight,
+              //   ),
+              // ),
+              child: SvgPicture.asset(image),
             ),
             SizedBox(height: 10),
             Center(

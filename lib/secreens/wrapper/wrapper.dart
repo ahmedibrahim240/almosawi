@@ -6,6 +6,7 @@ import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Wrapper extends StatefulWidget {
@@ -43,7 +44,11 @@ class _WrapperState extends State<Wrapper> {
           ),
           BottomNavigationBarItem(
             label: 'التوصيات',
-            icon: Icon(FontAwesomeIcons.bookmark),
+            icon: SvgPicture.asset(
+              'lib/icons/stockUp.svg',
+              color: (_currentIndex == 1) ? customColor : customColorGray,
+              height: (_currentIndex == 1) ? 20 : 15,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'المدونة',
@@ -51,7 +56,11 @@ class _WrapperState extends State<Wrapper> {
           ),
           BottomNavigationBarItem(
             label: 'الدورات التدربية',
-            icon: Icon(FontAwesomeIcons.youtube),
+            icon: SvgPicture.asset(
+              'lib/icons/courses.svg',
+              color: (_currentIndex == 3) ? customColor : customColorGray,
+              height: (_currentIndex == 3) ? 20 : 15,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'المزيد',

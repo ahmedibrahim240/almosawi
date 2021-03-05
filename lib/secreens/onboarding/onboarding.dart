@@ -38,21 +38,21 @@ class _OnBoardingState extends State<OnBoarding> {
       title: 'التداول والفوركس',
       contant:
           'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
-      image: 'lib/images/img3.jpg',
+      image: 'lib/icons/back1.svg',
       backImage: 'lib/images/back2.jpg',
     ),
     CustomSlider(
       title: 'التداول والفوركس',
       contant:
           'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
-      image: 'lib/images/img1.jpg',
+      image: 'lib/icons/back2.svg',
       backImage: 'lib/images/back3.jpg',
     ),
     CustomSlider(
       title: 'التداول والفوركس',
       contant:
           'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
-      image: 'lib/images/img2.jpg',
+      image: 'lib/icons/back3.svg',
       backImage: 'lib/images/back2.jpg',
     ),
   ];

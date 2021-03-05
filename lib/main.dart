@@ -1,3 +1,4 @@
+import 'package:almosawii/secreens/splashscreen.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: [
         Locale('ar'),
       ],
-      home: Wrapper(),
+      home: SplashScreen(),
     );
 
     //  StreamProvider<User>.value(
