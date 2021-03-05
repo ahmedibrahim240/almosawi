@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/rating.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class Coursesedtails extends StatefulWidget {
 }
 
 class _CoursesedtailsState extends State<Coursesedtails> {
+  bool viewRating = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +169,11 @@ class _CoursesedtailsState extends State<Coursesedtails> {
             color: Colors.grey[300],
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                setState(() {
+                  viewRating = !viewRating;
+                });
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -189,6 +196,8 @@ class _CoursesedtailsState extends State<Coursesedtails> {
               ),
             ),
           ),
+          (viewRating == true) ? ratingListView(context: context) : Container(),
+          SizedBox(height: 40),
         ],
       ),
     );

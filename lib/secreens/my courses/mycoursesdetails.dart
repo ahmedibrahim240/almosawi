@@ -1,6 +1,8 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/rating.dart';
+import 'package:almosawii/secreens/more/more.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -92,13 +94,29 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
           (lecTapped == 0)
               ? lectureBody()
               : (lecTapped == 1)
-                  ? Container(
-                      child: Center(
-                        child: Text(
-                          widget.courses.contant,
-                          style: AppTheme.subHeading,
+                  ? ListView(
+                      shrinkWrap: true,
+                      primary: false,
+                      children: [
+                        Container(
+                          child: Center(
+                            child: Text(
+                              widget.courses.contant,
+                              style: AppTheme.subHeading,
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 20),
+                        Center(
+                          child: Text(
+                            'اراء العملاء',
+                            style:
+                                AppTheme.heading.copyWith(color: customColor),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ratingListView(context: context),
+                      ],
                     )
                   : reviewBody()
         ],
@@ -106,7 +124,7 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
     );
   }
 
-  Container reviewBody() {
+  reviewBody() {
     return Container(
       child: Form(
         child: Padding(
@@ -232,128 +250,6 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
           ],
         );
       },
-    );
-  }
-
-  ListView lectureDetaile() {
-    return ListView.builder(
-      shrinkWrap: true,
-      primary: false,
-      itemCount: 4,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  '${index + 1}',
-                  style: AppTheme.heading.copyWith(
-                    fontSize: 25,
-                  ),
-                ),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.green,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              FontAwesomeIcons.check,
-                              color: Colors.white,
-                              size: 10,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          'Welcom to 2 course',
-                          style: AppTheme.heading,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Video -10.22 mins-Resources (1)',
-                      style: AppTheme.subHeading.copyWith(
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Quiz',
-                        style: AppTheme.heading.copyWith(
-                          color: customColorGold,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            Divider(
-              color: customColorDivider,
-              thickness: 2,
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  courseDetail() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 10,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'solving problem with your son',
-                  style: AppTheme.heading,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Row(
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.starHalfAlt,
-                      color: Colors.yellow[900],
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      '(${widget.courses.rate}K)',
-                      style: AppTheme.heading,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Text(
-            widget.courses.newPrice.toString() + '\$',
-            style: AppTheme.heading,
-          ),
-        ],
-      ),
     );
   }
 }
