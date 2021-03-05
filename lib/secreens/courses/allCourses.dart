@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:flutter/material.dart';
 
 class AllCourses extends StatefulWidget {
@@ -54,7 +55,19 @@ class _AllCoursesState extends State<AllCourses> {
       children: List.generate(
         coursesList.length,
         (index) {
-          return allCoursesCard(index: index, context: context, ontap: () {});
+          return allCoursesCard(
+            index: index,
+            context: context,
+            ontap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => Coursesedtails(
+                    courses: coursesList[index],
+                  ),
+                ),
+              );
+            },
+          );
         },
       ),
     );
@@ -68,7 +81,18 @@ class _AllCoursesState extends State<AllCourses> {
       children: List.generate(
         coursesList.length,
         (index) {
-          return freeCoursesCard(index: index, context: context, ontap: () {});
+          return freeCoursesCard(
+              index: index,
+              context: context,
+              ontap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => Coursesedtails(
+                      courses: coursesList[index],
+                    ),
+                  ),
+                );
+              });
         },
       ),
     );
