@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/theBolg.dart';
+import 'package:almosawii/secreens/courses/allCourses.dart';
 import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,7 +39,15 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          sectionTitle(onTap: () {}, title: 'الدورات التدريبية'),
+          sectionTitle(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AllCourses(),
+                  ),
+                );
+              },
+              title: 'الدورات التدريبية'),
           corsesSections(),
           sectionTitle(onTap: () {}, title: 'المدونة'),
           ListView.builder(
