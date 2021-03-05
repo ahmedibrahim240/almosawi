@@ -4,6 +4,7 @@ import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/theBolg.dart';
 import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -253,45 +254,16 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 80,
-                      width: 110,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('lib/images/logo.png'),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'ALMOSAWI',
-                      style: AppTheme.heading.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
+                Container(
+                  height: 80,
+                  width: 110,
+                  child: SvgPicture.asset('lib/icons/logo1.svg'),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 100,
-                      width: 110,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('lib/images/tickLogo.jpg'),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                  ],
+                Container(
+                  height: 80,
+                  width: 110,
+                  decoration: BoxDecoration(),
+                  child: SvgPicture.asset('lib/icons/ticklogo.svg'),
                 ),
               ],
             ),
@@ -308,7 +280,7 @@ class _HomeState extends State<Home> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         image: DecorationImage(
-          image: AssetImage('lib/images/person.jpg'),
+          image: AssetImage('lib/images/homeslider.jpg'),
           fit: BoxFit.cover,
         ),
       ),
