@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/secreens/editprofile/editprofile.dart';
 import 'package:almosawii/secreens/my%20courses/mycourses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,7 +23,13 @@ class _MoreState extends State<More> {
             moreLogo(),
             customdivider(),
             moreBody(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => EditProfile(),
+                  ),
+                );
+              },
               icon: Icon(Icons.person),
               tilte: 'الصفحة الشخصية',
             ),

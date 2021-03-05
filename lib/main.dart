@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           actionsIconTheme: IconThemeData(color: customColor),
           centerTitle: true,
           textTheme: TextTheme(
-            headline6: AppTheme.headingColorBlue,
+            headline6: AppTheme.heading,
           ),
         ),
         accentColor: customColor,
