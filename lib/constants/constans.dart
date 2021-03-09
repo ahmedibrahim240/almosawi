@@ -170,7 +170,7 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             style: AppTheme.heading.copyWith(
-              fontSize: 14,
+              fontSize: 16,
               color: Colors.white,
             ),
           ),

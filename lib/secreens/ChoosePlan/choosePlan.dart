@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/plan.dart';
+import 'package:almosawii/secreens/ChoosePlan/choosePlandetailes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -114,7 +115,15 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                     ],
                                   ),
                                   RaisedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => ChoosePlanDetailes(
+                                            plan: planList[index],
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(35)),
