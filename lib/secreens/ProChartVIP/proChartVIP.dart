@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/secreens/ChoosePlan/choosePlan.dart';
 import 'package:flutter/material.dart';
 
 class ProChartVIP extends StatefulWidget {
@@ -44,7 +45,13 @@ class _ProChartVIPState extends State<ProChartVIP> {
           ),
           SizedBox(height: 20),
           CustomButton(
-            onPress: () {},
+            onPress: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ChoosePlan(),
+                ),
+              );
+            },
             text: 'اشترك',
           ),
         ],
