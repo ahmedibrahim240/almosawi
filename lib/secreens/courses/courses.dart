@@ -38,7 +38,7 @@ class _CoursesState extends State<Courses> {
     var size = MediaQuery.of(context).size;
 
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - 350) / 1.4;
+    final double itemHeight = (size.height - 350) / 1.2;
     final double itemWidth = size.width / 2;
     return GridView.count(
       crossAxisCount: 2,
