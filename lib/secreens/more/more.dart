@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
+import 'package:almosawii/secreens/aboutUs/aboutUs.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/editprofile/editprofile.dart';
 import 'package:almosawii/secreens/my%20courses/mycourses.dart';
@@ -124,7 +125,13 @@ class _MoreState extends State<More> {
             ),
             SizedBox(height: 20),
             moreBody(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AboutUs(),
+                  ),
+                );
+              },
               icon: Icon(FontAwesomeIcons.infoCircle),
               tilte: 'من نحن ',
             ),
