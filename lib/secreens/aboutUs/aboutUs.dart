@@ -1,5 +1,4 @@
 import 'package:almosawii/constants/themes.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class AboutUs extends StatefulWidget {

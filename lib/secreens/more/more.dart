@@ -40,18 +40,8 @@ class _MoreState extends State<More> {
             SizedBox(height: 20),
             moreBody(
               onTap: () {},
-              icon: SvgPicture.asset(
-                'lib/icons/stockUp.svg',
-                color: customColor,
-                height: 20,
-              ),
-              tilte: 'التوصيات',
-            ),
-            SizedBox(height: 20),
-            moreBody(
-              onTap: () {},
-              icon: Icon(FontAwesomeIcons.newspaper),
-              tilte: 'الأخبار',
+              icon: Icon(FontAwesomeIcons.shoppingCart),
+              tilte: 'عربة التسوق',
             ),
             SizedBox(height: 20),
             moreBody(
