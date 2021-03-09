@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/editprofile/editprofile.dart';
 import 'package:almosawii/secreens/my%20courses/mycourses.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,13 @@ class _MoreState extends State<More> {
             ),
             SizedBox(height: 20),
             moreBody(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ProChartVIP(),
+                  ),
+                );
+              },
               icon: SvgPicture.asset(
                 'lib/icons/stok2.svg',
                 color: customColor,
