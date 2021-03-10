@@ -4,6 +4,7 @@ import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/theBolg.dart';
 import 'package:almosawii/secreens/courses/allCourses.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
+import 'package:almosawii/secreens/home/homeTabs.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
 import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class _HomeState extends State<Home> {
           shrinkWrap: true,
           primary: true,
           children: [
+            HomeTabs(),
+            SizedBox(height: 10),
             HomeVideo(),
             SizedBox(height: 10),
             homeBaner(),
