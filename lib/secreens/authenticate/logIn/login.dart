@@ -66,10 +66,10 @@ class _LogInState extends State<LogIn> {
                             children: [
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.text,
                                 decoration: textFormInputDecoration(
-                                  prefixIcon: Icons.email,
-                                  label: 'البريد الإلكتروني',
+                                  prefixIcon: Icons.person,
+                                  label: 'اسم المستخدم',
                                 ),
                                 validator: (val) =>
                                     val.isEmpty ? emailEror : null,
@@ -106,6 +106,24 @@ class _LogInState extends State<LogIn> {
                                 child: Text(
                                   error,
                                   style: AppTheme.headingColorBlue,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (_) => Wrapper(),
+                                    ),
+                                    (routes) => false,
+                                  );
+                                },
+                                child: Text(
+                                  'تخطي',
+                                  style: AppTheme.heading.copyWith(
+                                    color: customColor,
+                                    fontSize: 16,
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 10),

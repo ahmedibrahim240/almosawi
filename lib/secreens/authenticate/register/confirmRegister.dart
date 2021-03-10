@@ -51,8 +51,8 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
                   SizedBox(height: 40),
                   Center(
                     child: Text(
-                      "أدخل كود الذي تم إرسالة علي هذا االربيد" +
-                          '\n text@text.com',
+                      "أدخل كود الذي تم إرسالة علي هذا الهاتف" +
+                          '\n 0100000000000',
                       textAlign: TextAlign.center,
                       style: AppTheme.subHeading.copyWith(),
                     ),

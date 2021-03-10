@@ -19,6 +19,7 @@ class _RegisterState extends State<Register> {
   String password = '';
   String confirmPassword = '';
   String name = '';
+  String userName = '';
   String email = '';
   String error = '';
 
@@ -76,6 +77,22 @@ class _RegisterState extends State<Register> {
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.person,
                                   label: 'الاسم',
+                                ),
+                                validator: (val) =>
+                                    val.isEmpty ? nameEror : null,
+                                onChanged: (val) {
+                                  setState(() {
+                                    userName = val;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 20),
+                              TextFormField(
+                                style: TextStyle(color: Colors.black),
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: textFormInputDecoration(
+                                  prefixIcon: Icons.person,
+                                  label: 'اسم الامتسخدم',
                                 ),
                                 validator: (val) =>
                                     val.isEmpty ? nameEror : null,

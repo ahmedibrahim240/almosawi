@@ -54,11 +54,11 @@ class _SplashScreenState extends State<SplashScreen> {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/images/splachback.jpeg'),
-            fit: BoxFit.fitHeight,
-          ),
-        ),
+            // image: DecorationImage(
+            //   image: AssetImage('lib/images/splachback.jpeg'),
+            //   fit: BoxFit.fitHeight,
+            // ),
+            ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

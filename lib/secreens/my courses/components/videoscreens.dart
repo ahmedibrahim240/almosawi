@@ -28,7 +28,8 @@ class _ChewieVideoState extends State<ChewieVideo> {
 
   Future<void> initializePlayer() async {
     _videoPlayerController1 = VideoPlayerController.network(
-        'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4');
+      'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
+    );
     await _videoPlayerController1.initialize();
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
