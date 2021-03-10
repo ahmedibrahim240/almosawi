@@ -22,7 +22,6 @@ class _HomeTabsState extends State<HomeTabs> {
 
   rowofHomeTap1(BuildContext context) {
     return Container(
-      height: 130,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -48,7 +47,6 @@ class _HomeTabsState extends State<HomeTabs> {
 
   rowofHomeTap2(BuildContext context) {
     return Container(
-      height: 130,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -74,7 +72,6 @@ class _HomeTabsState extends State<HomeTabs> {
 
   rowofHomeTap3(BuildContext context) {
     return Container(
-      height: 130,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -96,13 +93,14 @@ class _HomeTabsState extends State<HomeTabs> {
         child: Card(
           elevation: 3,
           child: Container(
+            height: 80,
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 60,
-                  width: 60,
+                  height: 30,
+                  width: 30,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(iconImage),
@@ -110,7 +108,7 @@ class _HomeTabsState extends State<HomeTabs> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Text(
                   title,
                   style: AppTheme.heading.copyWith(
