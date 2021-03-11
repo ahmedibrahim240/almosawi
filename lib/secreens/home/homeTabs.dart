@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/courses/allCourses.dart';
+import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
 import 'package:flutter/material.dart';
 
 class HomeTabs extends StatefulWidget {
@@ -85,7 +86,13 @@ class _HomeTabsState extends State<HomeTabs> {
           homeTabs(
             title: 'فيديو بروشارت',
             iconImage: 'lib/images/consulantent.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => AllVideosProChart(),
+                ),
+              );
+            },
           ),
         ],
       ),
