@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/secreens/courses/allCourses.dart';
 import 'package:flutter/material.dart';
 
 class HomeTabs extends StatefulWidget {
@@ -33,7 +34,13 @@ class _HomeTabsState extends State<HomeTabs> {
           homeTabs(
             title: 'الدورات التدربية',
             iconImage: 'lib/images/courses.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => AllCourses(),
+                ),
+              );
+            },
           ),
           homeTabs(
             title: 'برو شارت',

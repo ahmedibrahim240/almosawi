@@ -2,7 +2,6 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/theBolg.dart';
-import 'package:almosawii/secreens/courses/allCourses.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/secreens/home/homeTabs.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
@@ -31,17 +30,9 @@ class _HomeState extends State<Home> {
             HomeVideo(),
             SizedBox(height: 10),
             homeBaner(),
-            sectionTitle(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => AllCourses(),
-                    ),
-                  );
-                },
-                title: 'الدورات التدريبية'),
+            sectionTitle(title: 'الدورات التدريبية'),
             corsesSections(),
-            sectionTitle(onTap: () {}, title: 'المدونة'),
+            sectionTitle(title: 'المدونة'),
             ListView.builder(
               shrinkWrap: true,
               primary: false,
@@ -79,30 +70,35 @@ class _HomeState extends State<Home> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width - 180,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 20),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 blogList[index].date,
-                                style: AppTheme.subHeading
-                                    .copyWith(color: customColorGray),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                  blogList[index].name,
-                                  style: AppTheme.heading,
+                                style: AppTheme.subHeading.copyWith(
+                                  color: customColorGray,
+                                  fontSize: 9,
                                 ),
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Text(
-                                  blogList[index].date,
-                                  style: AppTheme.subHeading
-                                      .copyWith(color: customColorGray),
+                                  blogList[index].name,
+                                  style:
+                                      AppTheme.heading.copyWith(fontSize: 10),
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Text(
+                                  blogList[index].contant,
+                                  style: AppTheme.subHeading.copyWith(
+                                    color: customColorGray,
+                                    fontSize: 9,
+                                  ),
                                 ),
                               ),
                             ],
@@ -216,16 +212,16 @@ class _HomeState extends State<Home> {
               style: AppTheme.heading.copyWith(fontSize: 16),
             ),
           ),
-          TextButton(
-            onPressed: onTap,
-            child: Text(
-              'عرض المزيد',
-              style: AppTheme.subHeading.copyWith(
-                fontSize: 12,
-                color: customColorGray,
-              ),
-            ),
-          ),
+          // TextButton(
+          //   onPressed: onTap,
+          //   child: Text(
+          //     'عرض المزيد',
+          //     style: AppTheme.subHeading.copyWith(
+          //       fontSize: 12,
+          //       color: customColorGray,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

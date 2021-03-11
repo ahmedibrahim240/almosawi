@@ -25,7 +25,6 @@ class _BolgDetailesState extends State<BolgDetailes> {
           Container(
             height: 200,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
                 image: NetworkImage(widget.theBolg.image),
                 fit: BoxFit.cover,
@@ -47,31 +46,21 @@ class _BolgDetailesState extends State<BolgDetailes> {
           ListView(
             shrinkWrap: true,
             primary: false,
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             children: [
               Text(
                 widget.theBolg.name,
-                style: AppTheme.heading,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'سعر السهم',
-                    style: AppTheme.heading.copyWith(color: customColor),
-                  ),
-                  Text(
-                    "58\$",
-                    style: AppTheme.heading.copyWith(color: customColor),
-                  ),
-                ],
+                style: AppTheme.heading.copyWith(
+                  fontSize: 15,
+                ),
               ),
               Text(
                 widget.theBolg.contant +
                     widget.theBolg.contant +
                     widget.theBolg.contant +
                     widget.theBolg.contant,
-                style: AppTheme.heading,
+                textAlign: TextAlign.justify,
+                style: AppTheme.subHeading.copyWith(color: customColorGray),
               ),
             ],
           ),

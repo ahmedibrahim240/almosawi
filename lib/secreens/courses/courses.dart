@@ -16,34 +16,30 @@ class _CoursesState extends State<Courses> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: ListView(
-        shrinkWrap: true,
-        primary: true,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
-        children: [
-          Text(
-            'جميع الدورات',
-            style: AppTheme.heading,
-          ),
-          SizedBox(height: 20),
-          gardViewOfAllCourses(
-            context: context,
-          ),
-        ],
+      body: SafeArea(
+        child: ListView(
+          shrinkWrap: true,
+          primary: true,
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          children: [
+            Text(
+              'جميع الدورات',
+              style: AppTheme.heading,
+            ),
+            gardViewOfAllCourses(
+              context: context,
+            ),
+          ],
+        ),
       ),
     );
   }
 
   gardViewOfAllCourses({BuildContext context}) {
-    var size = MediaQuery.of(context).size;
-
-    /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - 350) / 1.2;
-    final double itemWidth = size.width / 2;
     return GridView.count(
       crossAxisCount: 2,
       primary: false,
-      childAspectRatio: (itemWidth / itemHeight),
+      childAspectRatio: .6,
       shrinkWrap: true,
       children: List.generate(
         coursesList.length,
