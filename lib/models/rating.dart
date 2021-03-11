@@ -97,7 +97,7 @@ ratingListView({BuildContext context}) {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Divider(
-              color: customColor.withOpacity(.4),
+              color: customColor.withOpacity(.3),
               thickness: 2,
             ),
           )
