@@ -81,7 +81,14 @@ class _ContactUsState extends State<ContactUs> {
               ],
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 60),
+            child: CustomButton(
+              onPress: () {},
+              text: 'اضافه ملف / صورة',
+            ),
+          ),
           CustomButton(
             onPress: () {},
             text: 'ارسال',
