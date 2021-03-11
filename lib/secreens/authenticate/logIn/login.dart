@@ -119,7 +119,7 @@ class _LogInState extends State<LogIn> {
                                   );
                                 },
                                 child: Text(
-                                  'تخطي',
+                                  "الدخول كزائر ؟",
                                   style: AppTheme.heading.copyWith(
                                     color: customColor,
                                     fontSize: 16,
