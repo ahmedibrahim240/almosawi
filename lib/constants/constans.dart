@@ -472,4 +472,21 @@ Future<void> launchInBrowser(String url) async {
     throw 'Could not launch $url';
   }
 }
+
 // ------------------------------------------------------------------------
+Future<void> launchToWhatsApp({
+  @required String phoneNum,
+  BuildContext context,
+}) async {
+  String url = 'https://wa.me/$phoneNum';
+  try {
+    await launch(url);
+    // if (await canLaunch(url)) {
+
+    // } else {
+    //   showMyDialog(context);
+    // }
+  } catch (e) {
+    print('erorr is: ' + e.toString());
+  }
+}

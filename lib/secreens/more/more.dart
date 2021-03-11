@@ -139,6 +139,14 @@ class _MoreState extends State<More> {
             ),
             SizedBox(height: 20),
             moreBody(
+              onTap: () {
+                launchToWhatsApp(phoneNum: '+201097225751', context: context);
+              },
+              icon: Icon(FontAwesomeIcons.whatsapp),
+              tilte: 'تواصل عبر الواتس اب',
+            ),
+            SizedBox(height: 20),
+            moreBody(
               onTap: () {},
               icon: Icon(FontAwesomeIcons.shareSquare),
               tilte: 'شارك التطبيق ',
