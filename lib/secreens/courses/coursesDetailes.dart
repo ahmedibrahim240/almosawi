@@ -21,20 +21,42 @@ class _CoursesedtailsState extends State<Coursesedtails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       body: ListView(
         shrinkWrap: true,
         primary: true,
         children: [
-          SizedBox(height: 10),
           Container(
-            height: 160,
+            height: 200,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
                 image: NetworkImage(widget.courses.image),
                 fit: BoxFit.cover,
               ),
+            ),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  child: customCachedNetworkImage(
+                    context: context,
+                    url: widget.courses.image,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: customColor,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           firtstScetons(),

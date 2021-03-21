@@ -30,17 +30,27 @@ class _BolgDetailesState extends State<BolgDetailes> {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  child: customCachedNetworkImage(
+                    context: context,
+                    url: widget.theBolg.image,
+                  ),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: customColor,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           ListView(

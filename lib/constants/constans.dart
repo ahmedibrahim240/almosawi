@@ -1,9 +1,12 @@
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/authenticate/authenticate.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:html/parser.dart';
 
 const customColor = Color(0xfff1dcb83);
 const customColor2 = Color(0xfff34e89e);
@@ -19,6 +22,60 @@ const String passwordEror = 'الرجاء إدخال كليمة المرور';
 const String conPasswordEror = 'الرجاء إدخال بريد إلكتروني';
 const String nameEror = 'الرجاء إدخال الاسم';
 const String phoneEror = 'الرجاء إدخال رقم الهاتف';
+////////////////////////////////////////
+Widget youtubePlayer(YoutubePlayerController controller) {
+  return YoutubePlayerBuilder(
+    player: YoutubePlayer(
+      controller: controller,
+      aspectRatio: 16 / 9,
+    ),
+    builder: (context, player) {
+      return Column(
+        children: [
+          player,
+        ],
+      );
+    },
+  );
+}
+
+////////////////////////////////////////////////////////////
+
+String parseHtmlString(String htmlString) {
+  final document = parse(htmlString);
+  final String parsedString = parse(document.body.text).documentElement.text;
+
+  return parsedString;
+}
+
+String gitnewPrice({String descaound, String price}) {
+  double oldPrice;
+  oldPrice = double.parse(price) - double.parse(descaound);
+  return oldPrice.toString();
+}
+
+/////////////////////////////////////
+customCachedNetworkImage({String url, BuildContext context}) {
+  if (url == null || url == '') {
+    return Container(
+      child: Icon(
+        Icons.image,
+        color: Colors.lightBlueAccent,
+      ),
+    );
+  } else {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: CachedNetworkImage(
+        imageUrl: url,
+        fit: BoxFit.cover,
+        placeholder: (context, url) =>
+            Center(child: CircularProgressIndicator()),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
+    );
+  }
+}
 
 /////////////////////////////////////////////////////////////
 class LogoContainar extends StatelessWidget {

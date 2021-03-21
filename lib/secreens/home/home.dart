@@ -30,14 +30,17 @@ class _HomeState extends State<Home> {
             HomeVideo(),
             SizedBox(height: 10),
             homeBaner(),
+            SizedBox(height: 10),
             sectionTitle(title: 'الدورات التدريبية'),
+            SizedBox(height: 10),
             corsesSections(),
+            SizedBox(height: 10),
             sectionTitle(title: 'المدونة'),
             ListView.builder(
               shrinkWrap: true,
               primary: false,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              itemCount: blogList.length,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              itemCount: 3,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
@@ -62,9 +65,12 @@ class _HomeState extends State<Home> {
                           height: 120,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: NetworkImage(blogList[index].image),
-                              fit: BoxFit.cover,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: customCachedNetworkImage(
+                              context: context,
+                              url: blogList[index].image,
                             ),
                           ),
                         ),
@@ -119,7 +125,7 @@ class _HomeState extends State<Home> {
   corsesSections() {
     return Container(
       margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-      height: 300,
+      height: 230,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: coursesList.length,
@@ -155,11 +161,12 @@ class _HomeState extends State<Home> {
               height: 150,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    coursesList[index].image,
-                  ),
-                  fit: BoxFit.cover,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: customCachedNetworkImage(
+                  context: context,
+                  url: coursesList[index].image,
                 ),
               ),
             ),
@@ -233,7 +240,7 @@ class _HomeState extends State<Home> {
       padding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('lib/images/coode.jpg'),
+          image: AssetImage('lib/images/panner.jpeg'),
           fit: BoxFit.cover,
         ),
       ),

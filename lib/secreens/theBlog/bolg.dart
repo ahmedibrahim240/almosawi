@@ -14,8 +14,8 @@ class _BlogState extends State<Blog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0,
-      ),
+          // toolbarHeight: 0,
+          ),
       body: ListView(
         shrinkWrap: true,
         primary: true,
@@ -57,6 +57,13 @@ class _BlogState extends State<Blog> {
                           image: DecorationImage(
                             image: NetworkImage(blogList[index].image),
                             fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: customCachedNetworkImage(
+                            context: context,
+                            url: blogList[index].image,
                           ),
                         ),
                       ),

@@ -1,6 +1,8 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/courses/allCourses.dart';
+import 'package:almosawii/secreens/theBlog/bolg.dart';
 import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
 import 'package:flutter/material.dart';
 
@@ -28,9 +30,15 @@ class _HomeTabsState extends State<HomeTabs> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           homeTabs(
-            title: 'الاخبار',
+            title: 'المدونة',
             iconImage: 'lib/images/consulantent.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => Blog(),
+                ),
+              );
+            },
           ),
           homeTabs(
             title: 'الدورات التدربية',
@@ -66,12 +74,24 @@ class _HomeTabsState extends State<HomeTabs> {
           homeTabs(
             title: 'التوصيات',
             iconImage: 'lib/images/courses.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => Recommendations(),
+                ),
+              );
+            },
           ),
           homeTabs(
             title: 'قسم التعليم',
             iconImage: 'lib/images/eventicons.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => AllCourses(),
+                ),
+              );
+            },
           ),
         ],
       ),

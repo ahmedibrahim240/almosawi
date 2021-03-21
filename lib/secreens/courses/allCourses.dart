@@ -70,9 +70,12 @@ class _AllCoursesState extends State<AllCourses> {
               height: 110,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: NetworkImage(coursesList[index].image),
-                  fit: BoxFit.cover,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: customCachedNetworkImage(
+                  context: context,
+                  url: coursesList[index].image,
                 ),
               ),
             ),
