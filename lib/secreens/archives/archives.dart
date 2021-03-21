@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/recommendModels.dart';
+import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:flutter/material.dart';
 
 class Archives extends StatefulWidget {
@@ -68,7 +69,13 @@ class _ArchivesState extends State<Archives> {
               ),
               SizedBox(height: 20),
               CustomButton(
-                onPress: () {},
+                onPress: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => Recommendations(),
+                    ),
+                  );
+                },
                 text: 'عرض نصائح أستاذ احمد',
               ),
             ],
