@@ -7,6 +7,7 @@ import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/editprofile/editprofile.dart';
 import 'package:almosawii/secreens/my%20courses/mycourses.dart';
 import 'package:almosawii/secreens/notifcations/notifcations.dart';
+import 'package:almosawii/secreens/prochartroom/prochartRoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -110,9 +111,15 @@ class _MoreState extends State<More> {
             ),
             SizedBox(height: 20),
             moreBody(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ProchartRoom(),
+                  ),
+                );
+              },
               icon: Icon(FontAwesomeIcons.comments),
-              tilte: 'تواصل مع المشتركين',
+              tilte: 'غرفة بروشارت',
             ),
             customdivider(),
             moreBody(

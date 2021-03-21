@@ -3,6 +3,7 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/archives/archives.dart';
 import 'package:almosawii/secreens/courses/allCourses.dart';
+import 'package:almosawii/secreens/prochartroom/prochartRoom.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
 import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,13 @@ class _HomeTabsState extends State<HomeTabs> {
             child: homeTabs(
               title: 'غرفة بروشارت',
               iconImage: 'lib/images/consulantent.png',
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ProchartRoom(),
+                  ),
+                );
+              },
             ),
           ),
           Expanded(
