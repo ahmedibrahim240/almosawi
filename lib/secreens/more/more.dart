@@ -5,6 +5,7 @@ import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/aboutUs/aboutUs.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/editprofile/editprofile.dart';
+import 'package:almosawii/secreens/lastMessges/lastMessges.dart';
 import 'package:almosawii/secreens/my%20courses/mycourses.dart';
 import 'package:almosawii/secreens/notifcations/notifcations.dart';
 import 'package:almosawii/secreens/prochartroom/prochartRoom.dart';
@@ -120,6 +121,18 @@ class _MoreState extends State<More> {
               },
               icon: Icon(FontAwesomeIcons.comments),
               tilte: 'غرفة بروشارت',
+            ),
+            SizedBox(height: 20),
+            moreBody(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => LastMessges(),
+                  ),
+                );
+              },
+              icon: Icon(FontAwesomeIcons.comments),
+              tilte: 'المراسلات السابقة',
             ),
             customdivider(),
             moreBody(
