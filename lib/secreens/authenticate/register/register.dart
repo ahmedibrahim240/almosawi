@@ -258,7 +258,7 @@ class _RegisterState extends State<Register> {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () => widget.toggleView(),
                                         child: Text(
                                           "تسجيل دخول",
                                           style: AppTheme.headingColorBlue

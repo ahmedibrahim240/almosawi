@@ -148,7 +148,7 @@ class _LogInState extends State<LogIn> {
                                   );
                                 },
                                 child: Text(
-                                  'نسيت رقم السر ؟ ',
+                                  'هل نسيت كلمه السر  ؟ ',
                                   style: AppTheme.heading,
                                 ),
                               ),
