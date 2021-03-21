@@ -1,5 +1,7 @@
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/authenticate/authenticate.dart';
+import 'package:almosawii/secreens/cart/cart.dart';
+import 'package:almosawii/secreens/wrapper/Wrapper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -23,6 +25,62 @@ const String conPasswordEror = 'الرجاء إدخال بريد إلكترون�
 const String nameEror = 'الرجاء إدخال الاسم';
 const String phoneEror = 'الرجاء إدخال رقم الهاتف';
 ////////////////////////////////////////
+Future<void> cardDialog({BuildContext context}) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Center(
+                child: Text(
+                  'تم اضافة الطلب لستكمال عمليه الشراء عليه الذهاب الي عربة التسوق',
+                  style: AppTheme.subHeading,
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text(
+              'الصفحة الرائسية',
+              style: AppTheme.heading.copyWith(
+                color: customColor,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => Wrapper()),
+                (route) => false,
+              );
+            },
+          ),
+          TextButton(
+            child: Text(
+              'عربة التسوق',
+              style: AppTheme.heading.copyWith(
+                color: customColor,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (_) => Cart(),
+                ),
+                ModalRoute.withName('/'),
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+///
 Widget youtubePlayer(YoutubePlayerController controller) {
   return YoutubePlayerBuilder(
     player: YoutubePlayer(

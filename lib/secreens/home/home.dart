@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Home extends StatefulWidget {
+  static final route = '/home';
+
   @override
   _HomeState createState() => _HomeState();
 }

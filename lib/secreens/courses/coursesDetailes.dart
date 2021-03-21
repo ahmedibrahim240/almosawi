@@ -1,7 +1,9 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/prodact.dart';
 import 'package:almosawii/models/rating.dart';
+import 'package:almosawii/services/dbhelper.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,13 @@ class Coursesedtails extends StatefulWidget {
 class _CoursesedtailsState extends State<Coursesedtails> {
   bool viewRating = false;
   int tapded = 0;
+  DbHehper helper;
+  @override
+  void initState() {
+    super.initState();
+    helper = DbHehper();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -234,9 +243,22 @@ class _CoursesedtailsState extends State<Coursesedtails> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               color: customColor,
-              onPressed: () {},
+              onPressed: () async {
+                ConsultantProdect prodect = ConsultantProdect({
+                  'consultantId': 1,
+                  'dateId': 2,
+                  'title': widget.courses.title,
+                  'price': widget.courses.newPrice,
+                  'proImageUrl': widget.courses.image,
+                  'date': '21/3/2021',
+                  'time': '10 am',
+                });
+                // ignore: unused_local_variable
+                int id = await helper.createProduct(prodect);
+                cardDialog(context: context);
+              },
               child: Text(
-                'شراء الان',
+                'اشتري الان',
                 style: AppTheme.heading.copyWith(color: Colors.white),
               ),
             ),

@@ -1,7 +1,9 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/prodact.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
+import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/material.dart';
 
 class Courses extends StatefulWidget {
@@ -10,6 +12,13 @@ class Courses extends StatefulWidget {
 }
 
 class _CoursesState extends State<Courses> {
+  DbHehper helper;
+  @override
+  void initState() {
+    super.initState();
+    helper = DbHehper();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,9 +128,22 @@ class _CoursesState extends State<Courses> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               color: customColor,
-              onPressed: () {},
+              onPressed: () async {
+                ConsultantProdect prodect = ConsultantProdect({
+                  'consultantId': 1,
+                  'dateId': 2,
+                  'title': coursesList[index].title,
+                  'price': coursesList[index].newPrice,
+                  'proImageUrl': coursesList[index].image,
+                  'date': '21/3/2021',
+                  'time': '10 am',
+                });
+                // ignore: unused_local_variable
+                int id = await helper.createProduct(prodect);
+                cardDialog(context: context);
+              },
               child: Text(
-                'شراء الان',
+                'اشتري الان',
                 style: AppTheme.heading.copyWith(color: Colors.white),
               ),
             ),

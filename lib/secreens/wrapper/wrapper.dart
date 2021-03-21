@@ -10,6 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Wrapper extends StatefulWidget {
+  static final route = '/';
+
   @override
   _WrapperState createState() => _WrapperState();
 }
