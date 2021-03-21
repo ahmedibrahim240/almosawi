@@ -7,6 +7,7 @@ import 'package:almosawii/secreens/home/homeTabs.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
 import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -25,9 +26,12 @@ class _HomeState extends State<Home> {
           shrinkWrap: true,
           primary: true,
           children: [
+            SizedBox(height: 10),
             HomeTabs(),
             SizedBox(height: 10),
             HomeVideo(),
+            SizedBox(height: 10),
+            successPartners(),
             SizedBox(height: 10),
             homeBaner(),
             SizedBox(height: 10),
@@ -36,89 +40,165 @@ class _HomeState extends State<Home> {
             corsesSections(),
             SizedBox(height: 10),
             sectionTitle(title: 'المدونة'),
-            ListView.builder(
-              shrinkWrap: true,
-              primary: false,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => BolgDetailes(
-                          theBolg: blogList[index],
-                        ),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: customCachedNetworkImage(
-                              context: context,
-                              url: blogList[index].image,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width - 180,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                blogList[index].date,
-                                style: AppTheme.subHeading.copyWith(
-                                  color: customColorGray,
-                                  fontSize: 9,
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                  blogList[index].name,
-                                  style:
-                                      AppTheme.heading.copyWith(fontSize: 10),
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                  blogList[index].contant,
-                                  style: AppTheme.subHeading.copyWith(
-                                    color: customColorGray,
-                                    fontSize: 9,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+            homeBolgList(),
           ],
         ),
       ),
+    );
+  }
+
+  successPartners() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'شركاء النجاح',
+            style: AppTheme.heading,
+          ),
+          SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: SvgPicture.asset(
+                    'lib/icons/ticklogo.svg',
+                    height: 100,
+                  ),
+                ),
+                Container(
+                  child: SvgPicture.asset(
+                    'lib/icons/logo1.svg',
+                    height: 100,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              cartPartners(title: 'عميل', nummber: '1950'),
+              cartPartners(title: 'دورة مباشرة', nummber: '310'),
+              cartPartners(title: 'دورة مسجلة', nummber: '220'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Card cartPartners({String title, String nummber}) {
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Container(
+        height: 80,
+        width: 90,
+        decoration: BoxDecoration(
+            color: customColor, borderRadius: BorderRadius.circular(10)),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                nummber,
+                style: AppTheme.subHeading.copyWith(color: Colors.white),
+              ),
+              Text(
+                title,
+                style: AppTheme.subHeading.copyWith(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  homeBolgList() {
+    return ListView.builder(
+      shrinkWrap: true,
+      primary: false,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      itemCount: 3,
+      itemBuilder: (context, index) {
+        return InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => BolgDetailes(
+                  theBolg: blogList[index],
+                ),
+              ),
+            );
+          },
+          child: Card(
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: customCachedNetworkImage(
+                      context: context,
+                      url: blogList[index].image,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width - 180,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        blogList[index].date,
+                        style: AppTheme.subHeading.copyWith(
+                          color: customColorGray,
+                          fontSize: 9,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
+                          blogList[index].name,
+                          style: AppTheme.heading.copyWith(fontSize: 10),
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
+                          blogList[index].contant,
+                          style: AppTheme.subHeading.copyWith(
+                            color: customColorGray,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
