@@ -27,41 +27,50 @@ class _HomeTabsState extends State<HomeTabs> {
 
   rowofHomeTap1(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          homeTabs(
-            title: 'المدونة',
-            iconImage: 'lib/images/consulantent.png',
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => Blog(),
-                ),
-              );
-            },
+          Expanded(
+            flex: 1,
+            child: homeTabs(
+              title: 'المدونة',
+              iconImage: 'lib/images/consulantent.png',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => Blog(),
+                  ),
+                );
+              },
+            ),
           ),
-          homeTabs(
-            title: 'الدورات التدربية',
-            iconImage: 'lib/images/courses.png',
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => AllCourses(),
-                ),
-              );
-            },
+          Expanded(
+            flex: 1,
+            child: homeTabs(
+              title: 'الدورات التدربية',
+              iconImage: 'lib/images/courses.png',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AllCourses(),
+                  ),
+                );
+              },
+            ),
           ),
-          homeTabs(
-            title: 'برو شارت',
-            iconImage: 'lib/images/eventicons.png',
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => Archives(),
-                ),
-              );
-            },
+          Expanded(
+            flex: 1,
+            child: homeTabs(
+              title: 'برو شارت',
+              iconImage: 'lib/images/eventicons.png',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => Archives(),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -70,35 +79,44 @@ class _HomeTabsState extends State<HomeTabs> {
 
   rowofHomeTap2(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          homeTabs(
-            title: 'غرفة بروشارت',
-            iconImage: 'lib/images/consulantent.png',
-            onTap: () {},
+          Expanded(
+            flex: 1,
+            child: homeTabs(
+              title: 'غرفة بروشارت',
+              iconImage: 'lib/images/consulantent.png',
+              onTap: () {},
+            ),
           ),
-          homeTabs(
-            title: 'التوصيات',
-            iconImage: 'lib/images/courses.png',
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => Recommendations(),
-                ),
-              );
-            },
+          Expanded(
+            flex: 1,
+            child: homeTabs(
+              title: 'التوصيات',
+              iconImage: 'lib/images/courses.png',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => Recommendations(),
+                  ),
+                );
+              },
+            ),
           ),
-          homeTabs(
-            title: 'قسم التعليم',
-            iconImage: 'lib/images/eventicons.png',
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => AllCourses(),
-                ),
-              );
-            },
+          Expanded(
+            flex: 1,
+            child: homeTabs(
+              title: 'قسم التعليم',
+              iconImage: 'lib/images/eventicons.png',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AllCourses(),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -107,8 +125,8 @@ class _HomeTabsState extends State<HomeTabs> {
 
   rowofHomeTap3(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           homeTabs(
             title: 'فيديو بروشارت',
@@ -129,6 +147,7 @@ class _HomeTabsState extends State<HomeTabs> {
   homeTabs({String title, String iconImage, Function onTap}) {
     return Container(
       width: 120,
+      height: 100,
       child: InkWell(
         onTap: onTap,
         child: Card(
@@ -140,8 +159,8 @@ class _HomeTabsState extends State<HomeTabs> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 30,
-                  width: 30,
+                  height: 40,
+                  width: 60,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(iconImage),

@@ -51,7 +51,6 @@ class _HomeState extends State<Home> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'شركاء النجاح',
@@ -82,9 +81,27 @@ class _HomeState extends State<Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              cartPartners(title: 'عميل', nummber: '1950'),
-              cartPartners(title: 'دورة مباشرة', nummber: '310'),
-              cartPartners(title: 'دورة مسجلة', nummber: '220'),
+              Expanded(
+                flex: 1,
+                child: cartPartners(
+                  title: 'عميل',
+                  nummber: '1950',
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: cartPartners(
+                  title: 'دورة مباشرة',
+                  nummber: '310',
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: cartPartners(
+                  title: 'دورة مسجلة',
+                  nummber: '220',
+                ),
+              ),
             ],
           ),
         ],
