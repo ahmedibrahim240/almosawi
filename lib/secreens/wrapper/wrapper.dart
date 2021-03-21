@@ -1,6 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/secreens/Recommendations/recommendations.dart';
+import 'package:almosawii/secreens/archives/archives.dart';
 import 'package:almosawii/secreens/courses/courses.dart';
 import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
@@ -18,7 +18,7 @@ class _WrapperState extends State<Wrapper> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     Home(),
-    Recommendations(),
+    Archives(),
     Blog(),
     Courses(),
     More(),
@@ -43,9 +43,9 @@ class _WrapperState extends State<Wrapper> {
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: 'التوصيات',
+            label: 'أرشيف التوصيات',
             icon: SvgPicture.asset(
-              'lib/icons/stockUp.svg',
+              'lib/icons/upanddown.svg',
               color: (_currentIndex == 1) ? customColor : customColorGray,
               height: (_currentIndex == 1) ? 20 : 15,
             ),

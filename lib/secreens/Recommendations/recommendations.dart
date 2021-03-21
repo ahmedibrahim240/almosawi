@@ -15,6 +15,7 @@ class _RecommendationsState extends State<Recommendations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: ListView(
           shrinkWrap: true,

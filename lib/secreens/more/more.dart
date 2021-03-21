@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
+import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/aboutUs/aboutUs.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/editprofile/editprofile.dart';
@@ -45,13 +46,19 @@ class _MoreState extends State<More> {
             ),
             SizedBox(height: 20),
             moreBody(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => Recommendations(),
+                  ),
+                );
+              },
               icon: SvgPicture.asset(
-                'lib/icons/upanddown.svg',
+                'lib/icons/stockUp.svg',
                 color: customColor,
                 height: 20,
               ),
-              tilte: 'أرشيف التوصيات',
+              tilte: 'التوصيات',
             ),
             SizedBox(height: 20),
             moreBody(

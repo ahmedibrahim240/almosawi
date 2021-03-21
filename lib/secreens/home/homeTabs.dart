@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/Recommendations/recommendations.dart';
+import 'package:almosawii/secreens/archives/archives.dart';
 import 'package:almosawii/secreens/courses/allCourses.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
 import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
@@ -54,7 +55,13 @@ class _HomeTabsState extends State<HomeTabs> {
           homeTabs(
             title: 'برو شارت',
             iconImage: 'lib/images/eventicons.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => Archives(),
+                ),
+              );
+            },
           ),
         ],
       ),
