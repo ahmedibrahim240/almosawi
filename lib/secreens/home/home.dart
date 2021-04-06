@@ -2,12 +2,14 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/theBolg.dart';
+import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/secreens/home/homeTabs.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
 import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
   static final route = '/home';
@@ -31,6 +33,56 @@ class _HomeState extends State<Home> {
             SizedBox(height: 10),
             HomeTabs(),
             SizedBox(height: 10),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ContactUs(),
+                  ),
+                );
+              },
+              child: Container(
+                height: 150,
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                width: MediaQuery.of(context).size.width,
+                color: customColor,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 10,
+                      right: 120,
+                      child: Text(
+                        'تواصل مع',
+                        style: AppTheme.heading.copyWith(
+                          color: Colors.white,
+                          fontSize: 35,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(
+                        FontAwesomeIcons.solidComment,
+                        size: 110,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 20,
+                      left: 0,
+                      child: Text(
+                        'أ/أحمد الموسوي',
+                        style: AppTheme.heading.copyWith(
+                          color: Colors.white,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             HomeVideo(),
             SizedBox(height: 10),
             successPartners(),
