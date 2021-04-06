@@ -172,6 +172,12 @@ class _RecommendationsState extends State<Recommendations> {
                                   ),
                                 ),
                               ),
+                              Text(
+                                'شراء / بيع ',
+                                style: AppTheme.heading.copyWith(
+                                  color: customColor,
+                                ),
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -209,6 +215,11 @@ class _RecommendationsState extends State<Recommendations> {
                                 ],
                               ),
                             ],
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            '(${recommendList[index].contant})',
+                            style: AppTheme.subHeading,
                           ),
                         ],
                       ),

@@ -171,6 +171,12 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                   ),
                                 ),
                               ),
+                              Text(
+                                'شراء / بيع ',
+                                style: AppTheme.heading.copyWith(
+                                  color: customColor,
+                                ),
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -208,6 +214,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                 ],
                               ),
                             ],
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            '(${recommendList[index].contant})',
+                            style: AppTheme.subHeading,
                           ),
                         ],
                       ),

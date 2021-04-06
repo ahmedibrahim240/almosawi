@@ -14,6 +14,8 @@ class RecommendationsDetailes extends StatefulWidget {
 }
 
 class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
+  bool tappd = false;
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +35,47 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ),
           ),
           SizedBox(height: 20),
-          Text(
-            'العملة /الزوج',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  'العملة /الزوج',
+                  style: AppTheme.heading.copyWith(
+                    color: customColor,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              SizedBox(width: 10),
+              (count == 2)
+                  ? Container(
+                      child: Text(
+                        ' تم دخول الصفقة من قبل',
+                        style: AppTheme.headingColorBlue.copyWith(
+                          color: Colors.red,
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: CustomButtonWithchild(
+                        child: Text(
+                          (tappd) ? 'خروج' : 'دخول',
+                          style: AppTheme.heading.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        color: (tappd) ? Colors.red : customColor,
+                        onPress: () {
+                          setState(() {
+                            tappd = !tappd;
+                            count = count + 1;
+                          });
+                        },
+                      ),
+                    ),
+            ],
           ),
           Text(
             widget.recommend.title,
