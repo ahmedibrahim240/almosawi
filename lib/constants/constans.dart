@@ -114,24 +114,28 @@ String gitnewPrice({String descaound, String price}) {
 
 /////////////////////////////////////
 customCachedNetworkImage({String url, BuildContext context}) {
-  if (url == null || url == '') {
-    return Container(
-      child: Icon(
-        Icons.image,
-        color: Colors.lightBlueAccent,
-      ),
-    );
-  } else {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: CachedNetworkImage(
-        imageUrl: url,
-        fit: BoxFit.cover,
-        placeholder: (context, url) =>
-            Center(child: CircularProgressIndicator()),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-      ),
-    );
+  try {
+    if (url == null || url == '') {
+      return Container(
+        child: Icon(
+          Icons.image,
+          color: Colors.lightBlueAccent,
+        ),
+      );
+    } else {
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: CachedNetworkImage(
+          imageUrl: url,
+          fit: BoxFit.cover,
+          placeholder: (context, url) =>
+              Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
+      );
+    }
+  } catch (e) {
+    print(e.toString());
   }
 }
 

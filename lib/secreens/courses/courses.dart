@@ -2,8 +2,10 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/prodact.dart';
+import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/services/dbhelper.dart';
+import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/material.dart';
 
 class Courses extends StatefulWidget {
@@ -140,6 +142,11 @@ class _CoursesState extends State<Courses> {
                 });
                 // ignore: unused_local_variable
                 int id = await helper.createProduct(prodect);
+                setState(() {
+                  Cart.totalPraices =
+                      Cart.totalPraices + (coursesList[index].newPrice);
+                });
+                MySharedPreferences.saveTotalPrice(Cart.totalPraices);
                 cardDialog(context: context);
               },
               child: Text(

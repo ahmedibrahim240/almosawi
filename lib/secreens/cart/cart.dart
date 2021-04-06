@@ -8,8 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../sharedPreferences.dart';
+
 class Cart extends StatefulWidget {
   static List<ConsultantProdect> consultProdect = [];
+  static double totalPraices = 0.0;
 
   static SharedPreferences sharedPreferences;
 
@@ -22,11 +25,14 @@ class _CartState extends State<Cart> {
 
   double totalPrice = 0.0;
   DbHehper helper;
+  getTotalPrice() async {
+    Cart.totalPraices = await MySharedPreferences.getTotalPrice();
+  }
 
   @override
   void initState() {
     helper = DbHehper();
-
+    getTotalPrice();
     super.initState();
   }
 
@@ -67,9 +73,6 @@ class _CartState extends State<Cart> {
                   itemCount: snapshot.data.length,
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                   itemBuilder: (context, index) {
-                    culcTotalPrice(
-                      snapshot.data[index]['price'],
-                    );
                     return (snapshot.data.isEmpty)
                         ? Center(
                             child: Text(
@@ -139,8 +142,11 @@ class _CartState extends State<Cart> {
                                         ),
                                         onPressed: () async {
                                           setState(() {
-                                            totalPrice = totalPrice -
+                                            Cart.totalPraices = Cart
+                                                    .totalPraices -
                                                 snapshot.data[index]['price'];
+                                            MySharedPreferences.saveTotalPrice(
+                                                Cart.totalPraices);
                                           });
 
                                           await helper.deleteProduct(
@@ -260,7 +266,7 @@ class _CartState extends State<Cart> {
                     style: AppTheme.subHeading.copyWith(),
                   ),
                   Text(
-                    totalPrice.toString(),
+                    Cart.totalPraices.toString(),
                     style: AppTheme.subHeading.copyWith(
                       color: customColor,
                     ),
@@ -298,7 +304,7 @@ class _CartState extends State<Cart> {
                     size: 20,
                   ),
                   label: Text(
-                    'استكمال الشراء',
+                    'الدفع',
                     style: AppTheme.subHeading.copyWith(
                       color: Colors.white,
                     ),

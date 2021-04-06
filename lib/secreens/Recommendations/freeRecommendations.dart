@@ -6,23 +6,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Recommendations extends StatefulWidget {
+class FreeRecommendations extends StatefulWidget {
   @override
-  _RecommendationsState createState() => _RecommendationsState();
+  _FreeRecommendationsState createState() => _FreeRecommendationsState();
 }
 
-class _RecommendationsState extends State<Recommendations> {
+class _FreeRecommendationsState extends State<FreeRecommendations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: SafeArea(
         child: ListView(
           shrinkWrap: true,
           primary: true,
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           children: [
-            // slider(),
+            slider(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
