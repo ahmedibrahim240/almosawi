@@ -15,73 +15,95 @@ class _MyCoursesState extends State<MyCourses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: coursesList.length,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => MyCoursesDetails(
-                    courses: coursesList[index],
+      body: gardViewOfAllCourses(
+        context: context,
+      ),
+    );
+  }
+
+  gardViewOfAllCourses({BuildContext context}) {
+    return GridView.count(
+      crossAxisCount: 2,
+      primary: false,
+      childAspectRatio: .6,
+      shrinkWrap: true,
+      children: List.generate(
+        coursesList.length,
+        (index) {
+          return allCoursesCard(
+              index: index,
+              context: context,
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => MyCoursesDetails(
+                      courses: coursesList[index],
+                    ),
+                  ),
+                );
+              });
+        },
+      ),
+    );
+  }
+
+  allCoursesCard({int index, BuildContext context, Function onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: 180,
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: customCachedNetworkImage(
+                  context: context,
+                  url: coursesList[index].image,
+                ),
+              ),
+            ),
+            SizedBox(height: 5),
+            SizedBox(
+              width: 200,
+              child: Text(
+                coursesList[index].title,
+                style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
+              ),
+            ),
+            SizedBox(height: 5),
+            RatingStar(
+              rating: coursesList[index].rate,
+            ),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                Text(
+                  '${coursesList[index].newPrice}\$',
+                  style: AppTheme.headingColorBlue.copyWith(
+                    decoration: TextDecoration.lineThrough,
+                    fontSize: 10,
                   ),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 130,
-                      width: 130,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: NetworkImage(coursesList[index].image),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          coursesList[index].title,
-                          style: AppTheme.headingColorBlue,
-                        ),
-                        Text(
-                          coursesList[index].lecTitle,
-                          style: AppTheme.subHeadingColorBlue,
-                        ),
-                        Row(
-                          children: [
-                            RatingStar(
-                              rating: coursesList[index].rate,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                SizedBox(width: 5),
+                Text(
+                  '${coursesList[index].oldPrice}\$',
+                  style: AppTheme.headingColorBlue.copyWith(
+                    fontSize: 12,
+                    color: customColor,
+                  ),
                 ),
-                SizedBox(height: 10),
-                Divider(
-                  color: customColorDivider,
-                  thickness: 2,
-                ),
-                SizedBox(height: 10),
               ],
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

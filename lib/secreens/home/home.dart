@@ -127,11 +127,17 @@ class _HomeState extends State<Home> {
             children: [
               Text(
                 nummber,
-                style: AppTheme.subHeading.copyWith(color: Colors.white),
+                style: AppTheme.subHeading.copyWith(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
               Text(
                 title,
-                style: AppTheme.subHeading.copyWith(color: Colors.white),
+                style: AppTheme.subHeading.copyWith(
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

@@ -1,5 +1,4 @@
 import 'package:almosawii/routes.dart';
-import 'package:almosawii/secreens/splashscreen.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

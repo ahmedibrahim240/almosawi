@@ -100,7 +100,7 @@ class _MoreState extends State<More> {
                 color: customColor,
                 height: 20,
               ),
-              tilte: 'محاضراتي',
+              tilte: 'دوراتي',
             ),
             SizedBox(height: 20),
             moreBody(

@@ -1,11 +1,8 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
-import 'package:almosawii/models/prodact.dart';
-import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/services/dbhelper.dart';
-import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/material.dart';
 
 class Courses extends StatefulWidget {
@@ -37,6 +34,7 @@ class _CoursesState extends State<Courses> {
               'جميع الدورات',
               style: AppTheme.heading,
             ),
+            SizedBox(height: 20),
             gardViewOfAllCourses(
               context: context,
             ),
@@ -58,7 +56,7 @@ class _CoursesState extends State<Courses> {
           return allCoursesCard(
               index: index,
               context: context,
-              ontap: () {
+              onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => Coursesedtails(
@@ -72,47 +70,48 @@ class _CoursesState extends State<Courses> {
     );
   }
 
-  allCoursesCard({int index, BuildContext context, Function ontap}) {
+  allCoursesCard({int index, BuildContext context, Function onTap}) {
     return InkWell(
-      onTap: ontap,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+      onTap: onTap,
+      child: Container(
+        width: 180,
+        margin: EdgeInsets.symmetric(horizontal: 5),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 110,
-              height: 110,
+              height: 150,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
+                borderRadius: BorderRadius.circular(10),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
+                borderRadius: BorderRadius.circular(10),
                 child: customCachedNetworkImage(
                   context: context,
                   url: coursesList[index].image,
                 ),
               ),
             ),
-            Text(
-              coursesList[index].title,
-              style: AppTheme.heading,
+            SizedBox(height: 5),
+            SizedBox(
+              width: 200,
+              child: Text(
+                coursesList[index].title,
+                style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
+              ),
             ),
+            SizedBox(height: 5),
             RatingStar(
               rating: coursesList[index].rate,
             ),
+            SizedBox(height: 5),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   '${coursesList[index].newPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
                     decoration: TextDecoration.lineThrough,
-                    color: Colors.white.withOpacity(.7),
                     fontSize: 10,
                   ),
                 ),
@@ -121,38 +120,10 @@ class _CoursesState extends State<Courses> {
                   '${coursesList[index].oldPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
                     fontSize: 12,
-                    color: Colors.white,
+                    color: customColor,
                   ),
                 ),
               ],
-            ),
-            RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              color: customColor,
-              onPressed: () async {
-                ConsultantProdect prodect = ConsultantProdect({
-                  'consultantId': 1,
-                  'dateId': 2,
-                  'title': coursesList[index].title,
-                  'price': coursesList[index].newPrice,
-                  'proImageUrl': coursesList[index].image,
-                  'date': '21/3/2021',
-                  'time': '10 am',
-                });
-                // ignore: unused_local_variable
-                int id = await helper.createProduct(prodect);
-                setState(() {
-                  Cart.totalPraices =
-                      Cart.totalPraices + (coursesList[index].newPrice);
-                });
-                MySharedPreferences.saveTotalPrice(Cart.totalPraices);
-                cardDialog(context: context);
-              },
-              child: Text(
-                'اشتري الان',
-                style: AppTheme.heading.copyWith(color: Colors.white),
-              ),
             ),
           ],
         ),
