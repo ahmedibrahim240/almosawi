@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/theBolg.dart';
+import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/secreens/home/homeTabs.dart';
@@ -33,71 +34,133 @@ class _HomeState extends State<Home> {
             SizedBox(height: 10),
             HomeTabs(),
             SizedBox(height: 10),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ContactUs(),
-                  ),
-                );
-              },
-              child: Container(
-                height: 150,
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-                width: MediaQuery.of(context).size.width,
-                color: customColor,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 10,
-                      right: 120,
-                      child: Text(
-                        'تواصل مع',
-                        style: AppTheme.heading.copyWith(
-                          color: Colors.white,
-                          fontSize: 35,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        FontAwesomeIcons.solidComment,
-                        size: 110,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 20,
-                      left: 0,
-                      child: Text(
-                        'أ/أحمد الموسوي',
-                        style: AppTheme.heading.copyWith(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            contactWithAhmed(context),
             HomeVideo(),
             SizedBox(height: 10),
             successPartners(),
             SizedBox(height: 10),
+            taps(),
             homeBaner(),
             SizedBox(height: 10),
             sectionTitle(title: 'الدورات التدريبية'),
             SizedBox(height: 10),
             corsesSections(),
+
             SizedBox(height: 10),
             // sectionTitle(title: 'المدونة'),
             // homeBolgList(),
           ],
         ),
       ),
+    );
+  }
+
+  contactWithAhmed(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => ContactUs(),
+          ),
+        );
+      },
+      child: Container(
+        height: 150,
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+        width: MediaQuery.of(context).size.width,
+        color: Color(0xfff04B085),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 10,
+              right: 120,
+              child: Text(
+                'تواصل مع',
+                style: AppTheme.heading.copyWith(
+                  color: Colors.white,
+                  fontSize: 35,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Icon(
+                FontAwesomeIcons.solidComment,
+                size: 110,
+                color: Colors.white,
+              ),
+            ),
+            Positioned(
+              bottom: 20,
+              left: 0,
+              child: Text(
+                'أ/أحمد الموسوي',
+                style: AppTheme.heading.copyWith(
+                  color: Colors.white,
+                  fontSize: 25,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  taps() {
+    return ListView(
+      shrinkWrap: true,
+      primary: false,
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+      children: [
+        GridView.count(
+          crossAxisCount: 2,
+          primary: false,
+          childAspectRatio: 1,
+          shrinkWrap: true,
+          children: List.generate(
+            4,
+            (index) {
+              return Column(
+                children: [
+                  Container(
+                    height: 120,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('lib/images/logo.png'),
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'title',
+                    style: AppTheme.heading,
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        CustomButtonWithchild(
+          child: Center(
+            child: Text(
+              'فتح حساب تداول ',
+              style: AppTheme.heading.copyWith(color: Colors.white),
+            ),
+          ),
+          color: customColor,
+          onPress: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => TradingAccount(),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -163,7 +226,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Card cartPartners({String title, String nummber}) {
+  cartPartners({String title, String nummber}) {
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -181,7 +244,7 @@ class _HomeState extends State<Home> {
                 nummber,
                 style: AppTheme.subHeading.copyWith(
                   color: Colors.white,
-                  fontSize: 30,
+                  fontSize: 25,
                   fontWeight: FontWeight.w900,
                 ),
               ),

@@ -1,6 +1,4 @@
-import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
 
@@ -83,24 +81,6 @@ class _HomeVideoState extends State<HomeVideo> {
                 ),
               ],
             ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => TradingAccount(),
-                ),
-              );
-            },
-            child: Container(
-                height: 40,
-                color: customColor,
-                child: Center(
-                  child: Text(
-                    'فتح حساب تداول ',
-                    style: AppTheme.heading.copyWith(color: Colors.white),
-                  ),
-                )),
           ),
         ],
       ),
