@@ -114,42 +114,5 @@ class _HomeTabsState extends State<HomeTabs> {
         },
       ),
     );
-
-    //  Container(
-    //   width: 120,
-    //   height: 100,
-    //   child: InkWell(
-    //     onTap: onTap,
-    //     child: Card(
-    //       elevation: 3,
-    //       child: Container(
-    //         height: 80,
-    //         alignment: Alignment.center,
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Container(
-    //               height: 40,
-    //               width: 60,
-    //               decoration: BoxDecoration(
-    //                 image: DecorationImage(
-    //                   image: AssetImage(iconImage),
-    //                   fit: BoxFit.fitHeight,
-    //                 ),
-    //               ),
-    //             ),
-    //             SizedBox(height: 10),
-    //             Text(
-    //               title,
-    //               style: AppTheme.heading.copyWith(
-    //                 color: customColor,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }

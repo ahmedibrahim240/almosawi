@@ -1,7 +1,9 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
+import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/material.dart';
+import 'package:almosawii/models/userData.dart';
 
 import '../passwordRecovery.dart';
 
@@ -110,7 +112,14 @@ class _LogInState extends State<LogIn> {
                               ),
                               SizedBox(height: 10),
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
+                                  MySharedPreferences.saveUserSkipLogIn(true);
+                                  MySharedPreferences.saveUserSingIn(false);
+
+                                  User.userLogIn =
+                                      await MySharedPreferences.getUserSingIn();
+                                  User.userSkipLogIn = await MySharedPreferences
+                                      .getUserSkipLogIn();
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (_) => Wrapper(),
@@ -128,7 +137,13 @@ class _LogInState extends State<LogIn> {
                               ),
                               SizedBox(height: 10),
                               CustomButton(
-                                onPress: () {
+                                onPress: () async {
+                                  MySharedPreferences.saveUserSkipLogIn(false);
+                                  MySharedPreferences.saveUserSingIn(true);
+                                  User.userLogIn =
+                                      await MySharedPreferences.getUserSingIn();
+                                  User.userSkipLogIn = await MySharedPreferences
+                                      .getUserSkipLogIn();
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (_) => Wrapper(),

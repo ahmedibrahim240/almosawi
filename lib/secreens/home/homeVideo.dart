@@ -32,7 +32,8 @@ class _HomeVideoState extends State<HomeVideo> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 200,
-            child: ChewieVideo(),
+            // color: Colors.white,
+            // child: ChewieVideo(),
           ),
           Container(
             color: Colors.black.withOpacity(.5),

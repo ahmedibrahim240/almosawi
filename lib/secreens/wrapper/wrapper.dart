@@ -1,11 +1,13 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/Recommendations/freeRecommendations.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/courses/courses.dart';
 import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
+import 'package:almosawii/secreens/userHome/UserHome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,7 +24,7 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Home(),
+    (User.userSkipLogIn == true) ? Home() : UserHome(),
     FreeRecommendations(),
     Blog(),
     Courses(),
@@ -30,10 +32,13 @@ class _WrapperState extends State<Wrapper> {
   ];
   getTotalPrice() async {
     Cart.totalPraices = await MySharedPreferences.getTotalPrice();
+    User.userLogIn = await MySharedPreferences.getUserSingIn();
+    User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
   }
 
   @override
   void initState() {
+    print("UserSik:${User.userSkipLogIn}");
     getTotalPrice();
     super.initState();
   }
