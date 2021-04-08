@@ -25,6 +25,8 @@ const String conPasswordEror = 'الرجاء إدخال بريد إلكترون�
 const String nameEror = 'الرجاء إدخال الاسم';
 const String phoneEror = 'الرجاء إدخال رقم الهاتف';
 ////////////////////////////////////////
+
+///////////////////////////////////////
 Future<void> cardDialog({BuildContext context}) async {
   return showDialog<void>(
     context: context,

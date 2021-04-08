@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';
@@ -20,37 +21,60 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // ScrollController _scrollController = ScrollController();
+  //
+  bool loading = false;
+
+  Future<Null> onRefresh() async {
+    setState(() {
+      loading = !loading;
+    });
+
+    await Future.delayed(
+      Duration(seconds: 2),
+      () {
+        setState(() {
+          loading = !loading;
+        });
+      },
+    );
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          primary: true,
-          children: [
-            SizedBox(height: 10),
-            HomeTabs(),
-            SizedBox(height: 10),
-            contactWithAhmed(context),
-            HomeVideo(),
-            SizedBox(height: 10),
-            successPartners(),
-            SizedBox(height: 10),
-            taps(),
-            homeBaner(),
-            SizedBox(height: 10),
-            sectionTitle(title: 'الدورات التدريبية'),
-            SizedBox(height: 10),
-            corsesSections(),
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: (loading)
+            ? Container()
+            : ListView(
+                shrinkWrap: true,
+                primary: true,
+                children: [
+                  SizedBox(height: 10),
+                  HomeTabs(),
+                  SizedBox(height: 10),
+                  contactWithAhmed(context),
+                  HomeVideo(),
+                  SizedBox(height: 10),
+                  successPartners(),
+                  SizedBox(height: 10),
+                  taps(),
+                  homeBaner(),
+                  SizedBox(height: 10),
+                  sectionTitle(title: 'الدورات التدريبية'),
+                  SizedBox(height: 10),
+                  corsesSections(),
 
-            SizedBox(height: 10),
-            // sectionTitle(title: 'المدونة'),
-            // homeBolgList(),
-          ],
-        ),
+                  SizedBox(height: 10),
+                  // sectionTitle(title: 'المدونة'),
+                  // homeBolgList(),
+                ],
+              ),
       ),
     );
   }

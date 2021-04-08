@@ -1,5 +1,4 @@
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
 
 class HomeVideo extends StatefulWidget {
@@ -32,7 +31,6 @@ class _HomeVideoState extends State<HomeVideo> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 200,
-            // color: Colors.white,
             // child: ChewieVideo(),
           ),
           Container(
