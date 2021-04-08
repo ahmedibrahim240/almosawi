@@ -20,19 +20,40 @@ class _AllCoursesState extends State<AllCourses> {
     helper = DbHehper();
   }
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: ListView(
-        shrinkWrap: true,
-        primary: true,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        children: [
-          gardViewOfAllCourses(
-            context: context,
-          ),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          customOnRefresh(onRefresh: () {
+            setState(() {
+              loading = !loading;
+            });
+          }, affterRefresh: () {
+            setState(() {
+              loading = !loading;
+            });
+          });
+        },
+        child: (loading)
+            ? Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : ListView(
+                shrinkWrap: true,
+                primary: true,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                children: [
+                  gardViewOfAllCourses(
+                    context: context,
+                  ),
+                ],
+              ),
       ),
     );
   }

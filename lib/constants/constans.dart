@@ -27,6 +27,18 @@ const String conPasswordEror = 'الرجاء إدخال بريد إلكترون�
 const String nameEror = 'الرجاء إدخال الاسم';
 const String phoneEror = 'الرجاء إدخال رقم الهاتف';
 ////////////////////////////////////////
+Future<Null> customOnRefresh(
+    {Function onRefresh, Function affterRefresh}) async {
+  onRefresh();
+
+  await Future.delayed(
+    Duration(seconds: 2),
+    affterRefresh,
+  );
+  return null;
+}
+
+/////////////////////////////////////////
 increaseCartTotlaPrice({double price}) async {
   double totalParice;
   totalParice = Cart.totalPraices + price;

@@ -12,6 +12,7 @@ class Courses extends StatefulWidget {
 
 class _CoursesState extends State<Courses> {
   DbHehper helper;
+  bool loading = false;
   @override
   void initState() {
     super.initState();
@@ -25,20 +26,39 @@ class _CoursesState extends State<Courses> {
         toolbarHeight: 0,
       ),
       body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          primary: true,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          children: [
-            Text(
-              'جميع الدورات',
-              style: AppTheme.heading,
-            ),
-            SizedBox(height: 20),
-            gardViewOfAllCourses(
-              context: context,
-            ),
-          ],
+        child: RefreshIndicator(
+          onRefresh: () async {
+            customOnRefresh(onRefresh: () {
+              setState(() {
+                loading = !loading;
+              });
+            }, affterRefresh: () {
+              setState(() {
+                loading = !loading;
+              });
+            });
+          },
+          child: (loading)
+              ? Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : ListView(
+                  shrinkWrap: true,
+                  primary: true,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  children: [
+                    Text(
+                      'جميع الدورات',
+                      style: AppTheme.heading,
+                    ),
+                    SizedBox(height: 20),
+                    gardViewOfAllCourses(
+                      context: context,
+                    ),
+                  ],
+                ),
         ),
       ),
     );

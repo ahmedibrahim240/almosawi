@@ -21,25 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // ScrollController _scrollController = ScrollController();
-  //
   bool loading = false;
-
-  Future<Null> onRefresh() async {
-    setState(() {
-      loading = !loading;
-    });
-
-    await Future.delayed(
-      Duration(seconds: 2),
-      () {
-        setState(() {
-          loading = !loading;
-        });
-      },
-    );
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +30,23 @@ class _HomeState extends State<Home> {
         toolbarHeight: 0,
       ),
       body: RefreshIndicator(
-        onRefresh: onRefresh,
+        onRefresh: () async {
+          customOnRefresh(onRefresh: () {
+            setState(() {
+              loading = !loading;
+            });
+          }, affterRefresh: () {
+            setState(() {
+              loading = !loading;
+            });
+          });
+        },
         child: (loading)
-            ? Container()
+            ? Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
             : ListView(
                 shrinkWrap: true,
                 primary: true,
