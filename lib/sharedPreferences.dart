@@ -148,7 +148,7 @@ class MySharedPreferences {
 
   static getTotalPrice() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    double price = preferences.getDouble(sharedPrefTotalPraic);
+    double price = (preferences.getDouble(sharedPrefTotalPraic) ?? 0.0);
     return price;
   }
 

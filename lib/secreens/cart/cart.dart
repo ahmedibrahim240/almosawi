@@ -142,11 +142,12 @@ class _CartState extends State<Cart> {
                                         ),
                                         onPressed: () async {
                                           setState(() {
-                                            Cart.totalPraices = Cart
-                                                    .totalPraices -
-                                                snapshot.data[index]['price'];
-                                            MySharedPreferences.saveTotalPrice(
-                                                Cart.totalPraices);
+                                            setState(() {
+                                              decreaseCartTotlaPrice(
+                                                price: snapshot.data[index]
+                                                    ['price'],
+                                              );
+                                            });
                                           });
 
                                           await helper.deleteProduct(
@@ -167,13 +168,6 @@ class _CartState extends State<Cart> {
                               (index == snapshot.data.length - 1)
                                   ? totalPrieCard(
                                       context: context,
-                                      consualtId: snapshot.data[index]
-                                          ['consultantId'],
-                                      availableId: snapshot.data[index]
-                                          ['dateId'],
-                                      prodectId: snapshot.data[index]['id'],
-                                      availableDate: snapshot.data[index]
-                                          ['date'],
                                     )
                                   : Container(),
                             ],
@@ -239,12 +233,9 @@ class _CartState extends State<Cart> {
     );
   }
 
-  Container totalPrieCard(
-      {BuildContext context,
-      int consualtId,
-      int availableId,
-      int prodectId,
-      String availableDate}) {
+  Container totalPrieCard({
+    BuildContext context,
+  }) {
     return Container(
       height: 60,
       padding: EdgeInsets.symmetric(horizontal: 10),

@@ -241,9 +241,13 @@ class _CoursesedtailsState extends State<Coursesedtails> {
             ),
             RaisedButton(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+              ),
               color: customColor,
               onPressed: () async {
+                setState(() {
+                  increaseCartTotlaPrice(price: widget.courses.newPrice);
+                });
                 ConsultantProdect prodect = ConsultantProdect({
                   'consultantId': 1,
                   'dateId': 2,

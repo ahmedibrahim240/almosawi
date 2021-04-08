@@ -2,11 +2,13 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/authenticate/authenticate.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/wrapper/Wrapper.dart';
+import 'package:almosawii/sharedPreferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:html/parser.dart';
 
@@ -25,6 +27,19 @@ const String conPasswordEror = 'الرجاء إدخال بريد إلكترون�
 const String nameEror = 'الرجاء إدخال الاسم';
 const String phoneEror = 'الرجاء إدخال رقم الهاتف';
 ////////////////////////////////////////
+increaseCartTotlaPrice({double price}) async {
+  double totalParice;
+  totalParice = Cart.totalPraices + price;
+  MySharedPreferences.saveTotalPrice(totalParice);
+  Cart.totalPraices = await MySharedPreferences.getTotalPrice();
+}
+
+decreaseCartTotlaPrice({double price}) async {
+  double totalParice;
+  totalParice = Cart.totalPraices - price;
+  MySharedPreferences.saveTotalPrice(totalParice);
+  Cart.totalPraices = await MySharedPreferences.getTotalPrice();
+}
 
 ///////////////////////////////////////
 Future<void> cardDialog({BuildContext context}) async {
