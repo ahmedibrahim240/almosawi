@@ -58,124 +58,137 @@ class _CartState extends State<Cart> {
       body: FutureBuilder(
         future: helper.allProduct(),
         builder: (context, snapshot) {
+          print('!snapshot.hasData:${!snapshot.hasData}');
           if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
+            print('isEmpaty');
+            return Container(
+              height: 100,
+              width: 100,
+              color: Colors.amber,
+              child: Text(
+                'is empty',
+                style: AppTheme.heading.copyWith(
+                  color: Colors.blueAccent,
+                  fontSize: 16,
+                ),
+              ),
             );
           } else {
-            return ListView(
-              shrinkWrap: true,
-              primary: true,
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: snapshot.data.length,
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                  itemBuilder: (context, index) {
-                    return (snapshot.data.isEmpty)
-                        ? Center(
-                            child: Text(
-                              'is empty',
-                              style: AppTheme.heading.copyWith(
-                                color: customColor,
-                                fontSize: 25,
-                              ),
-                            ),
-                          )
-                        : Column(
-                            children: [
-                              Card(
-                                elevation: 3,
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      title: Row(
+            print(' snapshot.data.isEmpty:${snapshot.data.isEmpty}');
+            return (snapshot.data.isEmpty)
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.shoppingCart,
+                          color: customColor,
+                          size: 100,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'السله فارغه',
+                          style: AppTheme.heading,
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data.length,
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Card(
+                            elevation: 3,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Row(
+                                    children: [
+                                      Text(
+                                        'الاسم: ',
+                                        style: AppTheme.heading.copyWith(
+                                          color: customColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        snapshot.data[index]['title'],
+                                        style: AppTheme.subHeading.copyWith(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  subtitle: Row(
+                                    children: [
+                                      Row(
                                         children: [
                                           Text(
-                                            'الاسم: ',
+                                            'السعر: ',
                                             style: AppTheme.heading.copyWith(
                                               color: customColor,
                                             ),
                                           ),
                                           Text(
-                                            snapshot.data[index]['title'],
+                                            snapshot.data[index]['price']
+                                                .toString(),
                                             style: AppTheme.subHeading.copyWith(
                                               fontSize: 12,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      subtitle: Row(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'السعر: ',
-                                                style:
-                                                    AppTheme.heading.copyWith(
-                                                  color: customColor,
-                                                ),
-                                              ),
-                                              Text(
-                                                snapshot.data[index]['price']
-                                                    .toString(),
-                                                style: AppTheme.subHeading
-                                                    .copyWith(
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                              Icon(
-                                                FontAwesomeIcons.poundSign,
-                                                color: Colors.black,
-                                                size: 10,
-                                              ),
-                                            ],
+                                          Icon(
+                                            FontAwesomeIcons.poundSign,
+                                            color: Colors.black,
+                                            size: 10,
                                           ),
                                         ],
                                       ),
-                                      trailing: IconButton(
-                                        icon: Icon(
-                                          Icons.delete,
-                                          size: 30,
-                                          color: Colors.red,
-                                        ),
-                                        onPressed: () async {
-                                          setState(() {
-                                            setState(() {
-                                              decreaseCartTotlaPrice(
-                                                price: snapshot.data[index]
-                                                    ['price'],
-                                              );
-                                            });
-                                          });
-
-                                          await helper.deleteProduct(
-                                              snapshot.data[index]['id']);
-                                        },
-                                      ),
-                                      leading: CircleAvatar(
-                                        maxRadius: 30,
-                                        backgroundImage: NetworkImage(
-                                          snapshot.data[index]["proImageUrl"],
-                                        ),
-                                      ),
+                                    ],
+                                  ),
+                                  trailing: IconButton(
+                                    icon: Icon(
+                                      Icons.delete,
+                                      size: 30,
+                                      color: Colors.red,
                                     ),
-                                    // productDate(snapshot, index),
-                                  ],
+                                    onPressed: () async {
+                                      setState(() {
+                                        setState(() {
+                                          decreaseCartTotlaPrice(
+                                            price: snapshot.data[index]
+                                                ['price'],
+                                          );
+                                        });
+                                      });
+
+                                      await helper.deleteProduct(
+                                          snapshot.data[index]['id']);
+                                    },
+                                  ),
+                                  leading: CircleAvatar(
+                                    maxRadius: 30,
+                                    backgroundImage: NetworkImage(
+                                      snapshot.data[index]["proImageUrl"],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              (index == snapshot.data.length - 1)
-                                  ? totalPrieCard(
-                                      context: context,
-                                    )
-                                  : Container(),
-                            ],
-                          );
-                  },
-                ),
-              ],
-            );
+                                // productDate(snapshot, index),
+                              ],
+                            ),
+                          ),
+                          (index == snapshot.data.length - 1)
+                              ? totalPrieCard(
+                                  context: context,
+                                )
+                              : Container(),
+                        ],
+                      );
+                    },
+                  );
           }
         },
       ),
@@ -257,7 +270,7 @@ class _CartState extends State<Cart> {
                     style: AppTheme.subHeading.copyWith(),
                   ),
                   Text(
-                    Cart.totalPraices.toString(),
+                    Cart.totalPraices.toStringAsFixed(2),
                     style: AppTheme.subHeading.copyWith(
                       color: customColor,
                     ),
