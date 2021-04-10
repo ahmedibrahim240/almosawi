@@ -11,8 +11,8 @@ class Plans {
 
   var features;
 
-  final double oldPrice;
-  final double newPrice;
+  var oldPrice;
+  var newPrice;
 
   Plans({
     this.id,
@@ -27,12 +27,14 @@ class Plans {
 
 class PlansApi {
   static Future<List<Plans>> fetchAllPlans() async {
-    List<Plans> listOfCourses = [];
+    List<Plans> listOfPlans = [];
     try {
       var response = await http.get(
         Utils.Plans_URL,
       );
       var jsonData = json.decode(response.body);
+      print('response.statusCode:${response.statusCode}');
+
       if (response.statusCode == 200) {
         for (var items in jsonData['data']) {
           Plans plans = Plans(
@@ -40,16 +42,16 @@ class PlansApi {
             name: items['name'],
             plan_time: items['plan_time'],
             features: items['Features'],
-            oldPrice: double.parse(items['price_old']),
-            newPrice: double.parse(items['price_new']),
+            oldPrice: items['old_price'],
+            newPrice: items['new_price'],
           );
-          listOfCourses.add(plans);
+          listOfPlans.add(plans);
         }
       }
     } catch (e) {
-      print('Erroro Coursesssssssssssssssss');
+      print('Erroro Plansssssssssssss');
       print(e);
     }
-    return listOfCourses;
+    return listOfPlans;
   }
 }

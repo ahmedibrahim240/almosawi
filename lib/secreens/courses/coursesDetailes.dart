@@ -59,11 +59,11 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                   ],
                 ))
               : Container(
-                  height: 200,
+                  height: 300,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(widget.courses.image),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   child: Stack(

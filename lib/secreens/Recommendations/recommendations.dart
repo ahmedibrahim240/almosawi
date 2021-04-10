@@ -188,13 +188,15 @@ class _RecommendationsState extends State<Recommendations> {
                                           color: customColor,
                                           height: 15,
                                         )
-                                      : Transform.rotate(
-                                          angle: 180 * 3.14 / 180,
-                                          child: SvgPicture.asset(
-                                            'lib/icons/stockUp.svg',
-                                            color: Colors.red,
-                                            height: 15,
-                                          ),
+                                      : Container(
+                                          height: 20,
+                                          width: 20,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                            image: AssetImage(
+                                                'lib/images/chartlineDown.png'),
+                                            fit: BoxFit.cover,
+                                          )),
                                         ),
                                   SizedBox(width: 20),
                                   Column(
