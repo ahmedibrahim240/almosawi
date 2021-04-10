@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/courses.dart';

@@ -224,6 +224,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webview_plugin:
+    dependency: transitive
+    description:
+      name: flutter_webview_plugin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.11"
+  flutter_youtube_vimeo:
+    dependency: "direct main"
+    description:
+      name: flutter_youtube_vimeo
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -670,6 +684,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4+1"
+  vimeoplayer:
+    dependency: "direct main"
+    description:
+      name: vimeoplayer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.8"
+  vimeoplayer_trinity:
+    dependency: "direct main"
+    description:
+      name: vimeoplayer_trinity
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.9"
   wakelock:
     dependency: transitive
     description:

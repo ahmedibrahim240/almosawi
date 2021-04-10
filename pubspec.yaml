@@ -59,6 +59,9 @@ dependencies:
   # flutter_spinkit:
   image_picker:
   image_cropper:
+  flutter_youtube_vimeo:
+  vimeoplayer_trinity:
+  vimeoplayer:
   # firebase_storage:
   
 

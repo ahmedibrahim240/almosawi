@@ -27,6 +27,9 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
+	<key>NSAllowsArbitraryLoads</key>
+ 	 <true/>
+
 	<!-- <key>io.flutter.embedded_views_preview</key>
     <true/> -->
 	<array>

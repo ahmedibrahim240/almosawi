@@ -1,5 +1,7 @@
 import 'package:almosawii/constants/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:vimeoplayer/vimeoplayer.dart';
+// import 'package:vimeoplayer_trinity/vimeoplayer_trinity.dart';
 
 class HomeVideo extends StatefulWidget {
   @override
@@ -14,6 +16,44 @@ class _HomeVideoState extends State<HomeVideo> {
     'تستفيد من أخطائي في التداول',
     'تمدك بكل ما تحتاجه لتصبح متداولا محترفا، وتمكنك من جني أرباح من سوق التداول انطلاقا من تجربتي الخاصة',
   ];
+  List ides = ['395212534', '528749215', '509764916'];
+  int index = 0;
+  String id;
+  @override
+  void initState() {
+    if (index == 0) {
+      id = ides[index];
+    } else {
+      addVideo();
+    }
+    super.initState();
+  }
+
+  addVideo() {
+    print('length:${ides.length}');
+    setState(() {
+      index = index + 1;
+    });
+
+    if (index >= ides.length) {
+      setState(() {
+        index = 0;
+        id = ides[index];
+      });
+    } else {
+      setState(() {
+        id = ides[index];
+      });
+    }
+    print('id:$id');
+    print('index:$index');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,8 +70,20 @@ class _HomeVideoState extends State<HomeVideo> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 200,
-            // child: ChewieVideo(),
+            height: 300,
+            child: Column(
+              children: [
+                VimeoPlayer(id: id, autoPlay: false),
+                RaisedButton(
+                  onPressed: () {
+                    setState(() {
+                      addVideo();
+                    });
+                  },
+                  child: Text('add video'),
+                ),
+              ],
+            ),
           ),
           Container(
             color: Colors.black.withOpacity(.5),
