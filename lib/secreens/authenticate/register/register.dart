@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:dio/dio.dart';
 
 import '../../../sharedPreferences.dart';
 
@@ -338,7 +337,7 @@ class _RegisterState extends State<Register> {
       // Dio dio = new Dio();
 
       var response = await http.post(
-        'http://ahmadalmosawi.com/V2/api/Register',
+        Utils.REGISTER_URL,
         // Utils.REGISTER_URL,
         body: {
           'user_login': user_login,
@@ -353,32 +352,30 @@ class _RegisterState extends State<Register> {
       Map<String, dynamic> map = json.decode(response.body);
       print('stuates Code:${response.statusCode}');
       {
-        if (map['success'] == 'success') {
-          setState(() async {
-            MySharedPreferences.saveUserUserPassword(password);
-            MySharedPreferences.saveUserUserid(map['data']['id']);
-            MySharedPreferences.saveUserCourses(map['data']['Courses']);
-            MySharedPreferences.saveUserproChat(map['data']['proChat']);
-            MySharedPreferences.saveUserUserRecomendations(
-                map['data']['Recomendations']);
-            if (map['data']['proChat'] == '0' &&
-                map['data']['Courses'] == '0' &&
-                map['data']['Recomendations'] == '0') {
-              MySharedPreferences.saveUserSkipLogIn(true);
-              MySharedPreferences.saveUserSingIn(false);
+        if (map['status'] == 'success') {
+          MySharedPreferences.saveUserUserPassword(password);
+          MySharedPreferences.saveUserUserid(map['Data']['id']);
+          MySharedPreferences.saveUserCourses(map['Data']['Courses']);
+          MySharedPreferences.saveUserproChat(map['Data']['proChat']);
+          MySharedPreferences.saveUserUserRecomendations(
+              map['Data']['Recomendations']);
+          if (map['Data']['proChat'] == '0' &&
+              map['Data']['Courses'] == '0' &&
+              map['Data']['Recomendations'] == '0') {
+            MySharedPreferences.saveUserSkipLogIn(true);
+            MySharedPreferences.saveUserSingIn(false);
 
-              User.userLogIn = await MySharedPreferences.getUserSingIn();
-              User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-            } else {
-              MySharedPreferences.saveUserSkipLogIn(true);
-              MySharedPreferences.saveUserSingIn(true);
-              User.userLogIn = await MySharedPreferences.getUserSingIn();
-              User.userid = await MySharedPreferences.getUserUserid();
-              User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-            }
+            User.userLogIn = await MySharedPreferences.getUserSingIn();
+            User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+          } else {
+            MySharedPreferences.saveUserSkipLogIn(true);
+            MySharedPreferences.saveUserSingIn(true);
+            User.userLogIn = await MySharedPreferences.getUserSingIn();
+            User.userid = await MySharedPreferences.getUserUserid();
+            User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+          }
 
-            User.userid = map['data']['id'];
-          });
+          User.userid = map['Data']['id'];
 
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
