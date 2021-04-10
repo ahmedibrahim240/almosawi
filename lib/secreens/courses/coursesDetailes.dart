@@ -1,6 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/prodact.dart';
 import 'package:almosawii/models/rating.dart';
 import 'package:almosawii/services/dbhelper.dart';
@@ -73,7 +73,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
             color: Colors.grey[300],
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Text(
-              widget.courses.contant,
+              parseHtmlString(widget.courses.description),
               // textAlign: TextAlign.justify,
               style: AppTheme.subHeading.copyWith(
                 color: customColorGray,
@@ -121,7 +121,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
     return ListView.builder(
       shrinkWrap: true,
       primary: false,
-      itemCount: widget.courses.coursContentList.length,
+      itemCount: widget.courses.lessons.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
@@ -154,14 +154,14 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.courses.coursContentList[index].name,
-                        style: AppTheme.heading,
-                      ),
-                      Text(
-                        widget.courses.coursContentList[index].description,
-                        style: AppTheme.subHeading,
-                      ),
+                      // Text(
+                      //   widget.courses.coursContentList[index].name,
+                      //   style: AppTheme.heading,
+                      // ),
+                      // Text(
+                      //   widget.courses.coursContentList[index].description,
+                      //   style: AppTheme.subHeading,
+                      // ),
                     ],
                   ),
                 ],
@@ -207,7 +207,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              widget.courses.title,
+              widget.courses.name,
               style: AppTheme.heading,
             ),
             Row(
@@ -237,7 +237,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             RatingStar(
-              rating: widget.courses.rate,
+              rating: widget.courses.totalRating,
             ),
             RaisedButton(
               shape: RoundedRectangleBorder(
@@ -251,7 +251,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                 ConsultantProdect prodect = ConsultantProdect({
                   'consultantId': 1,
                   'dateId': 2,
-                  'title': widget.courses.title,
+                  'title': widget.courses.totalRating,
                   'price': widget.courses.newPrice,
                   'proImageUrl': widget.courses.image,
                   'date': '21/3/2021',

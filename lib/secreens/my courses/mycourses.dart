@@ -74,14 +74,12 @@ class _MyCoursesState extends State<MyCourses> {
             SizedBox(
               width: 200,
               child: Text(
-                coursesList[index].title,
+                coursesList[index].name,
                 style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
               ),
             ),
             SizedBox(height: 5),
-            RatingStar(
-              rating: coursesList[index].rate,
-            ),
+            RatingStar(rating: coursesList[index].totalRating),
             SizedBox(height: 5),
             Row(
               children: [

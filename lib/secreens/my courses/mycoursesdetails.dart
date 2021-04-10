@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/courses.dart';
 import 'package:almosawii/models/rating.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +39,11 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.courses.title,
+                  widget.courses.name,
                   style: AppTheme.heading,
                 ),
                 RatingStar(
-                  rating: widget.courses.rate,
+                  rating: widget.courses.totalRating,
                 ),
               ],
             ),
@@ -100,7 +101,7 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
                         Container(
                           child: Center(
                             child: Text(
-                              widget.courses.contant,
+                              parseHtmlString(widget.courses.description),
                               style: AppTheme.subHeading,
                             ),
                           ),
@@ -199,7 +200,7 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
     return ListView.builder(
       shrinkWrap: true,
       primary: false,
-      itemCount: widget.courses.coursContentList.length,
+      itemCount: widget.courses.lessons.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
@@ -232,14 +233,14 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.courses.coursContentList[index].name,
-                        style: AppTheme.heading,
-                      ),
-                      Text(
-                        widget.courses.coursContentList[index].description,
-                        style: AppTheme.subHeading,
-                      ),
+                      // Text(
+                      //   widget.courses.coursContentList[index].name,
+                      //   style: AppTheme.heading,
+                      // ),
+                      // Text(
+                      //   widget.courses.coursContentList[index].description,
+                      //   style: AppTheme.subHeading,
+                      // ),
                     ],
                   ),
                 ],
