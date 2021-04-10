@@ -1,16 +1,16 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/material.dart';
 
-class Courses extends StatefulWidget {
+class CoursesPage extends StatefulWidget {
   @override
-  _CoursesState createState() => _CoursesState();
+  _CoursesPageState createState() => _CoursesPageState();
 }
 
-class _CoursesState extends State<Courses> {
+class _CoursesPageState extends State<CoursesPage> {
   DbHehper helper;
   bool loading = false;
 
@@ -66,32 +66,52 @@ class _CoursesState extends State<Courses> {
   }
 
   gardViewOfAllCourses({BuildContext context}) {
-    return GridView.count(
-      crossAxisCount: 2,
-      primary: false,
-      childAspectRatio: .6,
-      shrinkWrap: true,
-      children: List.generate(
-        coursesList.length,
-        (index) {
-          return allCoursesCard(
-              index: index,
-              context: context,
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => Coursesedtails(
-                      courses: coursesList[index],
+    return FutureBuilder(
+      future: CoursesApi.fetchAllCourses(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null || snapshot.data.isEmpty)
+              ? Container(
+                  child: Center(
+                    child: Text(
+                      'اسحب الشاشه لاسفل لاعاده التحميل',
+                      style: AppTheme.heading,
+                      textAlign: TextAlign.center,
                     ),
                   ),
+                )
+              : GridView.count(
+                  crossAxisCount: 2,
+                  primary: false,
+                  childAspectRatio: .6,
+                  shrinkWrap: true,
+                  children: List.generate(
+                    snapshot.data.length,
+                    (index) {
+                      return allCoursesCard(
+                          courses: snapshot.data[index],
+                          context: context,
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => Coursesedtails(
+                                  courses: snapshot.data[index],
+                                ),
+                              ),
+                            );
+                          });
+                    },
+                  ),
                 );
-              });
-        },
-      ),
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
-  allCoursesCard({int index, BuildContext context, Function onTap}) {
+  allCoursesCard({Courses courses, BuildContext context, Function onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -110,7 +130,7 @@ class _CoursesState extends State<Courses> {
                 borderRadius: BorderRadius.circular(10),
                 child: customCachedNetworkImage(
                   context: context,
-                  url: coursesList[index].image,
+                  url: courses.image,
                 ),
               ),
             ),
@@ -118,19 +138,19 @@ class _CoursesState extends State<Courses> {
             SizedBox(
               width: 200,
               child: Text(
-                coursesList[index].name,
+                courses.name,
                 style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
               ),
             ),
             SizedBox(height: 5),
             RatingStar(
-              rating: coursesList[index].totalRating,
+              rating: courses.totalRating,
             ),
             SizedBox(height: 5),
             Row(
               children: [
                 Text(
-                  '${coursesList[index].newPrice}\$',
+                  '${courses.newPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
                     decoration: TextDecoration.lineThrough,
                     fontSize: 10,
@@ -138,7 +158,7 @@ class _CoursesState extends State<Courses> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  '${coursesList[index].oldPrice}\$',
+                  '${courses.oldPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
                     fontSize: 12,
                     color: customColor,

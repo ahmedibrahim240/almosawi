@@ -27,7 +27,7 @@ class _WrapperState extends State<Wrapper> {
     (User.userSkipLogIn == true) ? Home() : UserHome(),
     FreeRecommendations(),
     Blog(),
-    Courses(),
+    CoursesPage(),
     More(),
   ];
   getTotalPrice() async {

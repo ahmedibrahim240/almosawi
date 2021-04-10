@@ -374,7 +374,7 @@ class _HomeState extends State<Home> {
                 ? Container(
                     child: Center(
                       child: Text(
-                        'networkError',
+                        'اسحب الشاشه لاسفل لاعاده التحميل',
                         style: AppTheme.heading,
                         textAlign: TextAlign.center,
                       ),
