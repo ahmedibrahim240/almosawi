@@ -1,6 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/theBolg.dart';
 import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
@@ -365,28 +365,48 @@ class _HomeState extends State<Home> {
     return Container(
       margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
       height: 230,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: coursesList.length,
-        itemBuilder: (context, index) {
-          return courses(
-            index: index,
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => Coursesedtails(
-                    courses: coursesList[index],
-                  ),
-                ),
-              );
-            },
-          );
+      child: FutureBuilder(
+        future: CoursesApi.fetchAllCourses(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print(snapshot.data);
+            return (snapshot.data == null || snapshot.data.isEmpty)
+                ? Container(
+                    child: Center(
+                      child: Text(
+                        'networkError',
+                        style: AppTheme.heading,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return courses(
+                        courses: snapshot.data[index],
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => Coursesedtails(
+                                courses: snapshot.data[index],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
         },
       ),
     );
   }
 
-  courses({int index, Function onTap}) {
+  courses({int index, Function onTap, Courses courses}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -405,7 +425,7 @@ class _HomeState extends State<Home> {
                 borderRadius: BorderRadius.circular(10),
                 child: customCachedNetworkImage(
                   context: context,
-                  url: coursesList[index].image,
+                  url: courses.image,
                 ),
               ),
             ),
@@ -413,19 +433,19 @@ class _HomeState extends State<Home> {
             SizedBox(
               width: 200,
               child: Text(
-                coursesList[index].title,
+                courses.name,
                 style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
               ),
             ),
             SizedBox(height: 5),
             RatingStar(
-              rating: coursesList[index].rate,
+              rating: courses.totalRating,
             ),
             SizedBox(height: 5),
             Row(
               children: [
                 Text(
-                  '${coursesList[index].newPrice}\$',
+                  '${courses.newPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
                     decoration: TextDecoration.lineThrough,
                     fontSize: 10,
@@ -433,7 +453,7 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  '${coursesList[index].oldPrice}\$',
+                  '${courses.oldPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
                     fontSize: 12,
                     color: customColor,

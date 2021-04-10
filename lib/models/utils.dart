@@ -1,6 +1,6 @@
 class Utils {
   // ignore: non_constant_identifier_names
-  static final BASE_URL = "http://ahmadalmosawi.com/V2/api";
+  static final BASE_URL = "https://ahmadalmosawi.com/V2/api";
   // ignore: non_constant_identifier_names
   static final REGISTER_URL = BASE_URL + "/Register";
   // ignore: non_constant_identifier_names

@@ -73,7 +73,7 @@ class _HomeVideoState extends State<HomeVideo> {
             height: 300,
             child: Column(
               children: [
-                VimeoPlayer(id: id, autoPlay: false),
+                // VimeoPlayer(id: id, autoPlay: false),
                 RaisedButton(
                   onPressed: () {
                     setState(() {
