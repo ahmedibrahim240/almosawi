@@ -1,4 +1,6 @@
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/authenticate/register/register.dart';
+import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/material.dart';
 
 import 'logIn/login.dart';
@@ -21,17 +23,18 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    if (showSignIn) {
-      return Container(
-        child: LogIn(toggleView: toggleView),
-      );
+    if (User.userid == null) {
+      if (showSignIn) {
+        return Container(
+          child: LogIn(toggleView: toggleView),
+        );
+      } else {
+        return Container(
+          child: Register(toggleView: toggleView),
+        );
+      }
     } else {
-      return Container(
-        child: Register(toggleView: toggleView),
-      );
+      return Wrapper();
     }
-    // } else {
-    //   return Home();
-    // }
   }
 }

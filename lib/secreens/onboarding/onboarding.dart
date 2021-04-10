@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/authenticate/authenticate.dart';
 import 'package:almosawii/secreens/onboarding/slider.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,11 @@ class _OnBoardState extends State<OnBoard> {
 
   @override
   Widget build(BuildContext context) {
-    // if (User.userLogIn == true) {
-    //   return Authenticate();
-    // } else {
-    return OnBoarding();
-    // }
+    if (User.userLogIn == true) {
+      return Authenticate();
+    } else {
+      return OnBoarding();
+    }
   }
 }
 

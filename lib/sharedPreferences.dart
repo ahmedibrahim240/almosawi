@@ -8,15 +8,15 @@ class MySharedPreferences {
   static String sharedPrefUserLong = 'Long';
   static String sharedPrefUserselectedProImage = 'IsSelected';
   static String sharedPrefAppLang = 'AppLan';
-  static String sharedPrefUserName = 'UserName';
+  static String sharedPrefproChat = 'proChat';
   static String sharedPrefUserUserEmail = 'UserEmail';
-  static String sharedPrefUserUserAge = 'UserAge';
-  static String sharedPrefUserUserGender = 'Usergender';
+  static String sharedPrefUserCourses = 'Courses';
+  static String sharedPrefUserRecomendations = 'Recomendations';
   static String sharedPrefUserUserStutes = 'UserStuts';
   static String sharedPrefUserUserPhone = 'UserPhome';
   static String sharedPrefUserUserPassword = 'UserPassword';
   static String sharedPrefUserImageUrl = 'userImageUrl';
-  static String sharedPrefUserToken = 'userToken';
+  static String sharedPrefUserid = 'userid';
   static String sharedPrefCartConslProdect = 'cartConsulPro';
   static String sharedPrefCounsultFillterIndex = 'FillterIndex';
   static String sharedPrefCounsultFillterType = 'FillterType';
@@ -37,9 +37,9 @@ class MySharedPreferences {
         sharedPrefUserselectedProImage, isSelected);
   }
 
-  static Future<bool> saveUserUserName(String userName) async {
+  static Future<bool> saveUserproChat(String proChat) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(sharedPrefUserName, userName);
+    return await preferences.setString(sharedPrefproChat, proChat);
   }
 
   static Future<bool> saveFilltterIndex(int index) async {
@@ -73,9 +73,9 @@ class MySharedPreferences {
         sharedPrefUserUserPassword, userPasswrod);
   }
 
-  static Future<bool> saveUserUserToken(String userToken) async {
+  static Future<bool> saveUserUserid(int userid) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(sharedPrefUserToken, userToken);
+    return await preferences.setInt(sharedPrefUserid, userid);
   }
 
   static Future<bool> saveAppLang(String appLang) async {
@@ -88,14 +88,16 @@ class MySharedPreferences {
     return await preferences.setString(sharedPrefUserUserEmail, userEmail);
   }
 
-  static Future<bool> saveUserUserAge(String userAge) async {
+  static Future<bool> saveUserCourses(String courses) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(sharedPrefUserUserAge, userAge);
+    return await preferences.setString(sharedPrefUserCourses, courses);
   }
 
-  static Future<bool> saveUserUserGender(String userGender) async {
+  static Future<bool> saveUserUserRecomendations(
+      String userRecomendations) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(sharedPrefUserUserGender, userGender);
+    return await preferences.setString(
+        sharedPrefUserRecomendations, userRecomendations);
   }
 
   static Future<bool> saveUserUserStutas(String userStutes) async {
@@ -134,10 +136,10 @@ class MySharedPreferences {
     return isSelected;
   }
 
-  static getUserUserName() async {
+  static getUserproChat() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String name = preferences.getString(sharedPrefUserName);
-    return name;
+    String proChat = preferences.getString(sharedPrefproChat);
+    return proChat;
   }
 
   static getFiltterIndex() async {
@@ -176,10 +178,10 @@ class MySharedPreferences {
     return password;
   }
 
-  static getUserUserToken() async {
+  static getUserUserid() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String token = preferences.getString(sharedPrefUserToken);
-    return token;
+    int id = preferences.getInt(sharedPrefUserid);
+    return id;
   }
 
   static getAppLang() async {
@@ -200,16 +202,17 @@ class MySharedPreferences {
     return userImageUrl;
   }
 
-  static getUserUserAge() async {
+  static getUserCourses() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String age = preferences.getString(sharedPrefUserUserAge);
-    return age;
+    String userCourses = preferences.getString(sharedPrefUserCourses);
+    return userCourses;
   }
 
-  static getUserUserGender() async {
+  static getUserRecomendations() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String age = preferences.getString(sharedPrefUserUserGender);
-    return age;
+    String userRecomendations =
+        preferences.getString(sharedPrefUserRecomendations);
+    return userRecomendations;
   }
 
   static getUserUserStutes() async {

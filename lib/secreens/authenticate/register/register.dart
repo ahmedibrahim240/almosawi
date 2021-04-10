@@ -1,9 +1,16 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/models/utils.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:dio/dio.dart';
+
+import '../../../sharedPreferences.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
@@ -82,7 +89,7 @@ class _RegisterState extends State<Register> {
                                     val.isEmpty ? nameEror : null,
                                 onChanged: (val) {
                                   setState(() {
-                                    userName = val;
+                                    name = val;
                                   });
                                 },
                               ),
@@ -98,14 +105,14 @@ class _RegisterState extends State<Register> {
                                     val.isEmpty ? nameEror : null,
                                 onChanged: (val) {
                                   setState(() {
-                                    name = val;
+                                    userName = val;
                                   });
                                 },
                               ),
                               SizedBox(height: 20),
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.phone,
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.phone,
                                   label: 'رقمم الهاتف',
@@ -200,6 +207,7 @@ class _RegisterState extends State<Register> {
                                         onChanged: (bool newValue) {
                                           setState(() {
                                             checkBoxValue = newValue;
+                                            print(checkBoxValue);
                                           });
                                         },
                                       ),
@@ -233,13 +241,28 @@ class _RegisterState extends State<Register> {
                               ),
                               SizedBox(height: 10),
                               CustomButton(
-                                onPress: () {
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (_) => Wrapper(),
-                                    ),
-                                    (routes) => false,
-                                  );
+                                onPress: () async {
+                                  if (checkBoxValue != true) {
+                                    showMyDialog(
+                                        context: context,
+                                        message:
+                                            'يجب الموافقة علي الشروط و الاحكام اولا');
+                                  } else {
+                                    if (_formKey.currentState.validate()) {
+                                      setState(() {
+                                        loading = true;
+                                      });
+
+                                      registerWithPhoneAndPassword(
+                                        user_email: email,
+                                        user_login: userName,
+                                        user_nicename: name,
+                                        user_pass: password,
+                                        user_pass_confirmation: confirmPassword,
+                                        phone: phoneNumber,
+                                      );
+                                    }
+                                  }
                                 },
                                 text: 'دخول',
                               ),
@@ -298,9 +321,91 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  registerWithPhoneAndPassword({
+    String phone,
+    // ignore: non_constant_identifier_names
+    String user_pass,
+    // ignore: non_constant_identifier_names
+    String user_email,
+    // ignore: non_constant_identifier_names
+    String user_login,
+    // ignore: non_constant_identifier_names
+    String user_pass_confirmation,
+    // ignore: non_constant_identifier_names
+    String user_nicename,
+  }) async {
+    try {
+      // Dio dio = new Dio();
+
+      var response = await http.post(
+        'http://ahmadalmosawi.com/V2/api/Register',
+        // Utils.REGISTER_URL,
+        body: {
+          'user_login': user_login,
+          'phone': phone,
+          'user_pass': user_pass,
+          'user_email': user_email,
+          'user_pass_confirmation': user_pass_confirmation,
+          'user_nicename': user_nicename,
+        },
+      );
+
+      Map<String, dynamic> map = json.decode(response.body);
+      print('stuates Code:${response.statusCode}');
+      {
+        if (map['success'] == 'success') {
+          setState(() async {
+            MySharedPreferences.saveUserUserPassword(password);
+            MySharedPreferences.saveUserUserid(map['data']['id']);
+            MySharedPreferences.saveUserCourses(map['data']['Courses']);
+            MySharedPreferences.saveUserproChat(map['data']['proChat']);
+            MySharedPreferences.saveUserUserRecomendations(
+                map['data']['Recomendations']);
+            if (map['data']['proChat'] == '0' &&
+                map['data']['Courses'] == '0' &&
+                map['data']['Recomendations'] == '0') {
+              MySharedPreferences.saveUserSkipLogIn(true);
+              MySharedPreferences.saveUserSingIn(false);
+
+              User.userLogIn = await MySharedPreferences.getUserSingIn();
+              User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+            } else {
+              MySharedPreferences.saveUserSkipLogIn(true);
+              MySharedPreferences.saveUserSingIn(true);
+              User.userLogIn = await MySharedPreferences.getUserSingIn();
+              User.userid = await MySharedPreferences.getUserUserid();
+              User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+            }
+
+            User.userid = map['data']['id'];
+          });
+
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => Wrapper(),
+            ),
+          );
+        } else {
+          setState(() {
+            loading = false;
+          });
+          showMyDialog(context: context, message: map['errorArr'].toString());
+        }
+      }
+      // Navigator.pop(context);
+    } catch (e) {
+      print('Cash errrrrrrrrrrrrrrror');
+      setState(() {
+        loading = false;
+      });
+
+      print(e.toString());
+    }
+  }
+
   String validatePassord(String val) {
     if (val.isEmpty) {
-      return phoneEror;
+      return passEror;
     } else if (val.length < 6) {
       return 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
     } else {
@@ -314,7 +419,7 @@ class _RegisterState extends State<Register> {
     String confrimPassord,
   ) {
     if (val.isEmpty) {
-      return phoneEror;
+      return passEror;
     } else if (password != confirmPassword) {
       return 'كلمة المرور غير متطابقة';
     } else {

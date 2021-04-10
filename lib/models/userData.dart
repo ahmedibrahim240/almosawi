@@ -16,10 +16,10 @@ UserDate userDate = UserDate(
 );
 
 class User {
-  static String userToken;
-  static String userName;
-  static String userPhoneNum;
-  static String userAge;
+  static int userid;
+  static String proChat;
+  static String courses;
+  static String recomendations;
   static String userStutes;
   static String userGender;
   static String userPassword;

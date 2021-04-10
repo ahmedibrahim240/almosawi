@@ -25,6 +25,7 @@ const String passwordEror = 'الرجاء إدخال كليمة المرور';
 const String conPasswordEror = 'الرجاء إدخال بريد إلكتروني';
 const String nameEror = 'الرجاء إدخال الاسم';
 const String phoneEror = 'الرجاء إدخال رقم الهاتف';
+const String passEror = 'الرجاء إدخال كلمه المورو';
 ////////////////////////////////////////
 Future<Null> customOnRefresh(
     {Function onRefresh, Function affterRefresh}) async {
@@ -205,7 +206,7 @@ class LogoContainar extends StatelessWidget {
 }
 
 ////////////////////////////////////////////////////////////
-Future<void> showMyDialog({BuildContext context}) async {
+Future<void> showMyDialog({BuildContext context, String message}) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -214,11 +215,17 @@ Future<void> showMyDialog({BuildContext context}) async {
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text(
-                'you Shoud be login frist',
-                style: AppTheme.heading.copyWith(
-                  color: customColor,
+              Center(
+                child: Text(
+                  'رساله اداريه',
+                  style: AppTheme.heading.copyWith(
+                    color: customColor,
+                  ),
                 ),
+              ),
+              Text(
+                message,
+                style: AppTheme.subHeading,
               ),
             ],
           ),
@@ -226,32 +233,13 @@ Future<void> showMyDialog({BuildContext context}) async {
         actions: <Widget>[
           TextButton(
             child: Text(
-              'Cancel',
+              'تم',
               style: AppTheme.heading.copyWith(
                 color: customColor,
               ),
             ),
             onPressed: () {
               Navigator.of(context).pop();
-            },
-          ),
-          RaisedButton(
-            color: customColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(35),
-            ),
-            child: Text(
-              'LogIn',
-              style: AppTheme.heading.copyWith(
-                color: Colors.white,
-              ),
-            ),
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (_) => Authenticate(),
-                ),
-              );
             },
           ),
         ],

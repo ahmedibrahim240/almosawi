@@ -62,6 +62,7 @@ dependencies:
   flutter_youtube_vimeo:
   vimeoplayer_trinity:
   vimeoplayer:
+  dio:
   # firebase_storage:
   
 
