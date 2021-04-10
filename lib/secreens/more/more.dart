@@ -15,6 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../sharedPreferences.dart';
+import '../splashscreen.dart';
+
 class More extends StatefulWidget {
   @override
   _MoreState createState() => _MoreState();
@@ -204,7 +207,18 @@ class _MoreState extends State<More> {
             ),
             customdivider(),
             moreBody(
-              onTap: () {},
+              onTap: () {
+                setState(
+                  () {
+                    MySharedPreferences.saveUserUserid(null);
+                  },
+                );
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => SplashScreen(),
+                  ),
+                );
+              },
               icon: Icon(FontAwesomeIcons.signOutAlt),
               tilte: 'تسجيل خروج ',
             ),

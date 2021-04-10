@@ -1,6 +1,5 @@
 import 'package:almosawii/constants/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:vimeoplayer/vimeoplayer.dart';
 // import 'package:vimeoplayer_trinity/vimeoplayer_trinity.dart';
 
 class HomeVideo extends StatefulWidget {
