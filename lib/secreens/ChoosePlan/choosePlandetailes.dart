@@ -1,11 +1,11 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/plan.dart';
+import 'package:almosawii/models/plansApi.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChoosePlanDetailes extends StatefulWidget {
-  final Plan plan;
+  final Plans plan;
 
   const ChoosePlanDetailes({Key key, @required this.plan}) : super(key: key);
   @override
@@ -27,33 +27,48 @@ class _ChoosePlanDetailesState extends State<ChoosePlanDetailes> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                widget.plan.date,
+                widget.plan.name,
                 style: AppTheme.heading.copyWith(fontSize: 20),
               ),
               SizedBox(height: 20),
               Text(
-                '${widget.plan.price} \$',
+                '${widget.plan.newPrice} \$',
                 style: AppTheme.heading.copyWith(fontSize: 20),
               ),
             ],
           ),
           SizedBox(height: 30),
-          contant(title: 'قسم التوصيات والتحليل'),
-          SizedBox(height: 20),
-          contant(title: 'قسم التعليم'),
-          SizedBox(height: 20),
-          contant(title: 'المدونة'),
-          SizedBox(height: 20),
-          contant(title: 'دورة خاصة في إدارة رأس المال'),
-          SizedBox(height: 20),
-          contant(title: 'مع الأستاذ أحمد'),
-          SizedBox(height: 20),
-          contant(title: 'فيديو في قسم ال Chart P'),
-          SizedBox(height: 50),
-          CustomButton(
-            onPress: () {},
-            text: 'اشترك',
-          )
+
+          (widget.plan.features.isEmpty)
+              ? contant()
+              : ListView.builder(
+                  shrinkWrap: true,
+                  primary: false,
+                  itemCount: widget.plan.features.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        contant(title: widget.plan.features[index]),
+                        SizedBox(height: 20),
+                      ],
+                    );
+                  },
+                ),
+          // SizedBox(height: 20),
+          // contant(title: 'قسم التعليم'),
+          // SizedBox(height: 20),
+          // contant(title: 'المدونة'),
+          // SizedBox(height: 20),
+          // contant(title: 'دورة خاصة في إدارة رأس المال'),
+          // SizedBox(height: 20),
+          // contant(title: 'مع الأستاذ أحمد'),
+          // SizedBox(height: 20),
+          // contant(title: 'فيديو في قسم ال Chart P'),
+          // SizedBox(height: 50),
+          // CustomButton(
+          //   onPress: () {},
+          //   text: 'اشترك',
+          // )
         ],
       ),
     );
