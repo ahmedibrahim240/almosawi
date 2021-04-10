@@ -1,11 +1,11 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
-import 'package:almosawii/models/utils.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -351,44 +351,44 @@ class _RegisterState extends State<Register> {
 
       Map<String, dynamic> map = json.decode(response.body);
       print('stuates Code:${response.statusCode}');
-      {
-        if (map['status'] == 'success') {
-          MySharedPreferences.saveUserUserPassword(password);
-          MySharedPreferences.saveUserUserid(map['Data']['id']);
-          MySharedPreferences.saveUserCourses(map['Data']['Courses']);
-          MySharedPreferences.saveUserproChat(map['Data']['proChat']);
-          MySharedPreferences.saveUserUserRecomendations(
-              map['Data']['Recomendations']);
-          if (map['Data']['proChat'] == '0' &&
-              map['Data']['Courses'] == '0' &&
-              map['Data']['Recomendations'] == '0') {
-            MySharedPreferences.saveUserSkipLogIn(true);
-            MySharedPreferences.saveUserSingIn(false);
 
-            User.userLogIn = await MySharedPreferences.getUserSingIn();
-            User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-          } else {
-            MySharedPreferences.saveUserSkipLogIn(true);
-            MySharedPreferences.saveUserSingIn(true);
-            User.userLogIn = await MySharedPreferences.getUserSingIn();
-            User.userid = await MySharedPreferences.getUserUserid();
-            User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-          }
+      if (map['status'] == 'success') {
+        MySharedPreferences.saveUserUserPassword(password);
+        MySharedPreferences.saveUserUserid(map['Data']['id']);
+        MySharedPreferences.saveUserCourses(map['Data']['Courses']);
+        MySharedPreferences.saveUserproChat(map['Data']['proChat']);
+        MySharedPreferences.saveUserUserRecomendations(
+            map['Data']['Recomendations']);
+        if (map['Data']['proChat'] == '0' &&
+            map['Data']['Courses'] == '0' &&
+            map['Data']['Recomendations'] == '0') {
+          MySharedPreferences.saveUserSkipLogIn(true);
+          MySharedPreferences.saveUserSingIn(false);
 
-          User.userid = map['Data']['id'];
-
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (_) => Wrapper(),
-            ),
-          );
+          User.userLogIn = await MySharedPreferences.getUserSingIn();
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         } else {
-          setState(() {
-            loading = false;
-          });
-          showMyDialog(context: context, message: map['errorArr'].toString());
+          MySharedPreferences.saveUserSkipLogIn(true);
+          MySharedPreferences.saveUserSingIn(true);
+          User.userLogIn = await MySharedPreferences.getUserSingIn();
+          User.userid = await MySharedPreferences.getUserUserid();
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         }
+
+        User.userid = map['Data']['id'];
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => Wrapper(),
+          ),
+        );
+      } else {
+        setState(() {
+          loading = false;
+        });
+        showMyDialog(context: context, message: map['errorArr'].toString());
       }
+
       // Navigator.pop(context);
     } catch (e) {
       print('Cash errrrrrrrrrrrrrrror');

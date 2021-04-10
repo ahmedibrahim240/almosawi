@@ -5,4 +5,6 @@ class Utils {
   static final REGISTER_URL = BASE_URL + "/Register";
   // ignore: non_constant_identifier_names
   static final Courses_URL = BASE_URL + "/Courses";
+  // ignore: non_constant_identifier_names
+  static final Login_URL = BASE_URL + "/Login";
 }

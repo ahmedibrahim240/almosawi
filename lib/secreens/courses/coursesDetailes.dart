@@ -8,6 +8,7 @@ import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vimeoplayer/vimeoplayer.dart';
 
 class Coursesedtails extends StatefulWidget {
   final Courses courses;
@@ -29,6 +30,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.courses.lessons);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -37,37 +39,39 @@ class _CoursesedtailsState extends State<Coursesedtails> {
         shrinkWrap: true,
         primary: true,
         children: [
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(widget.courses.image),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Stack(
-              children: [
-                ClipRRect(
-                  child: customCachedNetworkImage(
-                    context: context,
-                    url: widget.courses.image,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: customColor,
+          (widget.courses.video_code != "")
+              ? VimeoPlayer(id: widget.courses.video_code, autoPlay: false)
+              : Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(widget.courses.image),
+                      fit: BoxFit.fitHeight,
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                  ),
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        child: customCachedNetworkImage(
+                          context: context,
+                          url: widget.courses.image,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: customColor,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
           firtstScetons(),
           Container(
             color: Colors.grey[300],
@@ -111,67 +115,128 @@ class _CoursesedtailsState extends State<Coursesedtails> {
               ],
             ),
           ),
-          (tapded == 0) ? courseContent() : ratingListView(context: context),
+          // (tapded == 0) ? courseContent() : ratingListView(context: context),
         ],
       ),
     );
   }
 
-  ListView courseContent() {
-    return ListView.builder(
-      shrinkWrap: true,
-      primary: false,
-      itemCount: widget.courses.lessons.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Container(
-              color: Colors.grey[300],
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Row(
-                children: [
-                  Text(
-                    '${index + 1}',
-                    style: AppTheme.heading,
-                  ),
-                  SizedBox(width: 10),
-                  Container(
-                    height: 20,
-                    width: 20,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.green,
-                    ),
-                    child: Center(
-                      child: Icon(
-                        FontAwesomeIcons.check,
-                        color: Colors.white,
-                        size: 10,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Text(
-                      //   widget.courses.coursContentList[index].name,
-                      //   style: AppTheme.heading,
-                      // ),
-                      // Text(
-                      //   widget.courses.coursContentList[index].description,
-                      //   style: AppTheme.subHeading,
-                      // ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-          ],
-        );
-      },
-    );
+  // ratingListView({BuildContext context}) {
+  //   return ListView.builder(
+  //     shrinkWrap: true,
+  //     primary: false,
+  //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+  //     itemCount: widget.courses.ratings.length,
+  //     itemBuilder: (context, index) {
+  //       return Column(
+  //         children: [
+  //           Container(
+  //             child: Row(
+  //               children: [
+  //                 Container(
+  //                   height: 80,
+  //                   width: 80,
+  //                   decoration: BoxDecoration(
+  //                     image: DecorationImage(
+  //                       image: AssetImage(
+  //                         'lib/images/ahmed.jpg',
+  //                       ),
+  //                       fit: BoxFit.cover,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 SizedBox(width: 10),
+  //                 Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Text(
+  //                       widget.courses.ratings[index]['name_sender'],
+  //                       style: AppTheme.heading,
+  //                     ),
+  //                     // RatingStar(
+  //                     //   rating: widget.courses.ratings[index][],
+  //                     // ),
+  //                     Text(
+  //                       widget.courses.ratings[index]['content'],
+  //                       style: AppTheme.subHeading,
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+  //             child: Divider(
+  //               color: customColor.withOpacity(.3),
+  //               thickness: 2,
+  //             ),
+  //           )
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
+  courseContent() {
+    return Container();
+
+    //  ListView.builder(
+    //   shrinkWrap: true,
+    //   primary: false,
+    //   itemCount: widget.courses.lessons.length,
+    //   itemBuilder: (context, index) {
+    //     return Column(
+    //       children: [
+    //         Container(
+    //           color: Colors.grey[300],
+    //           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    //           child: Row(
+    //             children: [
+    //               Text(
+    //                 '${index + 1}',
+    //                 style: AppTheme.heading,
+    //               ),
+    //               SizedBox(width: 10),
+    //               Container(
+    //                 height: 20,
+    //                 width: 20,
+    //                 decoration: BoxDecoration(
+    //                   shape: BoxShape.circle,
+    //                   color: Colors.green,
+    //                 ),
+    //                 child: Center(
+    //                   child: Icon(
+    //                     FontAwesomeIcons.check,
+    //                     color: Colors.white,
+    //                     size: 10,
+    //                   ),
+    //                 ),
+    //               ),
+    //               SizedBox(width: 10),
+    //               Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Text(
+    //                     widget.courses.lessons[index]['title'],
+    //                     style: AppTheme.heading,
+    //                   ),
+    //                   Text(
+    //                     parseHtmlString(
+    //                       widget.courses.lessons[index]['description'],
+    //                     ),
+    //                     style: AppTheme.subHeading,
+    //                   ),
+    //                 ],
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //         SizedBox(height: 10),
+    //       ],
+    //     );
+    //   },
+    // );
   }
 
   InkWell taps({Function onTap, String title, int index}) {

@@ -4,6 +4,9 @@ import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/models/utils.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../passwordRecovery.dart';
 
@@ -68,10 +71,10 @@ class _LogInState extends State<LogIn> {
                             children: [
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.emailAddress,
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.person,
-                                  label: 'اسم المستخدم',
+                                  label: 'اسم المستخدم او البريد الالكتروني',
                                 ),
                                 validator: (val) =>
                                     val.isEmpty ? emailEror : null,
@@ -114,7 +117,7 @@ class _LogInState extends State<LogIn> {
                               InkWell(
                                 onTap: () async {
                                   MySharedPreferences.saveUserSkipLogIn(true);
-                                  MySharedPreferences.saveUserSingIn(false);
+                                  MySharedPreferences.saveUserSingIn(true);
 
                                   User.userLogIn =
                                       await MySharedPreferences.getUserSingIn();
@@ -138,18 +141,16 @@ class _LogInState extends State<LogIn> {
                               SizedBox(height: 10),
                               CustomButton(
                                 onPress: () async {
-                                  MySharedPreferences.saveUserSkipLogIn(false);
-                                  MySharedPreferences.saveUserSingIn(true);
-                                  User.userLogIn =
-                                      await MySharedPreferences.getUserSingIn();
-                                  User.userSkipLogIn = await MySharedPreferences
-                                      .getUserSkipLogIn();
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (_) => Wrapper(),
-                                    ),
-                                    (routes) => false,
-                                  );
+                                  if (_formKey.currentState.validate()) {
+                                    setState(() {
+                                      loading = true;
+                                    });
+
+                                    loginWithPhoneAndPassword(
+                                      email: email,
+                                      password: password,
+                                    );
+                                  }
                                 },
                                 text: 'دخول',
                               ),
@@ -209,5 +210,72 @@ class _LogInState extends State<LogIn> {
               ],
             ),
     );
+  }
+
+  loginWithPhoneAndPassword({
+    String password,
+    String email,
+  }) async {
+    try {
+      // Dio dio = new Dio();
+
+      var response = await http.post(
+        Utils.Login_URL,
+        // Utils.REGISTER_URL,
+        body: {
+          'password': password,
+          'email': email,
+        },
+      );
+
+      Map<String, dynamic> map = json.decode(response.body);
+      print(response.body);
+
+      if (map['success'] == 'تم تسجيل الدخول بنجاح') {
+        MySharedPreferences.saveUserUserPassword(password);
+        MySharedPreferences.saveUserUserid(map['UserData']['id']);
+        MySharedPreferences.saveUserCourses(map['UserData']['Courses']);
+        MySharedPreferences.saveUserproChat(map['UserData']['proChat']);
+        MySharedPreferences.saveUserUserRecomendations(
+            map['UserData']['Recomendations']);
+        if (map['UserData']['proChat'] == '0' &&
+            map['UserData']['Courses'] == '0' &&
+            map['UserData']['Recomendations'] == '0') {
+          MySharedPreferences.saveUserSkipLogIn(true);
+          MySharedPreferences.saveUserSingIn(true);
+
+          User.userLogIn = await MySharedPreferences.getUserSingIn();
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        } else {
+          MySharedPreferences.saveUserSkipLogIn(true);
+          MySharedPreferences.saveUserSingIn(true);
+          User.userLogIn = await MySharedPreferences.getUserSingIn();
+          User.userid = await MySharedPreferences.getUserUserid();
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        }
+
+        User.userid = map['UserData']['id'];
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => Wrapper(),
+          ),
+        );
+      } else {
+        setState(() {
+          loading = false;
+        });
+        showMyDialog(context: context, message: map['message'].toString());
+      }
+
+      // Navigator.pop(context);
+    } catch (e) {
+      print('Cash errrrrrrrrrrrrrrror');
+      setState(() {
+        loading = false;
+      });
+
+      print(e);
+    }
   }
 }
