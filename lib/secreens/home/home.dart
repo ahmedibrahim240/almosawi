@@ -1,15 +1,14 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/contactUsApi.dart';
 import 'package:almosawii/models/couresApi.dart';
-import 'package:almosawii/models/theBolg.dart';
+import 'package:almosawii/models/homeVideoApi.dart';
 import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/secreens/home/homeTabs.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
-import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
@@ -21,6 +20,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool loading = false;
+  List<String> numberTitleList = ['عميل', 'دورة مباشرة', 'دورة مسجلة'];
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +58,13 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 10),
                   successPartners(),
                   SizedBox(height: 10),
-                  taps(),
+                  acountFeatures(),
                   homeBaner(),
                   SizedBox(height: 10),
                   sectionTitle(title: 'الدورات التدريبية'),
                   SizedBox(height: 10),
                   corsesSections(),
-
                   SizedBox(height: 10),
-                  // sectionTitle(title: 'المدونة'),
-                  // homeBolgList(),
                 ],
               ),
       ),
@@ -127,59 +124,114 @@ class _HomeState extends State<Home> {
     );
   }
 
-  taps() {
-    return ListView(
-      shrinkWrap: true,
-      primary: false,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-      children: [
-        GridView.count(
-          crossAxisCount: 2,
-          primary: false,
-          childAspectRatio: 1,
-          shrinkWrap: true,
-          children: List.generate(
-            4,
-            (index) {
-              return Column(
-                children: [
-                  Container(
-                    height: 120,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('lib/images/logo.png'),
-                        fit: BoxFit.fitHeight,
+  parteners() {
+    return FutureBuilder(
+      future: ContactUsApi.futchContactUs(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : ListView(
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  children: [
+                    GridView.count(
+                      crossAxisCount: 2,
+                      primary: false,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      shrinkWrap: true,
+                      children: List.generate(
+                        snapshot.data.parteners.length,
+                        (index) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: customCachedNetworkImage(
+                              context: context,
+                              url: snapshot.data.parteners[index],
+                            ),
+                          );
+                        },
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'title',
-                    style: AppTheme.heading,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-        CustomButtonWithchild(
-          child: Center(
-            child: Text(
-              'فتح حساب تداول ',
-              style: AppTheme.heading.copyWith(color: Colors.white),
-            ),
-          ),
-          color: customColor,
-          onPress: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => TradingAccount(),
-              ),
-            );
-          },
-        ),
-      ],
+                  ],
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  acountFeatures() {
+    return FutureBuilder(
+      future: ContactUsApi.futchContactUs(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : ListView(
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  children: [
+                    GridView.count(
+                      crossAxisCount: 2,
+                      primary: false,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      shrinkWrap: true,
+                      children: List.generate(
+                        snapshot.data.acountFeatures.length,
+                        (index) {
+                          return Column(
+                            children: [
+                              Container(
+                                height: 120,
+                                width: MediaQuery.of(context).size.width,
+                                child: customCachedNetworkImage(
+                                  context: context,
+                                  url: snapshot.data.acountFeatures[index]
+                                      ['image'],
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                snapshot.data.acountFeatures[index]['title'],
+                                style: AppTheme.heading,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    CustomButtonWithchild(
+                      child: Center(
+                        child: Text(
+                          'فتح حساب تداول ',
+                          style: AppTheme.heading.copyWith(color: Colors.white),
+                        ),
+                      ),
+                      color: customColor,
+                      onPress: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => TradingAccount(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
@@ -193,52 +245,34 @@ class _HomeState extends State<Home> {
             style: AppTheme.heading,
           ),
           SizedBox(height: 10),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  child: SvgPicture.asset(
-                    'lib/icons/ticklogo.svg',
-                    height: 100,
-                  ),
-                ),
-                Container(
-                  child: SvgPicture.asset(
-                    'lib/icons/logo1.svg',
-                    height: 100,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          parteners(),
           SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                flex: 1,
-                child: cartPartners(
-                  title: 'عميل',
-                  nummber: '1950',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: cartPartners(
-                  title: 'دورة مباشرة',
-                  nummber: '310',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: cartPartners(
-                  title: 'دورة مسجلة',
-                  nummber: '220',
-                ),
-              ),
-            ],
+          FutureBuilder(
+            future: HomeVideoApi.futchHomeVideo(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                print(snapshot.data);
+                return (snapshot.data == null)
+                    ? Container()
+                    : Container(
+                        height: 90,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          primary: false,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data.homeNumbers.length,
+                          itemBuilder: (context, index) {
+                            return cartPartners(
+                              title: numberTitleList[index],
+                              nummber: snapshot.data.homeNumbers[index],
+                            );
+                          },
+                        ),
+                      );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
         ],
       ),
@@ -277,87 +311,6 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-    );
-  }
-
-  homeBolgList() {
-    return ListView.builder(
-      shrinkWrap: true,
-      primary: false,
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => BolgDetailes(
-                  theBolg: blogList[index],
-                ),
-              ),
-            );
-          },
-          child: Card(
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: customCachedNetworkImage(
-                      context: context,
-                      url: blogList[index].image,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width - 180,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        blogList[index].date,
-                        style: AppTheme.subHeading.copyWith(
-                          color: customColorGray,
-                          fontSize: 9,
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          blogList[index].name,
-                          style: AppTheme.heading.copyWith(fontSize: 10),
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          blogList[index].contant,
-                          style: AppTheme.subHeading.copyWith(
-                            color: customColorGray,
-                            fontSize: 9,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 

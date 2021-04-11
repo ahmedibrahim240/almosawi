@@ -153,13 +153,18 @@ customCachedNetworkImage({String url, BuildContext context}) {
     } else {
       return Container(
         width: MediaQuery.of(context).size.width,
-        child: CachedNetworkImage(
-          imageUrl: url,
-          fit: BoxFit.cover,
-          placeholder: (context, url) =>
-              Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
+        child: (Uri.parse(url).isAbsolute)
+            ? CachedNetworkImage(
+                imageUrl: url,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              )
+            : Icon(
+                Icons.image,
+                color: customColor,
+              ),
       );
     }
   } catch (e) {

@@ -8,6 +8,7 @@ class HomheVideoModels {
   final String homeVideoTxt1;
   final String homeVideoTxt2;
   final String homeVideoTxt3;
+  var homeNumbers;
 
   HomheVideoModels({
     this.homeVideo,
@@ -15,6 +16,7 @@ class HomheVideoModels {
     this.homeVideoTxt1,
     this.homeVideoTxt2,
     this.homeVideoTxt3,
+    this.homeNumbers,
   });
 }
 
@@ -32,6 +34,7 @@ class HomeVideoApi {
           homeVideoTxt1: jsonData['data']['HomeVideoTxt1'],
           homeVideoTxt2: jsonData['data']['HomeVideoTxt2'],
           homeVideoTxt3: jsonData['data']['HomeVideoTxt3'],
+          homeNumbers: jsonData['data']['homeNumbers'],
         );
       }
     } catch (e) {

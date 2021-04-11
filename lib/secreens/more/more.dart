@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/contactUsApi.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/aboutUs/aboutUs.dart';
@@ -225,6 +226,9 @@ class _MoreState extends State<More> {
               onTap: () {
                 setState(
                   () {
+                    if (User.userSkipLogIn == true) {
+                      MySharedPreferences.saveUserSkipLogIn(false);
+                    }
                     MySharedPreferences.saveUserUserid(null);
                   },
                 );
@@ -235,7 +239,8 @@ class _MoreState extends State<More> {
                 );
               },
               icon: Icon(FontAwesomeIcons.signOutAlt),
-              tilte: 'تسجيل خروج ',
+              tilte:
+                  (User.userSkipLogIn == true) ? 'تسجيل دخول' : 'تسجيل خروج ',
             ),
           ],
         ),
