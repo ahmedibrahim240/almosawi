@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/homeTapsModels.dart';
+import 'package:almosawii/models/visitorHomeIconsApi.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/allCourses.dart';
@@ -159,178 +160,200 @@ class _UserHomeState extends State<UserHome> {
   }
 
   homeTabsFirst({List<HomeTapsModels> list}) {
-    return GridView.count(
-      crossAxisCount: 2,
-      primary: false,
-      childAspectRatio: .8,
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      children: List.generate(
-        list.length,
-        (index) {
-          return InkWell(
-            onTap: () {
-              switch (index) {
-                case 0:
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => ProchartRoom(),
-                    ),
-                  );
-                  break;
+    return FutureBuilder(
+      future: VisitorHomeIconsApi.futchVisitorHomeIcons(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : GridView.count(
+                  crossAxisCount: 2,
+                  primary: false,
+                  childAspectRatio: .8,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  children: List.generate(
+                    snapshot.data.userHomeIconsRow1.length,
+                    (index) {
+                      return InkWell(
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => ProchartRoom(),
+                                ),
+                              );
+                              break;
 
-                default:
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => ProChartVIP(),
-                    ),
-                  );
-              }
-            },
-            child: Card(
-              elevation: 3,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: (index == 0)
-                          ? Color(0xfffFF9B63)
-                          : Color(0xfff067FA5),
-                      width: 5,
-                      style: BorderStyle.solid,
-                    ),
+                            default:
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => ProChartVIP(),
+                                ),
+                              );
+                          }
+                        },
+                        child: Card(
+                          elevation: 3,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 10),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(
+                                  color: (index == 0)
+                                      ? Color(0xfffFF9B63)
+                                      : Color(0xfff067FA5),
+                                  width: 5,
+                                  style: BorderStyle.solid,
+                                ),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 120,
+                                  width: 120,
+                                  child: customCachedNetworkImage(
+                                      context: context,
+                                      url: snapshot
+                                          .data.userHomeIconsRow1[index]),
+                                ),
+                                Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        list[index].titleAr,
+                                        textAlign: TextAlign.right,
+                                        style: AppTheme.heading,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        list[index].titleEn,
+                                        textAlign: TextAlign.left,
+                                        style: AppTheme.heading
+                                            .copyWith(color: customColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(list[index].image),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            list[index].titleAr,
-                            textAlign: TextAlign.right,
-                            style: AppTheme.heading,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            list[index].titleEn,
-                            textAlign: TextAlign.left,
-                            style:
-                                AppTheme.heading.copyWith(color: customColor),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
   homeTabsTow({List<HomeTapsModels> list}) {
-    return GridView.count(
-      crossAxisCount: 2,
-      primary: false,
-      childAspectRatio: .8,
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      children: List.generate(
-        list.length,
-        (index) {
-          return InkWell(
-            onTap: () {
-              switch (index) {
-                case 0:
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => AllVideosProChart(),
-                    ),
-                  );
-                  break;
+    return FutureBuilder(
+      future: VisitorHomeIconsApi.futchVisitorHomeIcons(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : GridView.count(
+                  crossAxisCount: 2,
+                  primary: false,
+                  childAspectRatio: .8,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  children: List.generate(
+                    snapshot.data.userHomeIconsRow2.length,
+                    (index) {
+                      return InkWell(
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => AllVideosProChart(),
+                                ),
+                              );
+                              break;
 
-                default:
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => AllCourses(),
-                    ),
-                  );
-              }
-            },
-            child: Card(
-              elevation: 3,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: (index == 0)
-                          ? Color(0xfff6C089B)
-                          : Color(0xfffF00B27),
-                      width: 5,
-                      style: BorderStyle.solid,
-                    ),
+                            default:
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => AllCourses(),
+                                ),
+                              );
+                          }
+                        },
+                        child: Card(
+                          elevation: 3,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 10),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(
+                                  color: (index == 0)
+                                      ? Color(0xfff6C089B)
+                                      : Color(0xfffF00B27),
+                                  width: 5,
+                                  style: BorderStyle.solid,
+                                ),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 120,
+                                  width: 120,
+                                  child: customCachedNetworkImage(
+                                      context: context,
+                                      url: snapshot
+                                          .data.userHomeIconsRow2[index]),
+                                ),
+                                Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        list[index].titleAr,
+                                        textAlign: TextAlign.right,
+                                        style: AppTheme.subHeading,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        list[index].titleEn,
+                                        textAlign: TextAlign.left,
+                                        style: AppTheme.subHeading
+                                            .copyWith(color: customColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(list[index].image),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            list[index].titleAr,
-                            textAlign: TextAlign.right,
-                            style: AppTheme.subHeading,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            list[index].titleEn,
-                            textAlign: TextAlign.left,
-                            style: AppTheme.subHeading
-                                .copyWith(color: customColor),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
