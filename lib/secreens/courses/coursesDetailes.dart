@@ -2,7 +2,6 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/prodact.dart';
-import 'package:almosawii/models/rating.dart';
 import 'package:almosawii/services/dbhelper.dart';
 
 import 'package:flutter/cupertino.dart';
