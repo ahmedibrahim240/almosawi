@@ -144,24 +144,32 @@ class _CoursesPageState extends State<CoursesPage> {
             ),
             SizedBox(height: 5),
             RatingStar(
-              rating: courses.totalRating,
+              rating: double.parse(courses.totalRating.toString()),
             ),
             SizedBox(height: 5),
             Row(
               children: [
-                Text(
-                  '${courses.newPrice}\$',
-                  style: AppTheme.headingColorBlue.copyWith(
-                    decoration: TextDecoration.lineThrough,
-                    fontSize: 10,
-                  ),
-                ),
+                (courses.newPrice == null)
+                    ? Container()
+                    : Text(
+                        '${courses.newPrice}\$',
+                        style: AppTheme.headingColorBlue.copyWith(
+                          fontSize: 12,
+                          color: customColor,
+                        ),
+                      ),
                 SizedBox(width: 5),
                 Text(
-                  '${courses.oldPrice}\$',
+                  (courses.oldPrice == null)
+                      ? Container()
+                      : '${courses.oldPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
-                    fontSize: 12,
-                    color: customColor,
+                    fontSize: 10,
+                    color:
+                        (courses.oldPrice == null) ? customColor : Colors.black,
+                    decoration: (courses.oldPrice == null)
+                        ? TextDecoration.none
+                        : TextDecoration.lineThrough,
                   ),
                 ),
               ],

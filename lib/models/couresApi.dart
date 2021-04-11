@@ -13,9 +13,9 @@ class Courses {
   final String badge;
   var lessons;
   var ratings;
-  final double totalRating;
-  final double oldPrice;
-  final double newPrice;
+  var totalRating;
+  var oldPrice;
+  var newPrice;
 
   Courses({
     this.id,
@@ -53,9 +53,9 @@ class CoursesApi {
             status: items['status'],
             lessons: items['lessons'],
             ratings: items['Ratings'],
-            totalRating: double.parse(items['TotalRating'].toString()),
-            oldPrice: double.parse(items['price_old']),
-            newPrice: double.parse(items['price_new']),
+            totalRating: items['TotalRating'],
+            oldPrice: items['price_old'],
+            newPrice: items['price_new'],
           );
           listOfCourses.add(courses);
         }

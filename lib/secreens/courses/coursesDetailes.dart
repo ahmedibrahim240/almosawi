@@ -329,7 +329,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             RatingStar(
-              rating: widget.courses.totalRating,
+              rating: double.parse(widget.courses.totalRating.toString()),
             ),
             RaisedButton(
               shape: RoundedRectangleBorder(
