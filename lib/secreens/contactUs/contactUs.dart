@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/contactUsApi.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -34,14 +35,32 @@ class _ContactUsState extends State<ContactUs> {
             style: AppTheme.heading,
           ),
           SizedBox(height: 10),
-          contactInformation(
-            icon: FontAwesomeIcons.phone,
-            title: '+96597330286',
-          ),
-          SizedBox(height: 10),
-          contactInformation(
-            icon: Icons.email,
-            title: 'info@ahmedalmosawi.com',
+          FutureBuilder(
+            future: ContactUsApi.futchContactUs(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                print(snapshot.data);
+                return (snapshot.data == null)
+                    ? Container()
+                    : ListView(
+                        shrinkWrap: true,
+                        primary: false,
+                        children: [
+                          contactInformation(
+                            icon: FontAwesomeIcons.phone,
+                            title: snapshot.data.phone,
+                          ),
+                          SizedBox(height: 10),
+                          contactInformation(
+                            icon: Icons.email,
+                            title: snapshot.data.email,
+                          ),
+                        ],
+                      );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
           SizedBox(height: 20),
           Text(

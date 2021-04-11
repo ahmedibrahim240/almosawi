@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/contactUsApi.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/aboutUs/aboutUs.dart';
@@ -192,12 +193,26 @@ class _MoreState extends State<More> {
               tilte: 'اتصل بنا ',
             ),
             SizedBox(height: 20),
-            moreBody(
-              onTap: () {
-                launchToWhatsApp(phoneNum: '+201097225751', context: context);
+            FutureBuilder(
+              future: ContactUsApi.futchContactUs(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  print(snapshot.data);
+                  return (snapshot.data == null)
+                      ? Container()
+                      : moreBody(
+                          onTap: () {
+                            launchToWhatsApp(
+                                phoneNum: snapshot.data.whatsApp,
+                                context: context);
+                          },
+                          icon: Icon(FontAwesomeIcons.whatsapp),
+                          tilte: 'تواصل عبر الواتس اب',
+                        );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
               },
-              icon: Icon(FontAwesomeIcons.whatsapp),
-              tilte: 'تواصل عبر الواتس اب',
             ),
             SizedBox(height: 20),
             moreBody(
