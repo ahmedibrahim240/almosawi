@@ -1,56 +1,50 @@
-String constContant =
-    'ابل يواصل الصعود بشكل كبيرابل يواصل الصعود بشكل كبيرابل يواصل الصعود بشكل كبيرابل يواصل الصعود بشكل كبيرابل يواصل الصعود بشكل كبير';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class TheBolg {
-  final String name;
+  var id;
+  var name;
   final String contant;
-  final String date;
-  final String image;
+  var date;
+  var image;
 
-  TheBolg({this.name, this.contant, this.date, this.image});
+  TheBolg({
+    this.name,
+    this.contant,
+    this.date,
+    this.image,
+    this.id,
+  });
 }
 
-List<TheBolg> blogList = [
-  TheBolg(
-    contant: constContant,
-    name: 'يرتفع من جديد Apple سهم',
-    image:
-        'https://ahmadalmosawi.com/wp-content/uploads/2021/01/Apple-2-1-2060x1374-1-400x280.jpg',
-    date: 'منذ ساعتين',
-  ),
-  TheBolg(
-    contant: constContant,
-    name: 'يرتفع من جديد Apple سهم',
-    image:
-        'https://ahmadalmosawi.com/wp-content/uploads/2021/01/Apple-2-1-2060x1374-1-400x280.jpg',
-    date: 'منذ ساعتين',
-  ),
-  TheBolg(
-    contant: constContant,
-    name: 'يرتفع من جديد Apple سهم',
-    image:
-        'https://ahmadalmosawi.com/wp-content/uploads/2021/01/Apple-2-1-2060x1374-1-400x280.jpg',
-    date: 'منذ ساعتين',
-  ),
-  TheBolg(
-    contant: constContant,
-    name: 'يرتفع من جديد Apple سهم',
-    image:
-        'https://ahmadalmosawi.com/wp-content/uploads/2021/01/Apple-2-1-2060x1374-1-400x280.jpg',
-    date: 'منذ ساعتين',
-  ),
-  TheBolg(
-    contant: constContant,
-    name: 'يرتفع من جديد Apple سهم',
-    image:
-        'https://ahmadalmosawi.com/wp-content/uploads/2021/01/Apple-2-1-2060x1374-1-400x280.jpg',
-    date: 'منذ ساعتين',
-  ),
-  TheBolg(
-    contant: constContant,
-    name: 'يرتفع من جديد Apple سهم',
-    image:
-        'https://ahmadalmosawi.com/wp-content/uploads/2021/01/Apple-2-1-2060x1374-1-400x280.jpg',
-    date: 'منذ ساعتين',
-  ),
-];
+List<TheBolg> blogList = [];
+
+class TheBolgApi {
+  static Future<List<TheBolg>> fetchAllTheBolg() async {
+    List<TheBolg> listOfTheBolg = [];
+    try {
+      var response = await http.get(
+        'https://ahmadalmosawi.com/wp-json/wp/v2/posts',
+      );
+      var jsonData = json.decode(response.body);
+      print("jsonData:$jsonData");
+      if (response.statusCode == 200) {
+        for (var items in jsonData) {
+          print("items:$items");
+          TheBolg theBolg = TheBolg(
+            id: items['id'],
+            image: items['x_featured_media'],
+            date: items['date'],
+            contant: items['content']['rendered'].toString(),
+            name: items['title']['rendered'],
+          );
+          listOfTheBolg.add(theBolg);
+        }
+      }
+    } catch (e) {
+      print('Erroro TheBolggggggggggggggg');
+      print(e);
+    }
+    return listOfTheBolg;
+  }
+}

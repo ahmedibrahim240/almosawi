@@ -40,215 +40,239 @@ class _RecommendationsState extends State<Recommendations> {
                 )
               : FutureBuilder(
                   future:
-                      RecomendationsApi.fetchAllRecomendations(type: "free"),
+                      RecomendationsApi.fetchAllRecomendations(type: "premium"),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       print(snapshot.data);
                       return (snapshot.data == null || snapshot.data.isEmpty)
                           ? Container(
                               child: Center(
-                                child: Text(
-                                  'اسحب الشاشه لاسفل لاعاده التحميل',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'لا يوجد بينات حاليا /',
+                                      style: AppTheme.heading,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      'اسحب الشاشه لاسفل لاعاده التحميل',
+                                      style: AppTheme.heading,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                               ),
                             )
-                          : ListView(
+                          : ListView.builder(
                               shrinkWrap: true,
-                              primary: true,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              children: [
-                                // slider(),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 20),
-                                  child: Text(
-                                    'التوصيات',
-                                    style: AppTheme.heading.copyWith(
-                                      color: customColor,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemCount: snapshot.data.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (_) =>
-                                                RecommendationsDetailes(
-                                              recommend: recommendList[index],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Card(
-                                        elevation: 3,
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 20),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                              primary: false,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => RecommendationsDetailes(
+                                          recommend: snapshot.data[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    elevation: 3,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 20),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Column(
                                             children: [
-                                              Column(
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
                                                     children: [
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            snapshot.data[index]
-                                                                .name,
-                                                            style: AppTheme
-                                                                .subHeading,
-                                                          ),
-                                                          Text(
-                                                            '(${recommendList[index].stockNumber})',
-                                                            style: AppTheme
-                                                                .subHeading,
-                                                          ),
-                                                          Text(
-                                                            (recommendList[index]
-                                                                        .stockRatio <
-                                                                    0)
-                                                                ? '${recommendList[index].stockRatio}%'
-                                                                : '+${recommendList[index].stockRatio}%',
-                                                            style: AppTheme
-                                                                .subHeading
-                                                                .copyWith(
-                                                              color: (recommendList[
-                                                                              index]
-                                                                          .stockRatio <
-                                                                      0)
-                                                                  ? Colors.red
-                                                                  : customColor,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                      Text(
+                                                        snapshot
+                                                            .data[index].name,
+                                                        style:
+                                                            AppTheme.subHeading,
                                                       ),
                                                       Text(
-                                                        recommendList[index]
-                                                            .date,
+                                                        '(${snapshot.data[index].txtBesideName})',
+                                                        style:
+                                                            AppTheme.subHeading,
+                                                      ),
+                                                      Text(
+                                                        snapshot.data[index]
+                                                            .percentageTxt,
                                                         style: AppTheme
                                                             .subHeading
                                                             .copyWith(
-                                                                color:
-                                                                    customColorDivider),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        (recommendList[index]
-                                                                    .stockRatio <
-                                                                0)
-                                                            ? 'نشط'
-                                                            : 'انتظر',
-                                                        style: AppTheme.heading,
-                                                      ),
-                                                      SizedBox(width: 5),
-                                                      Text(
-                                                        'نقطه +222',
-                                                        style: AppTheme.heading
-                                                            .copyWith(
-                                                          color: customColor,
+                                                          color: (double.parse(snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .discount) <
+                                                                  0)
+                                                              ? Colors.red
+                                                              : customColor,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Column(
-                                                    children: [
-                                                      Text(
-                                                        'اكير مكسب',
-                                                        style: AppTheme.heading,
-                                                      ),
-                                                      Text(
-                                                        '(${recommendList[index].biggestGain})',
-                                                        style:
-                                                            AppTheme.subHeading,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      Text(
-                                                        'اقل خساره',
-                                                        style: AppTheme.heading,
-                                                      ),
-                                                      Text(
-                                                        '(${recommendList[index].lessLoss})',
-                                                        style:
-                                                            AppTheme.subHeading,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      Text(
-                                                        'سعر الدخول',
-                                                        style: AppTheme.heading,
-                                                      ),
-                                                      Text(
-                                                        '(${recommendList[index].entryPrice})',
-                                                        style:
-                                                            AppTheme.subHeading,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 10),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: 80,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      color: Colors.deepOrange,
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'طول المده',
-                                                        style: AppTheme.heading
-                                                            .copyWith(
-                                                                color: Colors
-                                                                    .white),
-                                                      ),
-                                                    ),
-                                                  ),
                                                   Text(
-                                                    'شراء / بيع ',
+                                                    snapshot
+                                                        .data[index].dayDate,
+                                                    style: AppTheme.subHeading
+                                                        .copyWith(
+                                                      color: customColorDivider,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    snapshot.data[index].status,
+                                                    style: AppTheme.heading,
+                                                  ),
+                                                  SizedBox(width: 5),
+                                                  Text(
+                                                    'نقطه ${snapshot.data[index].points}',
                                                     style: AppTheme.heading
                                                         .copyWith(
                                                       color: customColor,
                                                     ),
                                                   ),
-                                                  Row(
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'اكير مكسب',
+                                                    style: AppTheme.heading,
+                                                  ),
+                                                  (snapshot.data[index]
+                                                              .bigPrice ==
+                                                          null)
+                                                      ? Container()
+                                                      : Text(
+                                                          '(${snapshot.data[index].bigPrice})',
+                                                          style: AppTheme
+                                                              .subHeading,
+                                                        ),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'اقل خساره',
+                                                    style: AppTheme.heading,
+                                                  ),
+                                                  Text(
+                                                    (snapshot.data[index]
+                                                                .smallPrice ==
+                                                            null)
+                                                        ? Container()
+                                                        : '(${snapshot.data[index].smallPrice})',
+                                                    style: AppTheme.subHeading,
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'سعر الدخول',
+                                                    style: AppTheme.heading,
+                                                  ),
+                                                  (snapshot.data[index]
+                                                              .entryPrice ==
+                                                          null)
+                                                      ? Container()
+                                                      : Text(
+                                                          '(${snapshot.data[index].entryPrice})',
+                                                          style: AppTheme
+                                                              .subHeading,
+                                                        ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Colors.deepOrange,
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot
+                                                        .data[index].theTime,
+                                                    style: AppTheme.heading
+                                                        .copyWith(
+                                                            color:
+                                                                Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                snapshot.data[index].buyOrSale,
+                                                style:
+                                                    AppTheme.heading.copyWith(
+                                                  color: (snapshot.data[index]
+                                                              .statusLoss ==
+                                                          'gain')
+                                                      ? customColor
+                                                      : Colors.red,
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  (snapshot.data[index]
+                                                              .statusLoss ==
+                                                          'gain')
+                                                      ? SvgPicture.asset(
+                                                          'lib/icons/stockUp.svg',
+                                                          color: customColor,
+                                                          height: 15,
+                                                        )
+                                                      : Container(
+                                                          height: 20,
+                                                          width: 20,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  image:
+                                                                      DecorationImage(
+                                                            image: AssetImage(
+                                                                'lib/images/chartlineDown.png'),
+                                                            fit: BoxFit.cover,
+                                                          )),
+                                                        ),
+                                                  SizedBox(width: 20),
+                                                  Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
@@ -256,66 +280,36 @@ class _RecommendationsState extends State<Recommendations> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      (recommendList[index]
-                                                                  .stockRatio <
-                                                              0)
-                                                          ? SvgPicture.asset(
-                                                              'lib/icons/stockUp.svg',
-                                                              color:
-                                                                  customColor,
-                                                              height: 15,
-                                                            )
-                                                          : Container(
-                                                              height: 20,
-                                                              width: 20,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                      image:
-                                                                          DecorationImage(
-                                                                image: AssetImage(
-                                                                    'lib/images/chartlineDown.png'),
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              )),
-                                                            ),
-                                                      SizedBox(width: 20),
-                                                      Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            'سعر الخروج',
-                                                            style: AppTheme
-                                                                .heading,
-                                                          ),
-                                                          Text(
-                                                            '(${recommendList[index].checkOutPrice})',
-                                                            style: AppTheme
-                                                                .subHeading,
-                                                          ),
-                                                        ],
+                                                      Text(
+                                                        'سعر الخروج',
+                                                        style: AppTheme.heading,
                                                       ),
+                                                      (snapshot.data[index]
+                                                                  .outPrice ==
+                                                              null)
+                                                          ? Container()
+                                                          : Text(
+                                                              '(${snapshot.data[index].outPrice})',
+                                                              style: AppTheme
+                                                                  .subHeading,
+                                                            ),
                                                     ],
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(height: 10),
-                                              Text(
-                                                '(${recommendList[index].contant})',
-                                                style: AppTheme.subHeading,
-                                              ),
                                             ],
                                           ),
-                                        ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            '(${snapshot.data[index].comment})',
+                                            style: AppTheme.subHeading,
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                ),
-                              ],
+                                    ),
+                                  ),
+                                );
+                              },
                             );
                     } else {
                       return Center(child: CircularProgressIndicator());

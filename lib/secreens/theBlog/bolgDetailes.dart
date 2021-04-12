@@ -65,10 +65,7 @@ class _BolgDetailesState extends State<BolgDetailes> {
                 ),
               ),
               Text(
-                widget.theBolg.contant +
-                    widget.theBolg.contant +
-                    widget.theBolg.contant +
-                    widget.theBolg.contant,
+                parseHtmlString(widget.theBolg.contant),
                 textAlign: TextAlign.justify,
                 style: AppTheme.subHeading.copyWith(color: customColorGray),
               ),

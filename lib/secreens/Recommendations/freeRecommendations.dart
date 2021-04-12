@@ -64,12 +64,20 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                           return (snapshot.data == null ||
                                   snapshot.data.isEmpty)
                               ? Container(
-                                  child: Center(
-                                    child: Text(
-                                      'اسحب الشاشه لاسفل لاعاده التحميل',
-                                      style: AppTheme.heading,
-                                      textAlign: TextAlign.center,
-                                    ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'لا يوجد بينات حاليا /',
+                                        style: AppTheme.heading,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        'اسحب الشاشه لاسفل لاعاده التحميل',
+                                        style: AppTheme.heading,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
                                   ),
                                 )
                               : ListView.builder(
@@ -83,7 +91,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                           MaterialPageRoute(
                                             builder: (_) =>
                                                 RecommendationsDetailes(
-                                              recommend: recommendList[index],
+                                              recommend: snapshot.data[index],
                                             ),
                                           ),
                                         );
@@ -113,18 +121,13 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                                 .subHeading,
                                                           ),
                                                           Text(
-                                                            '(${recommendList[index].stockNumber})',
+                                                            '(${snapshot.data[index].txtBesideName})',
                                                             style: AppTheme
                                                                 .subHeading,
                                                           ),
                                                           Text(
-                                                            (double.parse(snapshot
-                                                                        .data[
-                                                                            index]
-                                                                        .discount) <
-                                                                    0)
-                                                                ? ' ${snapshot.data[index].discount}%'
-                                                                : ' +${snapshot.data[index].discount}%',
+                                                            snapshot.data[index]
+                                                                .percentageTxt,
                                                             style: AppTheme
                                                                 .subHeading
                                                                 .copyWith(
@@ -140,30 +143,27 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                         ],
                                                       ),
                                                       Text(
-                                                        recommendList[index]
-                                                            .date,
+                                                        snapshot.data[index]
+                                                            .dayDate,
                                                         style: AppTheme
                                                             .subHeading
                                                             .copyWith(
-                                                                color:
-                                                                    customColorDivider),
+                                                          color:
+                                                              customColorDivider,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        (double.parse(snapshot
-                                                                    .data[index]
-                                                                    .discount) <
-                                                                0)
-                                                            ? 'نشط'
-                                                            : 'انتظر',
+                                                        snapshot
+                                                            .data[index].status,
                                                         style: AppTheme.heading,
                                                       ),
                                                       SizedBox(width: 5),
                                                       Text(
-                                                        'نقطه +222',
+                                                        'نقطه ${snapshot.data[index].points}',
                                                         style: AppTheme.heading
                                                             .copyWith(
                                                           color: customColor,
@@ -249,7 +249,8 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        'طول المده',
+                                                        snapshot.data[index]
+                                                            .theTime,
                                                         style: AppTheme.heading
                                                             .copyWith(
                                                                 color: Colors
@@ -259,10 +260,15 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                   ),
                                                   Text(
                                                     snapshot
-                                                        .data[index].statusLoss,
+                                                        .data[index].buyOrSale,
                                                     style: AppTheme.heading
                                                         .copyWith(
-                                                      color: customColor,
+                                                      color: (snapshot
+                                                                  .data[index]
+                                                                  .statusLoss ==
+                                                              'gain')
+                                                          ? customColor
+                                                          : Colors.red,
                                                     ),
                                                   ),
                                                   Row(
@@ -273,9 +279,9 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      (recommendList[index]
-                                                                  .stockRatio <
-                                                              0)
+                                                      (snapshot.data[index]
+                                                                  .statusLoss ==
+                                                              'gain')
                                                           ? SvgPicture.asset(
                                                               'lib/icons/stockUp.svg',
                                                               color:
@@ -326,7 +332,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                               ),
                                               SizedBox(height: 10),
                                               Text(
-                                                '(${recommendList[index].contant})',
+                                                '(${snapshot.data[index].comment})',
                                                 style: AppTheme.subHeading,
                                               ),
                                             ],

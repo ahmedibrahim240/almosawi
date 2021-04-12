@@ -3,30 +3,47 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class RecomendationsModels {
-  final int id;
+  int id;
   final String name;
   final String status;
-  final String ordered;
-  var bigPrice;
-  var smallPrice;
-  var entryPrice;
-  var outPrice;
+  var ordered;
+  final String theTime;
+  final String bigPrice;
+  final String buyOrSale;
+  final String txtBesideName;
+  final String percentageTxt;
+  final String points;
+  final String smallPrice;
+  final String entryPrice;
+  final String outPrice;
   final String image;
   final String direction;
   final String forms;
   final String buy;
   final String selling;
-  final String aimBuy;
+  var aimBuy;
   final String stopBuy;
   final String stopSelling;
   final String discount;
   final String createdAt;
   final String updatedAt;
   final String comment;
-  final String type;
   final String statusLoss;
+  final String buyAreaGoals;
+  final String dayDate;
+  final String archive;
+  final String free;
 
   RecomendationsModels({
+    this.theTime,
+    this.buyOrSale,
+    this.txtBesideName,
+    this.percentageTxt,
+    this.points,
+    this.buyAreaGoals,
+    this.dayDate,
+    this.archive,
+    this.free,
     this.id,
     this.name,
     this.status,
@@ -47,7 +64,6 @@ class RecomendationsModels {
     this.createdAt,
     this.updatedAt,
     this.comment,
-    this.type,
     this.statusLoss,
   });
 }
@@ -65,6 +81,11 @@ class RecomendationsApi {
         for (var items in jsonData['data']) {
           RecomendationsModels recomendations = RecomendationsModels(
             id: items['id'],
+            buyOrSale: items['BuyOrSale'],
+            theTime: items['theTime'],
+            points: items['Points'],
+            txtBesideName: items['TxtBesideName'],
+            percentageTxt: items['PercentageTxt'],
             name: items['name'],
             status: items['status'],
             ordered: items['Ordered'],
@@ -84,8 +105,11 @@ class RecomendationsApi {
             createdAt: items['created_at'],
             updatedAt: items['updated_at'],
             comment: items['comment'],
-            type: items['type'],
             statusLoss: items['status_loss'],
+            buyAreaGoals: items['buyAreaGoals'],
+            dayDate: items['dayDate'],
+            archive: items['archive'],
+            free: items['free'],
           );
           listOfRecomendations.add(recomendations);
         }

@@ -1,10 +1,10 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/recommendModels.dart';
+import 'package:almosawii/models/RecomendationsApi.dart';
 import 'package:flutter/material.dart';
 
 class RecommendationsDetailes extends StatefulWidget {
-  final RecommendModels recommend;
+  final RecomendationsModels recommend;
 
   const RecommendationsDetailes({Key key, @required this.recommend})
       : super(key: key);
@@ -78,19 +78,19 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ],
           ),
           Text(
-            widget.recommend.title,
+            widget.recommend.name,
             style: AppTheme.heading,
           ),
           SizedBox(height: 20),
           Text(
-            'االأتجاة',
+            'الأتجاة',
             style: AppTheme.heading.copyWith(
               color: customColor,
               fontSize: 16,
             ),
           ),
           Text(
-            widget.recommend.contant,
+            parseHtmlString(widget.recommend.direction),
             style: AppTheme.heading,
           ),
           SizedBox(height: 20),
@@ -102,7 +102,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ),
           ),
           Text(
-            widget.recommend.contant.toString(),
+            parseHtmlString(widget.recommend.forms),
             style: AppTheme.heading,
           ),
           Text(
@@ -113,7 +113,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ),
           ),
           Text(
-            widget.recommend.stockNumber.toString(),
+            widget.recommend.buy.toString(),
             style: AppTheme.heading,
           ),
           SizedBox(height: 20),
@@ -125,7 +125,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ),
           ),
           Text(
-            widget.recommend.stockNumber.toString(),
+            widget.recommend.selling.toString(),
             style: AppTheme.heading,
           ),
           SizedBox(height: 20),
@@ -137,7 +137,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ),
           ),
           Text(
-            widget.recommend.stockNumber.toString(),
+            widget.recommend.buyAreaGoals.toString(),
             style: AppTheme.heading,
           ),
           SizedBox(height: 20),
@@ -149,7 +149,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ),
           ),
           Text(
-            widget.recommend.stockNumber.toString(),
+            widget.recommend.stopBuy.toString(),
             style: AppTheme.heading,
           ),
           SizedBox(height: 20),
@@ -161,7 +161,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             ),
           ),
           Text(
-            widget.recommend.stockNumber.toString(),
+            widget.recommend.stopSelling.toString(),
             style: AppTheme.heading,
           ),
           SizedBox(height: 20),

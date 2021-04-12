@@ -66,12 +66,20 @@ class _AllCoursesState extends State<AllCourses> {
           print(snapshot.data);
           return (snapshot.data == null || snapshot.data.isEmpty)
               ? Container(
-                  child: Center(
-                    child: Text(
-                      'اسحب الشاشه لاسفل لاعاده التحميل',
-                      style: AppTheme.heading,
-                      textAlign: TextAlign.center,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'لا يوجد بينات حاليا /',
+                        style: AppTheme.heading,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        'اسحب الشاشه لاسفل لاعاده التحميل',
+                        style: AppTheme.heading,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 )
               : GridView.count(
