@@ -1,7 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/RecomendationsApi.dart';
-import 'package:almosawii/models/recommendModels.dart';
 import 'package:almosawii/secreens/Recommendations/recommendationsDetailes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,13 +130,13 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                             style: AppTheme
                                                                 .subHeading
                                                                 .copyWith(
-                                                              color: (double.parse(snapshot
+                                                              color: (snapshot
                                                                           .data[
                                                                               index]
-                                                                          .discount) <
-                                                                      0)
-                                                                  ? Colors.red
-                                                                  : customColor,
+                                                                          .statusLoss ==
+                                                                      'مكسب')
+                                                                  ? customColor
+                                                                  : Colors.red,
                                                             ),
                                                           ),
                                                         ],
@@ -266,7 +265,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                       color: (snapshot
                                                                   .data[index]
                                                                   .statusLoss ==
-                                                              'gain')
+                                                              'مكسب')
                                                           ? customColor
                                                           : Colors.red,
                                                     ),

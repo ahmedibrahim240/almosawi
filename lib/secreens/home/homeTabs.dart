@@ -95,20 +95,15 @@ class _HomeTabsState extends State<HomeTabs> {
                                 Column(
                                   children: [
                                     Align(
-                                      alignment: Alignment.centerRight,
+                                      alignment: Alignment.center,
                                       child: Text(
                                         lsitOfTapsData[index].titleAr,
                                         textAlign: TextAlign.right,
-                                        style: AppTheme.subHeading,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        lsitOfTapsData[index].titleEn,
-                                        textAlign: TextAlign.left,
-                                        style: AppTheme.subHeading
-                                            .copyWith(color: customColor),
+                                        style: AppTheme.subHeading.copyWith(
+                                          fontSize: 13,
+                                          color: customColor,
+                                          fontWeight: FontWeight.w900,
+                                        ),
                                       ),
                                     ),
                                   ],

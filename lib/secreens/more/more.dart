@@ -240,7 +240,7 @@ class _MoreState extends State<More> {
               },
               icon: Icon(FontAwesomeIcons.signOutAlt),
               tilte:
-                  (User.userSkipLogIn == true) ? 'تسجيل دخول' : 'تسجيل خروج ',
+                  (User.userSkipLogIn == false) ? 'تسجيل دخول' : 'تسجيل خروج ',
             ),
           ],
         ),
