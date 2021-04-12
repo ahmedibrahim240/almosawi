@@ -1,8 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/theBolg.dart';
 import 'package:almosawii/models/videoProChartApi.dart';
-import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
 import 'package:vimeoplayer/vimeoplayer.dart';
 

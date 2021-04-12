@@ -1,6 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/courses.dart';
+import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/secreens/my%20courses/mycoursesdetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,43 +11,91 @@ class MyCourses extends StatefulWidget {
 }
 
 class _MyCoursesState extends State<MyCourses> {
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: gardViewOfAllCourses(
-        context: context,
-      ),
-    );
+        appBar: AppBar(),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            customOnRefresh(onRefresh: () {
+              setState(() {
+                loading = !loading;
+              });
+            }, affterRefresh: () {
+              setState(() {
+                loading = !loading;
+              });
+            });
+          },
+          child: (loading)
+              ? Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : gardViewOfAllCourses(
+                  context: context,
+                ),
+        ));
   }
 
   gardViewOfAllCourses({BuildContext context}) {
-    return GridView.count(
-      crossAxisCount: 2,
-      primary: false,
-      childAspectRatio: .6,
-      shrinkWrap: true,
-      children: List.generate(
-        coursesList.length,
-        (index) {
-          return allCoursesCard(
-              index: index,
-              context: context,
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => MyCoursesDetails(
-                      courses: coursesList[index],
-                    ),
+    return FutureBuilder(
+      future: CoursesApi.fetchMyCourses(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null || snapshot.data.isEmpty)
+              ? Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'لا يوجد بينات حاليا /',
+                        style: AppTheme.heading,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        'اسحب الشاشه لاسفل لاعاده التحميل',
+                        style: AppTheme.heading,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                )
+              : GridView.count(
+                  crossAxisCount: 2,
+                  primary: false,
+                  childAspectRatio: .6,
+                  shrinkWrap: true,
+                  children: List.generate(
+                    snapshot.data.length,
+                    (index) {
+                      return allCoursesCard(
+                          courses: snapshot.data[index],
+                          context: context,
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => MyCoursesDetails(
+                                  courses: snapshot.data[index],
+                                ),
+                              ),
+                            );
+                          });
+                    },
                   ),
                 );
-              });
-        },
-      ),
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
-  allCoursesCard({int index, BuildContext context, Function onTap}) {
+  allCoursesCard({Courses courses, BuildContext context, Function onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -66,7 +114,7 @@ class _MyCoursesState extends State<MyCourses> {
                 borderRadius: BorderRadius.circular(10),
                 child: customCachedNetworkImage(
                   context: context,
-                  url: coursesList[index].image,
+                  url: courses.image,
                 ),
               ),
             ),
@@ -74,28 +122,38 @@ class _MyCoursesState extends State<MyCourses> {
             SizedBox(
               width: 200,
               child: Text(
-                coursesList[index].name,
+                courses.name,
                 style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
               ),
             ),
             SizedBox(height: 5),
-            RatingStar(rating: coursesList[index].totalRating),
+            RatingStar(
+              rating: double.parse(courses.totalRating.toString()),
+            ),
             SizedBox(height: 5),
             Row(
               children: [
-                Text(
-                  '${coursesList[index].newPrice}\$',
-                  style: AppTheme.headingColorBlue.copyWith(
-                    decoration: TextDecoration.lineThrough,
-                    fontSize: 10,
-                  ),
-                ),
+                (courses.newPrice == null)
+                    ? Container()
+                    : Text(
+                        '${courses.newPrice}\$',
+                        style: AppTheme.headingColorBlue.copyWith(
+                          fontSize: 12,
+                          color: customColor,
+                        ),
+                      ),
                 SizedBox(width: 5),
                 Text(
-                  '${coursesList[index].oldPrice}\$',
+                  (courses.oldPrice == null)
+                      ? Container()
+                      : '${courses.oldPrice}\$',
                   style: AppTheme.headingColorBlue.copyWith(
-                    fontSize: 12,
-                    color: customColor,
+                    fontSize: 10,
+                    color:
+                        (courses.newPrice == null) ? customColor : Colors.black,
+                    decoration: (courses.newPrice == null)
+                        ? TextDecoration.none
+                        : TextDecoration.lineThrough,
                   ),
                 ),
               ],

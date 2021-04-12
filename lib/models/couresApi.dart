@@ -1,3 +1,4 @@
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -62,6 +63,38 @@ class CoursesApi {
       }
     } catch (e) {
       print('Erroro Coursesssssssssssssssss');
+      print(e);
+    }
+    return listOfCourses;
+  }
+
+  static Future<List<Courses>> fetchMyCourses() async {
+    List<Courses> listOfCourses = [];
+    try {
+      var response = await http.get(
+        Utils.MyCourses_URL + '/${User.userid}',
+      );
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
+        for (var items in jsonData['data']) {
+          Courses courses = Courses(
+            id: items['id'],
+            image: items['image'],
+            name: items['name'],
+            description: items['description'],
+            video_code: items['video_code'],
+            status: items['status'],
+            lessons: items['lessons'],
+            ratings: items['Ratings'],
+            totalRating: items['TotalRating'],
+            oldPrice: items['price_old'],
+            newPrice: items['price_new'],
+          );
+          listOfCourses.add(courses);
+        }
+      }
+    } catch (e) {
+      print('Erroro MyCoursesssssssssssssssss');
       print(e);
     }
     return listOfCourses;
