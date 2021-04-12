@@ -1,6 +1,5 @@
 import 'package:almosawii/routes.dart';
 import 'package:almosawii/secreens/splashscreen.dart';
-import 'package:almosawii/secreens/userHome/UserHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constants/constans.dart';
@@ -46,9 +45,8 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: [
         Locale('ar'),
       ],
-      // initialRoute: SplashScreen.route,
-      // routes: routes,
-      home: UserHome(),
+      initialRoute: SplashScreen.route,
+      routes: routes,
     );
   }
 }
