@@ -116,14 +116,17 @@ class _LogInState extends State<LogIn> {
                               SizedBox(height: 10),
                               InkWell(
                                 onTap: () async {
-                                  MySharedPreferences.saveUserSkipLogIn(true);
-                                  MySharedPreferences.saveUserSingIn(true);
-                                  MySharedPreferences.saveUserCantBuy(false);
-
-                                  User.userLogIn =
-                                      await MySharedPreferences.getUserSingIn();
+                                  setState(() {
+                                    MySharedPreferences.saveUserSkipLogIn(true);
+                                    MySharedPreferences.saveUserSingIn(true);
+                                    MySharedPreferences.saveUserCantBuy(false);
+                                    User.userSkipLogIn = true;
+                                  });
                                   User.userSkipLogIn = await MySharedPreferences
                                       .getUserSkipLogIn();
+                                  User.userLogIn =
+                                      await MySharedPreferences.getUserSingIn();
+
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (_) => Wrapper(),

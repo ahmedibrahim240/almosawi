@@ -24,7 +24,7 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    (User.userSkipLogIn == true) ? Home() : UserHome(),
+    (User.userSkipLogIn == false) ? Home() : UserHome(),
     FreeRecommendations(),
     Blog(),
     CoursesPage(),
@@ -40,13 +40,15 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   void initState() {
-    print("UserSik:${User.userSkipLogIn}");
     getTotalPrice();
     super.initState();
+    print("UserSik:${User.userSkipLogIn}");
   }
 
   @override
   Widget build(BuildContext context) {
+    print("UserSik:${User.userSkipLogIn}");
+
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

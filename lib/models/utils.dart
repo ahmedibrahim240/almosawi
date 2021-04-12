@@ -13,4 +13,6 @@ class Utils {
   static final GeneralData_URL = BASE_URL + "/GeneralData";
   // ignore: non_constant_identifier_names
   static final Recomendations_URL = BASE_URL + "/Recomendations";
+  // ignore: non_constant_identifier_names
+  static final VideosProChart_URL = BASE_URL + "/Videos";
 }

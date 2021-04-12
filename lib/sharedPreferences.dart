@@ -149,7 +149,7 @@ class MySharedPreferences {
 
   static getUserSkipLogIn() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var isSkipLogIn = (preferences.getBool(sharedPrefUserSkipLogIn) ?? false);
+    var isSkipLogIn = (preferences.getBool(sharedPrefUserSkipLogIn));
     return isSkipLogIn;
   }
 

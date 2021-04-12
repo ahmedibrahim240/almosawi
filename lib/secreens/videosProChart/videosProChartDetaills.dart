@@ -1,12 +1,15 @@
+import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/theBolg.dart';
+import 'package:almosawii/models/videoProChartApi.dart';
 import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
+import 'package:vimeoplayer/vimeoplayer.dart';
 
 class VideosProChartDetaills extends StatefulWidget {
-  final TheBolg theBolg;
+  final VideoProChart videoProChart;
 
-  const VideosProChartDetaills({Key key, this.theBolg}) : super(key: key);
+  const VideosProChartDetaills({Key key, this.videoProChart}) : super(key: key);
   @override
   _VideosProChartDetaillsState createState() => _VideosProChartDetaillsState();
 }
@@ -20,30 +23,31 @@ class _VideosProChartDetaillsState extends State<VideosProChartDetaills> {
         shrinkWrap: true,
         primary: true,
         children: [
-          Card(
-            elevation: 3,
-            child: Column(
-              children: [
-                Container(
+          (widget.videoProChart.videoCode == '')
+              ? Container(
+                  child: customCachedNetworkImage(
+                    context: context,
+                    url: widget.videoProChart.image,
+                  ),
+                )
+              : Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  child: ChewieVideo(),
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Text(
-                    widget.theBolg.name,
-                    style: AppTheme.heading,
+                  child: VimeoPlayer(
+                    id: widget.videoProChart.videoCode,
+                    autoPlay: false,
                   ),
                 ),
-              ],
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Text(
+              widget.videoProChart.title,
+              style: AppTheme.heading.copyWith(color: customColor),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Text(
-              widget.theBolg.contant,
+              parseHtmlString(widget.videoProChart.description),
               textAlign: TextAlign.justify,
               style: AppTheme.subHeading,
             ),
