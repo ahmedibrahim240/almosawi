@@ -284,12 +284,14 @@ class _HomeState extends State<Home> {
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
-        height: 80,
+        height: 110,
         width: 90,
         decoration: BoxDecoration(
             color: customColor, borderRadius: BorderRadius.circular(10)),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: EdgeInsets.symmetric(
+            horizontal: 5,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -297,7 +299,7 @@ class _HomeState extends State<Home> {
                 nummber,
                 style: AppTheme.subHeading.copyWith(
                   color: Colors.white,
-                  fontSize: 25,
+                  fontSize: 22,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -317,7 +319,7 @@ class _HomeState extends State<Home> {
   corsesSections() {
     return Container(
       margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-      height: 230,
+      height: 240,
       child: FutureBuilder(
         future: CoursesApi.fetchAllCourses(),
         builder: (context, snapshot) {
@@ -371,7 +373,7 @@ class _HomeState extends State<Home> {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 180,
+        width: 190,
         margin: EdgeInsets.symmetric(horizontal: 5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -422,8 +424,8 @@ class _HomeState extends State<Home> {
                   style: AppTheme.headingColorBlue.copyWith(
                     fontSize: 10,
                     color:
-                        (courses.oldPrice == null) ? customColor : Colors.black,
-                    decoration: (courses.oldPrice == null)
+                        (courses.newPrice == null) ? customColor : Colors.black,
+                    decoration: (courses.newPrice == null)
                         ? TextDecoration.none
                         : TextDecoration.lineThrough,
                   ),

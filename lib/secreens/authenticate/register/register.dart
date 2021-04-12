@@ -362,17 +362,18 @@ class _RegisterState extends State<Register> {
         if (map['Data']['proChat'] == '0' &&
             map['Data']['Courses'] == '0' &&
             map['Data']['Recomendations'] == '0') {
-          MySharedPreferences.saveUserSkipLogIn(true);
-          MySharedPreferences.saveUserSingIn(false);
-
           User.userLogIn = await MySharedPreferences.getUserSingIn();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+          User.userCantBuy = await MySharedPreferences.getUserCantBuy();
         } else {
           MySharedPreferences.saveUserSkipLogIn(true);
           MySharedPreferences.saveUserSingIn(true);
+          MySharedPreferences.saveUserCantBuy(true);
+
           User.userLogIn = await MySharedPreferences.getUserSingIn();
-          User.userid = await MySharedPreferences.getUserUserid();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+          User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+          User.userid = await MySharedPreferences.getUserUserid();
         }
 
         User.userid = map['Data']['id'];

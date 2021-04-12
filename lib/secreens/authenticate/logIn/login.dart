@@ -118,6 +118,7 @@ class _LogInState extends State<LogIn> {
                                 onTap: () async {
                                   MySharedPreferences.saveUserSkipLogIn(true);
                                   MySharedPreferences.saveUserSingIn(true);
+                                  MySharedPreferences.saveUserCantBuy(false);
 
                                   User.userLogIn =
                                       await MySharedPreferences.getUserSingIn();
@@ -243,15 +244,19 @@ class _LogInState extends State<LogIn> {
             map['UserData']['Recomendations'] == '0') {
           MySharedPreferences.saveUserSkipLogIn(true);
           MySharedPreferences.saveUserSingIn(true);
+          MySharedPreferences.saveUserCantBuy(true);
 
           User.userLogIn = await MySharedPreferences.getUserSingIn();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+          User.userCantBuy = await MySharedPreferences.getUserCantBuy();
         } else {
           MySharedPreferences.saveUserSkipLogIn(true);
           MySharedPreferences.saveUserSingIn(true);
+          MySharedPreferences.saveUserCantBuy(true);
+
           User.userLogIn = await MySharedPreferences.getUserSingIn();
-          User.userid = await MySharedPreferences.getUserUserid();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+          User.userCantBuy = await MySharedPreferences.getUserCantBuy();
         }
 
         User.userid = map['UserData']['id'];

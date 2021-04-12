@@ -30,6 +30,8 @@ class User {
   static String prefs;
   static bool userLogIn;
   static bool userSkipLogIn;
+  static bool userBuyPlan;
+  static bool userCantBuy;
 }
 
 class UserToken {

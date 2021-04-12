@@ -2,7 +2,9 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/prodact.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/services/dbhelper.dart';
+import 'package:almosawii/sharedPreferences.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +22,23 @@ class Coursesedtails extends StatefulWidget {
 class _CoursesedtailsState extends State<Coursesedtails> {
   bool viewRating = false;
   int tapded = 0;
+  String type = 'course';
   DbHehper helper;
+  getUsercantBuy() async {
+    User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+  }
+
   @override
   void initState() {
+    getUsercantBuy();
     super.initState();
     helper = DbHehper();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.courses.lessons);
+    print(widget.courses.newPrice);
+    print(widget.courses.newPrice == null);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -306,20 +315,28 @@ class _CoursesedtailsState extends State<Coursesedtails> {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  widget.courses.newPrice.toString() + '\$',
-                  style: AppTheme.heading.copyWith(
-                    color: customColor,
-                  ),
-                ),
+                (widget.courses.newPrice == null)
+                    ? Container()
+                    : Text(
+                        widget.courses.newPrice.toString() + '\$',
+                        style: AppTheme.heading.copyWith(
+                          color: customColor,
+                        ),
+                      ),
                 SizedBox(width: 10),
-                Text(
-                  widget.courses.oldPrice.toString() + '\$',
-                  style: AppTheme.subHeading.copyWith(
-                    color: customColorGray,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
+                (widget.courses.oldPrice == null)
+                    ? Container()
+                    : Text(
+                        widget.courses.oldPrice.toString() + '\$',
+                        style: AppTheme.subHeading.copyWith(
+                          color: (widget.courses.newPrice == null)
+                              ? customColor
+                              : customColorGray,
+                          decoration: (widget.courses.newPrice == null)
+                              ? TextDecoration.none
+                              : TextDecoration.lineThrough,
+                        ),
+                      ),
               ],
             ),
           ],
@@ -337,21 +354,35 @@ class _CoursesedtailsState extends State<Coursesedtails> {
               ),
               color: customColor,
               onPressed: () async {
-                setState(() {
-                  increaseCartTotlaPrice(price: widget.courses.newPrice);
-                });
-                ConsultantProdect prodect = ConsultantProdect({
-                  'consultantId': 1,
-                  'dateId': 2,
-                  'title': widget.courses.totalRating,
-                  'price': widget.courses.newPrice,
-                  'proImageUrl': widget.courses.image,
-                  'date': '21/3/2021',
-                  'time': '10 am',
-                });
-                // ignore: unused_local_variable
-                int id = await helper.createProduct(prodect);
-                cardDialog(context: context);
+                if (User.userCantBuy == true) {
+                  sikpDialog(context: context);
+                } else {
+                  setState(() {
+                    // Cart.totalPraices = (widget.courses.newPrice == null)
+                    //     ? double.parse(widget.courses.oldPrice.toString())
+                    //     : double.parse(widget.courses.newPrice.toString());
+                    increaseCartTotlaPrice(
+                      price: (widget.courses.newPrice == null)
+                          ? double.parse(widget.courses.oldPrice.toString())
+                          : double.parse(widget.courses.newPrice.toString()),
+                    );
+                  });
+                  ConsultantProdect prodect = ConsultantProdect({
+                    'consultantId': widget.courses.id,
+                    'type': type,
+                    'date': '',
+                    'dateId': 0,
+                    'time': '',
+                    'title': widget.courses.name,
+                    'price': (widget.courses.newPrice == null)
+                        ? double.parse(widget.courses.oldPrice.toString())
+                        : double.parse(widget.courses.newPrice.toString()),
+                    'proImageUrl': widget.courses.image,
+                  });
+                  // ignore: unused_local_variable
+                  int id = await helper.createProduct(prodect);
+                  cardDialog(context: context);
+                }
               },
               child: Text(
                 'اشتري الان',

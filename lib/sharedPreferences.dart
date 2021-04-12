@@ -2,7 +2,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MySharedPreferences {
   static String sharedPrefUserSinginKey = 'IsSingIn';
+  static String sharedPrefBuyplan = 'IsBuyPlan';
   static String sharedPrefUserSkipLogIn = 'SkipLogIn';
+  static String sharedPrefCantBuy = 'CantBuy';
   static String sharedPrefUserLat = 'Lat';
   static String sharedPrefTotalPraic = 'TotalPraic';
   static String sharedPrefUserLong = 'Long';
@@ -26,9 +28,19 @@ class MySharedPreferences {
     return await preferences.setBool(sharedPrefUserSinginKey, isSingin);
   }
 
+  static Future<bool> saveUserPayPlan(bool isBuyPaln) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setBool(sharedPrefBuyplan, isBuyPaln);
+  }
+
   static Future<bool> saveUserSkipLogIn(bool isSkipLogIn) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setBool(sharedPrefUserSkipLogIn, isSkipLogIn);
+  }
+
+  static Future<bool> saveUserCantBuy(bool isCantBuy) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setBool(sharedPrefUserSkipLogIn, isCantBuy);
   }
 
   static Future<bool> saveUserselectedProImage(bool isSelected) async {
@@ -121,6 +133,18 @@ class MySharedPreferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var isSingin = (preferences.getBool(sharedPrefUserSinginKey) ?? false);
     return isSingin;
+  }
+
+  static getUserCantBuy() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var cantBuy = (preferences.getBool(sharedPrefCantBuy) ?? false);
+    return cantBuy;
+  }
+
+  static getUserBuyPlan() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var buyPlan = (preferences.getBool(sharedPrefBuyplan) ?? false);
+    return buyPlan;
   }
 
   static getUserSkipLogIn() async {

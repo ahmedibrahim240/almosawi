@@ -34,6 +34,8 @@ class _WrapperState extends State<Wrapper> {
     Cart.totalPraices = await MySharedPreferences.getTotalPrice();
     User.userLogIn = await MySharedPreferences.getUserSingIn();
     User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+    User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
+    User.userCantBuy = await MySharedPreferences.getUserCantBuy();
   }
 
   @override

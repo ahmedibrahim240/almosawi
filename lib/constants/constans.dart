@@ -1,5 +1,7 @@
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
+import 'package:almosawii/secreens/splashscreen.dart';
 import 'package:almosawii/secreens/wrapper/Wrapper.dart';
 import 'package:almosawii/sharedPreferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -39,6 +41,7 @@ Future<Null> customOnRefresh(
 
 /////////////////////////////////////////
 increaseCartTotlaPrice({double price}) async {
+  print('increaseCartTotlaPrice:$price');
   double totalParice;
   totalParice = Cart.totalPraices + price;
   MySharedPreferences.saveTotalPrice(totalParice);
@@ -53,7 +56,7 @@ decreaseCartTotlaPrice({double price}) async {
 }
 
 ///////////////////////////////////////
-Future<void> cardDialog({BuildContext context}) async {
+Future<void> cardDialog({BuildContext context, String message}) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -64,7 +67,8 @@ Future<void> cardDialog({BuildContext context}) async {
             children: <Widget>[
               Center(
                 child: Text(
-                  'تم اضافة الطلب لستكمال عمليه الشراء عليه الذهاب الي عربة التسوق',
+                  (message) ??
+                      'تم اضافة الطلب لستكمال عمليه الشراء عليه الذهاب الي عربة التسوق',
                   style: AppTheme.subHeading,
                 ),
               ),
@@ -99,6 +103,62 @@ Future<void> cardDialog({BuildContext context}) async {
                   builder: (_) => Cart(),
                 ),
                 ModalRoute.withName('/'),
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> sikpDialog({BuildContext context, String message}) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Center(
+                child: Text(
+                  'قم بتسجيل الدخول اولا',
+                  style: AppTheme.subHeading,
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text(
+              'الغاء',
+              style: AppTheme.heading.copyWith(
+                color: customColor,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text(
+              'تسجيل دخول ',
+              style: AppTheme.heading.copyWith(
+                color: customColor,
+              ),
+            ),
+            onPressed: () {
+              if (User.userSkipLogIn == true) {
+                MySharedPreferences.saveUserSkipLogIn(false);
+              }
+              MySharedPreferences.saveUserUserid(null);
+
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (_) => SplashScreen(),
+                ),
               );
             },
           ),

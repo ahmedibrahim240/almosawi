@@ -20,8 +20,8 @@ class DbHehper {
       onCreate: (Database db, int v) {
         db.execute(
           'create table $tableName(id integer primary key autoincrement ,' +
-              'title varcher(50) , proImageUrl varcher(255) ,' +
-              'prodectId integer,price double,type varcher(50))',
+              'title varcher(50) , proImageUrl varcher(255) ,dateId integer,' +
+              'consultantId integer,price double,date varcher(50),time varcher(50),type varcher(50))',
         );
       },
     );

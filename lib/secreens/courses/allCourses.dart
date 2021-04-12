@@ -167,8 +167,8 @@ class _AllCoursesState extends State<AllCourses> {
                   style: AppTheme.headingColorBlue.copyWith(
                     fontSize: 10,
                     color:
-                        (courses.oldPrice == null) ? customColor : Colors.black,
-                    decoration: (courses.oldPrice == null)
+                        (courses.newPrice == null) ? customColor : Colors.black,
+                    decoration: (courses.newPrice == null)
                         ? TextDecoration.none
                         : TextDecoration.lineThrough,
                   ),

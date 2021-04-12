@@ -1,5 +1,10 @@
+import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/plansApi.dart';
+import 'package:almosawii/models/prodact.dart';
+import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/services/dbhelper.dart';
+import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,6 +17,19 @@ class ChoosePlanDetailes extends StatefulWidget {
 }
 
 class _ChoosePlanDetailesState extends State<ChoosePlanDetailes> {
+  DbHehper helper;
+  getBuyPlan() async {
+    User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+    User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+  }
+
+  @override
+  void initState() {
+    getBuyPlan();
+    super.initState();
+    helper = DbHehper();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.plan.features);
@@ -66,6 +84,55 @@ class _ChoosePlanDetailesState extends State<ChoosePlanDetailes> {
                     );
                   },
                 ),
+          RaisedButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            color: customColor,
+            onPressed: () async {
+              if (User.userCantBuy == true) {
+                sikpDialog(context: context);
+              } else {
+                if (User.userCantBuy == true) {
+                  cardDialog(
+                      context: context,
+                      message:
+                          'انت بالفعل مشارك في خطه عليك استكمال عمليه الاشاراك اول او حذف الخطه من السله حتي تسطيع الاشتراك في خطة اخري');
+                } else {
+                  {
+                    setState(() {
+                      MySharedPreferences.saveUserPayPlan(true);
+
+                      increaseCartTotlaPrice(
+                        price: (widget.plan.newPrice == null)
+                            ? double.parse(widget.plan.oldPrice.toString())
+                            : double.parse(widget.plan.newPrice.toString()),
+                      );
+                    });
+                    ConsultantProdect prodect = ConsultantProdect({
+                      'consultantId': widget.plan.id,
+                      'type': 'plan',
+                      'date': '',
+                      'dateId': 0,
+                      'time': '',
+                      'title': widget.plan.name,
+                      'price': (widget.plan.newPrice == null)
+                          ? double.parse(widget.plan.oldPrice.toString())
+                          : double.parse(widget.plan.newPrice.toString()),
+                      'proImageUrl': '',
+                    });
+                    // ignore: unused_local_variable
+                    int id = await helper.createProduct(prodect);
+                    cardDialog(context: context);
+                  }
+                }
+              }
+            },
+            child: Text(
+              'اشترك الان',
+              style: AppTheme.heading.copyWith(color: Colors.white),
+            ),
+          ),
         ],
       ),
     );

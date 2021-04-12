@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/prodact.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,6 +28,7 @@ class _CartState extends State<Cart> {
   DbHehper helper;
   getTotalPrice() async {
     Cart.totalPraices = await MySharedPreferences.getTotalPrice();
+    User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
   }
 
   @override
@@ -74,7 +76,6 @@ class _CartState extends State<Cart> {
               ),
             );
           } else {
-            print(' snapshot.data.isEmpty:${snapshot.data.isEmpty}');
             return (snapshot.data.isEmpty)
                 ? Center(
                     child: Column(
@@ -100,6 +101,8 @@ class _CartState extends State<Cart> {
                     itemCount: snapshot.data.length,
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     itemBuilder: (context, index) {
+                      print('type:${snapshot.data[index]}');
+
                       return Column(
                         children: [
                           Card(
@@ -158,6 +161,13 @@ class _CartState extends State<Cart> {
                                     onPressed: () async {
                                       setState(() {
                                         setState(() {
+                                          if (snapshot.data[index]['type'] ==
+                                              'plan') {
+                                            setState(() {
+                                              MySharedPreferences
+                                                  .saveUserPayPlan(false);
+                                            });
+                                          }
                                           decreaseCartTotlaPrice(
                                             price: snapshot.data[index]
                                                 ['price'],
@@ -169,13 +179,19 @@ class _CartState extends State<Cart> {
                                           snapshot.data[index]['id']);
                                     },
                                   ),
-                                  leading: CircleAvatar(
-                                    maxRadius: 30,
-                                    backgroundImage: NetworkImage(
-                                      snapshot.data[index]["proImageUrl"],
+                                  leading: Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: customCachedNetworkImage(
+                                      context: context,
+                                      url: snapshot.data[index]["proImageUrl"],
                                     ),
                                   ),
                                 ),
+
                                 // productDate(snapshot, index),
                               ],
                             ),

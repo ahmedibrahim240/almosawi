@@ -31,6 +31,7 @@ class ConsultantProdect {
   double price;
   String proImageUrl;
   String date;
+  String type;
   String time;
   int _id;
   int dateId;
@@ -44,6 +45,7 @@ class ConsultantProdect {
     price = obj['price'];
     proImageUrl = obj['proImageUrl'];
     date = obj['date'];
+    type = obj['type'];
     time = obj['time'];
   }
   ConsultantProdect.formMap(Map<String, dynamic> data) {
@@ -54,6 +56,7 @@ class ConsultantProdect {
     price = data['price'];
     proImageUrl = data['proImageUrl'];
     date = data['date'];
+    type = data['type'];
     time = data['time'];
   }
   Map<String, dynamic> toMap() => {
@@ -65,6 +68,7 @@ class ConsultantProdect {
         'proImageUrl': proImageUrl,
         'date': date,
         'time': time,
+        'type': type,
       };
 }
 

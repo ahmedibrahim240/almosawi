@@ -40,7 +40,7 @@ class _ChoosePlanState extends State<ChoosePlan> {
             : ListView(
                 shrinkWrap: true,
                 primary: true,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 children: [
                   Text(
                     'اختر الخطة',
@@ -78,7 +78,7 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                   autoPlay: true,
                                   enlargeStrategy:
                                       CenterPageEnlargeStrategy.height,
-                                  height: 310,
+                                  height: 400,
                                   reverse: true,
                                   enlargeCenterPage: true,
                                   onPageChanged: (index, reason) {
@@ -169,7 +169,6 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                                           .black,
                                                             ),
                                                           ),
-                                                          SizedBox(height: 30),
                                                           (snapshot.data[index]
                                                                       .newPrice ==
                                                                   null)

@@ -100,7 +100,7 @@ class _HomeTabsState extends State<HomeTabs> {
                                         lsitOfTapsData[index].titleAr,
                                         textAlign: TextAlign.right,
                                         style: AppTheme.subHeading.copyWith(
-                                          fontSize: 13,
+                                          fontSize: 12,
                                           color: customColor,
                                           fontWeight: FontWeight.w900,
                                         ),
