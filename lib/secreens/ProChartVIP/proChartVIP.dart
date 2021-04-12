@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/proChartVipApi.dart';
 import 'package:almosawii/secreens/ChoosePlan/choosePlan.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,6 @@ class ProChartVIP extends StatefulWidget {
 }
 
 class _ProChartVIPState extends State<ProChartVIP> {
-  String contant =
-      'توصيات و إشارات تداول موثوقة.. نجاحك توصيات و إشارات تداول موثوقة.. نجاحك توصيات و إشارات تداول موثوقة.. نجاحك توصيات و إشارات تداول موثوقة.. نجاحك توصيات و إشارات تداول موثوقة.. نجاحك';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,30 +19,48 @@ class _ProChartVIPState extends State<ProChartVIP> {
         primary: true,
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
         children: [
-          Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: customColor,
-                )),
-            child: Center(
-              child: CircleAvatar(
-                radius: 80,
-                backgroundImage: AssetImage('lib/images/img1.jpg'),
-              ),
-            ),
+          FutureBuilder(
+            future: ProChartVIPModelsApi.futchAboutUs(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                print(snapshot.data);
+                return (snapshot.data == null)
+                    ? Container()
+                    : ListView(
+                        shrinkWrap: true,
+                        primary: false,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: customColor,
+                                )),
+                            child: Center(
+                              child: customCachedNetworkImage(
+                                context: context,
+                                url: snapshot.data.image,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            snapshot.data.title,
+                            style: AppTheme.heading,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            snapshot.data.des,
+                            style: AppTheme.subHeading,
+                          ),
+                          SizedBox(height: 20),
+                        ],
+                      );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
-          SizedBox(height: 20),
-          Text(
-            'قسم Pro Chat Vip',
-            style: AppTheme.heading,
-          ),
-          SizedBox(height: 10),
-          Text(
-            contant,
-            style: AppTheme.subHeading,
-          ),
-          SizedBox(height: 20),
           CustomButton(
             onPress: () {
               Navigator.of(context).push(

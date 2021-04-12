@@ -3,6 +3,7 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/contactUsApi.dart';
 import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/homeVideoApi.dart';
+import 'package:almosawii/models/proChartVipApi.dart';
 import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
@@ -464,16 +465,29 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Container homeBaner() {
-    return Container(
-      height: 120,
-      padding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('lib/images/panner.jpeg'),
-          fit: BoxFit.cover,
-        ),
-      ),
+  homeBaner() {
+    return FutureBuilder(
+      future: ProChartVIPModelsApi.futchAboutUs(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : (snapshot.data.homeAdImage == '')
+                  ? Container()
+                  : Container(
+                      height: 120,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                      child: customCachedNetworkImage(
+                        context: context,
+                        url: snapshot.data.homeAdImage,
+                      ),
+                    );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }
