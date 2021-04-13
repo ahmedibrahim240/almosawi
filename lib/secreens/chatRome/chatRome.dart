@@ -1,12 +1,14 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/MyMessagesApi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatRome extends StatefulWidget {
   final String title;
+  final MyMassege message;
 
-  const ChatRome({Key key, this.title}) : super(key: key);
+  const ChatRome({Key key, this.title, this.message}) : super(key: key);
   @override
   _ChatRomeState createState() => _ChatRomeState();
 }
@@ -37,13 +39,52 @@ class _ChatRomeState extends State<ChatRome> {
                   ListView.builder(
                     shrinkWrap: true,
                     primary: false,
-                    itemCount: messageList.length,
+                    itemCount: widget.message.comments.length,
                     itemBuilder: (context, index) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(messageList[index]),
+                          Card(
+                            elevation: 3,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Text(
+                                parseHtmlString(
+                                  widget.message.comments[index]['content'],
+                                ),
+                                style: AppTheme.heading,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                        ],
+                      );
+                    },
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: messageList.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Card(
+                            elevation: 3,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Text(
+                                parseHtmlString(
+                                  messageList[index],
+                                ),
+                                style: AppTheme.heading,
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 20),
                         ],
                       );
@@ -52,7 +93,10 @@ class _ChatRomeState extends State<ChatRome> {
                 ],
               ),
             ),
-            messageTextFiled(),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: messageTextFiled(),
+            ),
           ],
         ),
       ),
@@ -85,7 +129,7 @@ class _ChatRomeState extends State<ChatRome> {
       margin: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: customColorGray),
+        border: Border.all(color: customColor2),
       ),
       child: Row(
         children: [
@@ -128,7 +172,7 @@ class _ChatRomeState extends State<ChatRome> {
             child: Container(
               child: Icon(
                 Icons.send,
-                color: customColorIcon,
+                color: customColor,
               ),
             ),
           ),

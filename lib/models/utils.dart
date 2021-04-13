@@ -17,4 +17,6 @@ class Utils {
   static final Recomendations_URL = BASE_URL + "/Recomendations";
   // ignore: non_constant_identifier_names
   static final VideosProChart_URL = BASE_URL + "/Videos";
+  // ignore: non_constant_identifier_names
+  static final MyMessages_URL = BASE_URL + "/MyMessages";
 }
