@@ -1,7 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyMessagesApi.dart';
-import 'package:almosawii/models/chat.dart';
 import 'package:almosawii/secreens/chatRome/chatRome.dart';
 import 'package:flutter/material.dart';
 

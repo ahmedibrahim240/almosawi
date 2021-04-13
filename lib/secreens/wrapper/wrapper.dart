@@ -36,6 +36,7 @@ class _WrapperState extends State<Wrapper> {
     User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
     User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
     User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+    User.userPassword = await MySharedPreferences.getUserUserPassword();
   }
 
   @override
