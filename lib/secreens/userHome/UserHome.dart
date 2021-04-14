@@ -2,9 +2,9 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/homeTapsModels.dart';
 import 'package:almosawii/models/visitorHomeIconsApi.dart';
+import 'package:almosawii/secreens/LearningSection/LearningSection.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
-import 'package:almosawii/secreens/courses/allCourses.dart';
 import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -303,7 +303,7 @@ class _UserHomeState extends State<UserHome> {
                             default:
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (_) => AllCourses(),
+                                  builder: (_) => LearningSection(),
                                 ),
                               );
                           }

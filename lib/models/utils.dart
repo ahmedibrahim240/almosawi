@@ -6,6 +6,8 @@ class Utils {
   // ignore: non_constant_identifier_names
   static final Courses_URL = BASE_URL + "/Courses";
   // ignore: non_constant_identifier_names
+  static final LearningSection_URL = BASE_URL + "/LearningSection";
+  // ignore: non_constant_identifier_names
   static final MyCourses_URL = BASE_URL + "/MyCourses";
   // ignore: non_constant_identifier_names
   static final Login_URL = BASE_URL + "/Login";

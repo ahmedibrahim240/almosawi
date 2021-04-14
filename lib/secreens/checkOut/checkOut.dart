@@ -1,6 +1,5 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/visaCard.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/checkOut/components/creatVisaCard.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
@@ -276,7 +275,7 @@ class _CheckOutState extends State<CheckOut> {
                                                   },
                                                   color: Colors.red,
                                                   label: Text(
-                                                    'حفظ',
+                                                    'حذف',
                                                     style: AppTheme.subHeading
                                                         .copyWith(
                                                       color: Colors.white,

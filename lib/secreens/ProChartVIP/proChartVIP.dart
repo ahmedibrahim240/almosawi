@@ -50,7 +50,9 @@ class _ProChartVIPState extends State<ProChartVIP> {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            snapshot.data.des,
+                            parseHtmlString(
+                              snapshot.data.des,
+                            ),
                             style: AppTheme.subHeading,
                           ),
                           SizedBox(height: 20),
