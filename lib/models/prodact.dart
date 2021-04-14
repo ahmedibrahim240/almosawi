@@ -72,4 +72,33 @@ class ConsultantProdect {
       };
 }
 
+class CustomVisa {
+  String cvvNumber;
+  String exDate;
+  String type;
+  String visaNumber;
+  int _id;
+  CustomVisa(dynamic obj) {
+    _id = obj['id'];
+    cvvNumber = obj['cvvNumber'];
+    exDate = obj['exDate'];
+    type = obj['type'];
+    visaNumber = obj['visaNumber'];
+  }
+  CustomVisa.formMap(Map<String, dynamic> data) {
+    _id = data['id'];
+    cvvNumber = data['cvvNumber'];
+    exDate = data['exDate'];
+    type = data['type'];
+    visaNumber = data['visaNumber'];
+  }
+  Map<String, dynamic> toMap() => {
+        'id': _id,
+        'cvvNumber': cvvNumber,
+        'exDate': exDate,
+        'visaNumber': visaNumber,
+        'type': type,
+      };
+}
+
 List<ProductConsualt> productConsualtList = [];

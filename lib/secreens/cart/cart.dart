@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/prodact.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/secreens/checkOut/checkOut.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,21 +61,8 @@ class _CartState extends State<Cart> {
       body: FutureBuilder(
         future: helper.allProduct(),
         builder: (context, snapshot) {
-          print('!snapshot.hasData:${!snapshot.hasData}');
           if (!snapshot.hasData) {
-            print('isEmpaty');
-            return Container(
-              height: 100,
-              width: 100,
-              color: Colors.amber,
-              child: Text(
-                'is empty',
-                style: AppTheme.heading.copyWith(
-                  color: Colors.blueAccent,
-                  fontSize: 16,
-                ),
-              ),
-            );
+            return Container();
           } else {
             return (snapshot.data.isEmpty)
                 ? Center(
@@ -199,6 +187,7 @@ class _CartState extends State<Cart> {
                           (index == snapshot.data.length - 1)
                               ? totalPrieCard(
                                   context: context,
+                                  data: snapshot,
                                 )
                               : Container(),
                         ],
@@ -264,6 +253,7 @@ class _CartState extends State<Cart> {
 
   Container totalPrieCard({
     BuildContext context,
+    var data,
   }) {
     return Container(
       height: 60,
@@ -306,17 +296,14 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   onPressed: () {
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (_) => CheckOut(
-                    //       totalPrice: totalPrice.toString(),
-                    //       consultantid: consualtId,
-                    //       avilableId: availableId,
-                    //       productId: prodectId,
-                    //       avilableDate: availableDate,
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => CheckOut(
+                          totalPrice: Cart.totalPraices.toString(),
+                          data: data,
+                        ),
+                      ),
+                    );
                   },
                   icon: Icon(
                     FontAwesomeIcons.moneyCheckAlt,

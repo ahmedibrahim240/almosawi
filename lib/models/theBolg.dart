@@ -35,7 +35,7 @@ class TheBolgApi {
             id: items['id'],
             image: items['x_featured_media'],
             date: items['date'],
-            contant: items['content']['rendered'].toString(),
+            contant: items['content']['rendered'],
             name: items['title']['rendered'],
           );
           listOfTheBolg.add(theBolg);

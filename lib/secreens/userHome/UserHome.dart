@@ -45,21 +45,41 @@ class _UserHomeState extends State<UserHome> {
     'Mosawi',
     "Elite",
   ];
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          primary: true,
-          children: [
-            suerHomeAppBar(),
-            homeTabsFirst(list: lsitOfTapsData1),
-            contactWithAhmed(context),
-            homeTabsTow(list: lsitOfTapsData2),
-            homeTabsName(),
-          ],
+        child: RefreshIndicator(
+          onRefresh: () async {
+            customOnRefresh(onRefresh: () {
+              setState(() {
+                loading = !loading;
+              });
+            }, affterRefresh: () {
+              setState(() {
+                loading = !loading;
+              });
+            });
+          },
+          child: (loading)
+              ? Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : ListView(
+                  shrinkWrap: true,
+                  primary: true,
+                  children: [
+                    suerHomeAppBar(),
+                    homeTabsFirst(list: lsitOfTapsData1),
+                    contactWithAhmed(context),
+                    homeTabsTow(list: lsitOfTapsData2),
+                    homeTabsName(),
+                  ],
+                ),
         ),
       ),
     );
@@ -67,7 +87,7 @@ class _UserHomeState extends State<UserHome> {
 
   suerHomeAppBar() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       width: MediaQuery.of(context).size.width,
       color: Color(0xfff04B085),
       child: Column(
@@ -78,12 +98,9 @@ class _UserHomeState extends State<UserHome> {
             ',Welcome',
             style: AppTheme.headingColorBlue.copyWith(
               color: Colors.white,
-              fontSize: 30,
+              fontSize: 25,
               fontWeight: FontWeight.w900,
             ),
-          ),
-          SizedBox(
-            height: 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -92,7 +109,7 @@ class _UserHomeState extends State<UserHome> {
                 'Ahmed Ibrahim',
                 style: AppTheme.headingColorBlue.copyWith(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 14,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -116,11 +133,11 @@ class _UserHomeState extends State<UserHome> {
         );
       },
       child: Container(
-        height: 150,
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+        height: 120,
+        margin: EdgeInsets.symmetric(horizontal: 5),
         width: MediaQuery.of(context).size.width,
         color: Color(0xfff04B085),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Stack(
           children: [
             Positioned(
@@ -170,9 +187,8 @@ class _UserHomeState extends State<UserHome> {
               : GridView.count(
                   crossAxisCount: 2,
                   primary: false,
-                  childAspectRatio: .8,
+                  childAspectRatio: .97,
                   shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   children: List.generate(
                     snapshot.data.userHomeIconsRow1.length,
                     (index) {
@@ -198,8 +214,7 @@ class _UserHomeState extends State<UserHome> {
                         child: Card(
                           elevation: 3,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 10),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               border: Border(
                                 top: BorderSide(
@@ -269,9 +284,8 @@ class _UserHomeState extends State<UserHome> {
               : GridView.count(
                   crossAxisCount: 2,
                   primary: false,
-                  childAspectRatio: .8,
+                  childAspectRatio: .97,
                   shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   children: List.generate(
                     snapshot.data.userHomeIconsRow2.length,
                     (index) {
@@ -297,8 +311,7 @@ class _UserHomeState extends State<UserHome> {
                         child: Card(
                           elevation: 3,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 10),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               border: Border(
                                 top: BorderSide(
@@ -363,7 +376,6 @@ class _UserHomeState extends State<UserHome> {
       primary: false,
       childAspectRatio: 1,
       shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       children: List.generate(
         namesList.length,
         (index) {
@@ -372,7 +384,7 @@ class _UserHomeState extends State<UserHome> {
             child: Card(
               elevation: 3,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
@@ -394,7 +406,7 @@ class _UserHomeState extends State<UserHome> {
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 5),
                     Text(
                       'Room',
                       textAlign: TextAlign.left,
