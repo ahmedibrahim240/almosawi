@@ -13,7 +13,11 @@ class _ProChartVIPState extends State<ProChartVIP> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          'pro chart VIP',
+        ),
+      ),
       body: ListView(
         shrinkWrap: true,
         primary: true,

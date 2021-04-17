@@ -13,7 +13,9 @@ class _ArchivesState extends State<Archives> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('أرشيف التوصيات'),
+      ),
       body: ListView(
         shrinkWrap: true,
         primary: true,

@@ -48,6 +48,7 @@ class _CartState extends State<Cart> {
     return Scaffold(
       // key: _scaffoldKey,
       appBar: AppBar(
+        title: Text('عربة التسوق'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

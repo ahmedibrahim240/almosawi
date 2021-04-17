@@ -24,7 +24,9 @@ class _CoursesPageState extends State<CoursesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0,
+        title: Text(
+          'جميع الدورات',
+        ),
       ),
       body: SafeArea(
         child: RefreshIndicator(
@@ -50,10 +52,6 @@ class _CoursesPageState extends State<CoursesPage> {
                   primary: true,
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   children: [
-                    Text(
-                      'جميع الدورات',
-                      style: AppTheme.heading,
-                    ),
                     SizedBox(height: 20),
                     gardViewOfAllCourses(
                       context: context,

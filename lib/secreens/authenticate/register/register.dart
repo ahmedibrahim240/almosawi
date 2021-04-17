@@ -98,7 +98,7 @@ class _RegisterState extends State<Register> {
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.person,
-                                  label: 'اسم الامتسخدم',
+                                  label: 'اسم المتسخدم',
                                 ),
                                 validator: (val) =>
                                     val.isEmpty ? nameEror : null,
@@ -114,7 +114,7 @@ class _RegisterState extends State<Register> {
                                 keyboardType: TextInputType.phone,
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.phone,
-                                  label: 'رقمم الهاتف',
+                                  label: 'رقم الهاتف',
                                 ),
                                 validator: (val) =>
                                     val.isEmpty ? phoneEror : null,

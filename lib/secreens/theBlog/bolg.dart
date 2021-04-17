@@ -16,8 +16,10 @@ class _BlogState extends State<Blog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // toolbarHeight: 0,
-          ),
+        title: Text(
+          'المدونة',
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           customOnRefresh(onRefresh: () {
@@ -41,11 +43,6 @@ class _BlogState extends State<Blog> {
                 primary: true,
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 children: [
-                  Text(
-                    'المدونة',
-                    style: AppTheme.heading
-                        .copyWith(color: customColor, fontSize: 20),
-                  ),
                   FutureBuilder(
                     future: TheBolgApi.fetchAllTheBolg(),
                     builder: (context, snapshot) {

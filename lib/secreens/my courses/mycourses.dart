@@ -16,7 +16,11 @@ class _MyCoursesState extends State<MyCourses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(
+            'دوراتي',
+          ),
+        ),
         body: RefreshIndicator(
           onRefresh: () async {
             customOnRefresh(onRefresh: () {

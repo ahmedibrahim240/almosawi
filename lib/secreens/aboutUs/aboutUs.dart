@@ -12,7 +12,9 @@ class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('من نحن'),
+      ),
       body: FutureBuilder(
         future: AboutUsApi.futchAboutUs(),
         builder: (context, snapshot) {

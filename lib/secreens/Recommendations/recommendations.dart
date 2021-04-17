@@ -17,6 +17,9 @@ class _RecommendationsState extends State<Recommendations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('التوصيات'),
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {

@@ -17,6 +17,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'التوصيات المجانيه',
+        ),
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {

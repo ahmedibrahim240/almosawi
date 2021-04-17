@@ -4,6 +4,7 @@ import 'package:almosawii/models/contactUsApi.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/Recommendations/recommendations.dart';
+import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/aboutUs/aboutUs.dart';
 import 'package:almosawii/secreens/archives/archives.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
@@ -96,6 +97,18 @@ class _MoreState extends State<More> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
+                    builder: (_) => TradingAccount(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.account_balance_wallet),
+              tilte: 'فتح حساب تداول ',
+            ),
+            SizedBox(height: 20),
+            moreBody(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (_) => MyCourses(),
                   ),
                 );
@@ -144,7 +157,7 @@ class _MoreState extends State<More> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => ProchartRoom(),
+                    builder: (_) => ALLRomes(),
                   ),
                 );
               },
