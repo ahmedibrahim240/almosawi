@@ -17,7 +17,7 @@ class _ProChartVIPState extends State<ProChartVIP> {
       body: ListView(
         shrinkWrap: true,
         primary: true,
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+        padding: EdgeInsets.symmetric(horizontal: 40),
         children: [
           FutureBuilder(
             future: ProChartVIPModelsApi.futchAboutUs(),
@@ -30,20 +30,20 @@ class _ProChartVIPState extends State<ProChartVIP> {
                         shrinkWrap: true,
                         primary: false,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: customColor,
-                                )),
-                            child: Center(
-                              child: customCachedNetworkImage(
-                                context: context,
-                                url: snapshot.data.image,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20),
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //       shape: BoxShape.circle,
+                          //       border: Border.all(
+                          //         color: customColor,
+                          //       )),
+                          //   child: Center(
+                          //     child: customCachedNetworkImage(
+                          //       context: context,
+                          //       url: snapshot.data.image,
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(height: 20),
                           Text(
                             snapshot.data.title,
                             style: AppTheme.heading,

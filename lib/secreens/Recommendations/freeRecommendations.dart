@@ -17,7 +17,6 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {

@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/MyRoomsApi.dart';
 import 'package:almosawii/models/homeTapsModels.dart';
 import 'package:almosawii/models/visitorHomeIconsApi.dart';
 import 'package:almosawii/secreens/LearningSection/LearningSection.dart';
@@ -198,7 +199,7 @@ class _UserHomeState extends State<UserHome> {
                             case 0:
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (_) => ProchartRoom(),
+                                  builder: (_) => ALLRomes(),
                                 ),
                               );
                               break;
@@ -341,7 +342,7 @@ class _UserHomeState extends State<UserHome> {
                                       child: Text(
                                         list[index].titleAr,
                                         textAlign: TextAlign.right,
-                                        style: AppTheme.subHeading,
+                                        style: AppTheme.heading,
                                       ),
                                     ),
                                     Align(
@@ -349,7 +350,7 @@ class _UserHomeState extends State<UserHome> {
                                       child: Text(
                                         list[index].titleEn,
                                         textAlign: TextAlign.left,
-                                        style: AppTheme.subHeading
+                                        style: AppTheme.heading
                                             .copyWith(color: customColor),
                                       ),
                                     ),
@@ -371,54 +372,90 @@ class _UserHomeState extends State<UserHome> {
   }
 
   homeTabsName() {
-    return GridView.count(
-      crossAxisCount: 3,
-      primary: false,
-      childAspectRatio: 1,
-      shrinkWrap: true,
-      children: List.generate(
-        namesList.length,
-        (index) {
-          return InkWell(
-            onTap: () {},
-            child: Card(
-              elevation: 3,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Color(0xfff04B085),
-                      width: 5,
-                      style: BorderStyle.solid,
-                    ),
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      namesList[index],
-                      textAlign: TextAlign.right,
-                      style: AppTheme.heading.copyWith(
-                        color: customColor,
-                        fontSize: 20,
+    return FutureBuilder(
+      future: MyRoomsApi.fetchAllMyRooms(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null || snapshot.data.isEmpty)
+              ? Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'لا يوجد بينات حاليا /',
+                        style: AppTheme.heading,
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Room',
-                      textAlign: TextAlign.left,
-                      style: AppTheme.subHeading,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+                      Text(
+                        'اسحب الشاشه لاسفل لاعاده التحميل',
+                        style: AppTheme.heading,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                )
+              : GridView.count(
+                  crossAxisCount: 3,
+                  primary: false,
+                  childAspectRatio: 1,
+                  shrinkWrap: true,
+                  children: List.generate(
+                    snapshot.data.length,
+                    (index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ProchartRoom(
+                                rooms: snapshot.data[index],
+                              ),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          elevation: 3,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(
+                                  color: Color(0xfff04B085),
+                                  width: 5,
+                                  style: BorderStyle.solid,
+                                ),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  snapshot.data[index].name,
+                                  textAlign: TextAlign.right,
+                                  style: AppTheme.heading.copyWith(
+                                    color: customColor,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Room',
+                                  textAlign: TextAlign.left,
+                                  style: AppTheme.subHeading,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

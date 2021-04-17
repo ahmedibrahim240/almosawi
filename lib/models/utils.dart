@@ -25,4 +25,6 @@ class Utils {
   static final MyAccount_URL = BASE_URL + "/MyAccount";
   // ignore: non_constant_identifier_names
   static final UpdateMyAccount_URL = BASE_URL + "/UpdateMyAccount";
+  // ignore: non_constant_identifier_names
+  static final MyRooms_URL = BASE_URL + "/MyRooms";
 }
