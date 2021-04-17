@@ -119,7 +119,7 @@ class _LogInState extends State<LogIn> {
                                   setState(() {
                                     MySharedPreferences.saveUserSkipLogIn(true);
                                     MySharedPreferences.saveUserSingIn(true);
-                                    MySharedPreferences.saveUserCantBuy(false);
+                                    MySharedPreferences.saveUserCantBuy(true);
                                     User.userSkipLogIn = true;
                                   });
                                   User.userSkipLogIn = await MySharedPreferences
@@ -247,15 +247,15 @@ class _LogInState extends State<LogIn> {
             map['UserData']['Recomendations'] == '0') {
           MySharedPreferences.saveUserSkipLogIn(true);
           MySharedPreferences.saveUserSingIn(true);
-          MySharedPreferences.saveUserCantBuy(true);
+          MySharedPreferences.saveUserCantBuy(false);
 
           User.userLogIn = await MySharedPreferences.getUserSingIn();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
           User.userCantBuy = await MySharedPreferences.getUserCantBuy();
         } else {
-          MySharedPreferences.saveUserSkipLogIn(true);
+          MySharedPreferences.saveUserSkipLogIn(false);
           MySharedPreferences.saveUserSingIn(true);
-          MySharedPreferences.saveUserCantBuy(true);
+          MySharedPreferences.saveUserCantBuy(false);
 
           User.userLogIn = await MySharedPreferences.getUserSingIn();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();

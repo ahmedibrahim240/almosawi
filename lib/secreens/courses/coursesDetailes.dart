@@ -354,6 +354,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
               ),
               color: customColor,
               onPressed: () async {
+                print('User.userCantBuy${User.userCantBuy}');
                 if (User.userCantBuy == true) {
                   sikpDialog(context: context);
                 } else {

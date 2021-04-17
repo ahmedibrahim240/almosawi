@@ -1,10 +1,15 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/plansApi.dart';
+import 'package:almosawii/models/prodact.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/ChoosePlan/choosePlandetailes.dart';
+import 'package:almosawii/services/dbhelper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../sharedPreferences.dart';
 
 class ChoosePlan extends StatefulWidget {
   @override
@@ -14,6 +19,18 @@ class ChoosePlan extends StatefulWidget {
 class _ChoosePlanState extends State<ChoosePlan> {
   int _currentPage = 0;
   bool loading = false;
+  DbHehper helper;
+  getBuyPlan() async {
+    User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+    User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+  }
+
+  @override
+  void initState() {
+    getBuyPlan();
+    super.initState();
+    helper = DbHehper();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +57,16 @@ class _ChoosePlanState extends State<ChoosePlan> {
             : ListView(
                 shrinkWrap: true,
                 primary: true,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 children: [
-                  Text(
-                    'اختر الخطة',
-                    style: AppTheme.heading,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'التي تناسبك الان',
-                    style: AppTheme.heading,
-                  ),
                   Center(
                     child: Icon(
-                      FontAwesomeIcons.handPointDown,
+                      FontAwesomeIcons.solidHandPointDown,
                       color: customColor,
                       size: 100,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   FutureBuilder(
                     future: PlansApi.fetchAllPlans(),
                     builder: (context, snapshot) {
@@ -110,8 +118,8 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                             borderRadius:
                                                 BorderRadius.circular(15),
                                             color: (_currentPage == index)
-                                                ? customColor
-                                                : Colors.transparent,
+                                                ? Colors.transparent
+                                                : customColor,
                                           ),
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.all(
@@ -120,9 +128,6 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                               children: [
                                                 Container(
                                                   width: 250,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 10,
-                                                      vertical: 20),
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -133,61 +138,49 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                     children: [
                                                       Column(
                                                         children: [
-                                                          Text(
-                                                            snapshot.data[index]
-                                                                .name,
-                                                            style: AppTheme
-                                                                .heading
-                                                                .copyWith(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  (_currentPage ==
-                                                                          index)
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .black,
+                                                          Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                              horizontal: 20,
+                                                              vertical: 5,
                                                             ),
-                                                          ),
-                                                          SizedBox(height: 10),
-                                                          Text(
-                                                            'كل ' +
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                  15,
+                                                                ),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                  15,
+                                                                ),
+                                                              ),
+                                                              color:
+                                                                  customColor,
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
                                                                 snapshot
                                                                     .data[index]
-                                                                    .plan_time +
-                                                                ' شهور',
-                                                            style: AppTheme
-                                                                .heading
-                                                                .copyWith(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  (_currentPage ==
-                                                                          index)
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .black,
+                                                                    .name,
+                                                                style: AppTheme
+                                                                    .heading
+                                                                    .copyWith(
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
-                                                          (snapshot.data[index]
-                                                                      .newPrice ==
-                                                                  null)
-                                                              ? Container()
-                                                              : Text(
-                                                                  '${snapshot.data[index].newPrice} \$',
-                                                                  style: AppTheme
-                                                                      .heading
-                                                                      .copyWith(
-                                                                    color: (_currentPage ==
-                                                                            index)
-                                                                        ? Colors
-                                                                            .white
-                                                                        : Colors
-                                                                            .black,
-                                                                    fontSize:
-                                                                        20,
-                                                                  ),
-                                                                ),
                                                           (snapshot.data[index]
                                                                       .oldPrice ==
                                                                   null)
@@ -197,61 +190,180 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                                   style: AppTheme
                                                                       .heading
                                                                       .copyWith(
-                                                                    decoration: (snapshot.data[index].newPrice ==
-                                                                            null)
-                                                                        ? TextDecoration
-                                                                            .none
-                                                                        : TextDecoration
-                                                                            .lineThrough,
-                                                                    color: (_currentPage ==
-                                                                            index)
-                                                                        ? Colors
-                                                                            .white
-                                                                        : Colors
-                                                                            .black,
+                                                                    color:
+                                                                        customColor,
                                                                     fontSize:
                                                                         20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w900,
                                                                   ),
                                                                 ),
+                                                          Text(
+                                                            'كل ' +
+                                                                snapshot
+                                                                    .data[index]
+                                                                    .plan_time +
+                                                                ' شهور',
+                                                            style: AppTheme
+                                                                .heading
+                                                                .copyWith(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  customColor,
+                                                            ),
+                                                          ),
                                                         ],
                                                       ),
-                                                      RaisedButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .push(
-                                                            MaterialPageRoute(
-                                                              builder: (_) =>
-                                                                  ChoosePlanDetailes(
-                                                                plan: snapshot
-                                                                        .data[
-                                                                    index],
-                                                              ),
+                                                      (snapshot
+                                                                  .data[index]
+                                                                  .features
+                                                                  .isEmpty ||
+                                                              snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .features
+                                                                      .isEmpty ==
+                                                                  null)
+                                                          ? Container()
+                                                          : ListView.builder(
+                                                              shrinkWrap: true,
+                                                              primary: false,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          10),
+                                                              itemCount:
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .features
+                                                                      .length,
+                                                              itemBuilder:
+                                                                  (context, i) {
+                                                                return Column(
+                                                                  children: [
+                                                                    contant(
+                                                                      title: snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .features[i],
+                                                                    ),
+                                                                    Divider(
+                                                                      color:
+                                                                          customColorDivider,
+                                                                      thickness:
+                                                                          2,
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
                                                             ),
-                                                          );
+                                                      RaisedButton(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(30),
+                                                        ),
+                                                        color: customColor,
+                                                        onPressed: () async {
+                                                          print('userSkipLogIn' +
+                                                              User.userSkipLogIn
+                                                                  .toString());
+                                                          if (User.userCantBuy ==
+                                                              true) {
+                                                            sikpDialog(
+                                                                context:
+                                                                    context);
+                                                          } else {
+                                                            if (User.userBuyPlan ==
+                                                                true) {
+                                                              cardDialog(
+                                                                  context:
+                                                                      context,
+                                                                  message:
+                                                                      'انت بالفعل مشارك في خطه عليك استكمال عمليه الاشاراك اول او حذف الخطه من السله حتي تسطيع الاشتراك في خطة اخري');
+                                                            } else {
+                                                              {
+                                                                setState(() {
+                                                                  MySharedPreferences
+                                                                      .saveUserPayPlan(
+                                                                          true);
+
+                                                                  increaseCartTotlaPrice(
+                                                                    price: (snapshot.data[index].newPrice ==
+                                                                            null)
+                                                                        ? double.parse(snapshot
+                                                                            .data[
+                                                                                index]
+                                                                            .oldPrice
+                                                                            .toString())
+                                                                        : double.parse(snapshot
+                                                                            .data[index]
+                                                                            .newPrice
+                                                                            .toString()),
+                                                                  );
+                                                                });
+                                                                ConsultantProdect
+                                                                    prodect =
+                                                                    ConsultantProdect({
+                                                                  'consultantId':
+                                                                      snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .id,
+                                                                  'type':
+                                                                      'plan',
+                                                                  'date': '',
+                                                                  'dateId': 0,
+                                                                  'time': '',
+                                                                  'title': snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .name,
+                                                                  'price': (snapshot
+                                                                              .data[
+                                                                                  index]
+                                                                              .newPrice ==
+                                                                          null)
+                                                                      ? double.parse(snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .oldPrice
+                                                                          .toString())
+                                                                      : double.parse(snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .newPrice
+                                                                          .toString()),
+                                                                  'proImageUrl':
+                                                                      '',
+                                                                });
+                                                                // ignore: unused_local_variable
+                                                                int id =
+                                                                    await helper
+                                                                        .createProduct(
+                                                                  prodect,
+                                                                );
+                                                                cardDialog(
+                                                                  context:
+                                                                      context,
+                                                                );
+                                                              }
+                                                            }
+                                                          }
                                                         },
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        35)),
-                                                        color: (_currentPage ==
-                                                                index)
-                                                            ? Colors.white
-                                                            : customColor,
                                                         child: Text(
-                                                          'التفاصيل',
+                                                          'اشترك الان',
                                                           style: AppTheme
                                                               .heading
                                                               .copyWith(
-                                                            color:
-                                                                (_currentPage ==
-                                                                        index)
-                                                                    ? customColor
-                                                                    : Colors
-                                                                        .white,
-                                                          ),
+                                                                  color: Colors
+                                                                      .white),
                                                         ),
                                                       ),
+                                                      SizedBox(height: 3),
                                                     ],
                                                   ),
                                                 ),
@@ -272,6 +384,35 @@ class _ChoosePlanState extends State<ChoosePlan> {
                 ],
               ),
       ),
+    );
+  }
+
+  contant({String title}) {
+    return Row(
+      children: [
+        Container(
+          height: 20,
+          width: 20,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.green,
+          ),
+          child: Center(
+            child: Icon(
+              FontAwesomeIcons.check,
+              color: Colors.white,
+              size: 10,
+            ),
+          ),
+        ),
+        SizedBox(width: 10),
+        Text(
+          title,
+          style: AppTheme.heading.copyWith(
+            fontSize: 16,
+          ),
+        )
+      ],
     );
   }
 }

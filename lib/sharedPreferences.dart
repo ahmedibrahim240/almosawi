@@ -40,7 +40,7 @@ class MySharedPreferences {
 
   static Future<bool> saveUserCantBuy(bool isCantBuy) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setBool(sharedPrefUserSkipLogIn, isCantBuy);
+    return await preferences.setBool(sharedPrefCantBuy, isCantBuy);
   }
 
   static Future<bool> saveUserselectedProImage(bool isSelected) async {
@@ -137,7 +137,7 @@ class MySharedPreferences {
 
   static getUserCantBuy() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var cantBuy = (preferences.getBool(sharedPrefCantBuy) ?? false);
+    var cantBuy = (preferences.getBool(sharedPrefCantBuy));
     return cantBuy;
   }
 

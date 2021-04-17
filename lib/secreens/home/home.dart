@@ -4,13 +4,50 @@ import 'package:almosawii/models/contactUsApi.dart';
 import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/homeVideoApi.dart';
 import 'package:almosawii/models/proChartVipApi.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
+import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/secreens/home/homeTabs.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
+import 'package:almosawii/secreens/userHome/UserHome.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../sharedPreferences.dart';
+
+class HomePages extends StatefulWidget {
+  @override
+  _HomePagesState createState() => _HomePagesState();
+}
+
+class _HomePagesState extends State<HomePages> {
+  getTotalPrice() async {
+    Cart.totalPraices = await MySharedPreferences.getTotalPrice();
+    User.userLogIn = await MySharedPreferences.getUserSingIn();
+    User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+    User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
+    User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+    User.userPassword = await MySharedPreferences.getUserUserPassword();
+  }
+
+  @override
+  void initState() {
+    getTotalPrice();
+    super.initState();
+    print("UserSkiping LOgIN:${User.userSkipLogIn}");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (User.userSkipLogIn == true) {
+      return Home();
+    } else {
+      return UserHome();
+    }
+  }
+}
 
 class Home extends StatefulWidget {
   static final route = '/home';
