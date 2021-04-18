@@ -40,13 +40,26 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: Text(
-                  'العملة /الزوج',
-                  style: AppTheme.heading.copyWith(
-                    color: customColor,
-                    fontSize: 16,
-                  ),
-                ),
+                child: (widget.recommend.name == null ||
+                        widget.recommend.name == '')
+                    ? Container()
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'العملة /الزوج',
+                            style: AppTheme.heading.copyWith(
+                              color: customColor,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            widget.recommend.name,
+                            style: AppTheme.heading,
+                          ),
+                        ],
+                      ),
               ),
               SizedBox(width: 10),
               (count == 2)
@@ -77,93 +90,147 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
                     ),
             ],
           ),
-          Text(
-            widget.recommend.name,
-            style: AppTheme.heading,
-          ),
           SizedBox(height: 20),
-          Text(
-            'الأتجاة',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            parseHtmlString(widget.recommend.direction),
-            style: AppTheme.heading,
-          ),
+          (widget.recommend.direction == null ||
+                  widget.recommend.direction == '')
+              ? Container()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'الأتجاة',
+                      style: AppTheme.heading.copyWith(
+                        color: customColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      parseHtmlString(widget.recommend.direction),
+                      style: AppTheme.heading,
+                    ),
+                  ],
+                ),
           SizedBox(height: 20),
-          Text(
-            'النموذج',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            parseHtmlString(widget.recommend.forms),
-            style: AppTheme.heading,
-          ),
-          Text(
-            'مناطق الشرائية',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            widget.recommend.buy.toString(),
-            style: AppTheme.heading,
-          ),
+          (widget.recommend.forms == null || widget.recommend.forms == '')
+              ? Container()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'النموذج',
+                      style: AppTheme.heading.copyWith(
+                        color: customColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      parseHtmlString(widget.recommend.forms),
+                      style: AppTheme.heading,
+                    ),
+                  ],
+                ),
+          (widget.recommend.buy == null || widget.recommend.buy == '')
+              ? Container()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'مناطق الشرائية',
+                      style: AppTheme.heading.copyWith(
+                        color: customColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      widget.recommend.buy.toString(),
+                      style: AppTheme.heading,
+                    ),
+                  ],
+                ),
           SizedBox(height: 20),
-          Text(
-            'مناطق البيعية',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            widget.recommend.selling.toString(),
-            style: AppTheme.heading,
-          ),
+          (widget.recommend.selling == null || widget.recommend.selling == '')
+              ? Container()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'مناطق البيعية',
+                      style: AppTheme.heading.copyWith(
+                        color: customColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      widget.recommend.selling.toString(),
+                      style: AppTheme.heading,
+                    ),
+                  ],
+                ),
           SizedBox(height: 20),
-          Text(
-            'الأهداف لمناطق الشرائية',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            widget.recommend.buyAreaGoals.toString(),
-            style: AppTheme.heading,
-          ),
+          (widget.recommend.buyAreaGoals == null ||
+                  widget.recommend.buyAreaGoals == '')
+              ? Container()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'الأهداف لمناطق الشرائية',
+                      style: AppTheme.heading.copyWith(
+                        color: customColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      widget.recommend.buyAreaGoals.toString(),
+                      style: AppTheme.heading,
+                    ),
+                  ],
+                ),
           SizedBox(height: 20),
-          Text(
-            'إيقاف الخسارة لمناطق الشراء',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            widget.recommend.stopBuy.toString(),
-            style: AppTheme.heading,
-          ),
+          (widget.recommend.stopBuy == null || widget.recommend.forms == '')
+              ? Container()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'إيقاف الخسارة لمناطق الشراء',
+                      style: AppTheme.heading.copyWith(
+                        color: customColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      widget.recommend.stopBuy.toString(),
+                      style: AppTheme.heading,
+                    ),
+                  ],
+                ),
           SizedBox(height: 20),
-          Text(
-            'إيقاف الخسارة لمناطق البيع',
-            style: AppTheme.heading.copyWith(
-              color: customColor,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            widget.recommend.stopSelling.toString(),
-            style: AppTheme.heading,
-          ),
+          (widget.recommend.stopSelling == null || widget.recommend.forms == '')
+              ? Container()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'إيقاف الخسارة لمناطق البيع',
+                      style: AppTheme.heading.copyWith(
+                        color: customColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      widget.recommend.stopSelling.toString(),
+                      style: AppTheme.heading,
+                    ),
+                  ],
+                ),
           SizedBox(height: 20),
         ],
       ),

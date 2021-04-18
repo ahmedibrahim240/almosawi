@@ -184,7 +184,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                   Column(
                                                     children: [
                                                       Text(
-                                                        'اكير مكسب',
+                                                        'سعر الدخول',
                                                         style: AppTheme.heading,
                                                       ),
                                                       (snapshot.data[index]
@@ -192,7 +192,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                               null)
                                                           ? Container()
                                                           : Text(
-                                                              '(${snapshot.data[index].bigPrice})',
+                                                              '(${snapshot.data[index].entryPrice})',
                                                               style: AppTheme
                                                                   .subHeading,
                                                             ),
@@ -201,7 +201,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                   Column(
                                                     children: [
                                                       Text(
-                                                        'اقل خساره',
+                                                        'سعر الخروج',
                                                         style: AppTheme.heading,
                                                       ),
                                                       Text(
@@ -209,7 +209,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                                     .smallPrice ==
                                                                 null)
                                                             ? Container()
-                                                            : '(${snapshot.data[index].smallPrice})',
+                                                            : '(${snapshot.data[index].outPrice})',
                                                         style:
                                                             AppTheme.subHeading,
                                                       ),
@@ -218,7 +218,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                   Column(
                                                     children: [
                                                       Text(
-                                                        'سعر الدخول',
+                                                        'اكبر مكسب',
                                                         style: AppTheme.heading,
                                                       ),
                                                       (snapshot.data[index]
@@ -226,7 +226,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                               null)
                                                           ? Container()
                                                           : Text(
-                                                              '(${snapshot.data[index].entryPrice})',
+                                                              '(${snapshot.data[index].bigPrice})',
                                                               style: AppTheme
                                                                   .subHeading,
                                                             ),
@@ -314,7 +314,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                                 .center,
                                                         children: [
                                                           Text(
-                                                            'سعر الخروج',
+                                                            'اقل خساره',
                                                             style: AppTheme
                                                                 .heading,
                                                           ),
@@ -323,7 +323,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                                   null)
                                                               ? Container()
                                                               : Text(
-                                                                  '(${snapshot.data[index].outPrice})',
+                                                                  '(${snapshot.data[index].smallPrice})',
                                                                   style: AppTheme
                                                                       .subHeading,
                                                                 ),
