@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/proChartVipApi.dart';
+import 'package:almosawii/models/tradingAccountModels.dart';
 import 'package:almosawii/secreens/ChoosePlan/choosePlan.dart';
 import 'package:flutter/material.dart';
 
@@ -34,20 +35,6 @@ class _ProChartVIPState extends State<ProChartVIP> {
                         shrinkWrap: true,
                         primary: false,
                         children: [
-                          // Container(
-                          //   decoration: BoxDecoration(
-                          //       shape: BoxShape.circle,
-                          //       border: Border.all(
-                          //         color: customColor,
-                          //       )),
-                          //   child: Center(
-                          //     child: customCachedNetworkImage(
-                          //       context: context,
-                          //       url: snapshot.data.image,
-                          //     ),
-                          //   ),
-                          // ),
-                          // SizedBox(height: 20),
                           Text(
                             snapshot.data.title,
                             style: AppTheme.heading,
@@ -60,6 +47,19 @@ class _ProChartVIPState extends State<ProChartVIP> {
                             style: AppTheme.subHeading,
                           ),
                           SizedBox(height: 20),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            primary: false,
+                            itemCount: accountList.length,
+                            itemBuilder: (context, index) {
+                              return tradingAccountRow(
+                                contant: accountList[index].contant,
+                                name: accountList[index].name,
+                                icon: accountList[index].icon,
+                                index: index + 1,
+                              );
+                            },
+                          ),
                         ],
                       );
               } else {
@@ -79,6 +79,59 @@ class _ProChartVIPState extends State<ProChartVIP> {
           ),
         ],
       ),
+    );
+  }
+
+  tradingAccountRow({String name, String contant, String icon, int index}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              index.toString(),
+              style: AppTheme.heading,
+            ),
+            SizedBox(width: 10),
+            Container(
+              width: 1,
+              height: 30,
+              color: customColorGray.withOpacity(.5),
+            ),
+            SizedBox(width: 10),
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(icon),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            SizedBox(width: 10),
+            Text(
+              name,
+              style: AppTheme.heading,
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Text(
+          contant,
+          style: AppTheme.subHeading.copyWith(
+            color: customColorGray,
+            fontSize: 10,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: Divider(
+            color: customColor.withOpacity(.5),
+            thickness: 2,
+          ),
+        ),
+      ],
     );
   }
 }
