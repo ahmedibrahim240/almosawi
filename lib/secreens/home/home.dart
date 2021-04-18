@@ -9,12 +9,9 @@ import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
-import 'package:almosawii/secreens/home/homeTabs.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
 import 'package:almosawii/secreens/userHome/UserHome.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../sharedPreferences.dart';
 
 class HomePages extends StatefulWidget {
@@ -88,16 +85,41 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 primary: true,
                 children: [
-                  SizedBox(height: 10),
-                  HomeTabs(),
-                  SizedBox(height: 10),
-                  contactWithAhmed(context),
                   HomeVideo(),
+                  SizedBox(height: 10),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: ListTile(
+                      title: Text(
+                        'عنوان',
+                        style: AppTheme.heading,
+                      ),
+                      subtitle: Text(
+                        'وصف وصف وصف',
+                        style: AppTheme.subHeading,
+                      ),
+                      leading: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage('lib/images/ahmed.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // HomeTabs(),
                   SizedBox(height: 10),
                   successPartners(),
                   SizedBox(height: 10),
                   acountFeatures(),
+                  SizedBox(height: 10),
                   homeBaner(),
+                  SizedBox(height: 10),
+                  contactWithAhmed(context),
                   SizedBox(height: 10),
                   sectionTitle(title: 'الدورات التدريبية'),
                   SizedBox(height: 10),
@@ -122,42 +144,47 @@ class _HomeState extends State<Home> {
         height: 150,
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
         width: MediaQuery.of(context).size.width,
-        color: Color(0xfff04B085),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 10,
-              right: 120,
-              child: Text(
-                'تواصل مع',
-                style: AppTheme.heading.copyWith(
-                  color: Colors.white,
-                  fontSize: 35,
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Icon(
-                FontAwesomeIcons.solidComment,
-                size: 110,
-                color: Colors.white,
-              ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 0,
-              child: Text(
-                'أ/أحمد الموسوي',
-                style: AppTheme.heading.copyWith(
-                  color: Colors.white,
-                  fontSize: 25,
-                ),
-              ),
-            ),
-          ],
+
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/images/ahmed.jpg'),
+            fit: BoxFit.fitWidth,
+          ),
         ),
+        // child: Stack(
+        //   children: [
+        //     Positioned(
+        //       top: 10,
+        //       right: 120,
+        //       child: Text(
+        //         'تواصل مع',
+        //         style: AppTheme.heading.copyWith(
+        //           color: Colors.white,
+        //           fontSize: 35,
+        //         ),
+        //       ),
+        //     ),
+        //     Align(
+        //       alignment: Alignment.centerRight,
+        //       child: Icon(
+        //         FontAwesomeIcons.solidComment,
+        //         size: 110,
+        //         color: Colors.white,
+        //       ),
+        //     ),
+        //     Positioned(
+        //       bottom: 20,
+        //       left: 0,
+        //       child: Text(
+        //         'أ/أحمد الموسوي',
+        //         style: AppTheme.heading.copyWith(
+        //           color: Colors.white,
+        //           fontSize: 25,
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }
