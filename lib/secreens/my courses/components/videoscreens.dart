@@ -4,6 +4,9 @@ import 'package:video_player/video_player.dart';
 // import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ChewieVideo extends StatefulWidget {
+  final String videoUrl;
+
+  const ChewieVideo({Key key, @required this.videoUrl}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _ChewieVideoState();
@@ -50,7 +53,7 @@ class _ChewieVideoState extends State<ChewieVideo> {
 
   Future<void> initializePlayer() async {
     _videoPlayerController1 = VideoPlayerController.network(
-      'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
+      widget.videoUrl,
     );
     await _videoPlayerController1.initialize();
     _chewieController = ChewieController(
@@ -64,7 +67,7 @@ class _ChewieVideoState extends State<ChewieVideo> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
       child: _chewieController != null &&
               _chewieController.videoPlayerController.value.initialized
           ? Theme(

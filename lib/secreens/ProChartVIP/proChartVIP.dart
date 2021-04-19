@@ -1,7 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/proChartVipApi.dart';
-import 'package:almosawii/models/tradingAccountModels.dart';
 import 'package:almosawii/secreens/ChoosePlan/choosePlan.dart';
 import 'package:flutter/material.dart';
 

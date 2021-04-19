@@ -1,7 +1,9 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyRoomsApi.dart';
+import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
+// import 'package:assets_audio_player/assets_audio_player.dart';
 
 class ALLRomes extends StatefulWidget {
   @override
@@ -129,19 +131,16 @@ class _ProchartRoomState extends State<ProchartRoom> {
         itemCount: widget.rooms.chats.length,
         itemBuilder: (context, index) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Card(
-                elevation: 3,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: dateType(
-                    context: context,
-                    type: widget.rooms.chats[index]['type'],
-                    data: widget.rooms.chats[index]['data'],
-                  ),
+              Container(
+                child: dateType(
+                  context: context,
+                  type: widget.rooms.chats[index]['type'],
+                  data: widget.rooms.chats[index]['data'],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
             ],
           );
         },
@@ -150,21 +149,59 @@ class _ProchartRoomState extends State<ProchartRoom> {
   }
 
   dateType({String type, String data, BuildContext context}) {
+    // final assetsAudioPlayer = AssetsAudioPlayer();
     switch (type) {
       case 'text':
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Text(
-            data,
-            style: AppTheme.subHeading,
+        return Card(
+          elevation: 3,
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Text(
+              data,
+              style: AppTheme.subHeading,
+            ),
           ),
         );
 
         break;
       case 'image':
-        return customCachedNetworkImage(context: context, url: data);
+        return Card(
+          elevation: 3,
+          child: customCachedNetworkImage(context: context, url: data),
+        );
 
         break;
+      case 'video':
+        return Card(
+          elevation: 3,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            height: 260,
+            child: ChewieVideo(
+              videoUrl: data,
+            ),
+          ),
+        );
+
+        break;
+      // case 'audio':
+      //   return await assetsAudioPlayer.open(
+      //     Audio.network(
+      //       data,
+      //       // metas: Metas(
+      //       //   id: 'Online',
+      //       //   title: 'Online',
+      //       //   artist: 'Florent Champigny',
+      //       //   album: 'OnlineAlbum',
+      //       //   // image: MetasImage.network('https://www.google.com')
+      //       //   image: MetasImage.network(
+      //       //       'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
+      //       // ),
+      //     ),
+      //   );
+
+      //   break;
       default:
         return null;
     }
