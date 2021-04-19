@@ -8,18 +8,22 @@ class ProChartVIPModels {
   final String des;
   final String homeAdImage;
   final String contactUsBanner;
+  var features;
+  var trading;
 
   ProChartVIPModels({
     this.homeAdImage,
     this.title,
     this.image,
     this.des,
+    this.features,
+    this.trading,
     this.contactUsBanner,
   });
 }
 
 class ProChartVIPModelsApi {
-  static Future<ProChartVIPModels> futchAboutUs() async {
+  static Future<ProChartVIPModels> futchProChartVIP() async {
     ProChartVIPModels aboutUs;
     try {
       var response = await http.get(Utils.GeneralData_URL);
@@ -30,8 +34,10 @@ class ProChartVIPModelsApi {
           title: jsonData['data']['ProChartVIP']['title'],
           image: jsonData['data']['ProChartVIP']['image'],
           des: jsonData['data']['ProChartVIP']['des'],
+          features: jsonData['data']['ProChartVIP']['features'],
           homeAdImage: jsonData['data']['HomeAdImage'],
           contactUsBanner: jsonData['data']['contactUsBanner'],
+          trading: jsonData['data']['trading']['features'],
         );
       }
     } catch (e) {

@@ -149,7 +149,7 @@ class _HomeState extends State<Home> {
 
   contactWithAhmed(BuildContext context) {
     return FutureBuilder(
-      future: ProChartVIPModelsApi.futchAboutUs(),
+      future: ProChartVIPModelsApi.futchProChartVIP(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print(snapshot.data);
@@ -525,7 +525,7 @@ class _HomeState extends State<Home> {
 
   homeBaner() {
     return FutureBuilder(
-      future: ProChartVIPModelsApi.futchAboutUs(),
+      future: ProChartVIPModelsApi.futchProChartVIP(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print(snapshot.data);

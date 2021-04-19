@@ -25,7 +25,7 @@ class _ProChartVIPState extends State<ProChartVIP> {
         padding: EdgeInsets.symmetric(horizontal: 40),
         children: [
           FutureBuilder(
-            future: ProChartVIPModelsApi.futchAboutUs(),
+            future: ProChartVIPModelsApi.futchProChartVIP(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 print(snapshot.data);
@@ -50,12 +50,12 @@ class _ProChartVIPState extends State<ProChartVIP> {
                           ListView.builder(
                             shrinkWrap: true,
                             primary: false,
-                            itemCount: accountList.length,
+                            itemCount: snapshot.data.features.length,
                             itemBuilder: (context, index) {
                               return tradingAccountRow(
-                                contant: accountList[index].contant,
-                                name: accountList[index].name,
-                                icon: accountList[index].icon,
+                                contant: snapshot.data.features[index]['text'],
+                                name: snapshot.data.features[index]['title'],
+                                icon: snapshot.data.features[index]['image'],
                                 index: index + 1,
                               );
                             },
@@ -102,11 +102,9 @@ class _ProChartVIPState extends State<ProChartVIP> {
             Container(
               width: 40,
               height: 40,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(icon),
-                  fit: BoxFit.contain,
-                ),
+              child: customCachedNetworkImage(
+                context: context,
+                url: icon,
               ),
             ),
             SizedBox(width: 10),

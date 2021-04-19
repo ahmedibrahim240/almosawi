@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/proChartVipApi.dart';
 import 'package:almosawii/models/tradingAccountModels.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,17 +24,29 @@ class _TradingAccountState extends State<TradingAccount> {
         primary: true,
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         children: [
-          ListView.builder(
-            shrinkWrap: true,
-            primary: false,
-            itemCount: accountList.length,
-            itemBuilder: (context, index) {
-              return tradingAccountRow(
-                contant: accountList[index].contant,
-                name: accountList[index].name,
-                icon: accountList[index].icon,
-                index: index + 1,
-              );
+          FutureBuilder(
+            future: ProChartVIPModelsApi.futchProChartVIP(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                print(snapshot.data);
+                return (snapshot.data == null)
+                    ? Container()
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        itemCount: snapshot.data.trading.length,
+                        itemBuilder: (context, index) {
+                          return tradingAccountRow(
+                            contant: snapshot.data.trading[index]['text'],
+                            name: snapshot.data.trading[index]['title'],
+                            icon: snapshot.data.trading[index]['image'],
+                            index: index + 1,
+                          );
+                        },
+                      );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
             },
           ),
           Form(
