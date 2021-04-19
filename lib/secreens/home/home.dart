@@ -87,30 +87,7 @@ class _HomeState extends State<Home> {
                 children: [
                   HomeVideo(),
                   SizedBox(height: 10),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: ListTile(
-                      title: Text(
-                        'عنوان',
-                        style: AppTheme.heading,
-                      ),
-                      subtitle: Text(
-                        'وصف وصف وصف',
-                        style: AppTheme.subHeading,
-                      ),
-                      leading: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage('lib/images/ahmed.jpg'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  homeProChartSection(),
                   // HomeTabs(),
                   SizedBox(height: 10),
                   successPartners(),
@@ -128,6 +105,45 @@ class _HomeState extends State<Home> {
                 ],
               ),
       ),
+    );
+  }
+
+  homeProChartSection() {
+    return FutureBuilder(
+      future: HomeVideoApi.futchHomeVideo(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: ListTile(
+                    title: Text(
+                      snapshot.data.homeProChartSectionTitle,
+                      style: AppTheme.heading,
+                    ),
+                    subtitle: Text(
+                      snapshot.data.homeProChartSectionTxt,
+                      style: AppTheme.subHeading.copyWith(fontSize: 10),
+                    ),
+                    leading: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: customCachedNetworkImage(
+                        context: context,
+                        url: snapshot.data.homeProChartSectionImage,
+                      ),
+                    ),
+                  ),
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 

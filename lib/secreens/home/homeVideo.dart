@@ -24,9 +24,12 @@ class _HomeVideoState extends State<HomeVideo> {
                   : Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(
-                            'lib/images/homeback.jpg',
-                          ),
+                          image: (snapshot.data.videoFeaturesBg != null ||
+                                  snapshot.data.videoFeaturesBg != '')
+                              ? NetworkImage(snapshot.data.videoFeaturesBg)
+                              : AssetImage(
+                                  'lib/images/homeback.jpg',
+                                ),
                           fit: BoxFit.fitHeight,
                         ),
                       ),

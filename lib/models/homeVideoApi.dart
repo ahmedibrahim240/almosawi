@@ -8,14 +8,22 @@ class HomheVideoModels {
   final String homeVideoTxt1;
   final String homeVideoTxt2;
   final String homeVideoTxt3;
+  final String videoFeaturesBg;
+  final String homeProChartSectionImage;
+  final String homeProChartSectionTitle;
+  final String homeProChartSectionTxt;
   var homeNumbers;
 
   HomheVideoModels({
+    this.homeProChartSectionImage,
+    this.homeProChartSectionTitle,
+    this.homeProChartSectionTxt,
     this.homeVideo,
     this.homeVideoTitle,
     this.homeVideoTxt1,
     this.homeVideoTxt2,
     this.homeVideoTxt3,
+    this.videoFeaturesBg,
     this.homeNumbers,
   });
 }
@@ -30,15 +38,21 @@ class HomeVideoApi {
       if (response.statusCode == 200) {
         aboutUs = HomheVideoModels(
           homeVideo: jsonData['data']['HomeVideo'],
+          homeProChartSectionImage: jsonData['data']
+              ['homeProChartSectionImage'],
+          homeProChartSectionTitle: jsonData['data']
+              ['homeProChartSectionTitle'],
+          homeProChartSectionTxt: jsonData['data']['homeProChartSectionTxt'],
           homeVideoTitle: jsonData['data']['HomeVideoTitle'],
           homeVideoTxt1: jsonData['data']['HomeVideoTxt1'],
           homeVideoTxt2: jsonData['data']['HomeVideoTxt2'],
           homeVideoTxt3: jsonData['data']['HomeVideoTxt3'],
+          videoFeaturesBg: jsonData['data']['videoFeaturesBg'],
           homeNumbers: jsonData['data']['homeNumbers'],
         );
       }
     } catch (e) {
-      print('contatus Errrrrrrrrror');
+      print('HomeVideo Errrrrrrrrror');
       print(e);
     }
     return aboutUs;
