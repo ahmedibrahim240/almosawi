@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:almosawii/models/abutUsApi.dart';
 
 import '../../../sharedPreferences.dart';
 
@@ -219,7 +220,12 @@ class _RegisterState extends State<Register> {
                                     ],
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      showSettingsPanel(
+                                        child: policies(),
+                                        context: context,
+                                      );
+                                    },
                                     child: Row(
                                       children: [
                                         Text(
@@ -317,6 +323,43 @@ class _RegisterState extends State<Register> {
                 SizedBox(height: 20),
               ],
             ),
+    );
+  }
+
+  FutureBuilder<Policies> policies() {
+    return FutureBuilder(
+      future: AboutUsApi.futchPolicies(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : ListView(
+                  shrinkWrap: true,
+                  primary: true,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 20,
+                  ),
+                  children: [
+                    Center(
+                      child: Text(
+                        snapshot.data.title,
+                        style: AppTheme.heading.copyWith(
+                          color: customColor,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      parseHtmlString(snapshot.data.des),
+                      style: AppTheme.subHeading,
+                    ),
+                  ],
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 

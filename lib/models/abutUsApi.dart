@@ -14,6 +14,16 @@ class AboutUsModels {
   });
 }
 
+class Policies {
+  final String title;
+  final String des;
+
+  Policies({
+    this.title,
+    this.des,
+  });
+}
+
 class AboutUsApi {
   static Future<AboutUsModels> futchAboutUs() async {
     AboutUsModels aboutUs;
@@ -33,5 +43,24 @@ class AboutUsApi {
       print(e);
     }
     return aboutUs;
+  }
+
+  static Future<Policies> futchPolicies() async {
+    Policies policies;
+    try {
+      var response = await http.get(Utils.GeneralData_URL);
+      var jsonData = json.decode(response.body);
+      print('response.statusCode:${response.statusCode}');
+      if (response.statusCode == 200) {
+        policies = Policies(
+          title: jsonData['data']['Policies']['title'],
+          des: jsonData['data']['Policies']['des'],
+        );
+      }
+    } catch (e) {
+      print('AboutUs Policies');
+      print(e);
+    }
+    return policies;
   }
 }
