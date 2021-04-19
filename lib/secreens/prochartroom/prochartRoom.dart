@@ -3,7 +3,7 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyRoomsApi.dart';
 import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
-// import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class ALLRomes extends StatefulWidget {
   @override
@@ -118,6 +118,8 @@ class ProchartRoom extends StatefulWidget {
 }
 
 class _ProchartRoomState extends State<ProchartRoom> {
+  bool _play = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,23 +187,42 @@ class _ProchartRoomState extends State<ProchartRoom> {
         );
 
         break;
-      // case 'audio':
-      //   return await assetsAudioPlayer.open(
-      //     Audio.network(
-      //       data,
-      //       // metas: Metas(
-      //       //   id: 'Online',
-      //       //   title: 'Online',
-      //       //   artist: 'Florent Champigny',
-      //       //   album: 'OnlineAlbum',
-      //       //   // image: MetasImage.network('https://www.google.com')
-      //       //   image: MetasImage.network(
-      //       //       'https://image.shutterstock.com/image-vector/pop-music-text-art-colorful-600w-515538502.jpg'),
-      //       // ),
-      //     ),
-      //   );
+      case 'audio':
+        return Card(
+          elevation: 3,
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: AudioWidget.network(
+                url: data,
+                play: _play,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: Colors.blue,
+                        thickness: 2,
+                      ),
+                    ),
+                    IconButton(
+                        icon: Icon(_play ? Icons.pause : Icons.play_arrow),
+                        onPressed: () {
+                          setState(() {
+                            _play = !_play;
+                          });
+                        }),
+                  ],
+                ),
+                // onReadyToPlay: (duration) {
+                //   //onReadyToPlay
+                // },
+                // onPositionChanged: (current, duration) {
+                //   //onPositionChanged
+                // },
+              )),
+        );
 
-      //   break;
+        break;
       default:
         return null;
     }

@@ -1,7 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-// import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ChewieVideo extends StatefulWidget {
   final String videoUrl;
@@ -15,20 +14,8 @@ class ChewieVideo extends StatefulWidget {
 
 class _ChewieVideoState extends State<ChewieVideo> {
   VideoPlayerController _videoPlayerController1;
-  // YoutubePlayerController _controller;
 
   ChewieController _chewieController;
-  // void runVideo() {
-  //   _controller = YoutubePlayerController(
-  //     initialVideoId: YoutubePlayer.convertUrlToId(
-  //         'https://www.youtube.com/watch?v=nQ7mhC5_Rys'),
-  //     flags: YoutubePlayerFlags(
-  //       autoPlay: true,
-  //       enableCaption: false,
-  //       isLive: false,
-  //     ),
-  //   );
-  // }
 
   @override
   void initState() {

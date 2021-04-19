@@ -64,6 +64,8 @@ dependencies:
   vimeoplayer_trinity:
   vimeoplayer:
   dio:
+  audioplayers:
+  assets_audio_player:
   # assets_audio_player:
   # firebase_storage:
   
