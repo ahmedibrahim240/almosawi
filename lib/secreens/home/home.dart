@@ -148,60 +148,38 @@ class _HomeState extends State<Home> {
   }
 
   contactWithAhmed(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => ContactUs(),
-          ),
-        );
+    return FutureBuilder(
+      future: ProChartVIPModelsApi.futchAboutUs(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : (snapshot.data.contactUsBanner == '')
+                  ? Container()
+                  : InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ContactUs(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 355,
+                        margin:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                        child: customCachedNetworkImage(
+                          context: context,
+                          url: snapshot.data.contactUsBanner,
+                        ),
+                      ),
+                    );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
       },
-      child: Container(
-        height: 150,
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-        width: MediaQuery.of(context).size.width,
-
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/images/ahmed.jpg'),
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-        // child: Stack(
-        //   children: [
-        //     Positioned(
-        //       top: 10,
-        //       right: 120,
-        //       child: Text(
-        //         'تواصل مع',
-        //         style: AppTheme.heading.copyWith(
-        //           color: Colors.white,
-        //           fontSize: 35,
-        //         ),
-        //       ),
-        //     ),
-        //     Align(
-        //       alignment: Alignment.centerRight,
-        //       child: Icon(
-        //         FontAwesomeIcons.solidComment,
-        //         size: 110,
-        //         color: Colors.white,
-        //       ),
-        //     ),
-        //     Positioned(
-        //       bottom: 20,
-        //       left: 0,
-        //       child: Text(
-        //         'أ/أحمد الموسوي',
-        //         style: AppTheme.heading.copyWith(
-        //           color: Colors.white,
-        //           fontSize: 25,
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-      ),
     );
   }
 

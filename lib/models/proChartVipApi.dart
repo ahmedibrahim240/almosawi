@@ -7,8 +7,15 @@ class ProChartVIPModels {
   final String image;
   final String des;
   final String homeAdImage;
+  final String contactUsBanner;
 
-  ProChartVIPModels({this.homeAdImage, this.title, this.image, this.des});
+  ProChartVIPModels({
+    this.homeAdImage,
+    this.title,
+    this.image,
+    this.des,
+    this.contactUsBanner,
+  });
 }
 
 class ProChartVIPModelsApi {
@@ -24,6 +31,7 @@ class ProChartVIPModelsApi {
           image: jsonData['data']['ProChartVIP']['image'],
           des: jsonData['data']['ProChartVIP']['des'],
           homeAdImage: jsonData['data']['HomeAdImage'],
+          contactUsBanner: jsonData['data']['contactUsBanner'],
         );
       }
     } catch (e) {

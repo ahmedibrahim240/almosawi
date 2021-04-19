@@ -193,77 +193,79 @@ class _UserHomeState extends State<UserHome> {
                   children: List.generate(
                     snapshot.data.userHomeIconsRow1.length,
                     (index) {
-                      return InkWell(
-                        onTap: () {
-                          switch (index) {
-                            case 0:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => ALLRomes(),
-                                ),
-                              );
-                              break;
+                      return (snapshot.data.userHomeIconsRow1[index] == '')
+                          ? Container()
+                          : InkWell(
+                              onTap: () {
+                                switch (index) {
+                                  case 0:
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => ALLRomes(),
+                                      ),
+                                    );
+                                    break;
 
-                            default:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => ProChartVIP(),
-                                ),
-                              );
-                          }
-                        },
-                        child: Card(
-                          elevation: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  color: (index == 0)
-                                      ? Color(0xfffFF9B63)
-                                      : Color(0xfff067FA5),
-                                  width: 5,
-                                  style: BorderStyle.solid,
+                                  default:
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => ProChartVIP(),
+                                      ),
+                                    );
+                                }
+                              },
+                              child: Card(
+                                elevation: 3,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: (index == 0)
+                                            ? Color(0xfffFF9B63)
+                                            : Color(0xfff067FA5),
+                                        width: 5,
+                                        style: BorderStyle.solid,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 120,
+                                        width: 120,
+                                        child: customCachedNetworkImage(
+                                            context: context,
+                                            url: snapshot
+                                                .data.userHomeIconsRow1[index]),
+                                      ),
+                                      Column(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              list[index].titleAr,
+                                              textAlign: TextAlign.right,
+                                              style: AppTheme.heading,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              list[index].titleEn,
+                                              textAlign: TextAlign.left,
+                                              style: AppTheme.heading
+                                                  .copyWith(color: customColor),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 120,
-                                  width: 120,
-                                  child: customCachedNetworkImage(
-                                      context: context,
-                                      url: snapshot
-                                          .data.userHomeIconsRow1[index]),
-                                ),
-                                Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        list[index].titleAr,
-                                        textAlign: TextAlign.right,
-                                        style: AppTheme.heading,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        list[index].titleEn,
-                                        textAlign: TextAlign.left,
-                                        style: AppTheme.heading
-                                            .copyWith(color: customColor),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                            );
                     },
                   ),
                 );
@@ -290,77 +292,79 @@ class _UserHomeState extends State<UserHome> {
                   children: List.generate(
                     snapshot.data.userHomeIconsRow2.length,
                     (index) {
-                      return InkWell(
-                        onTap: () {
-                          switch (index) {
-                            case 0:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => AllVideosProChart(),
-                                ),
-                              );
-                              break;
+                      return (snapshot.data.userHomeIconsRow2[index] == '')
+                          ? Container()
+                          : InkWell(
+                              onTap: () {
+                                switch (index) {
+                                  case 0:
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => AllVideosProChart(),
+                                      ),
+                                    );
+                                    break;
 
-                            default:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => LearningSection(),
-                                ),
-                              );
-                          }
-                        },
-                        child: Card(
-                          elevation: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  color: (index == 0)
-                                      ? Color(0xfff6C089B)
-                                      : Color(0xfffF00B27),
-                                  width: 5,
-                                  style: BorderStyle.solid,
+                                  default:
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => LearningSection(),
+                                      ),
+                                    );
+                                }
+                              },
+                              child: Card(
+                                elevation: 3,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: (index == 0)
+                                            ? Color(0xfff6C089B)
+                                            : Color(0xfffF00B27),
+                                        width: 5,
+                                        style: BorderStyle.solid,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 120,
+                                        width: 120,
+                                        child: customCachedNetworkImage(
+                                            context: context,
+                                            url: snapshot
+                                                .data.userHomeIconsRow2[index]),
+                                      ),
+                                      Column(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              list[index].titleAr,
+                                              textAlign: TextAlign.right,
+                                              style: AppTheme.heading,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              list[index].titleEn,
+                                              textAlign: TextAlign.left,
+                                              style: AppTheme.heading
+                                                  .copyWith(color: customColor),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 120,
-                                  width: 120,
-                                  child: customCachedNetworkImage(
-                                      context: context,
-                                      url: snapshot
-                                          .data.userHomeIconsRow2[index]),
-                                ),
-                                Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        list[index].titleAr,
-                                        textAlign: TextAlign.right,
-                                        style: AppTheme.heading,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        list[index].titleEn,
-                                        textAlign: TextAlign.left,
-                                        style: AppTheme.heading
-                                            .copyWith(color: customColor),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                            );
                     },
                   ),
                 );
