@@ -10,7 +10,7 @@ import 'package:almosawii/secreens/theBlog/bolg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../sharedPreferences.dart';
 
 class Wrapper extends StatefulWidget {
@@ -21,6 +21,7 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
+  final FirebaseMessaging _fcm = FirebaseMessaging();
   int _currentIndex = 0;
   final List<Widget> _children = [
     HomePages(),
@@ -42,7 +43,16 @@ class _WrapperState extends State<Wrapper> {
   void initState() {
     getTotalPrice();
     super.initState();
-    print("UserSik:${User.userSkipLogIn}");
+    _fcm.getToken().then(
+      (token) {
+        MySharedPreferences.saveUserToken(token.toString());
+      },
+    );
+    getUserToken();
+  }
+
+  getUserToken() async {
+    User.userToken = await MySharedPreferences.getUserToken();
   }
 
   @override

@@ -27,6 +27,7 @@ class _HomePagesState extends State<HomePages> {
     User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
     User.userCantBuy = await MySharedPreferences.getUserCantBuy();
     User.userPassword = await MySharedPreferences.getUserUserPassword();
+    User.userToken = await MySharedPreferences.getUserToken();
   }
 
   @override

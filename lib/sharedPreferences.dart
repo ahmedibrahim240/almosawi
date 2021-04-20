@@ -19,6 +19,7 @@ class MySharedPreferences {
   static String sharedPrefUserUserPassword = 'UserPassword';
   static String sharedPrefUserImageUrl = 'userImageUrl';
   static String sharedPrefUserid = 'userid';
+  static String sharedPrefUserToken = 'userToken';
   static String sharedPrefCartConslProdect = 'cartConsulPro';
   static String sharedPrefCounsultFillterIndex = 'FillterIndex';
   static String sharedPrefCounsultFillterType = 'FillterType';
@@ -52,6 +53,11 @@ class MySharedPreferences {
   static Future<bool> saveUserproChat(String proChat) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPrefproChat, proChat);
+  }
+
+  static Future<bool> saveUserToken(String token) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setString(sharedPrefUserToken, token);
   }
 
   static Future<bool> saveFilltterIndex(int index) async {
@@ -166,6 +172,12 @@ class MySharedPreferences {
     return proChat;
   }
 
+  static getUserToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String token = preferences.getString(sharedPrefUserToken);
+    return token;
+  }
+
   static getFiltterIndex() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int index = preferences.getInt(sharedPrefCounsultFillterIndex);
@@ -250,26 +262,4 @@ class MySharedPreferences {
     String phoneNamber = preferences.getString(sharedPrefUserUserPhone);
     return phoneNamber;
   }
-
-  // static saveDataOfConsulPro(value) async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   var listConsulPro = value
-  //       .map(
-  //         (items) => jsonEncode(
-  //           items.toMap(),
-  //         ),
-  //       )
-  //       .toList();
-  //   await preferences.setStringList(sharedPrefCartConslProdect, listConsulPro);
-  // }
-
-  // static getDataOfConsulPro() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-
-  //   var listConsulPro = preferences.getStringList(sharedPrefCartConslProdect);
-
-  //   return listConsulPro
-  //       .map((itmes) => SaveProduct.formMap(jsonDecode(itmes)))
-  //       .toList();
-  // }
 }

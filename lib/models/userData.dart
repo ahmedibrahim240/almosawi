@@ -20,8 +20,7 @@ class User {
   static String proChat;
   static String courses;
   static String recomendations;
-  static String userStutes;
-  static String userGender;
+  static String userToken;
   static String userPassword;
   static var appLang;
   static var apiLang;

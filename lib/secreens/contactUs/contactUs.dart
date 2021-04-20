@@ -49,7 +49,7 @@ class _ContactUsState extends State<ContactUs> {
                 contactUsForm(),
                 SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 60),
+                  padding: const EdgeInsets.symmetric(horizontal: 45),
                   child: CustomButton(
                     onPress: () {},
                     text: 'اضافه ملف / صورة',
@@ -61,12 +61,14 @@ class _ContactUsState extends State<ContactUs> {
                       setState(() {
                         loading = !loading;
                       });
+
                       sentData(
                         userName: name,
                         user_id: User.userid,
                         message: message,
                         mobile: phone,
                         email: email,
+                        deviceToken: User.userToken,
                       );
                     }
                   },
