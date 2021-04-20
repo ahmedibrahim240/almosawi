@@ -29,6 +29,7 @@ class More extends StatefulWidget {
 class _MoreState extends State<More> {
   @override
   Widget build(BuildContext context) {
+    print("User.userCantBuy:${User.userCantBuy}");
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -61,22 +62,24 @@ class _MoreState extends State<More> {
               tilte: 'عربة التسوق',
             ),
             SizedBox(height: 20),
-            moreBody(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => Recommendations(),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => Recommendations(),
+                        ),
+                      );
+                    },
+                    icon: SvgPicture.asset(
+                      'lib/icons/stockUp.svg',
+                      color: customColor,
+                      height: 20,
+                    ),
+                    tilte: 'التوصيات',
                   ),
-                );
-              },
-              icon: SvgPicture.asset(
-                'lib/icons/stockUp.svg',
-                color: customColor,
-                height: 20,
-              ),
-              tilte: 'التوصيات',
-            ),
-            SizedBox(height: 20),
+            (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             moreBody(
               onTap: () {
                 Navigator.of(context).push(
@@ -105,22 +108,24 @@ class _MoreState extends State<More> {
               tilte: 'فتح حساب تداول ',
             ),
             SizedBox(height: 20),
-            moreBody(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => MyCourses(),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => MyCourses(),
+                        ),
+                      );
+                    },
+                    icon: SvgPicture.asset(
+                      'lib/icons/courses.svg',
+                      color: customColor,
+                      height: 20,
+                    ),
+                    tilte: 'دوراتي',
                   ),
-                );
-              },
-              icon: SvgPicture.asset(
-                'lib/icons/courses.svg',
-                color: customColor,
-                height: 20,
-              ),
-              tilte: 'دوراتي',
-            ),
-            SizedBox(height: 20),
+            (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             moreBody(
               onTap: () {
                 Navigator.of(context).push(
@@ -153,18 +158,20 @@ class _MoreState extends State<More> {
               tilte: ' الإشعارات',
             ),
             SizedBox(height: 20),
-            moreBody(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ALLRomes(),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => ALLRomes(),
+                        ),
+                      );
+                    },
+                    icon: Icon(FontAwesomeIcons.comments),
+                    tilte: 'غرفة بروشارت',
                   ),
-                );
-              },
-              icon: Icon(FontAwesomeIcons.comments),
-              tilte: 'غرفة بروشارت',
-            ),
-            SizedBox(height: 20),
+            (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             moreBody(
               onTap: () {
                 Navigator.of(context).push(
@@ -252,8 +259,7 @@ class _MoreState extends State<More> {
                 );
               },
               icon: Icon(FontAwesomeIcons.signOutAlt),
-              tilte:
-                  (User.userSkipLogIn == false) ? 'تسجيل دخول' : 'تسجيل خروج ',
+              tilte: (User.userCantBuy == true) ? 'تسجيل دخول' : 'تسجيل خروج ',
             ),
           ],
         ),
