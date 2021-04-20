@@ -4,12 +4,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MyMassege {
+  final int id;
   final String date;
   final String content;
   final String title;
   var comments;
 
-  MyMassege({this.date, this.content, this.title, this.comments});
+  MyMassege({this.date, this.content, this.title, this.comments, this.id});
 }
 
 class MyMessageApi {
@@ -24,6 +25,7 @@ class MyMessageApi {
         for (var items in jsonData['data']) {
           MyMassege myMassege = MyMassege(
             date: items['date'],
+            id: items['messageID'],
             content: items['content'],
             title: items['title'],
             comments: items['comments'],

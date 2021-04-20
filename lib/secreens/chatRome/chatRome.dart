@@ -1,14 +1,20 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyMessagesApi.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:almosawii/models/utils.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ChatRome extends StatefulWidget {
   final String title;
   final MyMassege message;
+  final int messageID;
 
-  const ChatRome({Key key, this.title, this.message}) : super(key: key);
+  const ChatRome({Key key, this.title, this.message, this.messageID})
+      : super(key: key);
   @override
   _ChatRomeState createState() => _ChatRomeState();
 }
@@ -63,33 +69,33 @@ class _ChatRomeState extends State<ChatRome> {
                       );
                     },
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: messageList.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Card(
-                            elevation: 3,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text(
-                                parseHtmlString(
-                                  messageList[index],
-                                ),
-                                style: AppTheme.heading,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                        ],
-                      );
-                    },
-                  ),
+                  // ListView.builder(
+                  //   shrinkWrap: true,
+                  //   primary: false,
+                  //   itemCount: messageList.length,
+                  //   itemBuilder: (context, index) {
+                  //     return Column(
+                  //       mainAxisAlignment: MainAxisAlignment.start,
+                  //       crossAxisAlignment: CrossAxisAlignment.end,
+                  //       children: [
+                  //         Card(
+                  //           elevation: 3,
+                  //           child: Container(
+                  //             padding: EdgeInsets.symmetric(
+                  //                 horizontal: 10, vertical: 10),
+                  //             child: Text(
+                  //               parseHtmlString(
+                  //                 messageList[index],
+                  //               ),
+                  //               style: AppTheme.heading,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(height: 20),
+                  //       ],
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),
@@ -101,6 +107,37 @@ class _ChatRomeState extends State<ChatRome> {
         ),
       ),
     );
+  }
+
+  sentData({
+    String message,
+    int messageID,
+    // ignore: non_constant_identifier_names
+  }) async {
+    print("message:$message");
+    try {
+      var response = await http.post(
+        Utils.MyMessagesComment_URL + "/${User.userid}/$messageID",
+        body: {
+          'Comment': message,
+        },
+      );
+
+      Map<String, dynamic> map = json.decode(response.body);
+      print("map:$map");
+
+      if (map['status'] == 'success') {
+        showMyDialog(context: context, message: map['message'].toString());
+      } else {
+        showMyDialog(context: context, message: map['errorArr'].toString());
+      }
+
+      // Navigator.pop(context);
+    } catch (e) {
+      print('Cash errrrrrrrrrrrrrrror');
+
+      print(e);
+    }
   }
 
   Container serviesMessage({String message}) {
@@ -139,7 +176,7 @@ class _ChatRomeState extends State<ChatRome> {
               maxLines: null,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
-                hintText: '....write a message',
+                hintText: 'اكتب تعليق ....',
                 hintStyle: AppTheme.subHeading.copyWith(
                   fontSize: 10,
                   color: customColorIcon,
@@ -166,6 +203,10 @@ class _ChatRomeState extends State<ChatRome> {
             onTap: () {
               setState(() {
                 messageList.add(_messageController.text);
+                sentData(
+                  message: _messageController.text,
+                  messageID: widget.message.id,
+                );
                 _messageController.text = '';
               });
             },
