@@ -187,15 +187,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                         'سعر الدخول',
                                                         style: AppTheme.heading,
                                                       ),
-                                                      (snapshot.data[index]
-                                                                  .bigPrice ==
-                                                              null)
-                                                          ? Container()
-                                                          : Text(
-                                                              '(${snapshot.data[index].entryPrice})',
-                                                              style: AppTheme
-                                                                  .subHeading,
-                                                            ),
+                                                      Text(
+                                                        '(${(snapshot.data[index].entryPrice) ?? ''})',
+                                                        style:
+                                                            AppTheme.subHeading,
+                                                      ),
                                                     ],
                                                   ),
                                                   Column(
@@ -205,11 +201,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                         style: AppTheme.heading,
                                                       ),
                                                       Text(
-                                                        (snapshot.data[index]
-                                                                    .smallPrice ==
-                                                                null)
-                                                            ? Container()
-                                                            : '(${snapshot.data[index].outPrice})',
+                                                        '(${(snapshot.data[index].outPrice) ?? ''})',
                                                         style:
                                                             AppTheme.subHeading,
                                                       ),
@@ -221,15 +213,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                         'اكبر مكسب',
                                                         style: AppTheme.heading,
                                                       ),
-                                                      (snapshot.data[index]
-                                                                  .entryPrice ==
-                                                              null)
-                                                          ? Container()
-                                                          : Text(
-                                                              '(${snapshot.data[index].bigPrice})',
-                                                              style: AppTheme
-                                                                  .subHeading,
-                                                            ),
+                                                      Text(
+                                                        '(${(snapshot.data[index].bigPrice) ?? ''})',
+                                                        style:
+                                                            AppTheme.subHeading,
+                                                      ),
                                                     ],
                                                   ),
                                                 ],
@@ -244,26 +232,35 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                 children: [
                                                   Container(
                                                     width: 80,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 5,
+                                                    ),
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10),
+                                                        10,
+                                                      ),
                                                       color: Colors.deepOrange,
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        snapshot.data[index]
-                                                            .theTime,
+                                                        (snapshot.data[index]
+                                                                .theTime) ??
+                                                            "",
                                                         style: AppTheme.heading
                                                             .copyWith(
-                                                                color: Colors
-                                                                    .white),
+                                                          color: Colors.white,
+                                                          fontSize: 10,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                   Text(
-                                                    snapshot
-                                                        .data[index].buyOrSale,
+                                                    (snapshot.data[index]
+                                                            .buyOrSale) ??
+                                                        '',
                                                     style: AppTheme.heading
                                                         .copyWith(
                                                       color: (snapshot
@@ -318,15 +315,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                             style: AppTheme
                                                                 .heading,
                                                           ),
-                                                          (snapshot.data[index]
-                                                                      .outPrice ==
-                                                                  null)
-                                                              ? Container()
-                                                              : Text(
-                                                                  '(${snapshot.data[index].smallPrice})',
-                                                                  style: AppTheme
-                                                                      .subHeading,
-                                                                ),
+                                                          Text(
+                                                            '(${(snapshot.data[index].smallPrice) ?? ''})',
+                                                            style: AppTheme
+                                                                .subHeading,
+                                                          ),
                                                         ],
                                                       ),
                                                     ],
@@ -335,7 +328,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                               ),
                                               SizedBox(height: 10),
                                               Text(
-                                                '(${snapshot.data[index].comment})',
+                                                '(${(snapshot.data[index].comment) ?? ''})',
                                                 style: AppTheme.subHeading,
                                               ),
                                             ],

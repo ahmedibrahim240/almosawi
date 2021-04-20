@@ -2,6 +2,20 @@ import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+class ArchiveRecomendationsModels {
+  final String currencyName;
+  final String arrow;
+  final String number;
+  final List<RecomendationsModels> recomendations;
+
+  ArchiveRecomendationsModels({
+    this.currencyName,
+    this.arrow,
+    this.number,
+    this.recomendations,
+  });
+}
+
 class RecomendationsModels {
   int id;
   final String name;
@@ -119,5 +133,69 @@ class RecomendationsApi {
       print(e);
     }
     return listOfRecomendations;
+  }
+
+  static Future<List<ArchiveRecomendationsModels>>
+      fetchAllArchiveRecomendations({String type}) async {
+    List<RecomendationsModels> listOfRecomendations = [];
+    List<ArchiveRecomendationsModels> listOfArchiveRecomendations = [];
+    try {
+      var response = await http.get(
+        Utils.Recomendations_URL + "?type=$type",
+      );
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
+        for (var items in jsonData['data']) {
+          listOfRecomendations = [];
+          for (var item in items['recomendations']) {
+            RecomendationsModels recomendations = RecomendationsModels(
+              id: item['id'],
+              buyOrSale: item['BuyOrSale'],
+              theTime: item['theTime'],
+              points: item['Points'],
+              txtBesideName: item['TxtBesideName'],
+              percentageTxt: item['PercentageTxt'],
+              name: item['name'],
+              status: item['status'],
+              ordered: item['Ordered'],
+              bigPrice: item['big_price'],
+              smallPrice: item['small_price'],
+              entryPrice: item['entry_price'],
+              outPrice: item['out_price'],
+              image: item['image'],
+              direction: item['direction'],
+              forms: item['forms'],
+              buy: item['buy'],
+              selling: item['selling'],
+              aimBuy: item['aim_buy'],
+              stopBuy: item['stop_buy'],
+              stopSelling: item['stop_selling'],
+              discount: item['Discount'],
+              createdAt: item['created_at'],
+              updatedAt: item['updated_at'],
+              comment: item['comment'],
+              statusLoss: item['status_loss'],
+              buyAreaGoals: item['buyAreaGoals'],
+              dayDate: item['dayDate'],
+              archive: item['archive'],
+              free: item['free'],
+            );
+            listOfRecomendations.add(recomendations);
+          }
+          print('listOfRecomendations:$listOfRecomendations');
+          ArchiveRecomendationsModels archive = ArchiveRecomendationsModels(
+            arrow: items['arrow'],
+            currencyName: items['currencyName'],
+            number: items['number'],
+            recomendations: listOfRecomendations,
+          );
+          listOfArchiveRecomendations.add(archive);
+        }
+      }
+    } catch (e) {
+      print('Erroro Recomendations');
+      print(e);
+    }
+    return listOfArchiveRecomendations;
   }
 }

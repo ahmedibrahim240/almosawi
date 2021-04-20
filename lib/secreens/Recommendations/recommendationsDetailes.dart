@@ -19,7 +19,9 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(widget.recommend.name),
+      ),
       body: ListView(
         shrinkWrap: true,
         primary: true,
@@ -27,11 +29,9 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
         children: [
           Container(
             height: 150,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(widget.recommend.image),
-                fit: BoxFit.cover,
-              ),
+            child: customCachedNetworkImage(
+              context: context,
+              url: widget.recommend.image,
             ),
           ),
           SizedBox(height: 20),
