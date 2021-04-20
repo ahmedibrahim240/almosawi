@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "231480606240",
+    "project_id": "almosawii",
+    "storage_bucket": "almosawii.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231480606240:android:cbe270e1b308e329c94645",
+        "android_client_info": {
+          "package_name": "com.almosawi.almosawii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231480606240-dltd6ediov2vnimc5gjdgra3djn1l0lv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.almosawi.almosawii",
+            "certificate_hash": "20fb63b4b2a795ed17916828e3bcb3534849dd5f"
+          }
+        },
+        {
+          "client_id": "231480606240-dremg4ncj7ubm1fum8nunrcgevvogpu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7f2jXBLLVg6QwAK4iQ5ko8QqT27rWMts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231480606240-dremg4ncj7ubm1fum8nunrcgevvogpu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
