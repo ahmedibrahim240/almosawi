@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:almosawii/constants/constans.dart';
@@ -9,8 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:almosawii/models/utils.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
+
 import 'package:gx_file_picker/gx_file_picker.dart';
 
 class ContactUs extends StatefulWidget {
@@ -20,13 +18,14 @@ class ContactUs extends StatefulWidget {
 
 class _ContactUsState extends State<ContactUs> {
   final _formKey = GlobalKey<FormState>();
+  List<File> listFiles = [];
+
   String error = '';
   bool loading = false;
   String email;
   String name;
   String phone;
   String message;
-  List<File> files = [];
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +63,10 @@ class _ContactUsState extends State<ContactUs> {
                       if (res == null) {
                         print('NOOOOOOOOO FILE PICE');
                       } else {
-                        files = res;
+                        listFiles = res;
                         fileDialog(
                           context: context,
-                          message: 'تم اضاقه ${files.length} ملفات',
+                          message: 'تم اضاقه ${listFiles.length} ملفات',
                         );
                       }
                     },
@@ -87,7 +86,7 @@ class _ContactUsState extends State<ContactUs> {
                         message: message,
                         mobile: phone,
                         email: email,
-                        files: files,
+                        files: listFiles,
                         deviceToken: User.userToken,
                       );
                     }
@@ -138,7 +137,7 @@ class _ContactUsState extends State<ContactUs> {
                 ),
               ),
               onPressed: () {
-                files.clear();
+                listFiles.clear();
                 Navigator.of(context).pop();
               },
             ),
@@ -228,6 +227,17 @@ class _ContactUsState extends State<ContactUs> {
     try {
       var data;
       if (files != null) {
+        var filesForm = [];
+        for (var items in files) {
+          filesForm.add(await MultipartFile.fromFile(
+            items.path,
+            filename: items.path.split('/').last,
+          ));
+        }
+
+        print('filesForm:$filesForm');
+
+        print('filesForm[0]:${filesForm[0]}');
         data = FormData.fromMap({
           'userName': userName,
           'email': email,
@@ -235,15 +245,7 @@ class _ContactUsState extends State<ContactUs> {
           'message': message,
           'user_id': user_id.toString(),
           'DeviceToken': deviceToken,
-          "files[]": [
-            for (var items in files)
-              {
-                await MultipartFile.fromFile(
-                  items.path,
-                  filename: items.path.split('/').last,
-                ),
-              }.toList(),
-          ]
+          "files": filesForm,
         });
       } else {
         data = FormData.fromMap({
@@ -253,84 +255,40 @@ class _ContactUsState extends State<ContactUs> {
           'message': message,
           'user_id': user_id.toString(),
           'DeviceToken': deviceToken,
-          "files[]": [],
+          "files": [],
         });
       }
 
-      // for (var items in files) {
-      //   // data = {
-      //   //   'userName': userName,
-      //   //   'email': email,
-      //   //   'mobile': mobile,
-      //   //   'message': message,
-      //   //   'user_id': user_id.toString(),
-      //   //   'DeviceToken': deviceToken,
-      //   //   "files[]": [
-      //   //     MultipartFile.fromFileSync(
-      //   //       items.path,
-      //   //       filename: phootos,
-      //   //     ),
-      //   //   ]
-      //   // };
-      //   data = FormData.fromMap({
-      //     'userName': userName,
-      //     'email': email,
-      //     'mobile': mobile,
-      //     'message': message,
-      //     'user_id': user_id.toString(),
-      //     'DeviceToken': deviceToken,
-      //     "files[]": [
-      //       await MultipartFile.fromFile(
-      //         items.path,
-      //         filename: items.path.split('/').last,
-      //       ),
-      //     ]
-      //   });
-      // }
-      print(data);
-
-      // var body = {
-      //   'userName': userName,
-      //   'email': email,
-      //   'mobile': mobile,
-      //   'message': message,
-      //   'user_id': user_id.toString(),
-      //   'files[]': files,
-      //   'DeviceToken': deviceToken,
-      // };
       Dio dio = new Dio();
       Response response = await dio.post(Utils.ContactUs_URL, data: data);
-      print(response.data.toString());
-      // var response = await http.post(
-      //   Utils.ContactUs_URL,
-      //   body: jsonEncode(body),
-      //   headers: {'Content-Type': 'application/json'},
-      // );
-
-      // Map<String, dynamic> map = json.decode(response.body);
-      // print("body:$body");
 
       if (response.data['status'] == 'success') {
         setState(() {
           loading = !loading;
         });
         showMyDialog(
-            context: context, message: response.data['message'].toString());
+          context: context,
+          message: response.data['message'].toString(),
+        );
+        listFiles.clear();
       } else {
         setState(() {
           loading = !loading;
         });
         showMyDialog(
-            context: context, message: response.data['errorArr'].toString());
+          context: context,
+          message: response.data['errorArr'].toString(),
+        );
       }
+      listFiles.clear();
 
-      // Navigator.pop(context);
+      Navigator.pop(context);
     } catch (e) {
       print('Cash errrrrrrrrrrrrrrror');
       setState(() {
         loading = !loading;
       });
-
+      listFiles.clear();
       print(e);
     }
   }

@@ -34,5 +34,7 @@ class Utils {
   // ignore: non_constant_identifier_names
   static final ContactUs_URL = BASE_URL + "/ContactUs";
   // ignore: non_constant_identifier_names
+  static final OpenTradingAccount_URL = BASE_URL + "/OpenTradingAccount";
+  // ignore: non_constant_identifier_names
   static final MyMessagesComment_URL = BASE_URL + "/MyMessages";
 }
