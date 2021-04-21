@@ -1,12 +1,10 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/secreens/cart/cart.dart';
-import 'package:almosawii/secreens/checkOut/components/creatVisaCard.dart';
+
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_fatoorah/my_fatoorah.dart';
 // import 'dart:convert';
 // import 'package:http/http.dart' as http;

@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyRoomsApi.dart';
 import 'package:almosawii/models/homeTapsModels.dart';
+import 'package:almosawii/models/proChartVipApi.dart';
 import 'package:almosawii/models/visitorHomeIconsApi.dart';
 import 'package:almosawii/secreens/LearningSection/LearningSection.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
@@ -86,6 +87,42 @@ class _UserHomeState extends State<UserHome> {
     );
   }
 
+  contactWithAhmed(BuildContext context) {
+    return FutureBuilder(
+      future: ProChartVIPModelsApi.futchProChartVIP(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : (snapshot.data.contactUsBanner == '')
+                  ? Container()
+                  : InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ContactUs(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 355,
+                        margin:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                        child: customCachedNetworkImage(
+                          context: context,
+                          url: snapshot.data.contactUsBanner,
+                        ),
+                      ),
+                    );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
   suerHomeAppBar() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -120,59 +157,6 @@ class _UserHomeState extends State<UserHome> {
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  contactWithAhmed(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => ContactUs(),
-          ),
-        );
-      },
-      child: Container(
-        height: 120,
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        width: MediaQuery.of(context).size.width,
-        color: Color(0xfff04B085),
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 10,
-              right: 120,
-              child: Text(
-                'تواصل مع',
-                style: AppTheme.heading.copyWith(
-                  color: Colors.white,
-                  fontSize: 35,
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Icon(
-                FontAwesomeIcons.solidComment,
-                size: 110,
-                color: Colors.white,
-              ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 0,
-              child: Text(
-                'أ/أحمد الموسوي',
-                style: AppTheme.heading.copyWith(
-                  color: Colors.white,
-                  fontSize: 25,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -233,8 +217,8 @@ class _UserHomeState extends State<UserHome> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        height: 120,
-                                        width: 120,
+                                        height: 110,
+                                        width: 110,
                                         child: customCachedNetworkImage(
                                             context: context,
                                             url: snapshot
@@ -332,8 +316,8 @@ class _UserHomeState extends State<UserHome> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        height: 120,
-                                        width: 120,
+                                        height: 110,
+                                        width: 110,
                                         child: customCachedNetworkImage(
                                             context: context,
                                             url: snapshot
@@ -436,10 +420,10 @@ class _UserHomeState extends State<UserHome> {
                               children: [
                                 Text(
                                   snapshot.data[index].name,
-                                  textAlign: TextAlign.right,
+                                  textAlign: TextAlign.center,
                                   style: AppTheme.heading.copyWith(
                                     color: customColor,
-                                    fontSize: 15,
+                                    fontSize: 12,
                                   ),
                                 ),
                                 SizedBox(height: 5),

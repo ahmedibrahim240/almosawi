@@ -9,6 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:almosawii/models/utils.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../sharedPreferences.dart';
 
@@ -25,7 +28,6 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  double totalPrice = 0.0;
   DbHehper helper;
   getTotalPrice() async {
     Cart.totalPraices = await MySharedPreferences.getTotalPrice();
@@ -37,10 +39,6 @@ class _CartState extends State<Cart> {
     helper = DbHehper();
     getTotalPrice();
     super.initState();
-  }
-
-  culcTotalPrice(double price) {
-    totalPrice = totalPrice + price;
   }
 
   @override
@@ -254,7 +252,7 @@ class _CartState extends State<Cart> {
 
   Container totalPrieCard({
     BuildContext context,
-    var data,
+    AsyncSnapshot data,
   }) {
     return Container(
       height: 60,
@@ -297,14 +295,19 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => CheckOut(
-                          totalPrice: Cart.totalPraices.toString(),
-                          data: data,
+                    if (Cart.totalPraices == 0.0) {
+                      print('TOOOOOOOOOOOOOTL PRICE + ZERRRRRRRO');
+                      checkOut(item: data);
+                    } else {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => CheckOut(
+                            totalPrice: Cart.totalPraices.toString(),
+                            data: data,
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   },
                   icon: Icon(
                     FontAwesomeIcons.moneyCheckAlt,
@@ -324,5 +327,23 @@ class _CartState extends State<Cart> {
         ),
       ),
     );
+  }
+
+  checkOut({var item}) async {
+    print('item::$item');
+    var items = String.fromCharCodes(item);
+    print('items::$items');
+
+    // try {
+    //   var response = await http.get(Utils.SubmitCartItems_URL +
+    //       '?user_id=${User.userid}&items=$items&total=0&payment_data&status=&status=success');
+    //   var jsonData = json.decode(response.body);
+    //   print('response.statusCode:${response.statusCode}');
+
+    //   print(jsonData);
+    // } catch (e) {
+    //   print('contatus Errrrrrrrrror');
+    //   print(e);
+    // }
   }
 }

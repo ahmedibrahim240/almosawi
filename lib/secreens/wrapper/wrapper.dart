@@ -1,17 +1,21 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/models/utils.dart';
 import 'package:almosawii/secreens/Recommendations/freeRecommendations.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/courses/courses.dart';
 import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../sharedPreferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Wrapper extends StatefulWidget {
   static final route = '/';
@@ -39,6 +43,43 @@ class _WrapperState extends State<Wrapper> {
     User.userPassword = await MySharedPreferences.getUserUserPassword();
   }
 
+  checkUserSubscriptions() async {
+    try {
+      print('User.useridwarrrrrwew:${User.userid}');
+      var response = await http.post(Utils.CheckUserSubscriptions_URL, body: {
+        'user_id': User.userid.toString(),
+      });
+      var jsonData = json.decode(response.body);
+      print('response.statusCode:${response.statusCode}');
+
+      print(jsonData);
+
+      if (jsonData['status'] == 'success') {
+        print('proChartRooms' + jsonData['UserData']['proChartRooms']);
+        if (jsonData['UserData']['proChartRooms'] == '0' &&
+            jsonData['UserData']['proChartVideos'] == '0' &&
+            jsonData['UserData']['Courses'] == '0' &&
+            jsonData['UserData']['Recomendations'] == '0') {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(false);
+          });
+        } else {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(true);
+          });
+        }
+        User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+      } else {
+        setState(() {});
+      }
+    } catch (e) {
+      print('Cash wallpaper');
+      setState(() {});
+
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     getTotalPrice();
@@ -49,6 +90,9 @@ class _WrapperState extends State<Wrapper> {
       },
     );
     getUserToken();
+    if (User.userid != null) {
+      checkUserSubscriptions();
+    }
   }
 
   getUserToken() async {

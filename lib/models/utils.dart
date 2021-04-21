@@ -39,4 +39,9 @@ class Utils {
   static final PasswordReset_URL = BASE_URL + "/PasswordReset";
   // ignore: non_constant_identifier_names
   static final MyMessagesComment_URL = BASE_URL + "/MyMessages";
+  // ignore: non_constant_identifier_names
+  static final SubmitCartItems_URL = BASE_URL + "/SubmitCartItems";
+  // ignore: non_constant_identifier_names
+  static final CheckUserSubscriptions_URL =
+      BASE_URL + "/checkUserSubscriptions";
 }
