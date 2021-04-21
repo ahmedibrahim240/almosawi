@@ -1,12 +1,17 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/contactUsApi.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:almosawii/models/utils.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'dart:convert';
+import 'package:gx_file_picker/gx_file_picker.dart';
 
 class ContactUs extends StatefulWidget {
   @override
@@ -21,6 +26,7 @@ class _ContactUsState extends State<ContactUs> {
   String name;
   String phone;
   String message;
+  List<File> files = [];
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,20 @@ class _ContactUsState extends State<ContactUs> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 45),
                   child: CustomButton(
-                    onPress: () {},
+                    onPress: () async {
+                      List<File> res = await FilePicker.getMultiFile(
+                        type: FileType.any,
+                      );
+                      if (res == null) {
+                        print('NOOOOOOOOO FILE PICE');
+                      } else {
+                        files = res;
+                        fileDialog(
+                          context: context,
+                          message: 'تم اضاقه ${files.length} ملفات',
+                        );
+                      }
+                    },
                     text: 'اضافه ملف / صورة',
                   ),
                 ),
@@ -68,6 +87,7 @@ class _ContactUsState extends State<ContactUs> {
                         message: message,
                         mobile: phone,
                         email: email,
+                        files: files,
                         deviceToken: User.userToken,
                       );
                     }
@@ -76,6 +96,55 @@ class _ContactUsState extends State<ContactUs> {
                 ),
               ],
             ),
+    );
+  }
+
+  Future<void> fileDialog({BuildContext context, String message}) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Center(
+                  child: Text(
+                    (message) ??
+                        'تم اضافة الطلب لستكمال عمليه الشراء عليه الذهاب الي عربة التسوق',
+                    style: AppTheme.subHeading,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'حسنا',
+                style: AppTheme.heading.copyWith(
+                  color: customColor,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                'الغاء',
+                style: AppTheme.heading.copyWith(
+                  color: customColor,
+                ),
+              ),
+              onPressed: () {
+                files.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -153,38 +222,106 @@ class _ContactUsState extends State<ContactUs> {
     String message,
     // ignore: non_constant_identifier_names
     int user_id,
-    var files,
+    List<File> files,
     String deviceToken,
   }) async {
     try {
-      var body = {
-        'userName': userName,
-        'email': email,
-        'mobile': mobile,
-        'message': message,
-        'user_id': user_id.toString(),
-        'files[]': files,
-        'DeviceToken': deviceToken,
-      };
-      var response = await http.post(
-        Utils.ContactUs_URL,
-        body: jsonEncode(body),
-        headers: {'Content-Type': 'application/json'},
-      );
+      var data;
+      if (files != null) {
+        data = FormData.fromMap({
+          'userName': userName,
+          'email': email,
+          'mobile': mobile,
+          'message': message,
+          'user_id': user_id.toString(),
+          'DeviceToken': deviceToken,
+          "files[]": [
+            for (var items in files)
+              {
+                await MultipartFile.fromFile(
+                  items.path,
+                  filename: items.path.split('/').last,
+                ),
+              }.toList(),
+          ]
+        });
+      } else {
+        data = FormData.fromMap({
+          'userName': userName,
+          'email': email,
+          'mobile': mobile,
+          'message': message,
+          'user_id': user_id.toString(),
+          'DeviceToken': deviceToken,
+          "files[]": [],
+        });
+      }
 
-      Map<String, dynamic> map = json.decode(response.body);
-      print("map:$map");
+      // for (var items in files) {
+      //   // data = {
+      //   //   'userName': userName,
+      //   //   'email': email,
+      //   //   'mobile': mobile,
+      //   //   'message': message,
+      //   //   'user_id': user_id.toString(),
+      //   //   'DeviceToken': deviceToken,
+      //   //   "files[]": [
+      //   //     MultipartFile.fromFileSync(
+      //   //       items.path,
+      //   //       filename: phootos,
+      //   //     ),
+      //   //   ]
+      //   // };
+      //   data = FormData.fromMap({
+      //     'userName': userName,
+      //     'email': email,
+      //     'mobile': mobile,
+      //     'message': message,
+      //     'user_id': user_id.toString(),
+      //     'DeviceToken': deviceToken,
+      //     "files[]": [
+      //       await MultipartFile.fromFile(
+      //         items.path,
+      //         filename: items.path.split('/').last,
+      //       ),
+      //     ]
+      //   });
+      // }
+      print(data);
 
-      if (map['status'] == 'success') {
+      // var body = {
+      //   'userName': userName,
+      //   'email': email,
+      //   'mobile': mobile,
+      //   'message': message,
+      //   'user_id': user_id.toString(),
+      //   'files[]': files,
+      //   'DeviceToken': deviceToken,
+      // };
+      Dio dio = new Dio();
+      Response response = await dio.post(Utils.ContactUs_URL, data: data);
+      print(response.data.toString());
+      // var response = await http.post(
+      //   Utils.ContactUs_URL,
+      //   body: jsonEncode(body),
+      //   headers: {'Content-Type': 'application/json'},
+      // );
+
+      // Map<String, dynamic> map = json.decode(response.body);
+      // print("body:$body");
+
+      if (response.data['status'] == 'success') {
         setState(() {
           loading = !loading;
         });
-        showMyDialog(context: context, message: map['message'].toString());
+        showMyDialog(
+            context: context, message: response.data['message'].toString());
       } else {
         setState(() {
           loading = !loading;
         });
-        showMyDialog(context: context, message: map['errorArr'].toString());
+        showMyDialog(
+            context: context, message: response.data['errorArr'].toString());
       }
 
       // Navigator.pop(context);

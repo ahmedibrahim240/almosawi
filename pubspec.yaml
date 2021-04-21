@@ -67,6 +67,9 @@ dependencies:
   dio:
   audioplayers:
   assets_audio_player:
+  gx_file_picker:
+  
+  # file_picker:
   # assets_audio_player:
   # firebase_storage:
   

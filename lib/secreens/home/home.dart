@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
                   homeProChartSection(),
                   // HomeTabs(),
                   SizedBox(height: 10),
-                  // successPartners(),
+                  successPartners(),
                   SizedBox(height: 10),
                   acountFeatures(),
                   SizedBox(height: 10),
