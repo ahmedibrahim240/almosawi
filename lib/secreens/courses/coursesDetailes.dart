@@ -37,8 +37,6 @@ class _CoursesedtailsState extends State<Coursesedtails> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.courses.newPrice);
-    print(widget.courses.newPrice == null);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -102,7 +100,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
             color: Colors.grey[300],
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Text(
-              parseHtmlString(widget.courses.description),
+              parseHtmlString((widget.courses.description) ?? ''),
               // textAlign: TextAlign.justify,
               style: AppTheme.subHeading.copyWith(
                 color: customColorGray,

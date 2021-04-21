@@ -7,6 +7,7 @@ import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_fatoorah/my_fatoorah.dart';
 // import 'dart:convert';
 // import 'package:http/http.dart' as http;
 
@@ -53,315 +54,46 @@ class _CheckOutState extends State<CheckOut> {
             color: Colors.white,
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: FlatButton.icon(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-                side: BorderSide(
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () {
-                flitter(
-                  context: context,
-                  child: AddFileBottomSheet(),
-                );
-                setState(() {});
-              },
-              icon: Icon(
-                FontAwesomeIcons.moneyCheckAlt,
-                color: Colors.white,
-                size: 20,
-              ),
-              label: Text(
-                'اضف فيزا',
-                style: AppTheme.subHeading.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ],
         title: Text(
           'الدفع',
           style: AppTheme.heading.copyWith(color: Colors.white),
         ),
       ),
-      body: (loading)
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView(
-              shrinkWrap: true,
-              primary: true,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height - 160,
-                  child: ListView(
-                    shrinkWrap: true,
-                    primary: true,
-                    children: [
-                      Center(
-                        child: Text(
-                          'اختر طريقت الدفع ',
-                          style: AppTheme.heading.copyWith(
-                            color: customColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      FutureBuilder(
-                        future: helper.allvisa(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            return (snapshot.data.isEmpty)
-                                ? Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 100, vertical: 10),
-                                      child: FlatButton.icon(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          side: BorderSide(
-                                            color: customColor,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          flitter(
-                                            context: context,
-                                            child: AddFileBottomSheet(),
-                                          );
-                                          setState(() {});
-                                        },
-                                        icon: Icon(
-                                          FontAwesomeIcons.moneyCheckAlt,
-                                          color: customColor,
-                                          size: 20,
-                                        ),
-                                        label: Text(
-                                          'اضف فيزا',
-                                          style: AppTheme.subHeading.copyWith(
-                                            color: customColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    itemCount: snapshot.data.length,
-                                    itemBuilder: (context, index) {
-                                      print(snapshot.data[index]);
-                                      return RadioListTile(
-                                        groupValue: id,
-                                        value: index,
-                                        title: Card(
-                                          elevation: 3,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 20),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          (snapshot.data[index][
-                                                                      'type'] ==
-                                                                  'visa')
-                                                              ? FontAwesomeIcons
-                                                                  .ccVisa
-                                                              : FontAwesomeIcons
-                                                                  .ccMastercard,
-                                                          color: Colors.blue,
-                                                        ),
-                                                        SizedBox(width: 10),
-                                                        Column(
-                                                          children: [
-                                                            Text(
-                                                              '***********' +
-                                                                  snapshot.data[
-                                                                          index]
-                                                                          [
-                                                                          'visaNumber']
-                                                                      .toString()
-                                                                      .substring(
-                                                                          0, 3),
-                                                              style: AppTheme
-                                                                  .subHeading,
-                                                            ),
-                                                            SizedBox(
-                                                                height: 10),
-                                                            Text(
-                                                              '***********' +
-                                                                  snapshot.data[
-                                                                          index]
-                                                                          [
-                                                                          'cvvNumber']
-                                                                      .toString()
-                                                                      .substring(
-                                                                          0, 3),
-                                                              style: AppTheme
-                                                                  .subHeading,
-                                                            ),
-                                                            SizedBox(
-                                                                height: 10),
-                                                            Text(
-                                                              snapshot.data[
-                                                                      index]
-                                                                  ['exDate'],
-                                                              style: AppTheme
-                                                                  .subHeading,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Text(
-                                                          "Card Number",
-                                                          style: AppTheme
-                                                              .subHeading,
-                                                        ),
-                                                        SizedBox(height: 10),
-                                                        Text(
-                                                          "cvv",
-                                                          style: AppTheme
-                                                              .subHeading,
-                                                        ),
-                                                        SizedBox(height: 10),
-                                                        Text(
-                                                          "Expriy Date",
-                                                          style: AppTheme
-                                                              .subHeading,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: 30,
-                                                child: FlatButton.icon(
-                                                  onPressed: () async {
-                                                    await helper.deletevisa(
-                                                      snapshot.data[index]
-                                                          ['id'],
-                                                    );
-                                                    setState(() {});
-                                                  },
-                                                  color: Colors.red,
-                                                  label: Text(
-                                                    'حذف',
-                                                    style: AppTheme.subHeading
-                                                        .copyWith(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  icon: Icon(
-                                                    Icons.delete,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        onChanged: (val) {
-                                          setState(() {
-                                            id = val;
-                                          });
-                                        },
-                                      );
-                                    },
-                                  );
-                          }
-                        },
-                      ),
-                      Container(
-                        height: 60,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            side: BorderSide(color: customColor),
-                          ),
-                          elevation: 3,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "السعر الكلي" + ' : ',
-                                      style: AppTheme.heading.copyWith(
-                                        color: customColor,
-                                      ),
-                                    ),
-                                    Text(
-                                      Cart.totalPraices.toString(),
-                                      style: AppTheme.heading,
-                                    ),
-                                  ],
-                                ),
-                                //
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      CustomButtonWithchild(
-                        color: customColor,
-                        onPress: () {
-                          // setState(() {
-                          //   loading = !loading;
-                          // });
-                          // checkOut(
-                          //   consultId: widget.consultantid,
-                          //   availableId: widget.avilableId,
-                          //   availabeDate: widget.avilableDate,
-                          //   snapshot: widget.data,
-                          // );
-                        },
-                        child: Text(
-                          'تاكيد',
-                          style: AppTheme.heading.copyWith(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      body: Builder(
+        builder: (BuildContext context) {
+          return MyFatoorah(
+            request: MyfatoorahRequest(
+              url: "https://apitest.myfatoorah.com",
+              token:
+                  "rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL",
+              currencyIso: Country.SaudiArabia,
+              successUrl:
+                  "https://assets.materialup.com/uploads/473ef52c-8b96-46f7-9771-cac4b112ae28/preview.png",
+              errorUrl:
+                  "https://www.digitalpaymentguru.com/wp-content/uploads/2019/08/Transaction-Failed.png",
+              invoiceAmount: 100,
+              language: ApiLanguage.Arabic,
             ),
+            errorChild: Center(
+              child: Icon(
+                Icons.error,
+                color: Colors.redAccent,
+                size: 50,
+              ),
+            ),
+            succcessChild: Center(
+              child: Icon(
+                Icons.done_all,
+                color: Colors.greenAccent,
+                size: 50,
+              ),
+            ),
+            onResult: (PaymentResponse res) {
+              print(res);
+            },
+          );
+        },
+      ),
     );
   }
 

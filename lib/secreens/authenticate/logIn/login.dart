@@ -239,11 +239,12 @@ class _LogInState extends State<LogIn> {
         MySharedPreferences.saveUserUserPassword(password);
         MySharedPreferences.saveUserUserid(map['UserData']['id']);
         MySharedPreferences.saveUserCourses(map['UserData']['Courses']);
-        MySharedPreferences.saveUserproChat(map['UserData']['proChat']);
+        MySharedPreferences.saveUserproChat(map['UserData']['proChartRooms']);
         MySharedPreferences.saveUserUserRecomendations(
             map['UserData']['Recomendations']);
-        if (map['UserData']['proChat'] == '0' &&
+        if (map['UserData']['proChartRooms'] == '0' &&
             map['UserData']['Courses'] == '0' &&
+            map['UserData']['proChartVideos'] == '0' &&
             map['UserData']['Recomendations'] == '0') {
           MySharedPreferences.saveUserSkipLogIn(true);
           MySharedPreferences.saveUserSingIn(true);

@@ -57,7 +57,7 @@ dependencies:
   # firebase_auth: ^0.14.0+5
   # cloud_firestore: ^0.12.9+4
   provider: ^3.1.0
-  myfatoorah_flutter:
+  
   # flutter_spinkit:
   image_picker:
   image_cropper:
@@ -68,6 +68,7 @@ dependencies:
   audioplayers:
   assets_audio_player:
   gx_file_picker:
+  my_fatoorah: ^2.7.1
   
   # file_picker:
   # assets_audio_player:

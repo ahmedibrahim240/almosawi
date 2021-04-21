@@ -9,6 +9,8 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
+	 <key>NSAllowsArbitraryLoads</key>
+    <true/>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>almosawii</string>

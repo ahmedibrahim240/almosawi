@@ -23,7 +23,7 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    if (User.userid == null && User.userLogIn == false) {
+    if (User.userid == null) {
       if (showSignIn) {
         return Container(
           child: LogIn(toggleView: toggleView),
