@@ -41,9 +41,10 @@ class _CartState extends State<Cart> {
     super.initState();
   }
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
-    print('Cart.totalPraices:${Cart.totalPraices}');
     return Scaffold(
       // key: _scaffoldKey,
       appBar: AppBar(
@@ -58,141 +59,154 @@ class _CartState extends State<Cart> {
           },
         ),
       ),
-      body: FutureBuilder(
-        future: helper.allProduct(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Container();
-          } else {
-            return (snapshot.data.isEmpty)
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.shoppingCart,
-                          color: customColor,
-                          size: 100,
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          'السله فارغه',
-                          style: AppTheme.heading,
-                        ),
-                      ],
-                    ),
-                  )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: snapshot.data.length,
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Card(
-                            elevation: 3,
-                            child: Column(
+      body: (loading)
+          ? Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : FutureBuilder(
+              future: helper.allProduct(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Container();
+                } else {
+                  return (snapshot.data.isEmpty)
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.shoppingCart,
+                                color: customColor,
+                                size: 100,
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'السله فارغه',
+                                style: AppTheme.heading,
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: snapshot.data.length,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                          itemBuilder: (context, index) {
+                            return Column(
                               children: [
-                                ListTile(
-                                  title: Row(
+                                Card(
+                                  elevation: 3,
+                                  child: Column(
                                     children: [
-                                      Text(
-                                        'الاسم: ',
-                                        style: AppTheme.heading.copyWith(
-                                          color: customColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        snapshot.data[index]['title'],
-                                        style: AppTheme.subHeading.copyWith(
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  subtitle: Row(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'السعر: ',
-                                            style: AppTheme.heading.copyWith(
-                                              color: customColor,
+                                      ListTile(
+                                        title: Row(
+                                          children: [
+                                            Text(
+                                              'الاسم: ',
+                                              style: AppTheme.heading.copyWith(
+                                                color: customColor,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            snapshot.data[index]['price']
-                                                .toString(),
-                                            style: AppTheme.subHeading.copyWith(
-                                              fontSize: 12,
+                                            Text(
+                                              snapshot.data[index]['title'],
+                                              style:
+                                                  AppTheme.subHeading.copyWith(
+                                                fontSize: 12,
+                                              ),
                                             ),
+                                          ],
+                                        ),
+                                        subtitle: Row(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'السعر: ',
+                                                  style:
+                                                      AppTheme.heading.copyWith(
+                                                    color: customColor,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  snapshot.data[index]['price']
+                                                      .toString(),
+                                                  style: AppTheme.subHeading
+                                                      .copyWith(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  FontAwesomeIcons.poundSign,
+                                                  color: Colors.black,
+                                                  size: 10,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        trailing: IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            size: 30,
+                                            color: Colors.red,
                                           ),
-                                          Icon(
-                                            FontAwesomeIcons.poundSign,
-                                            color: Colors.black,
-                                            size: 10,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  trailing: IconButton(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      size: 30,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () async {
-                                      setState(() {
-                                        setState(() {
-                                          if (snapshot.data[index]['type'] ==
-                                              'plan') {
+                                          onPressed: () async {
                                             setState(() {
-                                              MySharedPreferences
-                                                  .saveUserPayPlan(false);
+                                              setState(() {
+                                                if (snapshot.data[index]
+                                                        ['type'] ==
+                                                    'plan') {
+                                                  setState(() {
+                                                    MySharedPreferences
+                                                        .saveUserPayPlan(false);
+                                                  });
+                                                }
+                                              });
                                             });
-                                          }
-                                        });
-                                      });
-                                      await helper.deleteProduct(
-                                          snapshot.data[index]['id']);
-                                      decreaseCartTotlaPrice(
-                                        price: snapshot.data[index]['price'],
-                                      );
-                                    },
-                                  ),
-                                  leading: Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: customCachedNetworkImage(
-                                      context: context,
-                                      url: snapshot.data[index]["proImageUrl"],
-                                    ),
+                                            await helper.deleteProduct(
+                                                snapshot.data[index]['id']);
+                                            decreaseCartTotlaPrice(
+                                              price: snapshot.data[index]
+                                                  ['price'],
+                                            );
+                                          },
+                                        ),
+                                        leading: Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: customCachedNetworkImage(
+                                            context: context,
+                                            url: snapshot.data[index]
+                                                ["proImageUrl"],
+                                          ),
+                                        ),
+                                      ),
+
+                                      // productDate(snapshot, index),
+                                    ],
                                   ),
                                 ),
-
-                                // productDate(snapshot, index),
+                                (index == snapshot.data.length - 1)
+                                    ? totalPrieCard(
+                                        context: context,
+                                        data: snapshot,
+                                      )
+                                    : Container(),
                               ],
-                            ),
-                          ),
-                          (index == snapshot.data.length - 1)
-                              ? totalPrieCard(
-                                  context: context,
-                                  data: snapshot,
-                                )
-                              : Container(),
-                        ],
-                      );
-                    },
-                  );
-          }
-        },
-      ),
+                            );
+                          },
+                        );
+                }
+              },
+            ),
     );
   }
 
@@ -242,7 +256,6 @@ class _CartState extends State<Cart> {
                   ),
                   onPressed: () {
                     if (Cart.totalPraices == 0.0) {
-                      print('TOOOOOOOOOOOOOTL PRICE + ZERRRRRRRO');
                       checkOut(item: data);
                     } else {
                       Navigator.of(context).push(
@@ -276,20 +289,26 @@ class _CartState extends State<Cart> {
   }
 
   checkOut({var item}) async {
-    List data = [];
+    String courses = '';
+    String plans = '';
     for (var items in item.data) {
-      var obj = {
-        'id': items['consultantId'],
-        'type': items['type'],
-      };
-      data.add(obj);
+      switch (items['type']) {
+        case 'course':
+          courses = courses + '${items['consultantId']},';
+          break;
+        default:
+          plans = plans + '${items['consultantId']},';
+      }
     }
-    print('data:::$data');
+    courses =
+        courses.length > 0 ? courses.substring(0, courses.length - 1) : '';
+    plans = plans.length > 0 ? plans.substring(0, plans.length - 1) : '';
+
     try {
-      print('User.userid:${User.userid}');
       var body = {
-        'user_id': User.userid,
-        'items': data,
+        'user_id': User.userid.toString(),
+        'courses': courses,
+        'plans': plans,
         'total': Cart.totalPraices.toString(),
         'payment_data': null,
         'success': "success",
@@ -302,28 +321,31 @@ class _CartState extends State<Cart> {
       );
 
       var jsonData = json.decode(response.body);
-      print('response.statusCode:${response.statusCode}');
 
-      print("jsonData::::$jsonData");
-
-      // if (jsonData['status'] == 'success') {
-      //   print('proChartRooms' + jsonData['UserData']['proChartRooms']);
-      //   if (jsonData['UserData']['proChartRooms'] == '0' &&
-      //       jsonData['UserData']['proChartVideos'] == '0' &&
-      //       jsonData['UserData']['Courses'] == '0' &&
-      //       jsonData['UserData']['Recomendations'] == '0') {
-      //     setState(() {
-      //       MySharedPreferences.saveUserSkipLogIn(false);
-      //     });
-      //   } else {
-      //     setState(() {
-      //       MySharedPreferences.saveUserSkipLogIn(true);
-      //     });
-      //   }
-      //   User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-      // } else {
-      //   setState(() {});
-      // }
+      if (jsonData['status'] == 'success') {
+        setState(() {
+          loading = !loading;
+        });
+        setState(() {
+          MySharedPreferences.saveUserPayPlan(false);
+        });
+        await helper.deleteAllProduct();
+        decreaseCartTotlaPrice(
+          price: Cart.totalPraices,
+        );
+        showMyDialog(
+          context: context,
+          message: jsonData['message'].toString(),
+        );
+      } else {
+        setState(() {
+          loading = !loading;
+        });
+        showMyDialog(
+          context: context,
+          message: jsonData['errorArr'].toString(),
+        );
+      }
     } catch (e) {
       print('Cash wallpaper');
       setState(() {});

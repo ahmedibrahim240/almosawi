@@ -1,7 +1,10 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/couresApi.dart';
+import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/models/utils.dart';
 import 'package:almosawii/secreens/my%20courses/vidoePage.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -17,6 +20,10 @@ class MyCoursesDetails extends StatefulWidget {
 
 class _MyCoursesDetailsState extends State<MyCoursesDetails> {
   int lecTapped = 0;
+  double userRate = 2.5;
+  String userMessage;
+  final _formKey = GlobalKey<FormState>();
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +31,7 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
         shrinkWrap: true,
         primary: true,
         children: [
-          (widget.courses.video_code != "")
+          (widget.courses.video_code != "" || widget.courses.video_code != null)
               ? Container(
                   child: Column(
                   children: [
@@ -80,7 +87,7 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.courses.name,
+                  (widget.courses.name) ?? '',
                   style: AppTheme.heading,
                 ),
                 RatingStar(
@@ -142,7 +149,8 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
                         Container(
                           child: Center(
                             child: Text(
-                              parseHtmlString(widget.courses.description),
+                              parseHtmlString(
+                                  (widget.courses.description) ?? ''),
                               style: AppTheme.subHeading,
                             ),
                           ),
@@ -166,7 +174,8 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
   }
 
   ratingListView({BuildContext context}) {
-    return (widget.courses.ratings.isEmpty)
+    return (widget.courses.ratings.isEmpty ||
+            widget.courses.ratings.isEmpty == null)
         ? Container()
         : ListView.builder(
             shrinkWrap: true,
@@ -231,52 +240,130 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
   }
 
   reviewBody() {
-    return Container(
-      child: Form(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: SmoothStarRating(
-                  rating: 2.5,
-                  size: 25,
-                  filledIconData: Icons.star,
-                  color: Colors.yellow[700],
-                  halfFilledIconData: Icons.star_half,
-                  borderColor: Colors.yellow[900],
-                  defaultIconData: Icons.star_border,
-                  starCount: 5,
-                  allowHalfRating: true,
-                  spacing: 2.0,
-                ),
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                decoration: conectedTextFormStyle(
-                  lableText: 'رسالتك',
-                ),
-              ),
-              SizedBox(height: 20),
-              CustomButtonWithchild(
-                color: customColor,
-                onPress: () {},
-                child: Center(
-                  child: Text(
-                    'ارسال',
-                    style: AppTheme.heading.copyWith(
-                      color: Colors.white,
+    return (loading)
+        ? Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : Container(
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: SmoothStarRating(
+                        rating: userRate,
+                        size: 25,
+                        onRated: (val) {
+                          setState(() {
+                            userRate = val;
+                          });
+                        },
+                        filledIconData: Icons.star,
+                        color: Colors.yellow[700],
+                        halfFilledIconData: Icons.star_half,
+                        borderColor: Colors.yellow[900],
+                        defaultIconData: Icons.star_border,
+                        starCount: 5,
+                        allowHalfRating: true,
+                        spacing: 2.0,
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      decoration: conectedTextFormStyle(
+                        lableText: 'رسالتك',
+                      ),
+                      validator: (val) =>
+                          val.isEmpty ? 'من فضلك أدخل  نص الرساله' : null,
+                      onChanged: (val) {
+                        setState(() {
+                          userMessage = val;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    CustomButtonWithchild(
+                      color: customColor,
+                      onPress: () {
+                        if (_formKey.currentState.validate()) {
+                          setState(() {
+                            loading = !loading;
+                          });
+
+                          sentRating(
+                            content: userMessage,
+                            rate: userRate,
+                          );
+                        }
+                      },
+                      child: Center(
+                        child: Text(
+                          'ارسال',
+                          style: AppTheme.heading.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+  }
+
+  sentRating({
+    String content,
+    double rate,
+  }) async {
+    try {
+      var data;
+      data = FormData.fromMap({
+        'course_id': widget.courses.id,
+        'user_id': User.userid,
+        'content': content,
+        'rate': rate.toString(),
+      });
+
+      Dio dio = new Dio();
+      Response response = await dio.post(Utils.RateCourse_URL, data: data);
+
+      if (response.data['status'] == 'success') {
+        setState(() {
+          loading = !loading;
+          userRate = 2.5;
+        });
+        showMyDialog(
+          context: context,
+          message: response.data['message'].toString(),
+        );
+      } else {
+        setState(() {
+          loading = !loading;
+          userRate = 2.5;
+        });
+        showMyDialog(
+          context: context,
+          message: response.data['errorArr'].toString(),
+        );
+      }
+
+      // Navigator.pop(context);
+    } catch (e) {
+      print('Cash Rating');
+      setState(() {
+        loading = !loading;
+        userRate = 2.5;
+      });
+
+      print(e);
+    }
   }
 
   InkWell taps({Function onTap, String title, int index}) {
@@ -303,7 +390,8 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
   }
 
   lectureBody() {
-    return (widget.courses.lessons.isEmpty)
+    return (widget.courses.lessons.isEmpty ||
+            widget.courses.lessons.isEmpty == null)
         ? Container()
         : ListView.builder(
             shrinkWrap: true,

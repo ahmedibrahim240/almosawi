@@ -12,6 +12,8 @@ import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../sharedPreferences.dart';
+
 class CheckOut extends StatefulWidget {
   final String totalPrice;
 
@@ -83,16 +85,36 @@ class _CheckOutState extends State<CheckOut> {
               ),
             ),
             succcessChild: Center(
-              child: Icon(
-                Icons.done_all,
-                color: Colors.greenAccent,
-                size: 50,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.done_all,
+                    color: Colors.greenAccent,
+                    size: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'لاستكمال عمليه الشراء يجب الضغط علي زر العوده بالاعلي',
+                      style: AppTheme.heading,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ),
             ),
             onResult: (PaymentResponse res) {
-              print(res);
-
-              checkOut(item: widget.data, paymentData: res.status);
+              print("res.status:${res.status}");
+              if (res.status == PaymentStatus.Success) {
+                checkOut(item: widget.data, paymentData: res.status);
+              } else {
+                checkOutDialog(
+                  context: context,
+                  message: 'فشل يرجي المحاوله مجددا ف وقت لاحق',
+                );
+              }
             },
           );
         },
@@ -101,20 +123,30 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   checkOut({var item, var paymentData}) async {
-    List data = [];
+    String courses = '';
+    String plans = '';
+    for (var items in item.data) {
+      switch (items['type']) {
+        case 'course':
+          courses = courses + '${items['consultantId']},';
+          break;
+        default:
+          plans = plans + '${items['consultantId']},';
+      }
+    }
+    courses =
+        courses.length > 0 ? courses.substring(0, courses.length - 1) : '';
+    plans = plans.length > 0 ? plans.substring(0, plans.length - 1) : '';
+    print('courses:$courses');
+    print('plans:$plans');
+
     try {
       print('User.userid:${User.userid}');
-      for (var items in item.data) {
-        var obj = {
-          'id': items['consultantId'],
-          'type': items['type'],
-        };
-        data.add(obj);
-      }
-      print('data:::$data');
+
       var body = {
         'user_id': User.userid,
-        'items': data,
+        'courses': courses,
+        'plans': plans,
         'total': Cart.totalPraices.toString(),
         'payment_data': paymentData.toString(),
         'success': "success",
@@ -128,38 +160,81 @@ class _CheckOutState extends State<CheckOut> {
       );
 
       var jsonData = json.decode(response.body);
-      print('response.statusCode:${response.statusCode}');
+      print("jsonData:::$jsonData");
 
-      print(jsonData);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => Wrapper(),
-        ),
-      );
-
-      // if (jsonData['status'] == 'success') {
-      //   print('proChartRooms' + jsonData['UserData']['proChartRooms']);
-      //   if (jsonData['UserData']['proChartRooms'] == '0' &&
-      //       jsonData['UserData']['proChartVideos'] == '0' &&
-      //       jsonData['UserData']['Courses'] == '0' &&
-      //       jsonData['UserData']['Recomendations'] == '0') {
-      //     setState(() {
-      //       MySharedPreferences.saveUserSkipLogIn(false);
-      //     });
-      //   } else {
-      //     setState(() {
-      //       MySharedPreferences.saveUserSkipLogIn(true);
-      //     });
-      //   }
-      //   User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-      // } else {
-      //   setState(() {});
-      // }
+      if (jsonData['status'] == 'success') {
+        await helper.deleteAllProduct();
+        decreaseCartTotlaPrice(
+          price: Cart.totalPraices,
+        );
+        setState(() {
+          MySharedPreferences.saveUserPayPlan(false);
+        });
+        checkOutDialog(
+          context: context,
+          message: jsonData['message'].toString(),
+        );
+      } else {
+        checkOutDialog(
+          context: context,
+          message: jsonData['errorArr'].toString(),
+        );
+      }
     } catch (e) {
       print('Cash carrrrrrrrt');
+      checkOutDialog(
+        context: context,
+        message: 'حدث خطأ ما, يرجي التواصل مع الدعم الفني',
+      );
       setState(() {});
 
       print(e);
     }
+  }
+
+  Future<void> checkOutDialog({BuildContext context, String message}) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Center(
+                  child: Text(
+                    'رساله اداريه',
+                    style: AppTheme.heading.copyWith(
+                      color: customColor,
+                    ),
+                  ),
+                ),
+                Text(
+                  message,
+                  style: AppTheme.subHeading,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'تم',
+                style: AppTheme.heading.copyWith(
+                  color: customColor,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => Wrapper(),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

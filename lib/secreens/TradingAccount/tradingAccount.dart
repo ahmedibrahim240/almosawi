@@ -16,9 +16,9 @@ class TradingAccount extends StatefulWidget {
 
 class _TradingAccountState extends State<TradingAccount> {
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
   List<File> listFiles = [];
 
-  bool loading = false;
   String name;
   String country;
   String whatsApp;
