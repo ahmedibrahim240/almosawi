@@ -85,9 +85,8 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                   autoPlay: true,
                                   enlargeStrategy:
                                       CenterPageEnlargeStrategy.height,
-                                  height: 400,
-                                  reverse: true,
-                                  enlargeCenterPage: true,
+                                  height: 500,
+                                  enlargeCenterPage: false,
                                   onPageChanged: (index, reason) {
                                     setState(() {
                                       _currentPage = index;
@@ -117,6 +116,7 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                             children: [
                                               Container(
                                                 width: 250,
+                                                height: 500,
                                                 child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -130,7 +130,6 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                           padding: EdgeInsets
                                                               .symmetric(
                                                             horizontal: 20,
-                                                            vertical: 5,
                                                           ),
                                                           width: MediaQuery.of(
                                                                   context)
@@ -154,9 +153,12 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                           ),
                                                           child: Center(
                                                             child: Text(
-                                                              snapshot
-                                                                  .data[index]
-                                                                  .name,
+                                                              (snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .name
+                                                                      .toString()) ??
+                                                                  '',
                                                               style: AppTheme
                                                                   .heading
                                                                   .copyWith(
@@ -172,7 +174,7 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                                 null)
                                                             ? Container()
                                                             : Text(
-                                                                '${snapshot.data[index].oldPrice} \$',
+                                                                '${(snapshot.data[index].oldPrice) ?? ''} \$',
                                                                 style: AppTheme
                                                                     .heading
                                                                     .copyWith(
@@ -186,10 +188,12 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                               ),
                                                         Text(
                                                           'كل ' +
-                                                              snapshot
-                                                                  .data[index]
-                                                                  .plan_time +
-                                                              ' شهور',
+                                                                  (snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .plan_time
+                                                                      .toString()) ??
+                                                              "" + ' شهور',
                                                           style: AppTheme
                                                               .heading
                                                               .copyWith(
@@ -209,36 +213,48 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                                     .isEmpty ==
                                                                 null)
                                                         ? Container()
-                                                        : ListView.builder(
-                                                            shrinkWrap: true,
-                                                            primary: false,
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        10),
-                                                            itemCount: snapshot
-                                                                .data[index]
-                                                                .features
-                                                                .length,
-                                                            itemBuilder:
-                                                                (context, i) {
-                                                              return Column(
-                                                                children: [
-                                                                  contant(
-                                                                    title: snapshot
-                                                                        .data[
-                                                                            index]
-                                                                        .features[i],
-                                                                  ),
-                                                                  Divider(
-                                                                    color:
-                                                                        customColorDivider,
-                                                                    thickness:
-                                                                        2,
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
+                                                        : Card(
+                                                            elevation: 0,
+                                                            child: Container(
+                                                              height: 270,
+                                                              child: ListView
+                                                                  .builder(
+                                                                shrinkWrap:
+                                                                    true,
+                                                                primary: false,
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            10),
+                                                                itemCount: snapshot
+                                                                    .data[index]
+                                                                    .features
+                                                                    .length,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        i) {
+                                                                  return Column(
+                                                                    children: [
+                                                                      contant(
+                                                                        title: snapshot
+                                                                            .data[index]
+                                                                            .features[i]['txt'],
+                                                                        status: snapshot
+                                                                            .data[index]
+                                                                            .features[i]['status'],
+                                                                      ),
+                                                                      Divider(
+                                                                        color:
+                                                                            customColorDivider,
+                                                                        thickness:
+                                                                            2,
+                                                                      ),
+                                                                      
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
                                                           ),
                                                     RaisedButton(
                                                       shape:
@@ -363,29 +379,29 @@ class _ChoosePlanState extends State<ChoosePlan> {
     );
   }
 
-  contant({String title}) {
+  contant({String title, String status}) {
     return Row(
       children: [
         Container(
           height: 20,
           width: 20,
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.green,
+            shape: (status == '1') ? BoxShape.circle : BoxShape.rectangle,
+            color: (status == '1') ? Colors.green : Colors.red,
           ),
           child: Center(
             child: Icon(
-              FontAwesomeIcons.check,
+              (status == '1') ? FontAwesomeIcons.check : Icons.close,
               color: Colors.white,
-              size: 10,
+              size: (status == '1') ? 10 : 20,
             ),
           ),
         ),
         SizedBox(width: 10),
         Text(
-          title,
+          (title.toString()) ?? '',
           style: AppTheme.heading.copyWith(
-            fontSize: 16,
+            fontSize: 12,
           ),
         )
       ],

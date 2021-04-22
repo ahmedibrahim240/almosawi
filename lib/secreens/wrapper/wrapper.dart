@@ -8,7 +8,6 @@ import 'package:almosawii/secreens/courses/courses.dart';
 import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -61,12 +60,18 @@ class _WrapperState extends State<Wrapper> {
             jsonData['UserData']['Courses'] == '0' &&
             jsonData['UserData']['Recomendations'] == '0') {
           setState(() {
-            MySharedPreferences.saveUserSkipLogIn(false);
+            MySharedPreferences.saveUserSkipLogIn(true);
+            setState(() {
+              User.userSkipLogIn = true;
+            });
           });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         } else {
           setState(() {
-            MySharedPreferences.saveUserSkipLogIn(true);
+            MySharedPreferences.saveUserSkipLogIn(false);
+            User.userSkipLogIn = false;
           });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         }
         User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
       } else {

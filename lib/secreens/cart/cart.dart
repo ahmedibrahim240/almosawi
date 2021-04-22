@@ -43,6 +43,7 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    print('Cart.totalPraices:${Cart.totalPraices}');
     return Scaffold(
       // key: _scaffoldKey,
       appBar: AppBar(
@@ -88,8 +89,6 @@ class _CartState extends State<Cart> {
                     itemCount: snapshot.data.length,
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     itemBuilder: (context, index) {
-                      print('type:${snapshot.data[index]}');
-
                       return Column(
                         children: [
                           Card(
@@ -155,15 +154,13 @@ class _CartState extends State<Cart> {
                                                   .saveUserPayPlan(false);
                                             });
                                           }
-                                          decreaseCartTotlaPrice(
-                                            price: snapshot.data[index]
-                                                ['price'],
-                                          );
                                         });
                                       });
-
                                       await helper.deleteProduct(
                                           snapshot.data[index]['id']);
+                                      decreaseCartTotlaPrice(
+                                        price: snapshot.data[index]['price'],
+                                      );
                                     },
                                   ),
                                   leading: Container(
@@ -195,57 +192,6 @@ class _CartState extends State<Cart> {
                   );
           }
         },
-      ),
-    );
-  }
-
-  Padding productDate(AsyncSnapshot snapshot, int index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Date: ',
-                    style: AppTheme.heading.copyWith(
-                      color: customColor,
-                    ),
-                  ),
-                  Text(
-                    snapshot.data[index]['date'],
-                    style: AppTheme.subHeading.copyWith(
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Time: ',
-                    style: AppTheme.heading.copyWith(
-                      color: customColor,
-                    ),
-                  ),
-                  Text(
-                    snapshot.data[index]['time'],
-                    style: AppTheme.subHeading.copyWith(
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
@@ -330,20 +276,59 @@ class _CartState extends State<Cart> {
   }
 
   checkOut({var item}) async {
-    print('item::$item');
-    var items = String.fromCharCodes(item);
-    print('items::$items');
+    List data = [];
+    for (var items in item.data) {
+      var obj = {
+        'id': items['consultantId'],
+        'type': items['type'],
+      };
+      data.add(obj);
+    }
+    print('data:::$data');
+    try {
+      print('User.userid:${User.userid}');
+      var body = {
+        'user_id': User.userid,
+        'items': data,
+        'total': Cart.totalPraices.toString(),
+        'payment_data': null,
+        'success': "success",
+      };
 
-    // try {
-    //   var response = await http.get(Utils.SubmitCartItems_URL +
-    //       '?user_id=${User.userid}&items=$items&total=0&payment_data&status=&status=success');
-    //   var jsonData = json.decode(response.body);
-    //   print('response.statusCode:${response.statusCode}');
+      var response = await http.post(
+        Utils.SubmitCartItems_URL,
+        body: json.encode(body),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-    //   print(jsonData);
-    // } catch (e) {
-    //   print('contatus Errrrrrrrrror');
-    //   print(e);
-    // }
+      var jsonData = json.decode(response.body);
+      print('response.statusCode:${response.statusCode}');
+
+      print("jsonData::::$jsonData");
+
+      // if (jsonData['status'] == 'success') {
+      //   print('proChartRooms' + jsonData['UserData']['proChartRooms']);
+      //   if (jsonData['UserData']['proChartRooms'] == '0' &&
+      //       jsonData['UserData']['proChartVideos'] == '0' &&
+      //       jsonData['UserData']['Courses'] == '0' &&
+      //       jsonData['UserData']['Recomendations'] == '0') {
+      //     setState(() {
+      //       MySharedPreferences.saveUserSkipLogIn(false);
+      //     });
+      //   } else {
+      //     setState(() {
+      //       MySharedPreferences.saveUserSkipLogIn(true);
+      //     });
+      //   }
+      //   User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+      // } else {
+      //   setState(() {});
+      // }
+    } catch (e) {
+      print('Cash wallpaper');
+      setState(() {});
+
+      print(e);
+    }
   }
 }

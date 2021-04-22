@@ -9,7 +9,6 @@ import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:almosawii/secreens/prochartroom/prochartRoom.dart';
 
 class UserHome extends StatefulWidget {
