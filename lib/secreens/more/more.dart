@@ -12,6 +12,7 @@ import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/editprofile/editprofile.dart';
 import 'package:almosawii/secreens/lastMessges/lastMessges.dart';
 import 'package:almosawii/secreens/my%20courses/mycourses.dart';
+import 'package:almosawii/secreens/myplans/myPlans.dart';
 import 'package:almosawii/secreens/notifcations/notifcations.dart';
 import 'package:almosawii/secreens/prochartroom/prochartRoom.dart';
 import 'package:flutter/material.dart';
@@ -124,6 +125,24 @@ class _MoreState extends State<More> {
                       height: 20,
                     ),
                     tilte: 'دوراتي',
+                  ),
+            (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => MyPlans(),
+                        ),
+                      );
+                    },
+                    icon: SvgPicture.asset(
+                      'lib/icons/courses.svg',
+                      color: customColor,
+                      height: 20,
+                    ),
+                    tilte: 'خططي',
                   ),
             (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             moreBody(

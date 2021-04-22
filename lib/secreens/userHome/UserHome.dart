@@ -3,11 +3,13 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyRoomsApi.dart';
 import 'package:almosawii/models/homeTapsModels.dart';
 import 'package:almosawii/models/proChartVipApi.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/models/visitorHomeIconsApi.dart';
 import 'package:almosawii/secreens/LearningSection/LearningSection.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
+import 'package:almosawii/services/UserData.dart';
 import 'package:flutter/material.dart';
 import 'package:almosawii/secreens/prochartroom/prochartRoom.dart';
 
@@ -127,35 +129,51 @@ class _UserHomeState extends State<UserHome> {
       padding: EdgeInsets.symmetric(horizontal: 10),
       width: MediaQuery.of(context).size.width,
       color: Color(0xfff04B085),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            ',Welcome',
-            style: AppTheme.headingColorBlue.copyWith(
-              color: Colors.white,
-              fontSize: 25,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                'Ahmed Ibrahim',
-                style: AppTheme.headingColorBlue.copyWith(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w900,
+      child: StreamBuilder<Users>(
+        stream:
+            DatabaseServices(userid: User.userid, context: context).userData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Users userData = snapshot.data;
+
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  ',Welcome',
+                  style: AppTheme.headingColorBlue.copyWith(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      userData.name,
+                      style: AppTheme.headingColorBlue.copyWith(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                ),
+              ],
+            );
+          } else {
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
-              SizedBox(
-                width: 20,
-              ),
-            ],
-          ),
-        ],
+            );
+          }
+        },
       ),
     );
   }

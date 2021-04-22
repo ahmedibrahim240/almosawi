@@ -216,6 +216,43 @@ class _LogInState extends State<LogIn> {
     );
   }
 
+  checkUserSubscriptions({int id}) async {
+    try {
+      print('User.useridwarrrrrwew:$id');
+      var response = await http.post(Utils.CheckUserSubscriptions_URL, body: {
+        'user_id': User.userid.toString(),
+      });
+      var jsonData = json.decode(response.body);
+      print('response.statusCode:${response.statusCode}');
+
+      print(jsonData);
+
+      if (jsonData['status'] == 'success') {
+        print('proChartRooms' + jsonData['UserData']['proChartRooms']);
+        if (jsonData['UserData']['proChartRooms'] == '0' &&
+            jsonData['UserData']['proChartVideos'] == '0' &&
+            jsonData['UserData']['Courses'] == '0' &&
+            jsonData['UserData']['Recomendations'] == '0') {
+          MySharedPreferences.saveUserSkipLogIn(true);
+          User.userSkipLogIn = true;
+
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        } else {
+          MySharedPreferences.saveUserSkipLogIn(false);
+          User.userSkipLogIn = false;
+
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        }
+        User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+      } else {}
+    } catch (e) {
+      print('Cash wallpaper');
+      setState(() {});
+
+      print(e);
+    }
+  }
+
   loginWithPhoneAndPassword({
     String password,
     String email,
@@ -246,7 +283,8 @@ class _LogInState extends State<LogIn> {
             map['UserData']['Courses'] == '0' &&
             map['UserData']['proChartVideos'] == '0' &&
             map['UserData']['Recomendations'] == '0') {
-          MySharedPreferences.saveUserSkipLogIn(true);
+          checkUserSubscriptions(id: map['UserData']['id']);
+
           MySharedPreferences.saveUserSingIn(true);
           MySharedPreferences.saveUserCantBuy(false);
 
@@ -254,7 +292,7 @@ class _LogInState extends State<LogIn> {
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
           User.userCantBuy = await MySharedPreferences.getUserCantBuy();
         } else {
-          MySharedPreferences.saveUserSkipLogIn(false);
+          checkUserSubscriptions(id: map['UserData']['id']);
           MySharedPreferences.saveUserSingIn(true);
           MySharedPreferences.saveUserCantBuy(false);
 

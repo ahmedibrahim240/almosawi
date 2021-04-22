@@ -19,6 +19,8 @@ class Utils {
   // ignore: non_constant_identifier_names
   static final Plans_URL = BASE_URL + "/Plans";
   // ignore: non_constant_identifier_names
+  static final MyPlans_URL = BASE_URL + "/MyPlans";
+  // ignore: non_constant_identifier_names
   static final GeneralData_URL =
       BASE_URL + "/GeneralData?user_id=${User.userid}";
   // ignore: non_constant_identifier_names

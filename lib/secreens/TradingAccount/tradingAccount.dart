@@ -102,6 +102,7 @@ class _TradingAccountState extends State<TradingAccount> {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
+                        keyboardType: TextInputType.phone,
                         decoration: textFormInputDecoration(
                           label: 'رقم الواتس',
                           prefixIcon: FontAwesomeIcons.whatsapp,
@@ -131,6 +132,7 @@ class _TradingAccountState extends State<TradingAccount> {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         decoration: textFormInputDecoration(
                           label: 'مبلغ الاستثمار',
                           prefixIcon: FontAwesomeIcons.dollarSign,

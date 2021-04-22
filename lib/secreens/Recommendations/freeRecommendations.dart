@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/RecomendationsApi.dart';
+import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/Recommendations/recommendationsDetailes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -365,7 +366,13 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
           Align(
             alignment: Alignment.bottomLeft,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ProChartVIP(),
+                  ),
+                );
+              },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

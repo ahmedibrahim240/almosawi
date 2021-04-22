@@ -397,30 +397,15 @@ class _RegisterState extends State<Register> {
 
       if (map['status'] == 'success') {
         MySharedPreferences.saveUserUserPassword(password);
-        MySharedPreferences.saveUserUserid(map['Data']['id']);
-        MySharedPreferences.saveUserCourses(map['Data']['Courses']);
-        MySharedPreferences.saveUserproChat(map['Data']['proChat']);
-        MySharedPreferences.saveUserUserRecomendations(
-            map['Data']['Recomendations']);
-        if (map['Data']['proChat'] == '0' &&
-            map['Data']['Courses'] == '0' &&
-            map['Data']['Recomendations'] == '0') {
-          MySharedPreferences.saveUserSkipLogIn(true);
-          MySharedPreferences.saveUserSingIn(true);
-          MySharedPreferences.saveUserCantBuy(false);
-          User.userLogIn = await MySharedPreferences.getUserSingIn();
-          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-          User.userCantBuy = await MySharedPreferences.getUserCantBuy();
-        } else {
-          MySharedPreferences.saveUserSkipLogIn(false);
-          MySharedPreferences.saveUserSingIn(true);
-          MySharedPreferences.saveUserCantBuy(false);
 
-          User.userLogIn = await MySharedPreferences.getUserSingIn();
-          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-          User.userCantBuy = await MySharedPreferences.getUserCantBuy();
-          User.userid = await MySharedPreferences.getUserUserid();
-        }
+        MySharedPreferences.saveUserSkipLogIn(false);
+        MySharedPreferences.saveUserSingIn(true);
+        MySharedPreferences.saveUserCantBuy(false);
+
+        User.userLogIn = await MySharedPreferences.getUserSingIn();
+        User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+        User.userid = await MySharedPreferences.getUserUserid();
 
         User.userid = map['Data']['id'];
 

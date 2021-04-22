@@ -5,6 +5,7 @@ import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/homeVideoApi.dart';
 import 'package:almosawii/models/proChartVipApi.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
@@ -110,41 +111,111 @@ class _HomeState extends State<Home> {
   }
 
   homeProChartSection() {
-    return FutureBuilder(
-      future: HomeVideoApi.futchHomeVideo(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          print(snapshot.data);
-          return (snapshot.data == null)
-              ? Container()
-              : Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: ListTile(
-                    title: Text(
-                      snapshot.data.homeProChartSectionTitle,
-                      style: AppTheme.heading,
-                    ),
-                    subtitle: Text(
-                      snapshot.data.homeProChartSectionTxt,
-                      style: AppTheme.subHeading.copyWith(fontSize: 10),
-                    ),
-                    leading: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+    return Column(
+      children: [
+        FutureBuilder(
+          future: HomeVideoApi.futchHomeVideo(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              print(snapshot.data);
+              return (snapshot.data == null)
+                  ? Container()
+                  : Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: ListTile(
+                        title: Text(
+                          snapshot.data.homeProChartSectionTitle,
+                          style: AppTheme.heading,
+                        ),
+                        subtitle: Text(
+                          snapshot.data.homeProChartSectionTxt,
+                          style: AppTheme.subHeading.copyWith(fontSize: 10),
+                        ),
+                        leading: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: customCachedNetworkImage(
+                            context: context,
+                            url: snapshot.data.homeProChartSectionImage,
+                          ),
+                        ),
                       ),
-                      child: customCachedNetworkImage(
-                        context: context,
-                        url: snapshot.data.homeProChartSectionImage,
+                    );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+        RaisedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => ProChartVIP(),
+              ),
+            );
+          },
+          color: customColor,
+          child: Text(
+            'اشترك الان',
+            style: AppTheme.heading.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        FutureBuilder(
+          future: HomeVideoApi.futchHomeVideo(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              print(snapshot.data);
+              return (snapshot.data == null)
+                  ? Container()
+                  : Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: ListTile(
+                        title: Text(
+                          snapshot.data.homeYourDealSectionTitle,
+                          style: AppTheme.heading,
+                        ),
+                        subtitle: Text(
+                          snapshot.data.homeYourDealSectionTxt,
+                          style: AppTheme.subHeading.copyWith(fontSize: 10),
+                        ),
+                        leading: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: customCachedNetworkImage(
+                            context: context,
+                            url: snapshot.data.homeYourDealSectionImage,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
+                    );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+        RaisedButton(
+          onPressed: () {
+            launchInBrowser('https://ahmadalmosawi.com/V2/calculator.html');
+          },
+          color: customColor,
+          child: Text(
+            'تتبع صفقتك الآن',
+            style: AppTheme.heading.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 

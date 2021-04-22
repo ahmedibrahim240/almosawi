@@ -12,12 +12,18 @@ class HomheVideoModels {
   final String homeProChartSectionImage;
   final String homeProChartSectionTitle;
   final String homeProChartSectionTxt;
+  final String homeYourDealSectionTitle;
+  final String homeYourDealSectionTxt;
+  final String homeYourDealSectionImage;
   var homeNumbers;
 
   HomheVideoModels({
     this.homeProChartSectionImage,
     this.homeProChartSectionTitle,
     this.homeProChartSectionTxt,
+    this.homeYourDealSectionTitle,
+    this.homeYourDealSectionImage,
+    this.homeYourDealSectionTxt,
     this.homeVideo,
     this.homeVideoTitle,
     this.homeVideoTxt1,
@@ -42,6 +48,11 @@ class HomeVideoApi {
               ['homeProChartSectionImage'],
           homeProChartSectionTitle: jsonData['data']
               ['homeProChartSectionTitle'],
+          homeYourDealSectionTitle: jsonData['data']
+              ['homeYourDealSectionTitle'],
+          homeYourDealSectionTxt: jsonData['data']['homeYourDealSectionTxt'],
+          homeYourDealSectionImage: jsonData['data']
+              ['homeYourDealSectionImage'],
           homeProChartSectionTxt: jsonData['data']['homeProChartSectionTxt'],
           homeVideoTitle: jsonData['data']['HomeVideoTitle'],
           homeVideoTxt1: jsonData['data']['HomeVideoTxt1'],
