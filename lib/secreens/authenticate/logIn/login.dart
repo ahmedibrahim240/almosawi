@@ -223,9 +223,6 @@ class _LogInState extends State<LogIn> {
         'user_id': User.userid.toString(),
       });
       var jsonData = json.decode(response.body);
-      print('response.statusCode:${response.statusCode}');
-
-      print(jsonData);
 
       if (jsonData['status'] == 'success') {
         print('proChartRooms' + jsonData['UserData']['proChartRooms']);

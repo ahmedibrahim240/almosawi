@@ -118,8 +118,6 @@ class ProchartRoom extends StatefulWidget {
 }
 
 class _ProchartRoomState extends State<ProchartRoom> {
-  bool _play = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,43 +186,93 @@ class _ProchartRoomState extends State<ProchartRoom> {
 
         break;
       case 'audio':
-        return Card(
-          elevation: 3,
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: AudioWidget.network(
-                url: data,
-                play: _play,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        color: Colors.blue,
-                        thickness: 2,
-                      ),
-                    ),
-                    IconButton(
-                        icon: Icon(_play ? Icons.pause : Icons.play_arrow),
-                        onPressed: () {
-                          setState(() {
-                            _play = !_play;
-                          });
-                        }),
-                  ],
-                ),
-                // onReadyToPlay: (duration) {
-                //   //onReadyToPlay
-                // },
-                // onPositionChanged: (current, duration) {
-                //   //onPositionChanged
-                // },
-              )),
+        return CustomAudioPalyer(
+          url: data,
         );
 
         break;
       default:
         return null;
     }
+  }
+}
+
+class CustomAudioPalyer extends StatefulWidget {
+  final String url;
+
+  const CustomAudioPalyer({Key key, @required this.url}) : super(key: key);
+  @override
+  _CustomAudioPalyerState createState() => _CustomAudioPalyerState();
+}
+
+class _CustomAudioPalyerState extends State<CustomAudioPalyer> {
+  Duration duration = new Duration();
+  Duration position = new Duration();
+  bool _play = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return audioPlyer(context);
+  }
+
+  audioPlyer(BuildContext context) {
+    return Card(
+      elevation: 3,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: AudioWidget.network(
+          url: widget.url,
+          play: _play,
+          child: Row(
+            children: [
+              IconButton(
+                  icon: Icon(
+                    _play
+                        ? Icons.pause_circle_outline_outlined
+                        : Icons.play_circle_outline_outlined,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _play = !_play;
+                    });
+                  }),
+              Expanded(
+                child: slider(),
+              ),
+            ],
+          ),
+          onFinished: () {
+            setState(() {
+              _play = false;
+              duration = new Duration();
+              position = new Duration();
+            });
+          },
+          onReadyToPlay: (dd) {
+            setState(() {
+              duration = dd;
+            });
+          },
+          onPositionChanged: (current, dd) {
+            setState(() {
+              position = current;
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+  slider() {
+    return Slider(
+      min: 0.0,
+      activeColor: customColor,
+      inactiveColor: customColor2.withOpacity(.5),
+      autofocus: true,
+      value: position.inSeconds.toDouble(),
+      max: duration.inSeconds.toDouble(),
+      onChanged: (val) {},
+    );
   }
 }
