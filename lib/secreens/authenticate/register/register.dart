@@ -398,8 +398,8 @@ class _RegisterState extends State<Register> {
       if (map['status'] == 'success') {
         MySharedPreferences.saveUserUserPassword(password);
 
-        MySharedPreferences.saveUserSkipLogIn(false);
-        MySharedPreferences.saveUserSingIn(true);
+        MySharedPreferences.saveUserSkipLogIn(true);
+        MySharedPreferences.saveUserSingIn(false);
         MySharedPreferences.saveUserCantBuy(false);
 
         User.userLogIn = await MySharedPreferences.getUserSingIn();
@@ -415,6 +415,7 @@ class _RegisterState extends State<Register> {
           ),
         );
       } else {
+        print('fallsssssssse');
         setState(() {
           loading = false;
         });

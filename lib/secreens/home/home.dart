@@ -111,108 +111,187 @@ class _HomeState extends State<Home> {
   }
 
   homeProChartSection() {
-    return Column(
+    return Row(
       children: [
-        FutureBuilder(
-          future: HomeVideoApi.futchHomeVideo(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print(snapshot.data);
-              return (snapshot.data == null)
-                  ? Container()
-                  : Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: ListTile(
-                        title: Text(
-                          snapshot.data.homeProChartSectionTitle,
-                          style: AppTheme.heading,
-                        ),
-                        subtitle: Text(
-                          snapshot.data.homeProChartSectionTxt,
-                          style: AppTheme.subHeading.copyWith(fontSize: 10),
-                        ),
-                        leading: Container(
-                          height: 50,
-                          width: 50,
+        Expanded(
+          flex: 1,
+          child: FutureBuilder(
+            future: HomeVideoApi.futchHomeVideo(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                print(snapshot.data);
+                return (snapshot.data == null)
+                    ? Container()
+                    : Card(
+                        elevation: 3,
+                        child: Container(
+                          width: 150,
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+                            border: Border(
+                              top: BorderSide(
+                                color: Color(0xfffFF9B63),
+                                width: 5,
+                                style: BorderStyle.solid,
+                              ),
+                            ),
                           ),
-                          child: customCachedNetworkImage(
-                            context: context,
-                            url: snapshot.data.homeProChartSectionImage,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 60,
+                                width: 60,
+                                child: customCachedNetworkImage(
+                                    context: context,
+                                    url:
+                                        snapshot.data.homeProChartSectionImage),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    (snapshot.data.homeProChartSectionTitle) ??
+                                        "",
+                                    textAlign: TextAlign.center,
+                                    style: AppTheme.heading,
+                                  ),
+                                  SizedBox(
+                                    width: 150,
+                                    height: 50,
+                                    child: Text(
+                                      (snapshot.data.homeProChartSectionTxt) ??
+                                          '',
+                                      textAlign: TextAlign.center,
+                                      style: AppTheme.heading.copyWith(
+                                        color: customColor,
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    child: Container(
+                                      color: Color(0xfffFF9B63),
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 5,
+                                        vertical: 10,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'اشترك الان',
+                                          style: AppTheme.heading.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => ProChartVIP(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    );
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
-        RaisedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => ProChartVIP(),
-              ),
-            );
-          },
-          color: customColor,
-          child: Text(
-            'اشترك الان',
-            style: AppTheme.heading.copyWith(
-              color: Colors.white,
-            ),
+                      );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
         ),
-        FutureBuilder(
-          future: HomeVideoApi.futchHomeVideo(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print(snapshot.data);
-              return (snapshot.data == null)
-                  ? Container()
-                  : Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: ListTile(
-                        title: Text(
-                          snapshot.data.homeYourDealSectionTitle,
-                          style: AppTheme.heading,
-                        ),
-                        subtitle: Text(
-                          snapshot.data.homeYourDealSectionTxt,
-                          style: AppTheme.subHeading.copyWith(fontSize: 10),
-                        ),
-                        leading: Container(
-                          height: 50,
-                          width: 50,
+        Expanded(
+          flex: 1,
+          child: FutureBuilder(
+            future: HomeVideoApi.futchHomeVideo(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                print(snapshot.data);
+                return (snapshot.data == null)
+                    ? Container()
+                    : Card(
+                        elevation: 3,
+                        child: Container(
+                          width: 150,
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+                            border: Border(
+                              top: BorderSide(
+                                color: Color(0xfff067FA5),
+                                width: 5,
+                                style: BorderStyle.solid,
+                              ),
+                            ),
                           ),
-                          child: customCachedNetworkImage(
-                            context: context,
-                            url: snapshot.data.homeYourDealSectionImage,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 60,
+                                width: 60,
+                                child: customCachedNetworkImage(
+                                    context: context,
+                                    url:
+                                        snapshot.data.homeYourDealSectionImage),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    (snapshot.data.homeYourDealSectionTitle) ??
+                                        '',
+                                    textAlign: TextAlign.center,
+                                    style: AppTheme.heading,
+                                  ),
+                                  SizedBox(
+                                    width: 150,
+                                    height: 50,
+                                    child: Text(
+                                      (snapshot.data.homeYourDealSectionTxt) ??
+                                          '',
+                                      textAlign: TextAlign.center,
+                                      style: AppTheme.heading.copyWith(
+                                        color: customColor,
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    child: Container(
+                                      color: Color(0xfff067FA5),
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 5,
+                                        vertical: 10,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'تتبع صفقتك الآن',
+                                          style: AppTheme.heading.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      launchInBrowser(
+                                          'https://ahmadalmosawi.com/V2/calculator.html');
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    );
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
-        RaisedButton(
-          onPressed: () {
-            launchInBrowser('https://ahmadalmosawi.com/V2/calculator.html');
-          },
-          color: customColor,
-          child: Text(
-            'تتبع صفقتك الآن',
-            style: AppTheme.heading.copyWith(
-              color: Colors.white,
-            ),
+                      );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
         ),
       ],

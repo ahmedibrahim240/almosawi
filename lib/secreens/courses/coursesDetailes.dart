@@ -221,7 +221,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                 children: [
                   Container(
                     color: Colors.grey[300],
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                     child: Row(
                       children: [
                         Text(
