@@ -45,7 +45,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
         shrinkWrap: true,
         primary: true,
         children: [
-          (widget.courses.video_code != "")
+          (widget.courses.video_code != "" && widget.courses.video_code != null)
               ? Container(
                   child: Column(
                   children: [

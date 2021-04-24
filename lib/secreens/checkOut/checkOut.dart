@@ -109,6 +109,7 @@ class _CheckOutState extends State<CheckOut> {
               print("res.status:${res.status}");
               if (res.status == PaymentStatus.Success) {
                 checkOut(item: widget.data, paymentData: res.status);
+                checkUserSubscriptions();
               } else {
                 checkOutDialog(
                   context: context,
@@ -120,6 +121,46 @@ class _CheckOutState extends State<CheckOut> {
         },
       ),
     );
+  }
+
+  checkUserSubscriptions() async {
+    try {
+      print('User.useridwarrrrrwew:${User.userid}');
+      var response = await http.post(Utils.CheckUserSubscriptions_URL, body: {
+        'user_id': User.userid.toString(),
+      });
+      var jsonData = json.decode(response.body);
+
+      if (jsonData['status'] == 'success') {
+        print('proChartRooms' + jsonData['UserData']['proChartRooms']);
+        if (jsonData['UserData']['proChartRooms'] == '0' &&
+            jsonData['UserData']['proChartVideos'] == '0' &&
+            jsonData['UserData']['Courses'] == '0' &&
+            jsonData['UserData']['Recomendations'] == '0') {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(true);
+            setState(() {
+              User.userSkipLogIn = true;
+            });
+          });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        } else {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(false);
+            User.userSkipLogIn = false;
+          });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        }
+        User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+      } else {
+        setState(() {});
+      }
+    } catch (e) {
+      print('Cash wallpaper');
+      setState(() {});
+
+      print(e);
+    }
   }
 
   checkOut({var item, var paymentData}) async {
