@@ -2,7 +2,6 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/homeVideoApi.dart';
 import 'package:flutter/material.dart';
 import 'package:vimeoplayer/vimeoplayer.dart';
-import 'package:flutter_youtube_vimeo/flutter_youtube_vimeo.dart';
 
 class HomeVideo extends StatefulWidget {
   @override

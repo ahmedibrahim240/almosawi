@@ -389,6 +389,7 @@ class _RegisterState extends State<Register> {
           'user_email': user_email,
           'user_pass_confirmation': user_pass_confirmation,
           'user_nicename': user_nicename,
+          'deviceToken': User.userToken,
         },
       );
 

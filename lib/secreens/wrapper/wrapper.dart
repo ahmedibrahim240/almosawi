@@ -57,10 +57,7 @@ class _WrapperState extends State<Wrapper> {
 
       if (jsonData['status'] == 'success') {
         print('proChartRooms' + jsonData['UserData']['proChartRooms']);
-        if (jsonData['UserData']['proChartRooms'] == '0' &&
-            jsonData['UserData']['proChartVideos'] == '0' &&
-            jsonData['UserData']['Courses'] == '0' &&
-            jsonData['UserData']['Recomendations'] == '0') {
+        if (jsonData['UserData']['Recomendations'] == '0') {
           setState(() {
             MySharedPreferences.saveUserSkipLogIn(true);
             setState(() {
@@ -93,6 +90,7 @@ class _WrapperState extends State<Wrapper> {
     super.initState();
     _fcm.getToken().then(
       (token) {
+        print("Tokeen: $token");
         MySharedPreferences.saveUserToken(token.toString());
       },
     );
