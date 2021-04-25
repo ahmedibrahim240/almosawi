@@ -19,16 +19,20 @@ class CustomSlider extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 30),
-            Container(
-              height: height * .4,
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage(image),
-              //     fit: BoxFit.fitHeight,
-              //   ),
-              // ),
-              child: SvgPicture.asset(image),
-            ),
+            (image == null)
+                ? Container(
+                    height: height * .4,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(backImage),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  )
+                : Container(
+                    height: height * .4,
+                    child: SvgPicture.asset(image),
+                  ),
             SizedBox(height: 10),
             Center(
               child: Text(
@@ -42,7 +46,7 @@ class CustomSlider extends StatelessWidget {
               child: Center(
                 child: Text(
                   contant,
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.center,
                   style: AppTheme.subHeading.copyWith(
                     height: 1.5,
                     letterSpacing: .07,

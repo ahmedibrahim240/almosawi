@@ -67,6 +67,7 @@ dependencies:
   dio:
   audioplayers:
   assets_audio_player:
+  
   gx_file_picker:
   my_fatoorah: ^2.7.1
   

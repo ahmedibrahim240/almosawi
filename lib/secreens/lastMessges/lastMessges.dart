@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyMessagesApi.dart';
 import 'package:almosawii/secreens/chatRome/chatRome.dart';
+import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:flutter/material.dart';
 
 class LastMessges extends StatefulWidget {
@@ -41,21 +42,21 @@ class _LastMessgesState extends State<LastMessges> {
                   if (snapshot.hasData) {
                     print(snapshot.data);
                     return (snapshot.data == null || snapshot.data.isEmpty)
-                        ? Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'لا يوجد بينات حاليا /',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  'اسحب الشاشه لاسفل لاعاده التحميل',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                        ? Center(
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ContactUs()),
+                                );
+                              },
+                              color: customColor,
+                              child: Text(
+                                'اشترك الان',
+                                style: AppTheme.heading
+                                    .copyWith(color: Colors.white),
+                              ),
                             ),
                           )
                         : ListView.builder(

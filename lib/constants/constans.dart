@@ -68,7 +68,7 @@ Future<void> cardDialog({BuildContext context, String message}) async {
               Center(
                 child: Text(
                   (message) ??
-                      'تم اضافة الطلب لستكمال عمليه الشراء عليه الذهاب الي عربة التسوق',
+                      'تم اضافة الطلب لإستكمال  عمليه الشراء عليك  الذهاب الي عربة التسوق',
                   style: AppTheme.subHeading,
                 ),
               ),
@@ -78,7 +78,7 @@ Future<void> cardDialog({BuildContext context, String message}) async {
         actions: <Widget>[
           TextButton(
             child: Text(
-              'الصفحة الرائسية',
+              'الصفحة الرئيسية ',
               style: AppTheme.heading.copyWith(
                 color: customColor,
               ),
@@ -204,19 +204,14 @@ String gitnewPrice({String descaound, String price}) {
 customCachedNetworkImage({String url, BuildContext context}) {
   try {
     if (url == null || url == '') {
-      return Container(
-        child: Icon(
-          Icons.image,
-          color: Colors.lightBlueAccent,
-        ),
-      );
+      return Container();
     } else {
       return Container(
         width: MediaQuery.of(context).size.width,
         child: (Uri.parse(url).isAbsolute)
             ? CachedNetworkImage(
                 imageUrl: url,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 placeholder: (context, url) =>
                     Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => Icon(Icons.error),

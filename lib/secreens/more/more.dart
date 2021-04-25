@@ -39,29 +39,33 @@ class _MoreState extends State<More> {
           children: [
             moreLogo(),
             customdivider(),
-            moreBody(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => EditProfile(),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => EditProfile(),
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.person),
+                    tilte: 'الصفحة الشخصية',
                   ),
-                );
-              },
-              icon: Icon(Icons.person),
-              tilte: 'الصفحة الشخصية',
-            ),
-            SizedBox(height: 20),
-            moreBody(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => Cart(),
+            (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => Cart(),
+                        ),
+                      );
+                    },
+                    icon: Icon(FontAwesomeIcons.shoppingCart),
+                    tilte: 'عربة التسوق',
                   ),
-                );
-              },
-              icon: Icon(FontAwesomeIcons.shoppingCart),
-              tilte: 'عربة التسوق',
-            ),
             SizedBox(height: 20),
             (User.userCantBuy == true)
                 ? Container()
@@ -95,6 +99,14 @@ class _MoreState extends State<More> {
                 height: 20,
               ),
               tilte: 'أرشيف التوصيات',
+            ),
+            SizedBox(height: 20),
+            moreBody(
+              onTap: () {
+                launchInBrowser('https://ahmadalmosawi.com/consultation/');
+              },
+              icon: Icon(Icons.account_balance_wallet),
+              tilte: ' حجز استشاره ',
             ),
             SizedBox(height: 20),
             moreBody(
@@ -142,7 +154,7 @@ class _MoreState extends State<More> {
                       color: customColor,
                       height: 20,
                     ),
-                    tilte: 'خططي',
+                    tilte: 'إِشتراكاتي',
                   ),
             (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             moreBody(
@@ -161,22 +173,24 @@ class _MoreState extends State<More> {
               tilte: 'قسم ال Pro Chart VIP ',
             ),
             SizedBox(height: 20),
-            moreBody(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => Notifcations(),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => Notifcations(),
+                        ),
+                      );
+                    },
+                    icon: SvgPicture.asset(
+                      'lib/icons/notifcations.svg',
+                      color: customColor,
+                      height: 20,
+                    ),
+                    tilte: ' الإشعارات',
                   ),
-                );
-              },
-              icon: SvgPicture.asset(
-                'lib/icons/notifcations.svg',
-                color: customColor,
-                height: 20,
-              ),
-              tilte: ' الإشعارات',
-            ),
-            SizedBox(height: 20),
+            (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             (User.userCantBuy == true)
                 ? Container()
                 : moreBody(
@@ -191,17 +205,19 @@ class _MoreState extends State<More> {
                     tilte: 'غرفة بروشارت',
                   ),
             (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
-            moreBody(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => LastMessges(),
+            (User.userCantBuy == true)
+                ? Container()
+                : moreBody(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => LastMessges(),
+                        ),
+                      );
+                    },
+                    icon: Icon(FontAwesomeIcons.comments),
+                    tilte: 'المراسلات السابقة',
                   ),
-                );
-              },
-              icon: Icon(FontAwesomeIcons.comments),
-              tilte: 'المراسلات السابقة',
-            ),
             customdivider(),
             moreBody(
               onTap: () {},

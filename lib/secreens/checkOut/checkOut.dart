@@ -48,9 +48,7 @@ class _CheckOutState extends State<CheckOut> {
         backgroundColor: customColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (BuildContext context) => Wrapper()),
-            );
+            Navigator.of(context).pop();
           },
           icon: Icon(
             Icons.arrow_back,
@@ -113,7 +111,14 @@ class _CheckOutState extends State<CheckOut> {
               } else {
                 checkOutDialog(
                   context: context,
-                  message: 'فشل يرجي المحاوله مجددا ف وقت لاحق',
+                  message: 'فشل يرجي المحاوله مجددا في وقت لاحق',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => Cart(),
+                      ),
+                    );
+                  },
                 );
               }
             },
@@ -214,11 +219,25 @@ class _CheckOutState extends State<CheckOut> {
         checkOutDialog(
           context: context,
           message: jsonData['message'].toString(),
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => Wrapper(),
+              ),
+            );
+          },
         );
       } else {
         checkOutDialog(
           context: context,
           message: jsonData['errorArr'].toString(),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => Cart(),
+              ),
+            );
+          },
         );
       }
     } catch (e) {
@@ -226,6 +245,13 @@ class _CheckOutState extends State<CheckOut> {
       checkOutDialog(
         context: context,
         message: 'حدث خطأ ما, يرجي التواصل مع الدعم الفني',
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => Cart(),
+            ),
+          );
+        },
       );
       setState(() {});
 
@@ -233,7 +259,8 @@ class _CheckOutState extends State<CheckOut> {
     }
   }
 
-  Future<void> checkOutDialog({BuildContext context, String message}) async {
+  Future<void> checkOutDialog(
+      {BuildContext context, String message, Function onTap}) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -265,13 +292,7 @@ class _CheckOutState extends State<CheckOut> {
                   color: customColor,
                 ),
               ),
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (_) => Wrapper(),
-                  ),
-                );
-              },
+              onPressed: onTap,
             ),
           ],
         );

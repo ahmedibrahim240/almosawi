@@ -19,6 +19,10 @@ import 'dart:convert';
 class Wrapper extends StatefulWidget {
   static final route = '/';
 
+  const Wrapper({
+    Key key,
+  }) : super(key: key);
+
   @override
   _WrapperState createState() => _WrapperState();
 }
@@ -26,6 +30,7 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   int _currentIndex = 0;
+
   final List<Widget> _children = [
     HomePages(),
     FreeRecommendations(),

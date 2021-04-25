@@ -7,6 +7,8 @@ import 'package:almosawii/models/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:almosawii/models/contactUsApi.dart';
+
 import 'package:gx_file_picker/gx_file_picker.dart';
 
 class TradingAccount extends StatefulWidget {
@@ -68,6 +70,29 @@ class _TradingAccountState extends State<TradingAccount> {
                     }
                   },
                 ),
+                FutureBuilder(
+                  future: ContactUsApi.futchContactUs(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return (snapshot.data == null)
+                          ? Container()
+                          : (snapshot.data.acceptedPaymentMethod == '' ||
+                                  snapshot.data.acceptedPaymentMethod == null)
+                              ? Container()
+                              : Container(
+                                  height: 100,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: customCachedNetworkImage(
+                                    context: context,
+                                    url: snapshot.data.acceptedPaymentMethod,
+                                  ),
+                                );
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+                SizedBox(height: 10),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -150,6 +175,12 @@ class _TradingAccountState extends State<TradingAccount> {
                   ),
                 ),
                 SizedBox(height: 10),
+                Text(
+                  'الرجاء رفع الاوراق المطلوبه \n( البطاقه المدنيه من الامام والخلف + صوره الجواز )',
+                  textAlign: TextAlign.center,
+                  style: AppTheme.subHeading,
+                ),
+                SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 45),
                   child: CustomButton(
@@ -158,7 +189,6 @@ class _TradingAccountState extends State<TradingAccount> {
                         type: FileType.any,
                       );
                       if (res == null) {
-                        print('NOOOOOOOOO FILE PICE');
                       } else {
                         listFiles = res;
                         fileDialog(

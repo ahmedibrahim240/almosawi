@@ -36,25 +36,23 @@ class _OnBoardingState extends State<OnBoarding> {
   PageController _controller = PageController();
   List<Widget> _pages = [
     CustomSlider(
-      title: 'التداول والفوركس',
+      title: ' أ/أحمد الموسوي',
       contant:
-          'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
-      image: 'lib/icons/back1.svg',
-      backImage: 'lib/images/back2.jpg',
+          ' محلل فني محترف في الاسواق العالميه خبير في التحليل الفني وغيرها من مدارس هذا التطبيق سيسهل عليك دخولك عالم التداول من البدايه',
+      // image: 'lib/icons/back1.svg',
+      backImage: 'lib/images/ahmed.jpg',
     ),
     CustomSlider(
-      title: 'التداول والفوركس',
+      title: 'توصيات وتحليلات احترافيه',
       contant:
-          'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
-      image: 'lib/icons/back2.svg',
-      backImage: 'lib/images/back3.jpg',
-    ),
-    CustomSlider(
-      title: 'التداول والفوركس',
-      contant:
-          'التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس التداول والفوركس',
+          'Pro Chart نسبة نجاح عالية يمكنك الاستفاده من طريقتنا الاحترافيه والتداول براحه من غير خوف وتوتر من خلال',
       image: 'lib/icons/back3.svg',
-      backImage: 'lib/images/back2.jpg',
+    ),
+    CustomSlider(
+      title: ' الدورات التدريبية',
+      contant:
+          ' اهميه الدورات في عالم الفوركس القليل من يتعلم في هذا السوق. ستتمكن الحصول على اهم الدورات التدريبيه من الصفر الى الاحترافيه',
+      image: 'lib/icons/back2.svg',
     ),
   ];
   _onChanged(int index) {

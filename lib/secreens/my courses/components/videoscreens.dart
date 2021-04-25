@@ -76,40 +76,5 @@ class _ChewieVideoState extends State<ChewieVideo> {
               ],
             ),
     );
-
-    //  Column(
-    //   children: [
-    //     // YoutubePlayerBuilder(
-    //     //   player: YoutubePlayer(
-    //     //     controller: _controller,
-    //     //   ),
-    //     //   builder: (context, player) {
-    //     //     return Container();
-    //     //   },
-    //     // ),
-    //     Center(
-    //       child: _chewieController != null &&
-    //               _chewieController.videoPlayerController.value.initialized
-    //           ? Theme(
-    //               data: Theme.of(context).copyWith(
-    //                 dialogBackgroundColor: Colors.white,
-    //               ),
-    //               child: Chewie(
-    //                 controller: _chewieController,
-    //               ),
-    //             )
-    //           : Column(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: const [
-    //                 CircularProgressIndicator(),
-    //                 SizedBox(height: 20),
-    //                 Text(
-    //                   'loading',
-    //                 ),
-    //               ],
-    //             ),
-    //     ),
-    //   ],
-    // );
   }
 }

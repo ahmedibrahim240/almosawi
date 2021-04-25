@@ -71,7 +71,7 @@ class _LogInState extends State<LogIn> {
                             children: [
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.text,
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.person,
                                   label: 'اسم المستخدم او البريد الالكتروني',
@@ -276,11 +276,14 @@ class _LogInState extends State<LogIn> {
         MySharedPreferences.saveUserproChat(map['UserData']['proChartRooms']);
         MySharedPreferences.saveUserUserRecomendations(
             map['UserData']['Recomendations']);
+
         if (map['UserData']['proChartRooms'] == '0' &&
             map['UserData']['Courses'] == '0' &&
             map['UserData']['proChartVideos'] == '0' &&
             map['UserData']['Recomendations'] == '0') {
-          checkUserSubscriptions(id: map['UserData']['id']);
+          MySharedPreferences.saveUserSkipLogIn(true);
+          User.userSkipLogIn = true;
+          
 
           MySharedPreferences.saveUserSingIn(true);
           MySharedPreferences.saveUserCantBuy(false);
@@ -288,14 +291,22 @@ class _LogInState extends State<LogIn> {
           User.userLogIn = await MySharedPreferences.getUserSingIn();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
           User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+          User.userid = await MySharedPreferences.getUserUserid();
+          checkUserSubscriptions(
+            id: map['UserData']['id'],
+          );
         } else {
-          checkUserSubscriptions(id: map['UserData']['id']);
+             MySharedPreferences.saveUserSkipLogIn(false);
+          User.userSkipLogIn = false;
           MySharedPreferences.saveUserSingIn(true);
           MySharedPreferences.saveUserCantBuy(false);
 
           User.userLogIn = await MySharedPreferences.getUserSingIn();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
           User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+          User.userid = await MySharedPreferences.getUserUserid();
+          checkUserSubscriptions(id: map['UserData']['id']);
+
         }
 
         User.userid = map['UserData']['id'];
@@ -305,11 +316,19 @@ class _LogInState extends State<LogIn> {
             builder: (_) => Wrapper(),
           ),
         );
-      } else {
+      } else if (map['status'] == 'error') {
         setState(() {
           loading = false;
         });
         showMyDialog(context: context, message: map['message'].toString());
+      } else {
+        setState(() {
+          loading = false;
+        });
+        map['errorArr'] == null
+            ? showMyDialog(context: context, message: map['error'].toString())
+            : showMyDialog(
+                context: context, message: map['errorArr'].toString());
       }
 
       // Navigator.pop(context);

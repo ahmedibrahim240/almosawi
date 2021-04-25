@@ -2,6 +2,7 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/homeVideoApi.dart';
 import 'package:flutter/material.dart';
 import 'package:vimeoplayer/vimeoplayer.dart';
+import 'package:flutter_youtube_vimeo/flutter_youtube_vimeo.dart';
 
 class HomeVideo extends StatefulWidget {
   @override
@@ -22,17 +23,6 @@ class _HomeVideoState extends State<HomeVideo> {
                       snapshot.data.homeVideoTitle == '')
                   ? Container()
                   : Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: (snapshot.data.videoFeaturesBg != null ||
-                                  snapshot.data.videoFeaturesBg != '')
-                              ? NetworkImage(snapshot.data.videoFeaturesBg)
-                              : AssetImage(
-                                  'lib/images/homeback.jpg',
-                                ),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +34,18 @@ class _HomeVideoState extends State<HomeVideo> {
                                   autoPlay: false,
                                 ),
                           Container(
-                            color: Colors.black.withOpacity(.5),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: (snapshot.data.videoFeaturesBg != null ||
+                                        snapshot.data.videoFeaturesBg != '')
+                                    ? NetworkImage(
+                                        snapshot.data.videoFeaturesBg)
+                                    : AssetImage(
+                                        'lib/images/homeback.jpg',
+                                      ),
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
                             child: ListView(
                               shrinkWrap: true,
                               primary: false,

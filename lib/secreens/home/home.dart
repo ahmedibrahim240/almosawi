@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
                           decoration: BoxDecoration(
                             border: Border(
                               top: BorderSide(
-                                color: Color(0xfffFF9B63),
+                                color: customColor,
                                 width: 5,
                                 style: BorderStyle.solid,
                               ),
@@ -163,14 +163,14 @@ class _HomeState extends State<Home> {
                                           '',
                                       textAlign: TextAlign.center,
                                       style: AppTheme.heading.copyWith(
-                                        color: customColor,
+                                        color: customColorGray,
                                         fontSize: 10,
                                       ),
                                     ),
                                   ),
                                   InkWell(
                                     child: Container(
-                                      color: Color(0xfffFF9B63),
+                                      color: customColor,
                                       width: MediaQuery.of(context).size.width,
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 5,
@@ -255,7 +255,7 @@ class _HomeState extends State<Home> {
                                           '',
                                       textAlign: TextAlign.center,
                                       style: AppTheme.heading.copyWith(
-                                        color: customColor,
+                                        color: customColorGray,
                                         fontSize: 10,
                                       ),
                                     ),
@@ -682,7 +682,8 @@ class _HomeState extends State<Home> {
           print(snapshot.data);
           return (snapshot.data == null)
               ? Container()
-              : (snapshot.data.homeAdImage == '')
+              : (snapshot.data.homeAdImage == '' ||
+                      snapshot.data.homeAdImage == null)
                   ? Container()
                   : Container(
                       height: 120,

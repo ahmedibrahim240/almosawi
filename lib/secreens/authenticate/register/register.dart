@@ -99,7 +99,7 @@ class _RegisterState extends State<Register> {
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.person,
-                                  label: 'اسم المتسخدم',
+                                  label: 'اسم المستخدم',
                                 ),
                                 validator: (val) =>
                                     val.isEmpty ? nameEror : null,
@@ -169,7 +169,7 @@ class _RegisterState extends State<Register> {
                                 decoration: textFormInputDecorationForPassword(
                                   Icons.visibility_off,
                                   Icons.lock,
-                                  'تاكيد كلمه المرور',
+                                  'تأكيد كلمه المرور',
                                   () {
                                     setState(() {
                                       obscurePassword = !obscurePassword;
@@ -397,6 +397,7 @@ class _RegisterState extends State<Register> {
 
       if (map['status'] == 'success') {
         MySharedPreferences.saveUserUserPassword(password);
+        MySharedPreferences.saveUserUserid(map['Data']['id']);
 
         MySharedPreferences.saveUserSkipLogIn(true);
         MySharedPreferences.saveUserSingIn(false);
@@ -414,8 +415,12 @@ class _RegisterState extends State<Register> {
             builder: (_) => Wrapper(),
           ),
         );
+      } else if (map['status'] == 'success') {
+        setState(() {
+          loading = false;
+        });
+        showMyDialog(context: context, message: map['message'].toString());
       } else {
-        print('fallsssssssse');
         setState(() {
           loading = false;
         });

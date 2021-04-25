@@ -1,7 +1,9 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/couresApi.dart';
+import 'package:almosawii/secreens/courses/allCourses.dart';
 import 'package:almosawii/secreens/my%20courses/mycoursesdetails.dart';
+import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -52,21 +54,19 @@ class _MyCoursesState extends State<MyCourses> {
         if (snapshot.hasData) {
           print(snapshot.data);
           return (snapshot.data == null || snapshot.data.isEmpty)
-              ? Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'لا يوجد بينات حاليا /',
-                        style: AppTheme.heading,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        'اسحب الشاشه لاسفل لاعاده التحميل',
-                        style: AppTheme.heading,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+              ? Center(
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => AllCourses()),
+                      );
+                    },
+                    color: customColor,
+                    child: Text(
+                      'للدورات التدريبة',
+                      style: AppTheme.heading.copyWith(color: Colors.white),
+                    ),
                   ),
                 )
               : GridView.count(

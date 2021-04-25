@@ -55,6 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: customColor,
       appBar: AppBar(
         toolbarHeight: 0,
         backgroundColor: customColor,
@@ -87,6 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
               style: AppTheme.heading.copyWith(
                 fontSize: 30,
                 fontWeight: FontWeight.normal,
+                color: Colors.white,
               ),
             ),
           ],

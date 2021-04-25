@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/myPlanApi.dart';
+import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:flutter/material.dart';
 
 class MyPlans extends StatefulWidget {
@@ -40,21 +41,21 @@ class _MyPlansState extends State<MyPlans> {
                   if (snapshot.hasData) {
                     print(snapshot.data);
                     return (snapshot.data == null || snapshot.data.isEmpty)
-                        ? Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'لا يوجد بينات حاليا /',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  'اسحب الشاشه لاسفل لاعاده التحميل',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                        ? Center(
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ProChartVIP()),
+                                );
+                              },
+                              color: customColor,
+                              child: Text(
+                                'اشترك الان',
+                                style: AppTheme.heading
+                                    .copyWith(color: Colors.white),
+                              ),
                             ),
                           )
                         : ListView.builder(
