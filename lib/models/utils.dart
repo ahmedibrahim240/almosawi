@@ -21,6 +21,8 @@ class Utils {
   // ignore: non_constant_identifier_names
   static final MyPlans_URL = BASE_URL + "/MyPlans";
   // ignore: non_constant_identifier_names
+  static final MyNotifications_URL = BASE_URL + "/MyNotifications";
+  // ignore: non_constant_identifier_names
   static final Blog_URL = BASE_URL + "/Blog";
   // ignore: non_constant_identifier_names
   static final GeneralData_URL =
