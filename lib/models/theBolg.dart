@@ -1,3 +1,4 @@
+import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -24,10 +25,10 @@ class TheBolgApi {
     List<TheBolg> listOfTheBolg = [];
     try {
       var response = await http.get(
-        'https://ahmadalmosawi.com/wp-json/wp/v2/posts',
+        Utils.Blog_URL,
       );
       var jsonData = json.decode(response.body);
-      print("jsonData:$jsonData");
+
       if (response.statusCode == 200) {
         for (var items in jsonData) {
           print("items:$items");
