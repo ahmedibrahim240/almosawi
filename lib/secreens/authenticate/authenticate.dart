@@ -1,8 +1,10 @@
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/authenticate/register/register.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import '../../sharedPreferences.dart';
 import 'logIn/login.dart';
 
 class Authenticate extends StatefulWidget {
@@ -16,9 +18,23 @@ class _AuthenticateState extends State<Authenticate> {
     setState(() => showSignIn = !showSignIn);
   }
 
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
   @override
   void initState() {
+    _fcm.getToken().then(
+      (token) {
+        print(token);
+        MySharedPreferences.saveUserToken(token.toString());
+      },
+    );
+
+    getUserToken();
     super.initState();
+  }
+
+  getUserToken() async {
+    User.userToken = await MySharedPreferences.getUserToken();
   }
 
   @override

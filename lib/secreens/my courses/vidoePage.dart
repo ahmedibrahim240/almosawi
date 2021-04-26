@@ -1,5 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
+import 'package:almosawii/models/couresApi.dart';
+import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
 import 'package:vimeoplayer/vimeoplayer.dart';
 
@@ -36,7 +38,25 @@ class _MyCoursesVideoPageState extends State<MyCoursesVideoPage> {
                 ),
               ),
             )
-          : VimeoPlayer(id: widget.videoId, autoPlay: false),
+          : FutureBuilder(
+              future: CoursesApi.getVideoMp4Link(id: widget.videoId),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  print(snapshot.data);
+                  return (snapshot.data == null || snapshot.data.isEmpty)
+                      ? Container()
+                      : Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 300,
+                          child: ChewieVideo(
+                            videoUrl: snapshot.data,
+                          ),
+                        );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
     );
   }
 }

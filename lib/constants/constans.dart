@@ -22,10 +22,10 @@ const customColorDivider = Color(0xfffe1e1e1);
 const customColorGray = Color(0xfff7d7d7d);
 const customColorbottomBar = Color(0xfffDBD8D2);
 const String emailEror = 'الرجاء إدخال بريد إلكتروني';
-const String passwordEror = 'الرجاء إدخال كليمة المرور';
 const String conPasswordEror = 'الرجاء إدخال بريد إلكتروني';
 const String nameEror = 'الرجاء إدخال الاسم';
 const String phoneEror = 'الرجاء إدخال رقم الهاتف';
+const String passwordEror = 'الرجاء إدخال كليمة المرور';
 const String passEror = 'الرجاء إدخال كلمه المورو';
 ////////////////////////////////////////
 Future<Null> customOnRefresh(

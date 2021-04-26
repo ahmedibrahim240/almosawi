@@ -54,6 +54,13 @@ class _OnBoardingState extends State<OnBoarding> {
           ' اهميه الدورات في عالم الفوركس القليل من يتعلم في هذا السوق. ستتمكن الحصول على اهم الدورات التدريبيه من الصفر الى الاحترافيه',
       image: 'lib/icons/back2.svg',
     ),
+    CustomSlider(
+      title: 'استشارات خاصه',
+      contant:
+          'الكثير تكون لديه صفقات مفتوحه او اسئله يريد ان يعرف اجابتها من محترف في الاسواق العالميه يمكنك حجز استشارتك الخاصه',
+      // image: 'lib/icons/back1.svg',
+      backImage: 'lib/images/ahmed.jpg',
+    ),
   ];
   _onChanged(int index) {
     setState(() {

@@ -264,7 +264,6 @@ class _LogInState extends State<LogIn> {
       );
 
       Map<String, dynamic> map = json.decode(response.body);
-      print(response.body);
 
       if (map['success'] == 'تم تسجيل الدخول بنجاح') {
         MySharedPreferences.saveUserUserPassword(password);

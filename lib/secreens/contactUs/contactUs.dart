@@ -53,46 +53,53 @@ class _ContactUsState extends State<ContactUs> {
                 SizedBox(height: 20),
                 contactUsForm(),
                 SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 45),
-                  child: CustomButton(
-                    onPress: () async {
-                      List<File> res = await FilePicker.getMultiFile(
-                        type: FileType.any,
-                      );
-                      if (res == null) {
-                        print('NOOOOOOOOO FILE PICE');
-                      } else {
-                        listFiles = res;
-                        fileDialog(
-                          context: context,
-                          message: 'تم اضاقه ${listFiles.length} ملفات',
-                        );
-                      }
-                    },
-                    text: 'اضافه ملف / صورة',
-                  ),
-                ),
-                CustomButton(
-                  onPress: () async {
-                    if (_formKey.currentState.validate()) {
-                      setState(() {
-                        loading = !loading;
-                      });
+                (loading)
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 45),
+                        child: CustomButton(
+                          onPress: () async {
+                            List<File> res = await FilePicker.getMultiFile(
+                              type: FileType.any,
+                            );
+                            if (res == null) {
+                              print('NOOOOOOOOO FILE PICE');
+                            } else {
+                              listFiles = res;
+                              fileDialog(
+                                context: context,
+                                message: 'تم اضاقه ${listFiles.length} ملفات',
+                              );
+                            }
+                          },
+                          text: 'اضافه ملف / صورة',
+                        ),
+                      ),
+                (loading)
+                    ? Text(
+                        'جاري ارسال الرساله....',
+                        style: AppTheme.subHeading,
+                      )
+                    : CustomButton(
+                        onPress: () async {
+                          if (_formKey.currentState.validate()) {
+                            setState(() {
+                              loading = !loading;
+                            });
 
-                      sentData(
-                        userName: name,
-                        user_id: User.userid,
-                        message: message,
-                        mobile: phone,
-                        email: email,
-                        files: listFiles,
-                        deviceToken: User.userToken,
-                      );
-                    }
-                  },
-                  text: 'ارسال',
-                ),
+                            sentData(
+                              userName: name,
+                              user_id: User.userid,
+                              message: message,
+                              mobile: phone,
+                              email: email,
+                              files: listFiles,
+                              deviceToken: User.userToken,
+                            );
+                          }
+                        },
+                        text: 'ارسال',
+                      ),
               ],
             ),
     );
@@ -224,9 +231,11 @@ class _ContactUsState extends State<ContactUs> {
     List<File> files,
     String deviceToken,
   }) async {
+    print(files.isEmpty);
     try {
       var data;
-      if (files != null) {
+      // ignore: prefer_is_not_empty
+      if (!files.isEmpty) {
         var filesForm = [];
         for (var items in files) {
           filesForm.add(await MultipartFile.fromFile(
@@ -248,6 +257,8 @@ class _ContactUsState extends State<ContactUs> {
           "files": filesForm,
         });
       } else {
+        print(files.isEmpty);
+
         data = FormData.fromMap({
           'userName': userName,
           'email': email,
@@ -258,36 +269,44 @@ class _ContactUsState extends State<ContactUs> {
           "files": [],
         });
       }
-
+      print(data);
       Dio dio = new Dio();
       Response response = await dio.post(Utils.ContactUs_URL, data: data);
 
       if (response.data['status'] == 'success') {
-        setState(() {
-          loading = !loading;
-        });
+        print(response.data['message']);
         showMyDialog(
           context: context,
-          message: response.data['message'].toString(),
+          message: "تم ارسال الرسالة بنجاح",
         );
-        listFiles.clear();
-      } else {
+
         setState(() {
           loading = !loading;
         });
+
+        listFiles.clear();
+      } else {
+        print(response.data['errorArr']);
         showMyDialog(
           context: context,
           message: response.data['errorArr'].toString(),
         );
+
+        setState(() {
+          loading = !loading;
+        });
       }
       listFiles.clear();
-
-      Navigator.pop(context);
     } catch (e) {
       print('Cash errrrrrrrrrrrrrrror');
+      showMyDialog(
+        context: context,
+        message: "حدث خطا اثناء الارسال يرجي المحاوله مجددا",
+      );
       setState(() {
         loading = !loading;
       });
+
       listFiles.clear();
       print(e);
     }

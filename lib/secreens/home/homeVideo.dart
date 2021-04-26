@@ -42,7 +42,7 @@ class _HomeVideoState extends State<HomeVideo> {
                                     : AssetImage(
                                         'lib/images/homeback.jpg',
                                       ),
-                                fit: BoxFit.fitHeight,
+                                fit: BoxFit.cover,
                               ),
                             ),
                             child: ListView(

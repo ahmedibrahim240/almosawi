@@ -8,9 +8,17 @@ class MyMassege {
   final String date;
   final String content;
   final String title;
+  final String name;
   var comments;
 
-  MyMassege({this.date, this.content, this.title, this.comments, this.id});
+  MyMassege({
+    this.date,
+    this.content,
+    this.title,
+    this.comments,
+    this.id,
+    this.name,
+  });
 }
 
 class MyMessageApi {
@@ -28,6 +36,7 @@ class MyMessageApi {
             id: items['messageID'],
             content: items['content'],
             title: items['title'],
+            name: items['name'],
             comments: items['comments'],
           );
           listOfMyMassege.add(myMassege);

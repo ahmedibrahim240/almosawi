@@ -68,6 +68,23 @@ class CoursesApi {
     return listOfCourses;
   }
 
+  static Future<String> getVideoMp4Link({var id}) async {
+    String link;
+    try {
+      var response = await http.get(
+        'https://player.vimeo.com/video/$id/config',
+      );
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
+        link = jsonData['request']['files']['progressive'][0]['url'];
+        print('link:$link');
+      }
+    } catch (e) {
+      print(e);
+    }
+    return link;
+  }
+
   static Future<List<Courses>> fetchAllLearningSection() async {
     List<Courses> listOfCourses = [];
     try {

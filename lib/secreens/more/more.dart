@@ -105,7 +105,7 @@ class _MoreState extends State<More> {
               onTap: () {
                 launchInBrowser('https://ahmadalmosawi.com/consultation/');
               },
-              icon: Icon(Icons.account_balance_wallet),
+              icon: Icon(Icons.local_offer),
               tilte: ' حجز استشاره ',
             ),
             SizedBox(height: 20),
@@ -190,20 +190,20 @@ class _MoreState extends State<More> {
                     ),
                     tilte: ' الإشعارات',
                   ),
-            (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
-            (User.userCantBuy == true)
-                ? Container()
-                : moreBody(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => ALLRomes(),
-                        ),
-                      );
-                    },
-                    icon: Icon(FontAwesomeIcons.comments),
-                    tilte: 'غرفة بروشارت',
-                  ),
+            // (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
+            // (User.userCantBuy == true)
+            //     ? Container()
+            //     : moreBody(
+            //         onTap: () {
+            //           Navigator.of(context).push(
+            //             MaterialPageRoute(
+            //               builder: (_) => ALLRomes(),
+            //             ),
+            //           );
+            //         },
+            //         icon: Icon(FontAwesomeIcons.comments),
+            //         tilte: 'غرفة بروشارت',
+            //       ),
             (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             (User.userCantBuy == true)
                 ? Container()

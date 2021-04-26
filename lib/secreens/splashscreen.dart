@@ -30,20 +30,23 @@ class _SplashScreenState extends State<SplashScreen> {
     User.userid = await MySharedPreferences.getUserUserid();
   }
 
+  getFcmToken() async {
+    await _fcm.getToken().then(
+      (token) {
+        print(token);
+        MySharedPreferences.saveUserToken(token.toString());
+      },
+    );
+  }
+
   getUserToken() async {
     User.userToken = await MySharedPreferences.getUserToken();
   }
 
   @override
   void initState() {
-    _fcm.getToken().then(
-      (token) {
-        print(token);
-        MySharedPreferences.saveUserToken(token.toString());
-      },
-    );
+    getFcmToken();
     getDateOfUser();
-
     getUserToken();
 
     super.initState();
@@ -52,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Timer timer() {
     return Timer(
-      Duration(seconds: 5),
+      Duration(seconds: 8),
       () {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

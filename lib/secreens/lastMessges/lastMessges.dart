@@ -40,23 +40,36 @@ class _LastMessgesState extends State<LastMessges> {
                 future: MyMessageApi.fetchAllMyMassege(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    print(snapshot.data);
-                    return (snapshot.data == null || snapshot.data.isEmpty)
+                    return (snapshot.data.isEmpty)
                         ? Center(
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          ContactUs()),
-                                );
-                              },
-                              color: customColor,
-                              child: Text(
-                                'اشترك الان',
-                                style: AppTheme.heading
-                                    .copyWith(color: Colors.white),
-                              ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'لا توجد مراسلات سابقه',
+                                  style: AppTheme.heading,
+                                ),
+                                SizedBox(height: 10),
+                                RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ContactUs()),
+                                    );
+                                  },
+                                  color: customColor,
+                                  child: Text(
+                                    'تواصل مع احمد الموسوي',
+                                    style: AppTheme.heading
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              ],
                             ),
                           )
                         : ListView.builder(
@@ -96,16 +109,27 @@ class _LastMessgesState extends State<LastMessges> {
                                                     .data[index].content),
                                                 style: AppTheme.subHeading,
                                               ),
-                                              Align(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  child: Text(
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    snapshot.data[index].name,
+                                                    style: AppTheme.subHeading
+                                                        .copyWith(
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                  Text(
                                                     snapshot.data[index].date,
                                                     style: AppTheme.subHeading
                                                         .copyWith(
                                                       fontSize: 10,
                                                     ),
-                                                  )),
+                                                  )
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         ),
