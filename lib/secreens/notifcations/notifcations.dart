@@ -1,6 +1,5 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/main.dart';
 import 'package:almosawii/models/notifcatiinsApi.dart';
 import 'package:flutter/material.dart';
 

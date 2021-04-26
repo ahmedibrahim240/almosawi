@@ -119,7 +119,6 @@ class _HomeState extends State<Home> {
             future: HomeVideoApi.futchHomeVideo(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print(snapshot.data);
                 return (snapshot.data == null)
                     ? Container()
                     : Card(
@@ -211,7 +210,6 @@ class _HomeState extends State<Home> {
             future: HomeVideoApi.futchHomeVideo(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print(snapshot.data);
                 return (snapshot.data == null)
                     ? Container()
                     : Card(
@@ -303,7 +301,6 @@ class _HomeState extends State<Home> {
       future: ProChartVIPModelsApi.futchProChartVIP(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data);
           return (snapshot.data == null)
               ? Container()
               : (snapshot.data.contactUsBanner == '')
@@ -339,7 +336,6 @@ class _HomeState extends State<Home> {
       future: ContactUsApi.futchContactUs(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data);
           return (snapshot.data == null)
               ? Container()
               : ListView(
@@ -461,7 +457,6 @@ class _HomeState extends State<Home> {
             future: HomeVideoApi.futchHomeVideo(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print(snapshot.data);
                 return (snapshot.data == null)
                     ? Container()
                     : Container(
@@ -536,23 +531,7 @@ class _HomeState extends State<Home> {
           if (snapshot.hasData) {
             print(snapshot.data);
             return (snapshot.data == null || snapshot.data.isEmpty)
-                ? Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'لا يوجد بينات حاليا /',
-                          style: AppTheme.heading,
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          'اسحب الشاشه لاسفل لاعاده التحميل',
-                          style: AppTheme.heading,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  )
+                ? Container()
                 : ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: snapshot.data.length,
