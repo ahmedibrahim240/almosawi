@@ -47,7 +47,11 @@ class _SplashScreenState extends State<SplashScreen> {
     getUserToken();
 
     super.initState();
-    Timer(
+    timer();
+  }
+
+  Timer timer() {
+    return Timer(
       Duration(seconds: 5),
       () {
         Navigator.of(context).pushAndRemoveUntil(
@@ -70,7 +74,6 @@ class _SplashScreenState extends State<SplashScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: customColor,
       appBar: AppBar(
         toolbarHeight: 0,
         backgroundColor: customColor,
@@ -79,11 +82,11 @@ class _SplashScreenState extends State<SplashScreen> {
         height: height,
         width: width,
         decoration: BoxDecoration(
-            // image: DecorationImage(
-            //   image: AssetImage('lib/images/splachback.jpeg'),
-            //   fit: BoxFit.fitHeight,
-            // ),
-            ),
+          image: DecorationImage(
+            image: AssetImage('lib/images/splachBack.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -103,7 +106,6 @@ class _SplashScreenState extends State<SplashScreen> {
               style: AppTheme.heading.copyWith(
                 fontSize: 30,
                 fontWeight: FontWeight.normal,
-                color: Colors.white,
               ),
             ),
           ],
