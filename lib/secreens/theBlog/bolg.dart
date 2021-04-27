@@ -44,7 +44,7 @@ class _BlogState extends State<Blog> {
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 children: [
                   FutureBuilder(
-                    future: TheBolgApi.fetchAllTheBolg(),
+                    future: TheBolgApi.fetchAllTheBolg(type: 'free'),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return (snapshot.data == null || snapshot.data.isEmpty)
@@ -83,27 +83,46 @@ class _BlogState extends State<Blog> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                          (snapshot.data[index].image == null ||
+                                                  snapshot.data[index].image ==
+                                                      '')
+                                              ? Container()
+                                              : Container(
+                                                  width: 120,
+                                                  height: 120,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child:
+                                                        customCachedNetworkImage(
+                                                      boxFit: BoxFit.cover,
+                                                      context: context,
+                                                      url: snapshot
+                                                          .data[index].image,
+                                                    ),
+                                                  ),
+                                                ),
                                           Container(
-                                            width: 120,
-                                            height: 120,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: customCachedNetworkImage(
-                                                context: context,
-                                                url: snapshot.data[index].image,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width -
-                                                180,
+                                            width:
+                                                (snapshot.data[index].image ==
+                                                            null ||
+                                                        snapshot.data[index]
+                                                                .image ==
+                                                            '')
+                                                    ? MediaQuery.of(context)
+                                                            .size
+                                                            .width -
+                                                        40
+                                                    : MediaQuery.of(context)
+                                                            .size
+                                                            .width -
+                                                        180,
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 3),
                                             child: Column(
@@ -133,13 +152,17 @@ class _BlogState extends State<Blog> {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: 50,
+                                                  height: 55,
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
                                                   child: Text(
                                                     parseHtmlString(snapshot
-                                                        .data[index].contant),
+                                                            .data[index]
+                                                            .contant ??
+                                                        snapshot.data[index]
+                                                            .description ??
+                                                        ''),
                                                     style: AppTheme.subHeading
                                                         .copyWith(
                                                       color: customColorGray,

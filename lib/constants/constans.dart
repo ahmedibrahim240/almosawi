@@ -201,7 +201,7 @@ String gitnewPrice({String descaound, String price}) {
 }
 
 /////////////////////////////////////
-customCachedNetworkImage({String url, BuildContext context}) {
+customCachedNetworkImage({String url, BuildContext context, BoxFit boxFit}) {
   try {
     if (url == null || url == '') {
       return Container();
@@ -211,7 +211,7 @@ customCachedNetworkImage({String url, BuildContext context}) {
         child: (Uri.parse(url).isAbsolute)
             ? CachedNetworkImage(
                 imageUrl: url,
-                fit: BoxFit.contain,
+                fit: (boxFit) ?? BoxFit.contain,
                 placeholder: (context, url) =>
                     Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => Icon(Icons.error),

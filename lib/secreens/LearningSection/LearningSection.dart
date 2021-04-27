@@ -1,9 +1,9 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
-import 'package:almosawii/models/couresApi.dart';
-import 'package:almosawii/secreens/cart/cart.dart';
-import 'package:almosawii/secreens/courses/coursesDetailes.dart';
-import 'package:almosawii/secreens/wrapper/wrapper.dart';
+import 'package:almosawii/models/theBolg.dart';
+
+import 'package:almosawii/secreens/theBlog/bolgDetailes.dart';
+
 import 'package:almosawii/services/dbhelper.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,9 @@ class _LearningSectionState extends State<LearningSection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('قسم التعليم'),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           customOnRefresh(onRefresh: () {
@@ -47,192 +49,152 @@ class _LearningSectionState extends State<LearningSection> {
             : ListView(
                 shrinkWrap: true,
                 primary: true,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 children: [
-                  gardViewOfAllCourses(
-                    context: context,
+                  FutureBuilder(
+                    future: TheBolgApi.fetchAllTheBolg(type: 'premium'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return (snapshot.data == null || snapshot.data.isEmpty)
+                            ? Container(
+                                child: Center(
+                                  child: Text(
+                                    'اسحب الشاشه لاسفل لاعاده التحميل',
+                                    style: AppTheme.heading,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                primary: false,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 20),
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => BolgDetailes(
+                                            theBolg: snapshot.data[index],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Card(
+                                      elevation: 3,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          (snapshot.data[index].image == null ||
+                                                  snapshot.data[index].image ==
+                                                      '')
+                                              ? Container()
+                                              : Container(
+                                                  width: 120,
+                                                  height: 120,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child:
+                                                        customCachedNetworkImage(
+                                                      boxFit: BoxFit.cover,
+                                                      context: context,
+                                                      url: snapshot
+                                                          .data[index].image,
+                                                    ),
+                                                  ),
+                                                ),
+                                          Container(
+                                            width:
+                                                (snapshot.data[index].image ==
+                                                            null ||
+                                                        snapshot.data[index]
+                                                                .image ==
+                                                            '')
+                                                    ? MediaQuery.of(context)
+                                                            .size
+                                                            .width -
+                                                        40
+                                                    : MediaQuery.of(context)
+                                                            .size
+                                                            .width -
+                                                        180,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 3),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  snapshot.data[index].date,
+                                                  style: AppTheme.subHeading
+                                                      .copyWith(
+                                                    color: customColorGray,
+                                                    fontSize: 9,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Text(
+                                                    snapshot.data[index].name,
+                                                    style: AppTheme.heading
+                                                        .copyWith(
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 55,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Text(
+                                                    parseHtmlString(snapshot
+                                                            .data[index]
+                                                            .contant ??
+                                                        snapshot.data[index]
+                                                            .description ??
+                                                        ''),
+                                                    style: AppTheme.subHeading
+                                                        .copyWith(
+                                                      color: customColorGray,
+                                                      fontSize: 9,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    },
                   ),
                 ],
               ),
       ),
     );
   }
-
-  gardViewOfAllCourses({BuildContext context}) {
-    return FutureBuilder(
-      future: CoursesApi.fetchAllLearningSection(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          print(snapshot.data);
-          return (snapshot.data == null || snapshot.data.isEmpty)
-              ? Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'لا يوجد بينات حاليا /',
-                        style: AppTheme.heading,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        'اسحب الشاشه لاسفل لاعاده التحميل',
-                        style: AppTheme.heading,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                )
-              : GridView.count(
-                  crossAxisCount: 2,
-                  primary: false,
-                  childAspectRatio: .6,
-                  shrinkWrap: true,
-                  children: List.generate(
-                    snapshot.data.length,
-                    (index) {
-                      return allCoursesCard(
-                          courses: snapshot.data[index],
-                          context: context,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => Coursesedtails(
-                                  courses: snapshot.data[index],
-                                ),
-                              ),
-                            );
-                          });
-                    },
-                  ),
-                );
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
-    );
-  }
-
-  allCoursesCard({Courses courses, BuildContext context, Function onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 180,
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: customCachedNetworkImage(
-                  context: context,
-                  url: courses.image,
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            SizedBox(
-              width: 200,
-              child: Text(
-                courses.name,
-                style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
-              ),
-            ),
-            SizedBox(height: 5),
-            RatingStar(
-              rating: double.parse(courses.totalRating.toString()),
-            ),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                (courses.newPrice == null)
-                    ? Container()
-                    : Text(
-                        '${courses.newPrice}\$',
-                        style: AppTheme.headingColorBlue.copyWith(
-                          fontSize: 12,
-                          color: customColor,
-                        ),
-                      ),
-                SizedBox(width: 5),
-                Text(
-                  (courses.oldPrice == null)
-                      ? Container()
-                      : '${courses.oldPrice}\$',
-                  style: AppTheme.headingColorBlue.copyWith(
-                    fontSize: 10,
-                    color:
-                        (courses.newPrice == null) ? customColor : Colors.black,
-                    decoration: (courses.newPrice == null)
-                        ? TextDecoration.none
-                        : TextDecoration.lineThrough,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-Future<void> showCartDialog({BuildContext context}) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Center(
-                child: Text(
-                  'تم اضافة الطلب لستكمال عمليه الشراء عليه الذهاب الي عربة التسوق',
-                  style: AppTheme.subHeading,
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text(
-              'الصفحة الرائسية',
-              style: AppTheme.heading.copyWith(
-                color: customColor,
-              ),
-            ),
-            onPressed: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (_) => Wrapper()),
-                (route) => false,
-              );
-            },
-          ),
-          TextButton(
-            child: Text(
-              'عربة التسوق',
-              style: AppTheme.heading.copyWith(
-                color: customColor,
-              ),
-            ),
-            onPressed: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (_) => Cart(),
-                ),
-                ModalRoute.withName('/'),
-              );
-            },
-          ),
-        ],
-      );
-    },
-  );
 }

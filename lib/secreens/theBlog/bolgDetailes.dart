@@ -16,43 +16,42 @@ class _BolgDetailesState extends State<BolgDetailes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0,
+        toolbarHeight:
+            (widget.theBolg.image == null || widget.theBolg.image == '')
+                ? 50
+                : 0,
       ),
       body: ListView(
         shrinkWrap: true,
         primary: true,
         children: [
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(widget.theBolg.image),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Stack(
-              children: [
-                ClipRRect(
-                  child: customCachedNetworkImage(
-                    context: context,
-                    url: widget.theBolg.image,
+          (widget.theBolg.image == null || widget.theBolg.image == '')
+              ? Container()
+              : Container(
+                  height: 200,
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        child: customCachedNetworkImage(
+                          context: context,
+                          url: widget.theBolg.image,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: customColor,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: customColor,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
           ListView(
             shrinkWrap: true,
             primary: false,
@@ -65,7 +64,9 @@ class _BolgDetailesState extends State<BolgDetailes> {
                 ),
               ),
               Text(
-                parseHtmlString(widget.theBolg.contant),
+                parseHtmlString((widget.theBolg.contant) ??
+                    (widget.theBolg.description) ??
+                    ''),
                 textAlign: TextAlign.justify,
                 style: AppTheme.subHeading.copyWith(color: customColorGray),
               ),
