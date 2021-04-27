@@ -5,8 +5,7 @@ import 'package:almosawii/models/userData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:almosawii/models/utils.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 import 'dart:io';
 import 'package:gx_file_picker/gx_file_picker.dart';
 import 'package:dio/dio.dart';

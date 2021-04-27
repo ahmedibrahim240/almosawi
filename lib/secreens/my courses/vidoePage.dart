@@ -3,7 +3,6 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:flutter/material.dart';
-import 'package:vimeoplayer/vimeoplayer.dart';
 
 class MyCoursesVideoPage extends StatefulWidget {
   final String title;

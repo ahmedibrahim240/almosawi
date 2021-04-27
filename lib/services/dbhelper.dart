@@ -53,6 +53,13 @@ class DbHehper {
     return db.delete(tableName, where: 'id=?', whereArgs: [id]);
   }
 
+  Future<ConsultantProdect> getProductById(int id) async {
+    Database db = await createDataBase();
+    var result =
+        await db.query(tableName, where: 'consultantId=?', whereArgs: [id]);
+    return result.isNotEmpty ? ConsultantProdect.formMap(result.first) : null;
+  }
+
   deleteAllProduct() async {
     Database db = await createDataBase();
     return db.delete(tableName);

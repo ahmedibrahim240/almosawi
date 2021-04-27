@@ -223,6 +223,21 @@ class _CheckOutState extends State<CheckOut> {
             );
           },
         );
+      } else if (jsonData['status'] == 'error') {
+        setState(() {
+          loading = !loading;
+        });
+        checkOutDialog(
+          context: context,
+          message: jsonData['message'].toString(),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => Cart(),
+              ),
+            );
+          },
+        );
       } else {
         checkOutDialog(
           context: context,

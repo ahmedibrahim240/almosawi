@@ -334,6 +334,28 @@ class _CartState extends State<Cart> {
           price: Cart.totalPraices,
         );
         showMyDialog(
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => Wrapper(),
+              ),
+            );
+          },
+          context: context,
+          message: jsonData['message'].toString(),
+        );
+      } else if (jsonData['status'] == 'error') {
+        setState(() {
+          loading = !loading;
+        });
+        showMyDialog(
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => Wrapper(),
+              ),
+            );
+          },
           context: context,
           message: jsonData['message'].toString(),
         );
@@ -342,13 +364,32 @@ class _CartState extends State<Cart> {
           loading = !loading;
         });
         showMyDialog(
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => Wrapper(),
+              ),
+            );
+          },
           context: context,
           message: jsonData['errorArr'].toString(),
         );
       }
     } catch (e) {
-      print('Cash wallpaper');
-      setState(() {});
+      showMyDialog(
+        onTap: () {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => Wrapper(),
+            ),
+          );
+        },
+        context: context,
+        message: "حدث خطا اثناء الارسال يرجي المحاوله مجددا",
+      );
+      setState(() {
+        loading = !loading;
+      });
 
       print(e);
     }

@@ -125,7 +125,7 @@ class _MyCoursesState extends State<MyCourses> {
             SizedBox(
               width: 200,
               child: Text(
-                courses.name,
+                (courses.name) ?? '',
                 style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
               ),
             ),
@@ -146,19 +146,20 @@ class _MyCoursesState extends State<MyCourses> {
                         ),
                       ),
                 SizedBox(width: 5),
-                Text(
-                  (courses.oldPrice == null)
-                      ? Container()
-                      : '${courses.oldPrice}\$',
-                  style: AppTheme.headingColorBlue.copyWith(
-                    fontSize: 10,
-                    color:
-                        (courses.newPrice == null) ? customColor : Colors.black,
-                    decoration: (courses.newPrice == null)
-                        ? TextDecoration.none
-                        : TextDecoration.lineThrough,
-                  ),
-                ),
+                (courses.oldPrice == null)
+                    ? Container()
+                    : Text(
+                        '${courses.oldPrice}\$',
+                        style: AppTheme.headingColorBlue.copyWith(
+                          fontSize: 10,
+                          color: (courses.newPrice == null)
+                              ? customColor
+                              : Colors.black,
+                          decoration: (courses.newPrice == null)
+                              ? TextDecoration.none
+                              : TextDecoration.lineThrough,
+                        ),
+                      ),
               ],
             ),
           ],

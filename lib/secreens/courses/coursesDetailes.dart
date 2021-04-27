@@ -24,8 +24,27 @@ class _CoursesedtailsState extends State<Coursesedtails> {
   int tapded = 0;
   String type = 'course';
   DbHehper helper;
+  bool cantAdd = false;
+  var courseFromSQL;
   getUsercantBuy() async {
     User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+  }
+
+  getCouresByIdFlomSQl() async {
+    courseFromSQL = await helper.getProductById(widget.courses.id);
+
+    if (courseFromSQL != null) {
+      print('Courses Sql id:$courseFromSQL');
+      print('Courses Sql type:${courseFromSQL.type}');
+      if (courseFromSQL.type == 'course') {
+        if (courseFromSQL.consultantId == widget.courses.id) {
+          print('User Cant Add Courseeeeeeeeeeeeee');
+          setState(() {
+            cantAdd = true;
+          });
+        }
+      }
+    }
   }
 
   @override
@@ -33,6 +52,7 @@ class _CoursesedtailsState extends State<Coursesedtails> {
     getUsercantBuy();
     super.initState();
     helper = DbHehper();
+    getCouresByIdFlomSQl();
   }
 
   @override
@@ -325,7 +345,9 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                 (widget.courses.oldPrice == null)
                     ? Container()
                     : Text(
-                        widget.courses.oldPrice.toString() + '\$',
+                        (widget.courses.oldPrice != '0')
+                            ? '${widget.courses.oldPrice}\$'
+                            : "مجاناً",
                         style: AppTheme.subHeading.copyWith(
                           color: (widget.courses.newPrice == null)
                               ? customColor
@@ -346,48 +368,53 @@ class _CoursesedtailsState extends State<Coursesedtails> {
             RatingStar(
               rating: double.parse(widget.courses.totalRating.toString()),
             ),
-            RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              color: customColor,
-              onPressed: () async {
-                print('User.userCantBuy${User.userCantBuy}');
-                if (User.userCantBuy == true) {
-                  sikpDialog(context: context);
-                } else {
-                  setState(() {
-                    // Cart.totalPraices = (widget.courses.newPrice == null)
-                    //     ? double.parse(widget.courses.oldPrice.toString())
-                    //     : double.parse(widget.courses.newPrice.toString());
-                    increaseCartTotlaPrice(
-                      price: (widget.courses.newPrice == null)
-                          ? double.parse(widget.courses.oldPrice.toString())
-                          : double.parse(widget.courses.newPrice.toString()),
-                    );
-                  });
-                  ConsultantProdect prodect = ConsultantProdect({
-                    'consultantId': widget.courses.id,
-                    'type': type,
-                    'date': '',
-                    'dateId': 0,
-                    'time': '',
-                    'title': widget.courses.name,
-                    'price': (widget.courses.newPrice == null)
-                        ? double.parse(widget.courses.oldPrice.toString())
-                        : double.parse(widget.courses.newPrice.toString()),
-                    'proImageUrl': widget.courses.image,
-                  });
-                  // ignore: unused_local_variable
-                  int id = await helper.createProduct(prodect);
-                  cardDialog(context: context);
-                }
-              },
-              child: Text(
-                'اشتري الان',
-                style: AppTheme.heading.copyWith(color: Colors.white),
-              ),
-            ),
+            (cantAdd)
+                ? Container()
+                : RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: customColor,
+                    onPressed: () async {
+                      print('User.userCantBuy${User.userCantBuy}');
+                      if (User.userCantBuy == true) {
+                        sikpDialog(context: context);
+                      } else {
+                        setState(() {
+                          // Cart.totalPraices = (widget.courses.newPrice == null)
+                          //     ? double.parse(widget.courses.oldPrice.toString())
+                          //     : double.parse(widget.courses.newPrice.toString());
+                          increaseCartTotlaPrice(
+                            price: (widget.courses.newPrice == null)
+                                ? double.parse(
+                                    widget.courses.oldPrice.toString())
+                                : double.parse(
+                                    widget.courses.newPrice.toString()),
+                          );
+                        });
+                        ConsultantProdect prodect = ConsultantProdect({
+                          'consultantId': widget.courses.id,
+                          'type': type,
+                          'date': '',
+                          'dateId': 0,
+                          'time': '',
+                          'title': widget.courses.name,
+                          'price': (widget.courses.newPrice == null)
+                              ? double.parse(widget.courses.oldPrice.toString())
+                              : double.parse(
+                                  widget.courses.newPrice.toString()),
+                          'proImageUrl': widget.courses.image,
+                        });
+                        // ignore: unused_local_variable
+                        int id = await helper.createProduct(prodect);
+                        cardDialog(context: context);
+                      }
+                    },
+                    child: Text(
+                      'اشتري الان',
+                      style: AppTheme.heading.copyWith(color: Colors.white),
+                    ),
+                  ),
           ],
         ),
       ],

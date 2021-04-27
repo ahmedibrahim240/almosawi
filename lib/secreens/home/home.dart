@@ -609,7 +609,9 @@ class _HomeState extends State<Home> {
                 Text(
                   (courses.oldPrice == null)
                       ? Container()
-                      : '${courses.oldPrice}\$',
+                      : (courses.oldPrice != '0')
+                          ? '${courses.oldPrice}\$'
+                          : "مجاناً",
                   style: AppTheme.headingColorBlue.copyWith(
                     fontSize: 10,
                     color:

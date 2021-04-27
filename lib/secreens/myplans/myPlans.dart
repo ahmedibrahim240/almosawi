@@ -108,7 +108,7 @@ class _MyPlansState extends State<MyPlans> {
                                                     style: AppTheme.heading
                                                         .copyWith(
                                                       color: customColor,
-                                                      fontSize: 12,
+                                                      fontSize: 10,
                                                     ),
                                                   ),
                                                   Text(
@@ -128,7 +128,7 @@ class _MyPlansState extends State<MyPlans> {
                                                     style: AppTheme.heading
                                                         .copyWith(
                                                       color: customColor,
-                                                      fontSize: 12,
+                                                      fontSize: 10,
                                                     ),
                                                   ),
                                                   Text(
