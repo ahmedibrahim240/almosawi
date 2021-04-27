@@ -148,4 +148,33 @@ class CoursesApi {
     }
     return listOfCourses;
   }
+
+  static Future<Courses> freeCourses() async {
+    Courses courses;
+    try {
+      var response = await http.get(
+        Utils.GeneralData_URL,
+      );
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
+        courses = Courses(
+          id: jsonData['data']['HomeFreeCourse']['id'],
+          image: jsonData['data']['HomeFreeCourse']['image'],
+          name: jsonData['data']['HomeFreeCourse']['name'],
+          description: jsonData['data']['HomeFreeCourse']['description'],
+          video_code: jsonData['data']['HomeFreeCourse']['video_code'],
+          status: jsonData['data']['HomeFreeCourse']['status'],
+          lessons: jsonData['data']['HomeFreeCourse']['lessons'],
+          ratings: jsonData['data']['HomeFreeCourse']['Ratings'],
+          totalRating: jsonData['data']['HomeFreeCourse']['TotalRating'],
+          oldPrice: jsonData['data']['HomeFreeCourse']['price_old'],
+          newPrice: jsonData['data']['HomeFreeCourse']['price_new'],
+        );
+      }
+    } catch (e) {
+      print('Erroro MyCoursesssssssssssssssss');
+      print(e);
+    }
+    return courses;
+  }
 }

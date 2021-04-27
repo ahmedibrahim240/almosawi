@@ -88,10 +88,9 @@ class _HomeState extends State<Home> {
                 primary: true,
                 children: [
                   HomeVideo(),
+                  freeCorsesSections(),
                   SizedBox(height: 10),
                   homeProChartSection(),
-                  // HomeTabs(),
-                  SizedBox(height: 10),
                   successPartners(),
                   SizedBox(height: 10),
                   acountFeatures(),
@@ -443,7 +442,7 @@ class _HomeState extends State<Home> {
 
   successPartners() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         children: [
           Text(
@@ -558,6 +557,48 @@ class _HomeState extends State<Home> {
     );
   }
 
+  freeCorsesSections() {
+    return FutureBuilder(
+      future: CoursesApi.freeCourses(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return (snapshot.data == null)
+              ? Container()
+              : InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => Coursesedtails(
+                          courses: snapshot.data,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: customColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'سجل الان',
+                        style: AppTheme.heading.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
   courses({int index, Function onTap, Courses courses}) {
     return InkWell(
       onTap: onTap,
@@ -661,7 +702,7 @@ class _HomeState extends State<Home> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print(snapshot.data);
-          return (snapshot.data == null)
+          return (snapshot.data == null && snapshot.data == '')
               ? Container()
               : (snapshot.data.homeAdImage == '' ||
                       snapshot.data.homeAdImage == null)
