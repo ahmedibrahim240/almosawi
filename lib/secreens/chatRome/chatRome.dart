@@ -31,6 +31,7 @@ class _ChatRomeState extends State<ChatRome> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.message.status == 'مفتوح');
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -88,10 +89,12 @@ class _ChatRomeState extends State<ChatRome> {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: messageTextFiled(),
-            ),
+            (widget.message.status != 'مفتوح')
+                ? Container()
+                : Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: messageTextFiled(),
+                  ),
           ],
         ),
       ),

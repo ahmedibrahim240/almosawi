@@ -3,12 +3,12 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/couresApi.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/models/utils.dart';
+import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 import 'package:almosawii/secreens/my%20courses/vidoePage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:vimeoplayer/vimeoplayer.dart';
 
 class MyCoursesDetails extends StatefulWidget {
   final Courses courses;
@@ -31,7 +31,7 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
         shrinkWrap: true,
         primary: true,
         children: [
-          (widget.courses.video_code != "" || widget.courses.video_code != null)
+          (widget.courses.video_code != "" && widget.courses.video_code != null)
               ? Container(
                   child: Column(
                   children: [
@@ -47,17 +47,32 @@ class _MyCoursesDetailsState extends State<MyCoursesDetails> {
                         },
                       ),
                     ),
-                    VimeoPlayer(id: widget.courses.video_code, autoPlay: false),
+                    FutureBuilder(
+                      future: CoursesApi.getVideoMp4Link(
+                          id: widget.courses.video_code),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          print(snapshot.data);
+                          return (snapshot.data == null ||
+                                  snapshot.data.isEmpty)
+                              ? Container()
+                              : Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 300,
+                                  child: ChewieVideo(
+                                    videoUrl: snapshot.data,
+                                  ),
+                                );
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
                   ],
                 ))
               : Container(
                   height: 300,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(widget.courses.image),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: Stack(
                     children: [
                       ClipRRect(

@@ -274,7 +274,6 @@ class _LogInState extends State<LogIn> {
             map['UserData']['Recomendations']);
 
         if (map['UserData']['Recomendations'] == '0') {
-          MySharedPreferences.saveUserSkipLogIn(true);
           User.userSkipLogIn = true;
 
           MySharedPreferences.saveUserSingIn(true);
@@ -288,7 +287,6 @@ class _LogInState extends State<LogIn> {
             id: map['UserData']['id'],
           );
         } else {
-          MySharedPreferences.saveUserSkipLogIn(false);
           User.userSkipLogIn = false;
           MySharedPreferences.saveUserSingIn(true);
           MySharedPreferences.saveUserCantBuy(false);

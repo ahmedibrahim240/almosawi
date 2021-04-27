@@ -9,7 +9,7 @@ import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vimeoplayer/vimeoplayer.dart';
+import 'package:almosawii/secreens/my%20courses/components/videoscreens.dart';
 
 class Coursesedtails extends StatefulWidget {
   final Courses courses;
@@ -34,11 +34,8 @@ class _CoursesedtailsState extends State<Coursesedtails> {
     courseFromSQL = await helper.getProductById(widget.courses.id);
 
     if (courseFromSQL != null) {
-      print('Courses Sql id:$courseFromSQL');
-      print('Courses Sql type:${courseFromSQL.type}');
       if (courseFromSQL.type == 'course') {
         if (courseFromSQL.consultantId == widget.courses.id) {
-          print('User Cant Add Courseeeeeeeeeeeeee');
           setState(() {
             cantAdd = true;
           });
@@ -81,7 +78,27 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                         },
                       ),
                     ),
-                    VimeoPlayer(id: widget.courses.video_code, autoPlay: false),
+                    FutureBuilder(
+                      future: CoursesApi.getVideoMp4Link(
+                          id: widget.courses.video_code),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          print(snapshot.data);
+                          return (snapshot.data == null ||
+                                  snapshot.data.isEmpty)
+                              ? Container()
+                              : Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 300,
+                                  child: ChewieVideo(
+                                    videoUrl: snapshot.data,
+                                  ),
+                                );
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
                   ],
                 ))
               : Container(
