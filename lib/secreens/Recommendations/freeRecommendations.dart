@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/RecomendationsApi.dart';
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
 import 'package:almosawii/secreens/Recommendations/recommendationsDetailes.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,9 +46,9 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
               : ListView(
                   shrinkWrap: true,
                   primary: true,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   children: [
-                    slider(),
+                    (User.userSkipLogIn == false) ? Container() : slider(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 20),
