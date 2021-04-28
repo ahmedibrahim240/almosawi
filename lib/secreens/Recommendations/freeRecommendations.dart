@@ -74,15 +74,15 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'لا يوجد بينات حاليا /',
+                                          'لا توجد توصيات مجانية في الوقت الحالى',
                                           style: AppTheme.heading,
                                           textAlign: TextAlign.center,
                                         ),
-                                        Text(
-                                          'اسحب الشاشه لاسفل لاعاده التحميل',
-                                          style: AppTheme.heading,
-                                          textAlign: TextAlign.center,
-                                        ),
+                                        // Text(
+                                        //   'اسحب الشاشه لاسفل لاعاده التحميل',
+                                        //   style: AppTheme.heading,
+                                        //   textAlign: TextAlign.center,
+                                        // ),
                                       ],
                                     ),
                                   ),
