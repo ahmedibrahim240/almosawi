@@ -6,7 +6,7 @@ import 'package:almosawii/models/proChartVipApi.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/models/visitorHomeIconsApi.dart';
 import 'package:almosawii/secreens/LearningSection/LearningSection.dart';
-import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
+import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/videosProChart/allVideosProChart.dart';
 import 'package:almosawii/services/UserData.dart';
@@ -213,7 +213,7 @@ class _UserHomeState extends State<UserHome> {
                                   default:
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (_) => ProChartVIP(),
+                                        builder: (_) => Recommendations(),
                                       ),
                                     );
                                 }
