@@ -58,8 +58,8 @@ class _OnBoardingState extends State<OnBoarding> {
       title: 'استشارات خاصه',
       contant:
           'الكثير تكون لديه صفقات مفتوحه او اسئله يريد ان يعرف اجابتها من محترف في الاسواق العالميه يمكنك حجز استشارتك الخاصه',
-      // image: 'lib/icons/back1.svg',
-      backImage: 'lib/images/ahmed.jpg',
+      image: 'lib/icons/back1.svg',
+      // backImage: 'lib/images/ahmed.jpg',
     ),
   ];
   _onChanged(int index) {
