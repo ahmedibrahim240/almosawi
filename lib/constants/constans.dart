@@ -234,7 +234,7 @@ cutomHttpWidget({String data}) {
       print("Opening $url...");
     },
     onImageTap: (src) {
-      print(src);
+      launchInBrowser(src);
     },
     onImageError: (exception, stackTrace) {
       print(exception);
