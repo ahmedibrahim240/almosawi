@@ -152,9 +152,8 @@ class CoursesApi {
   static Future<Courses> freeCourses() async {
     Courses courses;
     try {
-      var response = await http.get(
-        Utils.GeneralData_URL,
-      );
+      var response =
+          await http.get(Utils.GeneralData_URL + "?user_id=${User.userid}");
       var jsonData = json.decode(response.body);
       if (response.statusCode == 200) {
         courses = Courses(

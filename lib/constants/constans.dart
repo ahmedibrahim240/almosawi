@@ -7,10 +7,13 @@ import 'package:almosawii/sharedPreferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_html/html_parser.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:html/parser.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 
 const customColor = Color(0xfff1dcb83);
 const customColor2 = Color(0xfff34e89e);
@@ -198,6 +201,45 @@ String gitnewPrice({String descaound, String price}) {
   double oldPrice;
   oldPrice = double.parse(price) - double.parse(descaound);
   return oldPrice.toString();
+}
+
+cutomHttpWidget({String data}) {
+  return Html(
+    data: data,
+    style: {
+      "tr": Style(
+        border: Border(bottom: BorderSide(color: Colors.grey)),
+      ),
+      "th": Style(
+        padding: EdgeInsets.all(6),
+        backgroundColor: Colors.grey,
+      ),
+      "td": Style(
+        padding: EdgeInsets.all(6),
+      ),
+      "var": Style(fontFamily: 'serif'),
+    },
+    customRender: {
+      "flutter": (RenderContext context, Widget child, attributes, _) {
+        return FlutterLogo(
+          style: (attributes['horizontal'] != null)
+              ? FlutterLogoStyle.horizontal
+              : FlutterLogoStyle.markOnly,
+          textColor: context.style.color,
+          size: context.style.fontSize.size * 5,
+        );
+      },
+    },
+    onLinkTap: (url) {
+      print("Opening $url...");
+    },
+    onImageTap: (src) {
+      print(src);
+    },
+    onImageError: (exception, stackTrace) {
+      print(exception);
+    },
+  );
 }
 
 /////////////////////////////////////

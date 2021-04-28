@@ -41,7 +41,7 @@ class _BlogState extends State<Blog> {
             : ListView(
                 shrinkWrap: true,
                 primary: true,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 children: [
                   FutureBuilder(
                     future: TheBolgApi.fetchAllTheBolg(type: 'free'),

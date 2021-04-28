@@ -1,3 +1,4 @@
+import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -17,10 +18,13 @@ class VisitorHomeIconsApi {
   static Future<VisitorHomeIcons> futchVisitorHomeIcons() async {
     VisitorHomeIcons aboutUs;
     try {
-      var response = await http.get(Utils.GeneralData_URL);
+      var response =
+          await http.get(Utils.GeneralData_URL + "?user_id=${User.userid}");
       var jsonData = json.decode(response.body);
-      print('response.statusCode:${response.statusCode}');
 
+      if (jsonData['data']['UserHomeIconsRow1'][1] == '') {
+        print('EMMMMMMMMMMMATY');
+      }
       if (response.statusCode == 200) {
         aboutUs = VisitorHomeIcons(
           visitorHomeIcons: jsonData['data']['VisitorHomeIcons'],

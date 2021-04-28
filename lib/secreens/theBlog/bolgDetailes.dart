@@ -33,6 +33,7 @@ class _BolgDetailesState extends State<BolgDetailes> {
                     children: [
                       ClipRRect(
                         child: customCachedNetworkImage(
+                          boxFit: BoxFit.cover,
                           context: context,
                           url: widget.theBolg.image,
                         ),

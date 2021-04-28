@@ -183,7 +183,6 @@ class _UserHomeState extends State<UserHome> {
       future: VisitorHomeIconsApi.futchVisitorHomeIcons(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data);
           return (snapshot.data == null)
               ? Container()
               : GridView.count(
@@ -194,6 +193,10 @@ class _UserHomeState extends State<UserHome> {
                   children: List.generate(
                     snapshot.data.userHomeIconsRow1.length,
                     (index) {
+                      print(User.userid);
+                      print(
+                          'snapshot.data.userHomeIconsRow1:${snapshot.data.userHomeIconsRow1}');
+
                       return (snapshot.data.userHomeIconsRow1[index] == '')
                           ? Container()
                           : InkWell(

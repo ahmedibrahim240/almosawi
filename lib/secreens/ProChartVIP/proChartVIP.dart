@@ -21,7 +21,7 @@ class _ProChartVIPState extends State<ProChartVIP> {
       body: ListView(
         shrinkWrap: true,
         primary: true,
-        padding: EdgeInsets.symmetric(horizontal: 40),
+        padding: EdgeInsets.symmetric(horizontal: 30),
         children: [
           FutureBuilder(
             future: ProChartVIPModelsApi.futchProChartVIP(),
@@ -99,8 +99,8 @@ class _ProChartVIPState extends State<ProChartVIP> {
             ),
             SizedBox(width: 10),
             Container(
-              width: 40,
-              height: 40,
+              width: 30,
+              height: 30,
               child: customCachedNetworkImage(
                 context: context,
                 url: icon,

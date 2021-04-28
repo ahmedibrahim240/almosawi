@@ -1,5 +1,3 @@
-import 'package:almosawii/models/userData.dart';
-
 class Utils {
   // ignore: non_constant_identifier_names
   static final BASE_URL = "https://ahmadalmosawi.com/V2/api";
@@ -25,8 +23,7 @@ class Utils {
   // ignore: non_constant_identifier_names
   static final Blog_URL = BASE_URL + "/Blog";
   // ignore: non_constant_identifier_names
-  static final GeneralData_URL =
-      BASE_URL + "/GeneralData?user_id=${User.userid}";
+  static final GeneralData_URL = BASE_URL + '/GeneralData';
   // ignore: non_constant_identifier_names
   static final Recomendations_URL = BASE_URL + "/Recomendations";
   // ignore: non_constant_identifier_names

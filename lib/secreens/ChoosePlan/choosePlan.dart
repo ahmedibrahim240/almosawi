@@ -249,7 +249,6 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                                         thickness:
                                                                             2,
                                                                       ),
-                                                                      
                                                                     ],
                                                                   );
                                                                 },
@@ -397,11 +396,14 @@ class _ChoosePlanState extends State<ChoosePlan> {
             ),
           ),
         ),
-        SizedBox(width: 10),
-        Text(
-          (title.toString()) ?? '',
-          style: AppTheme.heading.copyWith(
-            fontSize: 12,
+        SizedBox(width: 5),
+        SizedBox(
+          width: MediaQuery.of(context).size.width - 170,
+          child: Text(
+            (title.toString()) ?? '',
+            style: AppTheme.heading.copyWith(
+              fontSize: 12,
+            ),
           ),
         )
       ],
