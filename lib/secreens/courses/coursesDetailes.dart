@@ -133,17 +133,20 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                   ),
                 ),
           firtstScetons(),
-          Container(
-            color: Colors.grey[300],
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Text(
-              parseHtmlString((widget.courses.description) ?? ''),
-              // textAlign: TextAlign.justify,
-              style: AppTheme.subHeading.copyWith(
-                color: customColorGray,
-              ),
-            ),
-          ),
+          (widget.courses.description == '' ||
+                  widget.courses.description == null)
+              ? Container()
+              : Container(
+                  color: Colors.grey[300],
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Text(
+                    parseHtmlString((widget.courses.description) ?? ''),
+                    // textAlign: TextAlign.justify,
+                    style: AppTheme.subHeading.copyWith(
+                      color: customColorGray,
+                    ),
+                  ),
+                ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Row(
@@ -342,9 +345,12 @@ class _CoursesedtailsState extends State<Coursesedtails> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.courses.name,
-              style: AppTheme.heading,
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 90,
+              child: Text(
+                widget.courses.name,
+                style: AppTheme.heading,
+              ),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,

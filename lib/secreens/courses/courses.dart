@@ -143,6 +143,7 @@ class _CoursesPageState extends State<CoursesPage> {
             SizedBox(height: 5),
             SizedBox(
               width: 200,
+              height: 50,
               child: Text(
                 courses.name,
                 style: AppTheme.headingColorBlue.copyWith(fontSize: 12),
