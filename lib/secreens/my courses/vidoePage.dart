@@ -43,7 +43,16 @@ class _MyCoursesVideoPageState extends State<MyCoursesVideoPage> {
                 if (snapshot.hasData) {
                   print(snapshot.data);
                   return (snapshot.data == null || snapshot.data.isEmpty)
-                      ? Container()
+                      ? Center(
+                          child: Container(
+                            child: Text(
+                              'سيتوفر الفصل قريبا',
+                              style: AppTheme.heading.copyWith(
+                                color: customColor,
+                              ),
+                            ),
+                          ),
+                        )
                       : Container(
                           width: MediaQuery.of(context).size.width,
                           height: 300,

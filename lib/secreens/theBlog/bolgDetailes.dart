@@ -64,12 +64,10 @@ class _BolgDetailesState extends State<BolgDetailes> {
                   fontSize: 15,
                 ),
               ),
-              Text(
-                parseHtmlString((widget.theBolg.contant) ??
+              cutomHttpWidget(
+                data: (widget.theBolg.contant) ??
                     (widget.theBolg.description) ??
-                    ''),
-                textAlign: TextAlign.justify,
-                style: AppTheme.subHeading.copyWith(color: customColorGray),
+                    '',
               ),
             ],
           ),

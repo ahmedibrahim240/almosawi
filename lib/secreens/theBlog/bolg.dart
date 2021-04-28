@@ -61,7 +61,7 @@ class _BlogState extends State<Blog> {
                                 shrinkWrap: true,
                                 primary: false,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 20),
+                                    horizontal: 5, vertical: 10),
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (context, index) {
                                   return InkWell(
@@ -143,6 +143,7 @@ class _BlogState extends State<Blog> {
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
+                                                  height: 40,
                                                   child: Text(
                                                     snapshot.data[index].name,
                                                     style: AppTheme.heading

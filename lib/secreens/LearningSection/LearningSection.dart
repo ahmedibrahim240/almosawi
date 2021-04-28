@@ -151,6 +151,8 @@ class _LearningSectionState extends State<LearningSection> {
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
+                                                  height: 40,
+
                                                   child: Text(
                                                     snapshot.data[index].name,
                                                     style: AppTheme.heading

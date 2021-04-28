@@ -66,7 +66,7 @@ class _ChewieVideoState extends State<ChewieVideo> {
               ),
             )
           : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: const [
                 CircularProgressIndicator(),
                 SizedBox(height: 20),

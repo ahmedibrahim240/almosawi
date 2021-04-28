@@ -76,7 +76,14 @@ class CoursesApi {
       );
       var jsonData = json.decode(response.body);
       if (response.statusCode == 200) {
-        link = jsonData['request']['files']['progressive'][0]['url'];
+        for (var url in jsonData['request']['files']['progressive']) {
+          if (url['quality'] == "360p") {
+            link = url['url'];
+          } else if (url['quality'] == "240p") {
+            link = url['url'];
+          }
+        }
+
         print('link:$link');
       }
     } catch (e) {
