@@ -3,12 +3,115 @@ import 'dart:async';
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../sharedPreferences.dart';
 import 'onboarding/onboarding.dart';
+
+class ConnectivityNETWORG extends StatefulWidget {
+  static final route = '/Connectivity';
+
+  @override
+  _ConnectivityNETWORGState createState() => _ConnectivityNETWORGState();
+}
+
+class _ConnectivityNETWORGState extends State<ConnectivityNETWORG> {
+  ConnectivityResult connectivity;
+  Timer _timer;
+  int counter = 10;
+
+  netWorkTest() async {
+    connectivity = await Connectivity().checkConnectivity();
+  }
+
+  startTimer() {
+    counter = 10;
+    _timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          if (counter > 0) {
+            counter--;
+          } else if (connectivity != ConnectivityResult.none) {
+            setState(() {
+              loading = false;
+            });
+            _timer.cancel();
+          } else {
+            setState(() {
+              loading = false;
+            });
+            _timer.cancel();
+          }
+        });
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    netWorkTest();
+    print(connectivity);
+  }
+
+  bool loading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: (loading)
+          ? Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : (connectivity == ConnectivityResult.none)
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Icon(
+                        FontAwesomeIcons.wifi,
+                        size: 50,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          loading = !loading;
+                        });
+                        netWorkTest();
+                        startTimer();
+                        if (connectivity != ConnectivityResult.none) {
+                          setState(() {
+                            loading = false;
+                          });
+                        }
+                      },
+                      child: Text(
+                        'لايود اتصال حاول مجدا',
+                        style: AppTheme.subHeading.copyWith(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : SplashScreen(),
+    );
+  }
+}
 
 class SplashScreen extends StatefulWidget {
   static final route = '/splashScreen';

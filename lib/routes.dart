@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> routes = {
   SplashScreen.route: (_) => SplashScreen(),
+  ConnectivityNETWORG.route: (_) => ConnectivityNETWORG(),
   Home.route: (_) => Home(),
   Wrapper.route: (_) => Wrapper(),
 };

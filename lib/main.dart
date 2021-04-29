@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: [
         Locale('ar'),
       ],
-      initialRoute: SplashScreen.route,
+      initialRoute: ConnectivityNETWORG.route,
       routes: routes,
     );
   }

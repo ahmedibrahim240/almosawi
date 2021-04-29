@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
@@ -8,6 +10,7 @@ import 'package:almosawii/secreens/courses/courses.dart';
 import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,17 +20,150 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Wrapper extends StatefulWidget {
-  static final route = '/';
-
-  const Wrapper({
-    Key key,
-  }) : super(key: key);
+  static final route = '/Connectivity';
 
   @override
   _WrapperState createState() => _WrapperState();
 }
 
 class _WrapperState extends State<Wrapper> {
+  ConnectivityResult connectivity;
+  Timer _timer;
+  int counter = 10;
+  getTotalPrice() async {
+    Cart.totalPraices = await MySharedPreferences.getTotalPrice();
+    User.userLogIn = await MySharedPreferences.getUserSingIn();
+    User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+    User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
+    User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+    User.userPassword = await MySharedPreferences.getUserUserPassword();
+  }
+
+  netWorkTest() async {
+    connectivity = await Connectivity().checkConnectivity();
+  }
+
+  startTimer() {
+    counter = 10;
+    _timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          if (counter > 0) {
+            counter--;
+          } else if (connectivity != ConnectivityResult.none) {
+            setState(() {
+              loading = false;
+            });
+            _timer.cancel();
+          } else {
+            setState(() {
+              loading = false;
+            });
+            _timer.cancel();
+          }
+        });
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    getTotalPrice();
+    super.initState();
+
+    netWorkTest();
+    print(connectivity);
+  }
+
+  bool loading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: (loading)
+          ? Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : RefreshIndicator(
+              onRefresh: () async {
+                customOnRefresh(onRefresh: () {
+                  setState(() {
+                    loading = !loading;
+                  });
+
+                  if (connectivity == ConnectivityResult.none) {
+                    netWorkTest();
+                    startTimer();
+                  }
+                }, affterRefresh: () {
+                  setState(() {
+                    loading = !loading;
+                  });
+
+                  if (connectivity == ConnectivityResult.none) {
+                    netWorkTest();
+                    startTimer();
+                  }
+                });
+              },
+              child: (connectivity == ConnectivityResult.none)
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Icon(
+                            FontAwesomeIcons.wifi,
+                            size: 50,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              loading = !loading;
+                            });
+                            netWorkTest();
+                            startTimer();
+                            if (connectivity != ConnectivityResult.none) {
+                              setState(() {
+                                loading = false;
+                              });
+                            }
+                          },
+                          child: Text(
+                            'لايود اتصال حاول مجدا',
+                            style: AppTheme.subHeading.copyWith(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : WrapperHome(),
+            ),
+    );
+  }
+}
+
+class WrapperHome extends StatefulWidget {
+  static final route = '/';
+
+  const WrapperHome({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _WrapperHomeState createState() => _WrapperHomeState();
+}
+
+class _WrapperHomeState extends State<WrapperHome> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   int _currentIndex = 0;
 

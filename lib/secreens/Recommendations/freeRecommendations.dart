@@ -144,12 +144,12 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                                       .subHeading,
                                                                 ),
                                                           (snapshot.data[index]
-                                                                          .statusLoss ==
+                                                                          .percentageTxt ==
                                                                       '' ||
                                                                   snapshot
                                                                           .data[
                                                                               index]
-                                                                          .statusLoss ==
+                                                                          .percentageTxt ==
                                                                       null)
                                                               ? Container()
                                                               : Text(
@@ -183,36 +183,18 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                       ),
                                                     ],
                                                   ),
-                                                  (snapshot.data[index]
-                                                                  .points ==
-                                                              '' ||
-                                                          snapshot.data[index]
-                                                                  .points ==
-                                                              null)
-                                                      ? Container()
-                                                      : Row(
-                                                          children: [
-                                                            Text(
-                                                              (snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .status) ??
-                                                                  "",
-                                                              style: AppTheme
-                                                                  .heading,
-                                                            ),
-                                                            SizedBox(width: 5),
-                                                            Text(
-                                                              'نقطه ${(snapshot.data[index].points) ?? ''}',
-                                                              style: AppTheme
-                                                                  .heading
-                                                                  .copyWith(
-                                                                color:
-                                                                    customColor,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        (snapshot.data[index]
+                                                                .status) ??
+                                                            "",
+                                                        style:
+                                                            AppTheme.subHeading,
+                                                      ),
+                                                      SizedBox(width: 5),
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
                                               Row(
@@ -286,146 +268,165 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                 ],
                                               ),
                                               SizedBox(height: 10),
-                                              (snapshot.data[index].theTime ==
-                                                          '' ||
-                                                      snapshot.data[index]
-                                                              .theTime ==
-                                                          null)
-                                                  ? Container()
-                                                  : Row(
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  (snapshot.data[index]
+                                                                  .points ==
+                                                              '' ||
+                                                          snapshot.data[index]
+                                                                  .points ==
+                                                              null)
+                                                      ? Expanded(
+                                                          flex: 1,
+                                                          child: SizedBox(
+                                                            width: 20,
+                                                          ))
+                                                      : Expanded(
+                                                          flex: 1,
+                                                          child: Container(
+                                                            width: 100,
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                              horizontal: 5,
+                                                              vertical: 5,
+                                                            ),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                10,
+                                                              ),
+                                                              color: Colors
+                                                                  .deepOrange,
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                (snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .points) ??
+                                                                    '',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: AppTheme
+                                                                    .heading
+                                                                    .copyWith(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 9,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                  SizedBox(width: 10),
+                                                  (snapshot.data[index]
+                                                                  .buyOrSale ==
+                                                              '' ||
+                                                          snapshot.data[index]
+                                                                  .buyOrSale ==
+                                                              null)
+                                                      ? Expanded(
+                                                          flex: 1,
+                                                          child: SizedBox(
+                                                            width: 20,
+                                                          ))
+                                                      : Expanded(
+                                                          flex: 1,
+                                                          child: Text(
+                                                            (snapshot
+                                                                    .data[index]
+                                                                    .buyOrSale) ??
+                                                                '',
+                                                            style: AppTheme
+                                                                .heading
+                                                                .copyWith(
+                                                              color: (snapshot.data[index].statusLoss ==
+                                                                          'gain' ||
+                                                                      snapshot.data[index]
+                                                                              .statusLoss ==
+                                                                          'مكسب')
+                                                                  ? customColor
+                                                                  : Colors.red,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .spaceBetween,
+                                                              .center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Container(
-                                                          width: 80,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            horizontal: 10,
-                                                            vertical: 5,
-                                                          ),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                              10,
-                                                            ),
-                                                            color: Colors
-                                                                .deepOrange,
-                                                          ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              (snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .theTime) ??
-                                                                  '',
-                                                              style: AppTheme
-                                                                  .heading
-                                                                  .copyWith(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 10,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
                                                         (snapshot.data[index]
-                                                                        .buyOrSale ==
+                                                                        .statusLoss ==
+                                                                    'gain' ||
+                                                                snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .statusLoss ==
+                                                                    'مكسب')
+                                                            ? SvgPicture.asset(
+                                                                'lib/icons/stockUp.svg',
+                                                                color:
+                                                                    customColor,
+                                                                height: 15,
+                                                              )
+                                                            : Container(
+                                                                height: 20,
+                                                                width: 20,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                        image:
+                                                                            DecorationImage(
+                                                                  image: AssetImage(
+                                                                      'lib/images/chartlineDown.png'),
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                )),
+                                                              ),
+                                                        SizedBox(width: 20),
+                                                        (snapshot.data[index]
+                                                                        .smallPrice ==
                                                                     '' ||
                                                                 snapshot
                                                                         .data[
                                                                             index]
-                                                                        .buyOrSale ==
+                                                                        .smallPrice ==
                                                                     null)
                                                             ? Container()
-                                                            : Text(
-                                                                (snapshot
-                                                                        .data[
-                                                                            index]
-                                                                        .buyOrSale) ??
-                                                                    '',
-                                                                style: AppTheme
-                                                                    .heading
-                                                                    .copyWith(
-                                                                  color: (snapshot
-                                                                              .data[
-                                                                                  index]
-                                                                              .statusLoss ==
-                                                                          'مكسب')
-                                                                      ? customColor
-                                                                      : Colors
-                                                                          .red,
-                                                                ),
+                                                            : Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    'اقل خساره',
+                                                                    style: AppTheme
+                                                                        .heading,
+                                                                  ),
+                                                                  Text(
+                                                                    '(${(snapshot.data[index].smallPrice) ?? ''})',
+                                                                    style: AppTheme
+                                                                        .subHeading,
+                                                                  ),
+                                                                ],
                                                               ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            (snapshot
-                                                                        .data[
-                                                                            index]
-                                                                        .statusLoss ==
-                                                                    'gain')
-                                                                ? SvgPicture
-                                                                    .asset(
-                                                                    'lib/icons/stockUp.svg',
-                                                                    color:
-                                                                        customColor,
-                                                                    height: 15,
-                                                                  )
-                                                                : Container(
-                                                                    height: 20,
-                                                                    width: 20,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            image:
-                                                                                DecorationImage(
-                                                                      image: AssetImage(
-                                                                          'lib/images/chartlineDown.png'),
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    )),
-                                                                  ),
-                                                            SizedBox(width: 20),
-                                                            (snapshot.data[index].smallPrice ==
-                                                                        '' ||
-                                                                    snapshot.data[index]
-                                                                            .smallPrice ==
-                                                                        null)
-                                                                ? Container()
-                                                                : Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Text(
-                                                                        'اقل خساره',
-                                                                        style: AppTheme
-                                                                            .heading,
-                                                                      ),
-                                                                      Text(
-                                                                        '(${(snapshot.data[index].smallPrice) ?? ''})',
-                                                                        style: AppTheme
-                                                                            .subHeading,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                          ],
-                                                        ),
                                                       ],
                                                     ),
+                                                  ),
+                                                ],
+                                              ),
                                               SizedBox(height: 10),
                                               (snapshot.data[index].comment ==
                                                           '' ||
