@@ -65,46 +65,27 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          customOnRefresh(onRefresh: () {
-            setState(() {
-              loading = !loading;
-            });
-          }, affterRefresh: () {
-            setState(() {
-              loading = !loading;
-            });
-          });
-        },
-        child: (loading)
-            ? Container(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
-            : ListView(
-                shrinkWrap: true,
-                primary: true,
-                children: [
-                  HomeVideo(),
-                  freeCorsesSections(),
-                  SizedBox(height: 10),
-                  homeProChartSection(),
-                  successPartners(),
-                  SizedBox(height: 10),
-                  acountFeatures(),
-                  SizedBox(height: 10),
-                  homeBaner(),
-                  SizedBox(height: 10),
-                  contactWithAhmed(context),
-                  SizedBox(height: 10),
-                  sectionTitle(title: 'الدورات التدريبية'),
-                  SizedBox(height: 10),
-                  corsesSections(),
-                  SizedBox(height: 10),
-                ],
-              ),
+      body: ListView(
+        shrinkWrap: true,
+        primary: true,
+        children: [
+          HomeVideo(),
+          freeCorsesSections(),
+          SizedBox(height: 10),
+          homeProChartSection(),
+          successPartners(),
+          SizedBox(height: 10),
+          acountFeatures(),
+          SizedBox(height: 10),
+          homeBaner(),
+          SizedBox(height: 10),
+          contactWithAhmed(context),
+          SizedBox(height: 10),
+          sectionTitle(title: 'الدورات التدريبية'),
+          SizedBox(height: 10),
+          corsesSections(),
+          SizedBox(height: 10),
+        ],
       ),
     );
   }

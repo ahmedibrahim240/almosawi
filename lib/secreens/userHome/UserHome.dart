@@ -54,35 +54,16 @@ class _UserHomeState extends State<UserHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            customOnRefresh(onRefresh: () {
-              setState(() {
-                loading = !loading;
-              });
-            }, affterRefresh: () {
-              setState(() {
-                loading = !loading;
-              });
-            });
-          },
-          child: (loading)
-              ? Container(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : ListView(
-                  shrinkWrap: true,
-                  primary: true,
-                  children: [
-                    suerHomeAppBar(),
-                    homeTabsFirst(list: lsitOfTapsData1),
-                    contactWithAhmed(context),
-                    homeTabsTow(list: lsitOfTapsData2),
-                    homeTabsName(),
-                  ],
-                ),
+        child: ListView(
+          shrinkWrap: true,
+          primary: true,
+          children: [
+            suerHomeAppBar(),
+            homeTabsFirst(list: lsitOfTapsData1),
+            contactWithAhmed(context),
+            homeTabsTow(list: lsitOfTapsData2),
+            homeTabsName(),
+          ],
         ),
       ),
     );

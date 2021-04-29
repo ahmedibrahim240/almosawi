@@ -19,88 +19,68 @@ class _ALLRomesState extends State<ALLRomes> {
           title: Text(
         'غرفه pro Chart',
       )),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          customOnRefresh(onRefresh: () {
-            setState(() {
-              loading = !loading;
-            });
-          }, affterRefresh: () {
-            setState(() {
-              loading = !loading;
-            });
-          });
-        },
-        child: (loading)
-            ? Container(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
-            : FutureBuilder(
-                future: MyRoomsApi.fetchAllMyRooms(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    print(snapshot.data);
-                    return (snapshot.data == null || snapshot.data.isEmpty)
-                        ? Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'لا يوجد بينات حاليا /',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  'اسحب الشاشه لاسفل لاعاده التحميل',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  Card(
-                                    elevation: 3,
-                                    child: InkWell(
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 50,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 10),
-                                        child: Text(snapshot.data[index].name),
-                                      ),
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (_) => ProchartRoom(
-                                              rooms: snapshot.data[index],
-                                            ),
-                                          ),
-                                        );
-                                      },
+      body: FutureBuilder(
+        future: MyRoomsApi.fetchAllMyRooms(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print(snapshot.data);
+            return (snapshot.data == null || snapshot.data.isEmpty)
+                ? Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'لا يوجد بينات حاليا /',
+                          style: AppTheme.heading,
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          'اسحب الشاشه لاسفل لاعاده التحميل',
+                          style: AppTheme.heading,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Card(
+                            elevation: 3,
+                            child: InkWell(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 50,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Text(snapshot.data[index].name),
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => ProchartRoom(
+                                      rooms: snapshot.data[index],
                                     ),
                                   ),
-                                  Divider(
-                                    color: customColorDivider,
-                                    thickness: 2,
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
+                                );
+                              },
+                            ),
+                          ),
+                          Divider(
+                            color: customColorDivider,
+                            thickness: 2,
+                          ),
+                        ],
+                      );
+                    },
+                  );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }

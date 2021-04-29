@@ -20,7 +20,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Wrapper extends StatefulWidget {
-  static final route = '/Connectivity';
+  static final route = '/';
 
   @override
   _WrapperState createState() => _WrapperState();
@@ -93,20 +93,14 @@ class _WrapperState extends State<Wrapper> {
                   setState(() {
                     loading = !loading;
                   });
-
-                  if (connectivity == ConnectivityResult.none) {
-                    netWorkTest();
-                    startTimer();
-                  }
+                  netWorkTest();
+                  startTimer();
                 }, affterRefresh: () {
                   setState(() {
                     loading = !loading;
                   });
-
-                  if (connectivity == ConnectivityResult.none) {
-                    netWorkTest();
-                    startTimer();
-                  }
+                  netWorkTest();
+                  startTimer();
                 });
               },
               child: (connectivity == ConnectivityResult.none)
@@ -153,7 +147,7 @@ class _WrapperState extends State<Wrapper> {
 }
 
 class WrapperHome extends StatefulWidget {
-  static final route = '/';
+  static final route = '/WrapperHome';
 
   const WrapperHome({
     Key key,
@@ -242,6 +236,8 @@ class _WrapperHomeState extends State<WrapperHome> {
 
   @override
   Widget build(BuildContext context) {
+    print('User.useridwarrrrrwew:${User.userid}');
+
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -17,33 +17,15 @@ class _MyCoursesState extends State<MyCourses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'دوراتي',
-          ),
+      appBar: AppBar(
+        title: Text(
+          'دوراتي',
         ),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            customOnRefresh(onRefresh: () {
-              setState(() {
-                loading = !loading;
-              });
-            }, affterRefresh: () {
-              setState(() {
-                loading = !loading;
-              });
-            });
-          },
-          child: (loading)
-              ? Container(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : gardViewOfAllCourses(
-                  context: context,
-                ),
-        ));
+      ),
+      body: gardViewOfAllCourses(
+        context: context,
+      ),
+    );
   }
 
   gardViewOfAllCourses({BuildContext context}) {

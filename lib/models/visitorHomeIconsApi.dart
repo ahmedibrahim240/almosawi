@@ -21,10 +21,8 @@ class VisitorHomeIconsApi {
       var response =
           await http.get(Utils.GeneralData_URL + "?user_id=${User.userid}");
       var jsonData = json.decode(response.body);
+      print(Utils.GeneralData_URL + "?user_id=${User.userid}");
 
-      if (jsonData['data']['UserHomeIconsRow1'][1] == '') {
-        print('EMMMMMMMMMMMATY');
-      }
       if (response.statusCode == 200) {
         aboutUs = VisitorHomeIcons(
           visitorHomeIcons: jsonData['data']['VisitorHomeIcons'],
