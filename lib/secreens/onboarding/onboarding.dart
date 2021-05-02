@@ -18,7 +18,7 @@ class _OnBoardState extends State<OnBoard> {
 
   @override
   Widget build(BuildContext context) {
-    if (User.userLogIn == true) {
+    if (User.isOnBording == true) {
       return Authenticate();
     } else {
       return OnBoarding();
@@ -45,7 +45,7 @@ class _OnBoardingState extends State<OnBoarding> {
     CustomSlider(
       title: 'توصيات وتحليلات احترافيه',
       contant:
-          'Pro Chart نسبة نجاح عالية يمكنك الاستفاده من طريقتنا الاحترافيه والتداول براحه من غير خوف وتوتر من خلال',
+          'نسبة نجاح عالية يمكنك الاستفاده من طريقتنا الاحترافيه والتداول براحه من غير خوف وتوتر من خلال Pro Chart',
       image: 'lib/icons/back3.svg',
     ),
     CustomSlider(

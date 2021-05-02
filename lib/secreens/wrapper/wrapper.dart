@@ -174,6 +174,7 @@ class _WrapperHomeState extends State<WrapperHome> {
     User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
     User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
     User.userCantBuy = await MySharedPreferences.getUserCantBuy();
+        User.isOnBording = await MySharedPreferences.getUserOnBording();
     User.userPassword = await MySharedPreferences.getUserUserPassword();
   }
 

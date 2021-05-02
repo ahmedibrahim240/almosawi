@@ -401,10 +401,12 @@ class _RegisterState extends State<Register> {
         MySharedPreferences.saveUserUserid(map['Data']['id']);
 
         MySharedPreferences.saveUserSkipLogIn(true);
+        MySharedPreferences.saveUserOnBording(true);
         MySharedPreferences.saveUserSingIn(false);
         MySharedPreferences.saveUserCantBuy(false);
 
         User.userLogIn = await MySharedPreferences.getUserSingIn();
+        User.isOnBording = await MySharedPreferences.getUserOnBording();
         User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         User.userCantBuy = await MySharedPreferences.getUserCantBuy();
         User.userid = await MySharedPreferences.getUserUserid();

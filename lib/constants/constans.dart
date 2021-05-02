@@ -1,5 +1,6 @@
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/secreens/authenticate/authenticate.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/splashscreen.dart';
 import 'package:almosawii/secreens/wrapper/Wrapper.dart';
@@ -126,7 +127,7 @@ Future<void> sikpDialog({BuildContext context, String message}) async {
             children: <Widget>[
               Center(
                 child: Text(
-                  'قم بتسجيل الدخول اولا',
+                  ' يجب عليك التسجيل اولا لاتمام عمليه الشراء',
                   style: AppTheme.subHeading,
                 ),
               ),
@@ -156,11 +157,11 @@ Future<void> sikpDialog({BuildContext context, String message}) async {
               if (User.userSkipLogIn == true) {
                 MySharedPreferences.saveUserSkipLogIn(false);
               }
-              MySharedPreferences.saveUserUserid(null);
 
+              MySharedPreferences.saveUserUserid(null);
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (_) => SplashScreen(),
+                  builder: (_) => Authenticate(),
                 ),
               );
             },

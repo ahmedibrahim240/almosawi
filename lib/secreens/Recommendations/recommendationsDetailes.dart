@@ -18,6 +18,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
   int count = 0;
   @override
   Widget build(BuildContext context) {
+    print("widget.recommend.forms:${widget.recommend.forms}");
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.recommend.name),
@@ -212,7 +213,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
                   ],
                 ),
           SizedBox(height: 20),
-          (widget.recommend.stopSelling == null || widget.recommend.forms == '')
+          (widget.recommend.forms == '' || widget.recommend.forms == null)
               ? Container()
               : Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -226,7 +227,7 @@ class _RecommendationsDetailesState extends State<RecommendationsDetailes> {
                       ),
                     ),
                     Text(
-                      widget.recommend.stopSelling.toString(),
+                      parseHtmlString(widget.recommend.forms),
                       style: AppTheme.heading,
                     ),
                   ],

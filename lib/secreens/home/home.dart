@@ -365,6 +365,13 @@ class _HomeState extends State<Home> {
                   primary: false,
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                   children: [
+                    Center(
+                      child: Text(
+                        'مميزات فتح حساب تداول  ',
+                        style: AppTheme.headingColorBlue,
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     GridView.count(
                       crossAxisCount: 2,
                       primary: false,
@@ -394,13 +401,6 @@ class _HomeState extends State<Home> {
                             ],
                           );
                         },
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Center(
-                      child: Text(
-                        'مميزات فتح حساب تداول  ',
-                        style: AppTheme.headingColorBlue,
                       ),
                     ),
                     SizedBox(height: 10),

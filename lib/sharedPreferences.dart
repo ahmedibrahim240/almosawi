@@ -4,6 +4,7 @@ class MySharedPreferences {
   static String sharedPrefUserSinginKey = 'IsSingIn';
   static String sharedPrefBuyplan = 'IsBuyPlan';
   static String sharedPrefUserSkipLogIn = 'SkipLogIn';
+  static String sharedPrefUserOnBording = 'OnBording';
   static String sharedPrefCantBuy = 'CantBuy';
   static String sharedPrefUserLat = 'Lat';
   static String sharedPrefTotalPraic = 'TotalPraic';
@@ -37,6 +38,11 @@ class MySharedPreferences {
   static Future<bool> saveUserSkipLogIn(bool isSkipLogIn) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setBool(sharedPrefUserSkipLogIn, isSkipLogIn);
+  }
+
+  static Future<bool> saveUserOnBording(bool isOnBording) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setBool(sharedPrefUserOnBording, isOnBording);
   }
 
   static Future<bool> saveUserCantBuy(bool isCantBuy) async {
@@ -157,6 +163,12 @@ class MySharedPreferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var isSkipLogIn = (preferences.getBool(sharedPrefUserSkipLogIn));
     return isSkipLogIn;
+  }
+
+  static getUserOnBording() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var isOnBording = (preferences.getBool(sharedPrefUserOnBording));
+    return isOnBording;
   }
 
   static getUserselectedProImage() async {

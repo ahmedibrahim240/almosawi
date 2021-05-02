@@ -120,12 +120,16 @@ class _LogInState extends State<LogIn> {
                                     MySharedPreferences.saveUserSkipLogIn(true);
                                     MySharedPreferences.saveUserSingIn(true);
                                     MySharedPreferences.saveUserCantBuy(true);
+                                    MySharedPreferences.saveUserOnBording(true);
+
                                     User.userSkipLogIn = true;
                                   });
                                   User.userSkipLogIn = await MySharedPreferences
                                       .getUserSkipLogIn();
                                   User.userLogIn =
                                       await MySharedPreferences.getUserSingIn();
+                                  User.isOnBording = await MySharedPreferences
+                                      .getUserOnBording();
 
                                   Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
@@ -277,6 +281,7 @@ class _LogInState extends State<LogIn> {
           User.userSkipLogIn = true;
 
           MySharedPreferences.saveUserSingIn(true);
+          MySharedPreferences.saveUserOnBording(true);
           MySharedPreferences.saveUserCantBuy(false);
 
           User.userLogIn = await MySharedPreferences.getUserSingIn();
@@ -289,12 +294,15 @@ class _LogInState extends State<LogIn> {
         } else {
           User.userSkipLogIn = false;
           MySharedPreferences.saveUserSingIn(true);
+          MySharedPreferences.saveUserOnBording(true);
+
           MySharedPreferences.saveUserCantBuy(false);
 
           User.userLogIn = await MySharedPreferences.getUserSingIn();
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
           User.userCantBuy = await MySharedPreferences.getUserCantBuy();
           User.userid = await MySharedPreferences.getUserUserid();
+          User.isOnBording = await MySharedPreferences.getUserOnBording();
           checkUserSubscriptions(id: map['UserData']['id']);
         }
 

@@ -14,4 +14,5 @@ class User {
   static bool userSkipLogIn;
   static bool userBuyPlan;
   static bool userCantBuy;
+  static bool isOnBording;
 }

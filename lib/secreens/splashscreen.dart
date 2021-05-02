@@ -131,6 +131,7 @@ class _SplashScreenState extends State<SplashScreen> {
   getDateOfUser() async {
     User.userLogIn = await MySharedPreferences.getUserSingIn();
     User.userid = await MySharedPreferences.getUserUserid();
+    User.isOnBording = await MySharedPreferences.getUserOnBording();
   }
 
   getFcmToken() async {

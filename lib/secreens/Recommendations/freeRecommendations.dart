@@ -104,16 +104,21 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                     style: AppTheme.subHeading,
                                                   ),
                                                   (snapshot.data[index]
-                                                                  .txtBesideName ==
+                                                                  .theTime ==
                                                               '' ||
                                                           snapshot.data[index]
-                                                                  .txtBesideName ==
+                                                                  .theTime ==
                                                               null)
                                                       ? Container()
                                                       : Text(
-                                                          '(${(snapshot.data[index].txtBesideName) ?? ''})',
+                                                          '(${(snapshot.data[index].theTime) ?? ''})',
                                                           style: AppTheme
-                                                              .subHeading,
+                                                              .subHeading
+                                                              .copyWith(
+                                                            color: Colors.green,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
                                                         ),
                                                   (snapshot.data[index]
                                                                   .percentageTxt ==
@@ -181,8 +186,12 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                     ),
                                                     Text(
                                                       '(${(snapshot.data[index].entryPrice) ?? ''})',
-                                                      style:
-                                                          AppTheme.subHeading,
+                                                      style: AppTheme.subHeading
+                                                          .copyWith(
+                                                        color: Colors.green,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -195,11 +204,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                               : Column(
                                                   children: [
                                                     Text(
-                                                      'سعر الخروج',
+                                                      'الهدف',
                                                       style: AppTheme.heading,
                                                     ),
                                                     Text(
-                                                      '(${(snapshot.data[index].outPrice) ?? ''})',
+                                                      '(${(snapshot.data[index].buyAreaGoals) ?? ''})',
                                                       style:
                                                           AppTheme.subHeading,
                                                     ),
@@ -214,11 +223,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                               : Column(
                                                   children: [
                                                     Text(
-                                                      'اكبر مكسب',
+                                                      'وقف الخسارة',
                                                       style: AppTheme.heading,
                                                     ),
                                                     Text(
-                                                      '(${(snapshot.data[index].bigPrice) ?? ''})',
+                                                      '(${(snapshot.data[index].statusLoss) ?? ''})',
                                                       style:
                                                           AppTheme.subHeading,
                                                     ),
@@ -253,7 +262,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                           BorderRadius.circular(
                                                         10,
                                                       ),
-                                                      color: Colors.deepOrange,
+                                                      color: customColor,
                                                     ),
                                                     child: Center(
                                                       child: Text(

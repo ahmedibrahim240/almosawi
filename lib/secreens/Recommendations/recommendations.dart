@@ -216,7 +216,7 @@ class _RecommendationsState extends State<Recommendations> {
                                                       BorderRadius.circular(
                                                     10,
                                                   ),
-                                                  color: Colors.deepOrange,
+                                                  color: customColor,
                                                 ),
                                                 child: Center(
                                                   child: Text(

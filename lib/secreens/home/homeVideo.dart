@@ -42,7 +42,6 @@ class _HomeVideoState extends State<HomeVideo> {
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
-                                              height: 202,
                                               child: Align(
                                                 alignment: Alignment.topCenter,
                                                 child: ChewieVideo(

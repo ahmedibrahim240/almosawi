@@ -19,6 +19,9 @@ class _AuthenticateState extends State<Authenticate> {
   }
 
   final FirebaseMessaging _fcm = FirebaseMessaging();
+ getDateOfUser() async {
+   
+  }
 
   @override
   void initState() {
@@ -35,6 +38,9 @@ class _AuthenticateState extends State<Authenticate> {
 
   getUserToken() async {
     User.userToken = await MySharedPreferences.getUserToken();
+     User.userLogIn = await MySharedPreferences.getUserSingIn();
+    User.userid = await MySharedPreferences.getUserUserid();
+    User.isOnBording = await MySharedPreferences.getUserOnBording();
   }
 
   @override

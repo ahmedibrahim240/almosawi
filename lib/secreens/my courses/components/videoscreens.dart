@@ -47,7 +47,7 @@ class _ChewieVideoState extends State<ChewieVideo> {
       videoPlayerController: _videoPlayerController1,
       autoPlay: false,
       allowFullScreen: true,
-      fullScreenByDefault: true,
+      fullScreenByDefault: false,
     );
     setState(() {});
   }
@@ -55,6 +55,7 @@ class _ChewieVideoState extends State<ChewieVideo> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 245,
       child: _chewieController != null &&
               _chewieController.videoPlayerController.value.initialized
           ? Theme(
