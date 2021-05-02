@@ -107,7 +107,6 @@ class _CheckOutState extends State<CheckOut> {
               print("res.status:${res.status}");
               if (res.status == PaymentStatus.Success) {
                 checkOut(item: widget.data, paymentData: res.status);
-                checkUserSubscriptions();
               } else {
                 checkOutDialog(
                   context: context,
@@ -212,6 +211,7 @@ class _CheckOutState extends State<CheckOut> {
         setState(() {
           MySharedPreferences.saveUserPayPlan(false);
         });
+        checkUserSubscriptions();
         checkOutDialog(
           context: context,
           message: jsonData['message'].toString(),

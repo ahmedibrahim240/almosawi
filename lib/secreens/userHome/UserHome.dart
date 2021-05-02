@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyRoomsApi.dart';
@@ -19,6 +21,34 @@ class UserHome extends StatefulWidget {
 }
 
 class _UserHomeState extends State<UserHome> {
+  Timer _timer;
+  int counter = 5;
+
+  startTimer() {
+    counter = 5;
+    _timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          if (counter > 0) {
+            counter--;
+          } else {
+            setState(() {
+              loading = false;
+            });
+            _timer.cancel();
+          }
+        });
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
+
   List<HomeTapsModels> lsitOfTapsData1 = [
     HomeTapsModels(
       image: 'lib/images/eventicons.png',
@@ -48,24 +78,30 @@ class _UserHomeState extends State<UserHome> {
     'Mosawi',
     "Elite",
   ];
-  bool loading = false;
+  bool loading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          primary: true,
-          children: [
-            suerHomeAppBar(),
-            homeTabsFirst(list: lsitOfTapsData1),
-            contactWithAhmed(context),
-            homeTabsTow(list: lsitOfTapsData2),
-            homeTabsName(),
-          ],
-        ),
-      ),
+      body: (loading)
+          ? Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : SafeArea(
+              child: ListView(
+                shrinkWrap: true,
+                primary: true,
+                children: [
+                  suerHomeAppBar(),
+                  homeTabsFirst(list: lsitOfTapsData1),
+                  contactWithAhmed(context),
+                  homeTabsTow(list: lsitOfTapsData2),
+                  homeTabsName(),
+                ],
+              ),
+            ),
     );
   }
 
@@ -99,7 +135,7 @@ class _UserHomeState extends State<UserHome> {
                       ),
                     );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
@@ -174,10 +210,6 @@ class _UserHomeState extends State<UserHome> {
                   children: List.generate(
                     snapshot.data.userHomeIconsRow1.length,
                     (index) {
-                      print(User.userid);
-                      print(
-                          'snapshot.data.userHomeIconsRow1:${snapshot.data.userHomeIconsRow1}');
-
                       return (snapshot.data.userHomeIconsRow1[index] == '')
                           ? Container()
                           : InkWell(
@@ -255,7 +287,7 @@ class _UserHomeState extends State<UserHome> {
                   ),
                 );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
@@ -354,7 +386,7 @@ class _UserHomeState extends State<UserHome> {
                   ),
                 );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
@@ -426,7 +458,7 @@ class _UserHomeState extends State<UserHome> {
                   ),
                 );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );

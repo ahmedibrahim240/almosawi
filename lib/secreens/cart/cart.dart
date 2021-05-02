@@ -333,6 +333,7 @@ class _CartState extends State<Cart> {
         decreaseCartTotlaPrice(
           price: Cart.totalPraices,
         );
+        checkUserSubscriptions();
         showMyDialog(
           onTap: () {
             Navigator.of(context).pushReplacement(
@@ -390,6 +391,43 @@ class _CartState extends State<Cart> {
       setState(() {
         loading = !loading;
       });
+
+      print(e);
+    }
+  }
+
+  checkUserSubscriptions() async {
+    try {
+      print('User.useridwarrrrrwew:${User.userid}');
+      var response = await http.post(Utils.CheckUserSubscriptions_URL, body: {
+        'user_id': User.userid.toString(),
+      });
+      var jsonData = json.decode(response.body);
+
+      if (jsonData['status'] == 'success') {
+        print('proChartRooms' + jsonData['UserData']['proChartRooms']);
+        if (jsonData['UserData']['Recomendations'] == '0') {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(true);
+            setState(() {
+              User.userSkipLogIn = true;
+            });
+          });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        } else {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(false);
+            User.userSkipLogIn = false;
+          });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        }
+        User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+      } else {
+        setState(() {});
+      }
+    } catch (e) {
+      print('Cash wallpaper');
+      setState(() {});
 
       print(e);
     }

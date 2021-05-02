@@ -301,7 +301,35 @@ class _RegisterState extends State<Register> {
                                   ),
                                   SizedBox(height: 10),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () async {
+                                      setState(() {
+                                        MySharedPreferences.saveUserSkipLogIn(
+                                            true);
+                                        MySharedPreferences.saveUserSingIn(
+                                            true);
+                                        MySharedPreferences.saveUserCantBuy(
+                                            true);
+                                        MySharedPreferences.saveUserOnBording(
+                                            true);
+
+                                        User.userSkipLogIn = true;
+                                      });
+                                      User.userSkipLogIn =
+                                          await MySharedPreferences
+                                              .getUserSkipLogIn();
+                                      User.userLogIn = await MySharedPreferences
+                                          .getUserSingIn();
+                                      User.isOnBording =
+                                          await MySharedPreferences
+                                              .getUserOnBording();
+
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                          builder: (_) => Wrapper(),
+                                        ),
+                                        (routes) => false,
+                                      );
+                                    },
                                     child: Text(
                                       "الدخول كزائر ؟",
                                       style: AppTheme.headingColorBlue.copyWith(

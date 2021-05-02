@@ -2,7 +2,6 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/authenticate/authenticate.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
-import 'package:almosawii/secreens/splashscreen.dart';
 import 'package:almosawii/secreens/wrapper/Wrapper.dart';
 import 'package:almosawii/sharedPreferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';

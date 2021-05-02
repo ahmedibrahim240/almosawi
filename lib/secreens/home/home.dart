@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/contactUsApi.dart';
@@ -56,7 +58,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool loading = false;
+  Timer _timer;
+  int counter = 5;
+
+  startTimer() {
+    counter = 5;
+    _timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          if (counter > 0) {
+            counter--;
+          } else {
+            setState(() {
+              loading = false;
+            });
+            _timer.cancel();
+          }
+        });
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
+
+  bool loading = true;
   List<String> numberTitleList = ['عميل', 'دورة مباشرة', 'دورة مسجلة'];
 
   @override
@@ -65,28 +95,34 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: ListView(
-        shrinkWrap: true,
-        primary: true,
-        children: [
-          HomeVideo(),
-          freeCorsesSections(),
-          SizedBox(height: 10),
-          homeProChartSection(),
-          successPartners(),
-          SizedBox(height: 10),
-          acountFeatures(),
-          SizedBox(height: 10),
-          homeBaner(),
-          SizedBox(height: 10),
-          contactWithAhmed(context),
-          SizedBox(height: 10),
-          sectionTitle(title: 'الدورات التدريبية'),
-          SizedBox(height: 10),
-          corsesSections(),
-          SizedBox(height: 10),
-        ],
-      ),
+      body: (loading)
+          ? Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : ListView(
+              shrinkWrap: true,
+              primary: true,
+              children: [
+                HomeVideo(),
+                freeCorsesSections(),
+                SizedBox(height: 10),
+                homeProChartSection(),
+                successPartners(),
+                SizedBox(height: 10),
+                acountFeatures(),
+                SizedBox(height: 10),
+                homeBaner(),
+                SizedBox(height: 10),
+                contactWithAhmed(context),
+                SizedBox(height: 10),
+                sectionTitle(title: 'الدورات التدريبية'),
+                SizedBox(height: 10),
+                corsesSections(),
+                SizedBox(height: 10),
+              ],
+            ),
     );
   }
 
@@ -179,7 +215,7 @@ class _HomeState extends State<Home> {
                         ),
                       );
               } else {
-                return Center(child: CircularProgressIndicator());
+                return Container();
               }
             },
           ),
@@ -267,7 +303,7 @@ class _HomeState extends State<Home> {
                         ),
                       );
               } else {
-                return Center(child: CircularProgressIndicator());
+                return Container();
               }
             },
           ),
@@ -305,7 +341,7 @@ class _HomeState extends State<Home> {
                       ),
                     );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
@@ -346,7 +382,7 @@ class _HomeState extends State<Home> {
                   ],
                 );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
@@ -423,7 +459,7 @@ class _HomeState extends State<Home> {
                   ],
                 );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
@@ -463,7 +499,7 @@ class _HomeState extends State<Home> {
                         ),
                       );
               } else {
-                return Center(child: CircularProgressIndicator());
+                return Container();
               }
             },
           ),
@@ -539,7 +575,7 @@ class _HomeState extends State<Home> {
                     },
                   );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return Container();
           }
         },
       ),
@@ -582,7 +618,7 @@ class _HomeState extends State<Home> {
                   ),
                 );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
@@ -706,7 +742,7 @@ class _HomeState extends State<Home> {
                       ),
                     );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );
