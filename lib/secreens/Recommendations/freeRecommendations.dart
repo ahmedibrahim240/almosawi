@@ -214,25 +214,41 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                     ),
                                                   ],
                                                 ),
-                                          (snapshot.data[index].bigPrice ==
-                                                      '' ||
+                                          (snapshot.data[index].stopBuy == '' &&
                                                   snapshot.data[index]
-                                                          .bigPrice ==
-                                                      null)
+                                                          .stopSelling ==
+                                                      '')
                                               ? Container()
-                                              : Column(
-                                                  children: [
-                                                    Text(
-                                                      'وقف الخسارة',
-                                                      style: AppTheme.heading,
+                                              : (snapshot.data[index].stopBuy !=
+                                                      '')
+                                                  ? Column(
+                                                      children: [
+                                                        Text(
+                                                          'وقف الخسارة',
+                                                          style:
+                                                              AppTheme.heading,
+                                                        ),
+                                                        Text(
+                                                          '(${(snapshot.data[index].stopBuy) ?? ''})',
+                                                          style: AppTheme
+                                                              .subHeading,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : Column(
+                                                      children: [
+                                                        Text(
+                                                          'وقف الخسارة',
+                                                          style:
+                                                              AppTheme.heading,
+                                                        ),
+                                                        Text(
+                                                          '(${(snapshot.data[index].stopSelling) ?? ''})',
+                                                          style: AppTheme
+                                                              .subHeading,
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      '(${(snapshot.data[index].statusLoss) ?? ''})',
-                                                      style:
-                                                          AppTheme.subHeading,
-                                                    ),
-                                                  ],
-                                                ),
                                         ],
                                       ),
                                       SizedBox(height: 10),

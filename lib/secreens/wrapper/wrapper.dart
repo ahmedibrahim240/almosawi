@@ -43,6 +43,43 @@ class _WrapperState extends State<Wrapper> {
     connectivity = await Connectivity().checkConnectivity();
   }
 
+  checkUserSubscriptions() async {
+    try {
+      print('User.useridwarrrrrwew:${User.userid}');
+      var response = await http.post(Utils.CheckUserSubscriptions_URL, body: {
+        'user_id': User.userid.toString(),
+      });
+      var jsonData = json.decode(response.body);
+
+      if (jsonData['status'] == 'success') {
+        print('proChartRooms' + jsonData['UserData']['proChartRooms']);
+        if (jsonData['UserData']['Recomendations'] == '0') {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(true);
+            setState(() {
+              User.userSkipLogIn = true;
+            });
+          });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        } else {
+          setState(() {
+            MySharedPreferences.saveUserSkipLogIn(false);
+            User.userSkipLogIn = false;
+          });
+          User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+        }
+        User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
+      } else {
+        setState(() {});
+      }
+    } catch (e) {
+      print('Cash wallpaper');
+      setState(() {});
+
+      print(e);
+    }
+  }
+
   startTimer() {
     counter = 10;
     _timer = Timer.periodic(
@@ -70,6 +107,7 @@ class _WrapperState extends State<Wrapper> {
   @override
   void initState() {
     getTotalPrice();
+    checkUserSubscriptions();
     super.initState();
 
     netWorkTest();
@@ -174,7 +212,7 @@ class _WrapperHomeState extends State<WrapperHome> {
     User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
     User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
     User.userCantBuy = await MySharedPreferences.getUserCantBuy();
-        User.isOnBording = await MySharedPreferences.getUserOnBording();
+    User.isOnBording = await MySharedPreferences.getUserOnBording();
     User.userPassword = await MySharedPreferences.getUserUserPassword();
   }
 
@@ -237,8 +275,6 @@ class _WrapperHomeState extends State<WrapperHome> {
 
   @override
   Widget build(BuildContext context) {
-    print('User.useridwarrrrrwew:${User.userid}');
-
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

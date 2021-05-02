@@ -81,17 +81,20 @@ class _RecommendationsState extends State<Recommendations> {
                                                     ''),
                                                 style: AppTheme.subHeading,
                                               ),
-                                              (snapshot.data[index]
-                                                              .txtBesideName ==
+                                              (snapshot.data[index].theTime ==
                                                           '' ||
                                                       snapshot.data[index]
-                                                              .txtBesideName ==
+                                                              .theTime ==
                                                           null)
                                                   ? Container()
                                                   : Text(
-                                                      '(${(snapshot.data[index].txtBesideName) ?? ''})',
-                                                      style:
-                                                          AppTheme.subHeading,
+                                                      '(${(snapshot.data[index].theTime) ?? ''})',
+                                                      style: AppTheme.subHeading
+                                                          .copyWith(
+                                                        color: Colors.green,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
                                                     ),
                                               (snapshot.data[index]
                                                               .percentageTxt ==
@@ -152,7 +155,11 @@ class _RecommendationsState extends State<Recommendations> {
                                                 ),
                                                 Text(
                                                   '(${(snapshot.data[index].entryPrice) ?? ''})',
-                                                  style: AppTheme.subHeading,
+                                                  style: AppTheme.subHeading
+                                                      .copyWith(
+                                                    color: Colors.green,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -163,31 +170,47 @@ class _RecommendationsState extends State<Recommendations> {
                                           : Column(
                                               children: [
                                                 Text(
-                                                  'سعر الخروج',
+                                                  'الهدف',
                                                   style: AppTheme.heading,
                                                 ),
                                                 Text(
-                                                  '(${(snapshot.data[index].outPrice) ?? ''})',
+                                                  '(${(snapshot.data[index].buyAreaGoals) ?? ''})',
                                                   style: AppTheme.subHeading,
                                                 ),
                                               ],
                                             ),
-                                      (snapshot.data[index].bigPrice == '' ||
-                                              snapshot.data[index].bigPrice ==
-                                                  null)
+                                      (snapshot.data[index].stopBuy == '' &&
+                                              snapshot.data[index]
+                                                      .stopSelling ==
+                                                  '')
                                           ? Container()
-                                          : Column(
-                                              children: [
-                                                Text(
-                                                  'اكبر مكسب',
-                                                  style: AppTheme.heading,
+                                          : (snapshot.data[index].stopBuy != '')
+                                              ? Column(
+                                                  children: [
+                                                    Text(
+                                                      'وقف الخسارة',
+                                                      style: AppTheme.heading,
+                                                    ),
+                                                    Text(
+                                                      '(${(snapshot.data[index].stopBuy) ?? ''})',
+                                                      style:
+                                                          AppTheme.subHeading,
+                                                    ),
+                                                  ],
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    Text(
+                                                      'وقف الخسارة',
+                                                      style: AppTheme.heading,
+                                                    ),
+                                                    Text(
+                                                      '(${(snapshot.data[index].stopSelling) ?? ''})',
+                                                      style:
+                                                          AppTheme.subHeading,
+                                                    ),
+                                                  ],
                                                 ),
-                                                Text(
-                                                  '(${(snapshot.data[index].bigPrice) ?? ''})',
-                                                  style: AppTheme.subHeading,
-                                                ),
-                                              ],
-                                            ),
                                     ],
                                   ),
                                   SizedBox(height: 10),
