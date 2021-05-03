@@ -98,7 +98,7 @@ class _ConnectivityNETWORGState extends State<ConnectivityNETWORG> {
                         }
                       },
                       child: Text(
-                        'لايود اتصال حاول مجدا',
+                        '‏لا ‏يوجد ‏اتصال ‏بالإنترنت ‏يرجى ‏المحاولة ‏مجددا',
                         style: AppTheme.subHeading.copyWith(
                           color: Colors.blue,
                           decoration: TextDecoration.underline,

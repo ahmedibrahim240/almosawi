@@ -64,13 +64,13 @@ class _UserHomeState extends State<UserHome> {
   List<HomeTapsModels> lsitOfTapsData2 = [
     HomeTapsModels(
       image: 'lib/images/eventicons.png',
-      titleAr: 'مكتبة الفيديو',
-      titleEn: 'Video Pro Chart',
+      titleAr: 'قسم التعليم',
+      titleEn: 'Pro Chart VIP',
     ),
     HomeTapsModels(
       image: 'lib/images/eventicons.png',
-      titleAr: 'قسم التعليم',
-      titleEn: 'Pro Chart VIP',
+      titleAr: 'مكتبة الفيديو',
+      titleEn: 'Video Pro Chart',
     ),
   ];
   List<String> namesList = [
@@ -314,7 +314,7 @@ class _UserHomeState extends State<UserHome> {
                           : InkWell(
                               onTap: () {
                                 switch (index) {
-                                  case 0:
+                                  case 1:
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (_) => AllVideosProChart(),

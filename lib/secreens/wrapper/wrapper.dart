@@ -168,7 +168,7 @@ class _WrapperState extends State<Wrapper> {
                             }
                           },
                           child: Text(
-                            'لايود اتصال حاول مجدا',
+                            '‏لا ‏يوجد ‏اتصال ‏بالإنترنت ‏يرجى ‏المحاولة ‏مجددا',
                             style: AppTheme.subHeading.copyWith(
                               color: Colors.blue,
                               decoration: TextDecoration.underline,

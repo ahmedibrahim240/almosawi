@@ -15,10 +15,6 @@ class _ALLRomesState extends State<ALLRomes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-        'غرفه pro Chart',
-      )),
       body: FutureBuilder(
         future: MyRoomsApi.fetchAllMyRooms(),
         builder: (context, snapshot) {
@@ -30,53 +26,52 @@ class _ALLRomesState extends State<ALLRomes> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'لا يوجد بينات حاليا /',
-                          style: AppTheme.heading,
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          'اسحب الشاشه لاسفل لاعاده التحميل',
+                          'لا يوجد بينات حاليا ',
                           style: AppTheme.heading,
                           textAlign: TextAlign.center,
                         ),
                       ],
                     ),
                   )
-                : ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Card(
-                            elevation: 3,
-                            child: InkWell(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 50,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                child: Text(snapshot.data[index].name),
-                              ),
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) => ProchartRoom(
-                                      rooms: snapshot.data[index],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Divider(
-                            color: customColorDivider,
-                            thickness: 2,
-                          ),
-                        ],
-                      );
-                    },
+                : ProchartRoom(
+                    rooms: snapshot.data[0],
                   );
+
+            // ListView.builder(
+            //   scrollDirection: Axis.horizontal,
+            //   itemCount: snapshot.data.length,
+            //   itemBuilder: (context, index) {
+            //     return Column(
+            //       children: [
+            //         Card(
+            //           elevation: 3,
+            //           child: InkWell(
+            //             child: Container(
+            //               width: MediaQuery.of(context).size.width,
+            //               height: 50,
+            //               padding: EdgeInsets.symmetric(
+            //                   horizontal: 10, vertical: 10),
+            //               child: Text(snapshot.data[index].name),
+            //             ),
+            //             onTap: () {
+            //               Navigator.of(context).push(
+            //                 MaterialPageRoute(
+            //                   builder: (_) => ProchartRoom(
+            //                     rooms: snapshot.data[index],
+            //                   ),
+            //                 ),
+            //               );
+            //             },
+            //           ),
+            //         ),
+            //         Divider(
+            //           color: customColorDivider,
+            //           thickness: 2,
+            //         ),
+            //       ],
+            //     );
+            //   },
+            // );
           } else {
             return Center(child: CircularProgressIndicator());
           }
