@@ -60,21 +60,41 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                 (widget.recommend[index].statusLoss == 'gain' ||
                                         widget.recommend[index].statusLoss ==
                                             'مكسب')
-                                    ? SvgPicture.asset(
-                                        'lib/icons/stockUp.svg',
-                                        color: customColor,
-                                        height: 15,
-                                      )
-                                    : Container(
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                'lib/images/chartlineDown.png'),
-                                            fit: BoxFit.cover,
+                                    ? Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            'lib/icons/stockUp.svg',
+                                            color: customColor,
+                                            height: 15,
                                           ),
-                                        ),
+                                          Text(
+                                            ' ( ربح )',
+                                            style: AppTheme.heading.copyWith(
+                                              color: customColor,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Row(
+                                        children: [
+                                          Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                    'lib/images/chartlineDown.png'),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            ' ( خساره )',
+                                            style: AppTheme.heading.copyWith(
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                 SizedBox(width: 10),
                                 (widget.recommend[index].buyOrSale == '' ||
@@ -118,7 +138,9 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                 width: 85,
                                 child: Text(
                                   'سعر الدخول',
-                                  style: AppTheme.heading,
+                                  style: AppTheme.subHeading.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                         (widget.recommend[index].entryPrice == '' ||
@@ -157,7 +179,9 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                 width: 85,
                                 child: Text(
                                   'الهدف',
-                                  style: AppTheme.heading,
+                                  style: AppTheme.subHeading.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                               Container(
@@ -187,7 +211,9 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                     width: 85,
                                     child: Text(
                                       'وقف الخسارة',
-                                      style: AppTheme.heading,
+                                      style: AppTheme.subHeading.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                   Container(
@@ -208,7 +234,9 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                     width: 85,
                                     child: Text(
                                       'وقف الخسارة',
-                                      style: AppTheme.heading,
+                                      style: AppTheme.subHeading.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                   Container(

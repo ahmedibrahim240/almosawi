@@ -109,23 +109,51 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                           snapshot.data[index]
                                                                   .statusLoss ==
                                                               'مكسب')
-                                                      ? SvgPicture.asset(
-                                                          'lib/icons/stockUp.svg',
-                                                          color: customColor,
-                                                          height: 15,
-                                                        )
-                                                      : Container(
-                                                          height: 20,
-                                                          width: 20,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image:
-                                                                DecorationImage(
-                                                              image: AssetImage(
-                                                                  'lib/images/chartlineDown.png'),
-                                                              fit: BoxFit.cover,
+                                                      ? Row(
+                                                          children: [
+                                                            SvgPicture.asset(
+                                                              'lib/icons/stockUp.svg',
+                                                              color:
+                                                                  customColor,
+                                                              height: 15,
                                                             ),
-                                                          ),
+                                                            Text(
+                                                              ' ( ربح )',
+                                                              style: AppTheme
+                                                                  .heading
+                                                                  .copyWith(
+                                                                color:
+                                                                    customColor,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      : Row(
+                                                          children: [
+                                                            Container(
+                                                              height: 20,
+                                                              width: 20,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                image:
+                                                                    DecorationImage(
+                                                                  image: AssetImage(
+                                                                      'lib/images/chartlineDown.png'),
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              ' ( خساره )',
+                                                              style: AppTheme
+                                                                  .heading
+                                                                  .copyWith(
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                   SizedBox(width: 10),
                                                   (snapshot.data[index]
@@ -181,7 +209,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                   width: 85,
                                                   child: Text(
                                                     'سعر الدخول',
-                                                    style: AppTheme.heading,
+                                                    style: AppTheme.subHeading
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
                                                   ),
                                                 ),
                                           (snapshot.data[index].entryPrice ==
@@ -232,7 +264,11 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                   width: 85,
                                                   child: Text(
                                                     'الهدف',
-                                                    style: AppTheme.heading,
+                                                    style: AppTheme.subHeading
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
                                                   ),
                                                 ),
                                                 Container(
@@ -267,7 +303,12 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                       width: 85,
                                                       child: Text(
                                                         'وقف الخسارة',
-                                                        style: AppTheme.heading,
+                                                        style: AppTheme
+                                                            .subHeading
+                                                            .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
                                                       ),
                                                     ),
                                                     Container(
@@ -290,7 +331,12 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
                                                       width: 85,
                                                       child: Text(
                                                         'وقف الخسارة',
-                                                        style: AppTheme.heading,
+                                                        style: AppTheme
+                                                            .subHeading
+                                                            .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
                                                       ),
                                                     ),
                                                     Container(

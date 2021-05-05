@@ -54,11 +54,6 @@ class _ArchivesState extends State<Archives> {
                                   style: AppTheme.heading,
                                   textAlign: TextAlign.center,
                                 ),
-                                Text(
-                                  'اسحب الشاشه لاسفل لاعاده التحميل',
-                                  style: AppTheme.heading,
-                                  textAlign: TextAlign.center,
-                                ),
                               ],
                             ),
                           )
