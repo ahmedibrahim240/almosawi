@@ -51,9 +51,31 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              (widget.recommend[index].name ?? ''),
-                              style: AppTheme.subHeading,
+                            Row(
+                              children: [
+                                Text(
+                                  (widget.recommend[index].name ?? ''),
+                                  style: AppTheme.subHeading.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                (widget.recommend[index].buyOrSale == '' ||
+                                        widget.recommend[index].buyOrSale ==
+                                            null)
+                                    ? Container()
+                                    : Text(
+                                        (widget.recommend[index].buyOrSale) ??
+                                            '',
+                                        style: AppTheme.heading.copyWith(
+                                          color: (widget.recommend[index]
+                                                      .buyOrSale ==
+                                                  'شراء')
+                                              ? customColor
+                                              : Colors.red,
+                                        ),
+                                      ),
+                              ],
                             ),
                             Row(
                               children: [
@@ -95,25 +117,6 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                             ),
                                           ),
                                         ],
-                                      ),
-                                SizedBox(width: 10),
-                                (widget.recommend[index].buyOrSale == '' ||
-                                        widget.recommend[index].buyOrSale ==
-                                            null)
-                                    ? Container()
-                                    : Text(
-                                        (widget.recommend[index].buyOrSale) ??
-                                            '',
-                                        style: AppTheme.heading.copyWith(
-                                          color: (widget.recommend[index]
-                                                          .statusLoss ==
-                                                      'gain' ||
-                                                  widget.recommend[index]
-                                                          .statusLoss ==
-                                                      'مكسب')
-                                              ? customColor
-                                              : Colors.red,
-                                        ),
                                       ),
                               ],
                             ),
@@ -161,7 +164,9 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                         Container(
                           child: Text(
                             (widget.recommend[index].status) ?? "",
-                            style: AppTheme.subHeading,
+                            style: AppTheme.subHeading.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],
@@ -188,9 +193,10 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    '(${(widget.recommend[index].buyAreaGoals) ?? ''})',
-                                    style: AppTheme.subHeading,
-                                  ),
+                                      '(${(widget.recommend[index].buyAreaGoals) ?? ''})',
+                                      style: AppTheme.subHeading.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      )),
                                 ),
                               ),
                               SizedBox(height: 10),
@@ -221,7 +227,9 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         '(${(widget.recommend[index].stopBuy) ?? ''})',
-                                        style: AppTheme.subHeading,
+                                        style: AppTheme.subHeading.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -244,7 +252,10 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         '(${(widget.recommend[index].stopSelling) ?? ''})',
-                                        style: AppTheme.subHeading,
+                                        style: AppTheme.subHeading
+                                          ..copyWith(
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                       ),
                                     ),
                                   ),

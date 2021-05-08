@@ -5,6 +5,8 @@ import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+
 import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -110,18 +112,33 @@ class _RegisterState extends State<Register> {
                                 },
                               ),
                               SizedBox(height: 20),
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.phone,
+                              // TextFormField(
+                              //   style: TextStyle(color: Colors.black),
+                              //   keyboardType: TextInputType.phone,
+                              //   decoration: textFormInputDecoration(
+                              //     prefixIcon: Icons.phone,
+                              //     label: 'رقم الهاتف',
+                              //   ),
+                              //   validator: (val) =>
+                              //       val.isEmpty ? phoneEror : null,
+                              //   onChanged: (val) {
+                              //     setState(() {
+                              //       phoneNumber = val;
+                              //     });
+                              //   },
+                              // ),
+                              IntlPhoneField(
+                                initialCountryCode: 'KW',
                                 decoration: textFormInputDecoration(
                                   prefixIcon: Icons.phone,
                                   label: 'رقم الهاتف',
                                 ),
+                                autoValidate: false,
                                 validator: (val) =>
                                     val.isEmpty ? phoneEror : null,
-                                onChanged: (val) {
+                                onChanged: (phone) {
                                   setState(() {
-                                    phoneNumber = val;
+                                    phoneNumber = phone.completeNumber;
                                   });
                                 },
                               ),

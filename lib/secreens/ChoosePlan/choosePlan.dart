@@ -150,12 +150,14 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                               FontWeight.w900,
                                                         ),
                                                       ),
-                                                Text(
+                                             (snapshot.data[index]
+                                                              .plan_time
+                                                              .toString()=='')?Container():   Text(
                                                   'كل ' +
                                                           (snapshot.data[index]
                                                               .plan_time
                                                               .toString()) ??
-                                                      "" + ' شهور',
+                                                      "" ,
                                                   style:
                                                       AppTheme.heading.copyWith(
                                                     fontSize: 14,

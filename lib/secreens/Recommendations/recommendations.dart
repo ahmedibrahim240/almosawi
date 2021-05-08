@@ -75,9 +75,38 @@ class _RecommendationsState extends State<Recommendations> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            (snapshot.data[index].name ?? ''),
-                                            style: AppTheme.subHeading,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                (snapshot.data[index].name ??
+                                                    ''),
+                                                style: AppTheme.subHeading
+                                                    .copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              SizedBox(width: 10),
+                                              (snapshot.data[index].buyOrSale ==
+                                                          '' ||
+                                                      snapshot.data[index]
+                                                              .buyOrSale ==
+                                                          null)
+                                                  ? Container()
+                                                  : Text(
+                                                      (snapshot.data[index]
+                                                              .buyOrSale) ??
+                                                          '',
+                                                      style: AppTheme.heading
+                                                          .copyWith(
+                                                        color: (snapshot
+                                                                    .data[index]
+                                                                    .buyOrSale ==
+                                                                'شراء')
+                                                            ? customColor
+                                                            : Colors.red,
+                                                      ),
+                                                    ),
+                                            ],
                                           ),
                                           Row(
                                             children: [
@@ -128,33 +157,6 @@ class _RecommendationsState extends State<Recommendations> {
                                                           ),
                                                         ),
                                                       ],
-                                                    ),
-                                              SizedBox(width: 10),
-                                              (snapshot.data[index].buyOrSale ==
-                                                          '' ||
-                                                      snapshot.data[index]
-                                                              .buyOrSale ==
-                                                          null)
-                                                  ? Container()
-                                                  : Text(
-                                                      (snapshot.data[index]
-                                                              .buyOrSale) ??
-                                                          '',
-                                                      style: AppTheme.heading
-                                                          .copyWith(
-                                                        color: (snapshot
-                                                                        .data[
-                                                                            index]
-                                                                        .statusLoss ==
-                                                                    'gain' ||
-                                                                snapshot
-                                                                        .data[
-                                                                            index]
-                                                                        .statusLoss ==
-                                                                    'مكسب')
-                                                            ? customColor
-                                                            : Colors.red,
-                                                      ),
                                                     ),
                                             ],
                                           ),
@@ -207,7 +209,9 @@ class _RecommendationsState extends State<Recommendations> {
                                       Container(
                                         child: Text(
                                           (snapshot.data[index].status) ?? "",
-                                          style: AppTheme.subHeading,
+                                          style: AppTheme.subHeading.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -237,9 +241,12 @@ class _RecommendationsState extends State<Recommendations> {
                                               child: Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
-                                                  '(${(snapshot.data[index].buyAreaGoals) ?? ''})',
-                                                  style: AppTheme.subHeading,
-                                                ),
+                                                    '(${(snapshot.data[index].buyAreaGoals) ?? ''})',
+                                                    style: AppTheme.subHeading
+                                                        .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    )),
                                               ),
                                             ),
                                             SizedBox(height: 10),
@@ -275,8 +282,11 @@ class _RecommendationsState extends State<Recommendations> {
                                                         Alignment.centerLeft,
                                                     child: Text(
                                                       '(${(snapshot.data[index].stopBuy) ?? ''})',
-                                                      style:
-                                                          AppTheme.subHeading,
+                                                      style: AppTheme.subHeading
+                                                          .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -302,8 +312,11 @@ class _RecommendationsState extends State<Recommendations> {
                                                         Alignment.centerLeft,
                                                     child: Text(
                                                       '(${(snapshot.data[index].stopSelling) ?? ''})',
-                                                      style:
-                                                          AppTheme.subHeading,
+                                                      style: AppTheme.subHeading
+                                                        ..copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
                                                     ),
                                                   ),
                                                 ),
