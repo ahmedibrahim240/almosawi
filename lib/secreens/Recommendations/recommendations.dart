@@ -36,11 +36,6 @@ class _RecommendationsState extends State<Recommendations> {
                               style: AppTheme.heading,
                               textAlign: TextAlign.center,
                             ),
-                            Text(
-                              'اسحب الشاشه لاسفل لاعاده التحميل',
-                              style: AppTheme.heading,
-                              textAlign: TextAlign.center,
-                            ),
                           ],
                         ),
                       ),

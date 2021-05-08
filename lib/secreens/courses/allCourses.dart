@@ -140,7 +140,7 @@ class _AllCoursesState extends State<AllCourses> {
                     : Text(
                         '${courses.newPrice}\$',
                         style: AppTheme.headingColorBlue.copyWith(
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                           color: customColor,
                         ),
@@ -153,7 +153,7 @@ class _AllCoursesState extends State<AllCourses> {
                           ? '${courses.oldPrice}\$'
                           : "مجاناً",
                   style: AppTheme.headingColorBlue.copyWith(
-                    fontSize: 10,
+                    fontSize: (courses.newPrice == null) ?14:12,
                     fontWeight: FontWeight.w700,
                     color:
                         (courses.newPrice == null) ? customColor : Colors.black,

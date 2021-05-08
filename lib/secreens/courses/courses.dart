@@ -161,7 +161,7 @@ class _CoursesPageState extends State<CoursesPage> {
                     : Text(
                         '${courses.newPrice}\$',
                         style: AppTheme.headingColorBlue.copyWith(
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                           color: customColor,
                         ),
@@ -174,7 +174,7 @@ class _CoursesPageState extends State<CoursesPage> {
                           ? '${courses.oldPrice}\$'
                           : "مجاناً",
                   style: AppTheme.headingColorBlue.copyWith(
-                    fontSize: (courses.newPrice == null) ? 12 : 10,
+                    fontSize: (courses.newPrice == null) ? 14 : 12,
                     fontWeight: FontWeight.w700,
                     color:
                         (courses.newPrice == null) ? customColor : Colors.black,
