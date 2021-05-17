@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
@@ -10,7 +8,7 @@ import 'package:almosawii/secreens/courses/courses.dart';
 import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:almosawii/services/network_sensitive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,9 +25,6 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  ConnectivityResult connectivity;
-  Timer _timer;
-  int counter = 10;
   getTotalPrice() async {
     Cart.totalPraices = await MySharedPreferences.getTotalPrice();
     User.userLogIn = await MySharedPreferences.getUserSingIn();
@@ -37,10 +32,6 @@ class _WrapperState extends State<Wrapper> {
     User.userBuyPlan = await MySharedPreferences.getUserBuyPlan();
     User.userCantBuy = await MySharedPreferences.getUserCantBuy();
     User.userPassword = await MySharedPreferences.getUserUserPassword();
-  }
-
-  netWorkTest() async {
-    connectivity = await Connectivity().checkConnectivity();
   }
 
   checkUserSubscriptions() async {
@@ -80,106 +71,38 @@ class _WrapperState extends State<Wrapper> {
     }
   }
 
-  startTimer() {
-    counter = 10;
-    _timer = Timer.periodic(
-      Duration(seconds: 1),
-      (timer) {
-        setState(() {
-          if (counter > 0) {
-            counter--;
-          } else if (connectivity != ConnectivityResult.none) {
-            setState(() {
-              loading = false;
-            });
-            _timer.cancel();
-          } else {
-            setState(() {
-              loading = false;
-            });
-            _timer.cancel();
-          }
-        });
-      },
-    );
-  }
-
   @override
   void initState() {
     getTotalPrice();
     checkUserSubscriptions();
-    super.initState();
 
-    netWorkTest();
-    print(connectivity);
+    super.initState();
   }
 
   bool loading = false;
+  Future<Null> onRefresh() async {
+    setState(() {
+      loading = !loading;
+    });
+
+    await Future.delayed(
+      Duration(seconds: 2),
+      () {
+        setState(() {
+          loading = !loading;
+        });
+      },
+    );
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (loading)
-          ? Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : RefreshIndicator(
-              onRefresh: () async {
-                customOnRefresh(onRefresh: () {
-                  setState(() {
-                    loading = !loading;
-                  });
-                  netWorkTest();
-                  startTimer();
-                }, affterRefresh: () {
-                  setState(() {
-                    loading = !loading;
-                  });
-                  netWorkTest();
-                  startTimer();
-                });
-              },
-              child: (connectivity == ConnectivityResult.none)
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Icon(
-                            FontAwesomeIcons.wifi,
-                            size: 50,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              loading = !loading;
-                            });
-                            netWorkTest();
-                            startTimer();
-                            if (connectivity != ConnectivityResult.none) {
-                              setState(() {
-                                loading = false;
-                              });
-                            }
-                          },
-                          child: Text(
-                            '‏لا ‏يوجد ‏اتصال ‏بالإنترنت ‏يرجى ‏المحاولة ‏مجددا',
-                            style: AppTheme.subHeading.copyWith(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : WrapperHome(),
-            ),
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: (loading) ? Container() : WrapperHome(),
+      ),
     );
   }
 }
@@ -200,11 +123,11 @@ class _WrapperHomeState extends State<WrapperHome> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    HomePages(),
-    FreeRecommendations(),
-    Blog(),
-    CoursesPage(),
-    More(),
+    NetworkSensitive(child: HomePages()),
+    NetworkSensitive(child: FreeRecommendations()),
+    NetworkSensitive(child: Blog()),
+    NetworkSensitive(child: CoursesPage()),
+    NetworkSensitive(child: More()),
   ];
   getTotalPrice() async {
     Cart.totalPraices = await MySharedPreferences.getTotalPrice();

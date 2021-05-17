@@ -3,6 +3,7 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/authenticate/authenticate.dart';
 import 'package:almosawii/secreens/onboarding/slider.dart';
+import 'package:almosawii/services/network_sensitive.dart';
 import 'package:flutter/material.dart';
 
 class OnBoard extends StatefulWidget {
@@ -74,25 +75,27 @@ class _OnBoardingState extends State<OnBoarding> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              scrollDirection: Axis.horizontal,
-              controller: _controller,
-              itemCount: _pages.length,
-              onPageChanged: _onChanged,
-              itemBuilder: (context, int index) {
-                return _pages[index];
-              },
+      body: NetworkSensitive(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                scrollDirection: Axis.horizontal,
+                controller: _controller,
+                itemCount: _pages.length,
+                onPageChanged: _onChanged,
+                itemBuilder: (context, int index) {
+                  return _pages[index];
+                },
+              ),
             ),
-          ),
-          SliderContoler(
-            pages: _pages,
-            currentPage: _currentPage,
-            controller: _controller,
-          ),
-        ],
+            SliderContoler(
+              pages: _pages,
+              currentPage: _currentPage,
+              controller: _controller,
+            ),
+          ],
+        ),
       ),
     );
   }

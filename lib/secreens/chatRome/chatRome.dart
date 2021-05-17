@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/MyMessagesApi.dart';
 import 'package:almosawii/models/userData.dart';
+import 'package:almosawii/services/network_sensitive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:almosawii/models/utils.dart';
@@ -31,71 +32,53 @@ class _ChatRomeState extends State<ChatRome> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.message.status == 'مفتوح');
+    print("messageID:${widget.messageID}");
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                primary: false,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: widget.message.comments.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Card(
-                            elevation: 3,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    parseHtmlString(
-                                      widget.message.name,
-                                    ),
-                                    style: AppTheme.subHeading,
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    parseHtmlString(
-                                      widget.message.comments[index]['content'],
-                                    ),
-                                    style: AppTheme.subHeading,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            (widget.message.status != 'مفتوح')
-                ? Container()
-                : Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    child: messageTextFiled(),
-                  ),
-          ],
+      body: NetworkSensitive(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              (loading)
+                  ? Center(child: CircularProgressIndicator())
+                  : Expanded(
+                      child: FutureBuilder(
+                        future: MyMessageApi.fetchAllMyMassegeComments(
+                            widget.messageID),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              primary: false,
+                              itemCount: snapshot.data.comments.length,
+                              itemBuilder: (context, index) {
+                                return MessageTile(
+                                  message: snapshot.data.comments[index]
+                                      ['content'],
+                                  isSendByme: snapshot.data.name == "أنت",
+                                  date: snapshot.data.comments[index]
+                                      ['created_at'],
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
+                    ),
+              (widget.message.status != 'مفتوح')
+                  ? Container()
+                  : Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: messageTextFiled(),
+                    ),
+            ],
+          ),
         ),
       ),
     );
@@ -327,6 +310,74 @@ class _ChatRomeState extends State<ChatRome> {
           ],
         );
       },
+    );
+  }
+}
+
+class MessageTile extends StatefulWidget {
+  final String message;
+  final bool isSendByme;
+  final String date;
+
+  const MessageTile({Key key, this.message, this.isSendByme, this.date})
+      : super(key: key);
+  @override
+  _MessageTileState createState() => _MessageTileState();
+}
+
+class _MessageTileState extends State<MessageTile> {
+  @override
+  Widget build(BuildContext context) {
+    print(widget.isSendByme);
+
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 3),
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      alignment:
+          (widget.isSendByme) ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.all(8),
+        margin: (widget.isSendByme)
+            ? EdgeInsets.only(left: 100)
+            : EdgeInsets.only(right: 100),
+        decoration: BoxDecoration(
+            color: (widget.isSendByme) ? customColor : Color(0xffff1f1f1),
+            borderRadius: (widget.isSendByme)
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                  )
+                : BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              parseHtmlString(widget.message) ?? '',
+              style: AppTheme.heading.copyWith(
+                color: (widget.isSendByme) ? Colors.white : customColor,
+                fontSize: 11,
+              ),
+            ),
+            Align(
+              alignment: (!widget.isSendByme)
+                  ? Alignment.bottomRight
+                  : Alignment.bottomLeft,
+              child: Text(
+                widget.date ?? '',
+                style: AppTheme.heading.copyWith(
+                  color: (widget.isSendByme) ? Colors.white : customColor,
+                  fontSize: 8,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

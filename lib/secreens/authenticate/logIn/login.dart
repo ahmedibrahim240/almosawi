@@ -1,6 +1,7 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
+import 'package:almosawii/services/network_sensitive.dart';
 import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:almosawii/models/userData.dart';
@@ -38,184 +39,191 @@ class _LogInState extends State<LogIn> {
                 child: CircularProgressIndicator(),
               ),
             )
-          : ListView(
-              shrinkWrap: true,
-              primary: true,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              children: [
-                LogoContainar(
-                  text: 'تسجيل دخول',
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'مرحبا بك ',
-                  style: AppTheme.heading.copyWith(
-                    fontSize: 20,
+          : NetworkSensitive(
+              child: ListView(
+                shrinkWrap: true,
+                primary: true,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                children: [
+                  LogoContainar(
+                    text: 'تسجيل دخول',
                   ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Form(
-                    key: _formKey,
-                    child: SingleChildScrollView(
-                      primary: true,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10),
-                          Column(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.text,
-                                decoration: textFormInputDecoration(
-                                  prefixIcon: Icons.person,
-                                  label: 'اسم المستخدم او البريد الالكتروني',
-                                ),
-                                validator: (val) =>
-                                    val.isEmpty ? emailEror : null,
-                                onChanged: (val) {
-                                  setState(() {
-                                    email = val;
-                                  });
-                                },
-                              ),
-                              SizedBox(height: 20),
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                decoration: textFormInputDecorationForPassword(
-                                  Icons.visibility_off,
-                                  Icons.lock,
-                                  'كلمة المرور',
-                                  () {
+                  SizedBox(height: 20),
+                  Text(
+                    'مرحبا بك ',
+                    style: AppTheme.heading.copyWith(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Form(
+                      key: _formKey,
+                      child: SingleChildScrollView(
+                        primary: true,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            Column(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                TextFormField(
+                                  style: TextStyle(color: Colors.black),
+                                  keyboardType: TextInputType.text,
+                                  decoration: textFormInputDecoration(
+                                    prefixIcon: Icons.person,
+                                    label: 'اسم المستخدم او البريد الالكتروني',
+                                  ),
+                                  validator: (val) =>
+                                      val.isEmpty ? emailEror : null,
+                                  onChanged: (val) {
                                     setState(() {
-                                      obscurePassword = !obscurePassword;
+                                      email = val;
                                     });
                                   },
-                                  obscurePassword,
                                 ),
-                                validator: (val) =>
-                                    val.isEmpty ? passwordEror : null,
-                                obscureText: obscurePassword,
-                                onChanged: (val) {
-                                  setState(() {
-                                    password = val;
-                                  });
-                                },
-                              ),
-                              Center(
-                                child: Text(
-                                  error,
-                                  style: AppTheme.headingColorBlue,
+                                SizedBox(height: 20),
+                                TextFormField(
+                                  style: TextStyle(color: Colors.black),
+                                  decoration:
+                                      textFormInputDecorationForPassword(
+                                    Icons.visibility_off,
+                                    Icons.lock,
+                                    'كلمة المرور',
+                                    () {
+                                      setState(() {
+                                        obscurePassword = !obscurePassword;
+                                      });
+                                    },
+                                    obscurePassword,
+                                  ),
+                                  validator: (val) =>
+                                      val.isEmpty ? passwordEror : null,
+                                  obscureText: obscurePassword,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      password = val;
+                                    });
+                                  },
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    MySharedPreferences.saveUserSkipLogIn(true);
-                                    MySharedPreferences.saveUserSingIn(true);
-                                    MySharedPreferences.saveUserCantBuy(true);
-                                    MySharedPreferences.saveUserOnBording(true);
-
-                                    User.userSkipLogIn = true;
-                                  });
-                                  User.userSkipLogIn = await MySharedPreferences
-                                      .getUserSkipLogIn();
-                                  User.userLogIn =
-                                      await MySharedPreferences.getUserSingIn();
-                                  User.isOnBording = await MySharedPreferences
-                                      .getUserOnBording();
-
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (_) => Wrapper(),
-                                    ),
-                                    (routes) => false,
-                                  );
-                                },
-                                child: Text(
-                                  "الدخول كزائر ؟",
-                                  style: AppTheme.heading.copyWith(
-                                    color: customColor,
-                                    fontSize: 16,
+                                Center(
+                                  child: Text(
+                                    error,
+                                    style: AppTheme.headingColorBlue,
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              CustomButton(
-                                onPress: () async {
-                                  if (_formKey.currentState.validate()) {
+                                SizedBox(height: 10),
+                                InkWell(
+                                  onTap: () async {
                                     setState(() {
-                                      loading = true;
-                                    });
+                                      MySharedPreferences.saveUserSkipLogIn(
+                                          true);
+                                      MySharedPreferences.saveUserSingIn(true);
+                                      MySharedPreferences.saveUserCantBuy(true);
+                                      MySharedPreferences.saveUserOnBording(
+                                          true);
 
-                                    loginWithPhoneAndPassword(
-                                      email: email,
-                                      password: password,
-                                    );
-                                  }
-                                },
-                                text: 'دخول',
-                              ),
-                              SizedBox(height: 12),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => PasswordRecovery(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  'هل نسيت كلمه السر  ؟ ',
-                                  style: AppTheme.heading,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "ليس لديك حساب ؟",
-                                        style: AppTheme.subHeadingColorBlue
-                                            .copyWith(
-                                          fontSize: 12,
-                                        ),
+                                      User.userSkipLogIn = true;
+                                    });
+                                    User.userSkipLogIn =
+                                        await MySharedPreferences
+                                            .getUserSkipLogIn();
+                                    User.userLogIn = await MySharedPreferences
+                                        .getUserSingIn();
+                                    User.isOnBording = await MySharedPreferences
+                                        .getUserOnBording();
+
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                        builder: (_) => Wrapper(),
                                       ),
-                                      InkWell(
-                                        onTap: () => widget.toggleView(),
-                                        child: Text(
-                                          "إنشاء حساب",
-                                          style: AppTheme.headingColorBlue
+                                      (routes) => false,
+                                    );
+                                  },
+                                  child: Text(
+                                    "الدخول كزائر ؟",
+                                    style: AppTheme.heading.copyWith(
+                                      color: customColor,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                CustomButton(
+                                  onPress: () async {
+                                    if (_formKey.currentState.validate()) {
+                                      setState(() {
+                                        loading = true;
+                                      });
+
+                                      loginWithPhoneAndPassword(
+                                        email: email,
+                                        password: password,
+                                      );
+                                    }
+                                  },
+                                  text: 'دخول',
+                                ),
+                                SizedBox(height: 12),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => PasswordRecovery(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    'هل نسيت كلمه السر  ؟ ',
+                                    style: AppTheme.heading,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "ليس لديك حساب ؟",
+                                          style: AppTheme.subHeadingColorBlue
                                               .copyWith(
-                                            fontWeight: FontWeight.w900,
-                                            color: customColor,
-                                            fontSize: 14,
+                                            fontSize: 12,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                                        InkWell(
+                                          onTap: () => widget.toggleView(),
+                                          child: Text(
+                                            "إنشاء حساب",
+                                            style: AppTheme.headingColorBlue
+                                                .copyWith(
+                                              fontWeight: FontWeight.w900,
+                                              color: customColor,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-              ],
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
     );
   }

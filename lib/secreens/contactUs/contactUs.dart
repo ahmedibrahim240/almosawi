@@ -368,11 +368,14 @@ class _ContactUsState extends State<ContactUs> {
       children: [
         Icon(icon),
         SizedBox(width: 10),
-        Text(
-          title,
-          style: AppTheme.heading.copyWith(
-            fontSize: 16,
-            color: customColorGray,
+        SizedBox(
+          width: MediaQuery.of(context).size.width - 80,
+          child: Text(
+            title,
+            style: AppTheme.heading.copyWith(
+              fontSize: 10,
+              color: customColorGray,
+            ),
           ),
         )
       ],

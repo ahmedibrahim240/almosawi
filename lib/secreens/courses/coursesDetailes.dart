@@ -361,6 +361,8 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                     : Text(
                         widget.courses.newPrice.toString() + '\$',
                         style: AppTheme.heading.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
                           color: customColor,
                         ),
                       ),
@@ -372,6 +374,8 @@ class _CoursesedtailsState extends State<Coursesedtails> {
                             ? '${widget.courses.oldPrice}\$'
                             : "مجاناً",
                         style: AppTheme.subHeading.copyWith(
+                          fontSize: (widget.courses.newPrice == null) ? 14 : 10,
+                          fontWeight: FontWeight.w700,
                           color: (widget.courses.newPrice == null)
                               ? customColor
                               : customColorGray,

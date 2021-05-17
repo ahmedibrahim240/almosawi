@@ -2,6 +2,7 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
+import 'package:almosawii/services/network_sensitive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -49,324 +50,333 @@ class _RegisterState extends State<Register> {
                 child: CircularProgressIndicator(),
               ),
             )
-          : ListView(
-              shrinkWrap: true,
-              primary: true,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              children: [
-                LogoContainar(
-                  text: 'إنشاء حساب جديد',
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'مرحبا بك ',
-                  style: AppTheme.heading.copyWith(
-                    fontSize: 20,
+          : NetworkSensitive(
+              child: ListView(
+                shrinkWrap: true,
+                primary: true,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                children: [
+                  LogoContainar(
+                    text: 'إنشاء حساب جديد',
                   ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Form(
-                    key: _formKey,
-                    child: SingleChildScrollView(
-                      primary: true,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10),
-                          Column(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: textFormInputDecoration(
-                                  prefixIcon: Icons.person,
-                                  label: 'الاسم',
-                                ),
-                                validator: (val) =>
-                                    val.isEmpty ? nameEror : null,
-                                onChanged: (val) {
-                                  setState(() {
-                                    name = val;
-                                  });
-                                },
-                              ),
-                              SizedBox(height: 20),
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: textFormInputDecoration(
-                                  prefixIcon: Icons.person,
-                                  label: 'اسم المستخدم',
-                                ),
-                                validator: (val) =>
-                                    val.isEmpty ? nameEror : null,
-                                onChanged: (val) {
-                                  setState(() {
-                                    userName = val;
-                                  });
-                                },
-                              ),
-                              SizedBox(height: 20),
-                              // TextFormField(
-                              //   style: TextStyle(color: Colors.black),
-                              //   keyboardType: TextInputType.phone,
-                              //   decoration: textFormInputDecoration(
-                              //     prefixIcon: Icons.phone,
-                              //     label: 'رقم الهاتف',
-                              //   ),
-                              //   validator: (val) =>
-                              //       val.isEmpty ? phoneEror : null,
-                              //   onChanged: (val) {
-                              //     setState(() {
-                              //       phoneNumber = val;
-                              //     });
-                              //   },
-                              // ),
-                              IntlPhoneField(
-                                initialCountryCode: 'KW',
-                                decoration: textFormInputDecoration(
-                                  prefixIcon: Icons.phone,
-                                  label: 'رقم الهاتف',
-                                ),
-                                autoValidate: false,
-                                validator: (val) =>
-                                    val.isEmpty ? phoneEror : null,
-                                onChanged: (phone) {
-                                  setState(() {
-                                    phoneNumber = phone.completeNumber;
-                                  });
-                                },
-                              ),
-                              SizedBox(height: 20),
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: textFormInputDecoration(
-                                  prefixIcon: Icons.email,
-                                  label: 'البريد الإلكتروني',
-                                ),
-                                validator: (val) =>
-                                    val.isEmpty ? emailEror : null,
-                                onChanged: (val) {
-                                  setState(() {
-                                    email = val;
-                                  });
-                                },
-                              ),
-                              SizedBox(height: 20),
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                decoration: textFormInputDecorationForPassword(
-                                  Icons.visibility_off,
-                                  Icons.lock,
-                                  'كلمة المرور',
-                                  () {
-                                    setState(() {
-                                      obscurePassword = !obscurePassword;
-                                    });
-                                  },
-                                  obscurePassword,
-                                ),
-                                validator: (val) => validatePassord(val),
-                                obscureText: obscurePassword,
-                                onChanged: (val) {
-                                  setState(() {
-                                    password = val;
-                                  });
-                                },
-                              ),
-                              SizedBox(height: 20),
-                              TextFormField(
-                                style: TextStyle(color: Colors.black),
-                                decoration: textFormInputDecorationForPassword(
-                                  Icons.visibility_off,
-                                  Icons.lock,
-                                  'تأكيد كلمه المرور',
-                                  () {
-                                    setState(() {
-                                      obscurePassword = !obscurePassword;
-                                    });
-                                  },
-                                  obscurePassword,
-                                ),
-                                validator: (val) => validateConfrimPassord(
-                                  val,
-                                  password,
-                                  confirmPassword,
-                                ),
-                                obscureText: obscurePassword,
-                                onChanged: (val) {
-                                  setState(() {
-                                    confirmPassword = val;
-                                  });
-                                },
-                              ),
-                              Center(
-                                child: Text(
-                                  error,
-                                  style: AppTheme.headingColorBlue,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                        value: checkBoxValue,
-                                        activeColor: Colors.green,
-                                        onChanged: (bool newValue) {
-                                          setState(() {
-                                            checkBoxValue = newValue;
-                                            print(checkBoxValue);
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        "موافق علي الشروط والأحكام",
-                                        style: AppTheme.subHeading.copyWith(
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
+                  SizedBox(height: 20),
+                  Text(
+                    'مرحبا بك ',
+                    style: AppTheme.heading.copyWith(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Form(
+                      key: _formKey,
+                      child: SingleChildScrollView(
+                        primary: true,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            Column(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                TextFormField(
+                                  style: TextStyle(color: Colors.black),
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: textFormInputDecoration(
+                                    prefixIcon: Icons.person,
+                                    label: 'الاسم',
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      showSettingsPanel(
-                                        child: policies(),
-                                        context: context,
-                                      );
+                                  validator: (val) =>
+                                      val.isEmpty ? nameEror : null,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      name = val;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                TextFormField(
+                                  style: TextStyle(color: Colors.black),
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: textFormInputDecoration(
+                                    prefixIcon: Icons.person,
+                                    label: 'اسم المستخدم',
+                                  ),
+                                  validator: (val) =>
+                                      val.isEmpty ? nameEror : null,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      userName = val;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                // TextFormField(
+                                //   style: TextStyle(color: Colors.black),
+                                //   keyboardType: TextInputType.phone,
+                                //   decoration: textFormInputDecoration(
+                                //     prefixIcon: Icons.phone,
+                                //     label: 'رقم الهاتف',
+                                //   ),
+                                //   validator: (val) =>
+                                //       val.isEmpty ? phoneEror : null,
+                                //   onChanged: (val) {
+                                //     setState(() {
+                                //       phoneNumber = val;
+                                //     });
+                                //   },
+                                // ),
+                                IntlPhoneField(
+                                  initialCountryCode: 'KW',
+                                  decoration: textFormInputDecoration(
+                                    prefixIcon: Icons.phone,
+                                    label: 'رقم الهاتف',
+                                  ),
+                                  autoValidate: false,
+                                  validator: (val) =>
+                                      val.isEmpty ? phoneEror : null,
+                                  onChanged: (phone) {
+                                    setState(() {
+                                      phoneNumber = phone.completeNumber;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                TextFormField(
+                                  style: TextStyle(color: Colors.black),
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: textFormInputDecoration(
+                                    prefixIcon: Icons.email,
+                                    label: 'البريد الإلكتروني',
+                                  ),
+                                  validator: (val) =>
+                                      val.isEmpty ? emailEror : null,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      email = val;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                TextFormField(
+                                  style: TextStyle(color: Colors.black),
+                                  decoration:
+                                      textFormInputDecorationForPassword(
+                                    Icons.visibility_off,
+                                    Icons.lock,
+                                    'كلمة المرور',
+                                    () {
+                                      setState(() {
+                                        obscurePassword = !obscurePassword;
+                                      });
                                     },
-                                    child: Row(
+                                    obscurePassword,
+                                  ),
+                                  validator: (val) => validatePassord(val),
+                                  obscureText: obscurePassword,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      password = val;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                TextFormField(
+                                  style: TextStyle(color: Colors.black),
+                                  decoration:
+                                      textFormInputDecorationForPassword(
+                                    Icons.visibility_off,
+                                    Icons.lock,
+                                    'تأكيد كلمه المرور',
+                                    () {
+                                      setState(() {
+                                        obscurePassword = !obscurePassword;
+                                      });
+                                    },
+                                    obscurePassword,
+                                  ),
+                                  validator: (val) => validateConfrimPassord(
+                                    val,
+                                    password,
+                                    confirmPassword,
+                                  ),
+                                  obscureText: obscurePassword,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      confirmPassword = val;
+                                    });
+                                  },
+                                ),
+                                Center(
+                                  child: Text(
+                                    error,
+                                    style: AppTheme.headingColorBlue,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
                                       children: [
+                                        Checkbox(
+                                          value: checkBoxValue,
+                                          activeColor: Colors.green,
+                                          onChanged: (bool newValue) {
+                                            setState(() {
+                                              checkBoxValue = newValue;
+                                              print(checkBoxValue);
+                                            });
+                                          },
+                                        ),
                                         Text(
-                                          "الشروط والأحكام",
+                                          "موافق علي الشروط والأحكام",
                                           style: AppTheme.subHeading.copyWith(
                                             fontSize: 10,
                                           ),
                                         ),
-                                        SizedBox(width: 5),
-                                        Icon(
-                                          FontAwesomeIcons.chevronDown,
-                                          size: 15,
+                                      ],
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        showSettingsPanel(
+                                          child: policies(),
+                                          context: context,
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "الشروط والأحكام",
+                                            style: AppTheme.subHeading.copyWith(
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Icon(
+                                            FontAwesomeIcons.chevronDown,
+                                            size: 15,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                CustomButton(
+                                  onPress: () async {
+                                    if (checkBoxValue != true) {
+                                      showMyDialog(
+                                          context: context,
+                                          message:
+                                              'يجب الموافقة علي الشروط و الاحكام اولا');
+                                    } else {
+                                      if (_formKey.currentState.validate()) {
+                                        setState(() {
+                                          loading = true;
+                                        });
+
+                                        registerWithPhoneAndPassword(
+                                          user_email: email,
+                                          user_login: userName,
+                                          user_nicename: name,
+                                          user_pass: password,
+                                          user_pass_confirmation:
+                                              confirmPassword,
+                                          phone: phoneNumber,
+                                        );
+                                      }
+                                    }
+                                  },
+                                  text: 'دخول',
+                                ),
+                                SizedBox(height: 10),
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "هل لديك حساب بالفعل ؟",
+                                          style: AppTheme.subHeading.copyWith(
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => widget.toggleView(),
+                                          child: Text(
+                                            "تسجيل دخول",
+                                            style: AppTheme.headingColorBlue
+                                                .copyWith(
+                                              fontWeight: FontWeight.w900,
+                                              color: customColor,
+                                              fontSize: 14,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              CustomButton(
-                                onPress: () async {
-                                  if (checkBoxValue != true) {
-                                    showMyDialog(
-                                        context: context,
-                                        message:
-                                            'يجب الموافقة علي الشروط و الاحكام اولا');
-                                  } else {
-                                    if (_formKey.currentState.validate()) {
-                                      setState(() {
-                                        loading = true;
-                                      });
+                                    SizedBox(height: 10),
+                                    InkWell(
+                                      onTap: () async {
+                                        setState(() {
+                                          MySharedPreferences.saveUserSkipLogIn(
+                                              true);
+                                          MySharedPreferences.saveUserSingIn(
+                                              true);
+                                          MySharedPreferences.saveUserCantBuy(
+                                              true);
+                                          MySharedPreferences.saveUserOnBording(
+                                              true);
 
-                                      registerWithPhoneAndPassword(
-                                        user_email: email,
-                                        user_login: userName,
-                                        user_nicename: name,
-                                        user_pass: password,
-                                        user_pass_confirmation: confirmPassword,
-                                        phone: phoneNumber,
-                                      );
-                                    }
-                                  }
-                                },
-                                text: 'دخول',
-                              ),
-                              SizedBox(height: 10),
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "هل لديك حساب بالفعل ؟",
-                                        style: AppTheme.subHeading.copyWith(
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () => widget.toggleView(),
-                                        child: Text(
-                                          "تسجيل دخول",
-                                          style: AppTheme.headingColorBlue
-                                              .copyWith(
-                                            fontWeight: FontWeight.w900,
-                                            color: customColor,
-                                            fontSize: 14,
+                                          User.userSkipLogIn = true;
+                                        });
+                                        User.userSkipLogIn =
+                                            await MySharedPreferences
+                                                .getUserSkipLogIn();
+                                        User.userLogIn =
+                                            await MySharedPreferences
+                                                .getUserSingIn();
+                                        User.isOnBording =
+                                            await MySharedPreferences
+                                                .getUserOnBording();
+
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                            builder: (_) => Wrapper(),
                                           ),
+                                          (routes) => false,
+                                        );
+                                      },
+                                      child: Text(
+                                        "الدخول كزائر ؟",
+                                        style:
+                                            AppTheme.headingColorBlue.copyWith(
+                                          fontWeight: FontWeight.w900,
+                                          color: customColor,
+                                          fontSize: 14,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: () async {
-                                      setState(() {
-                                        MySharedPreferences.saveUserSkipLogIn(
-                                            true);
-                                        MySharedPreferences.saveUserSingIn(
-                                            true);
-                                        MySharedPreferences.saveUserCantBuy(
-                                            true);
-                                        MySharedPreferences.saveUserOnBording(
-                                            true);
-
-                                        User.userSkipLogIn = true;
-                                      });
-                                      User.userSkipLogIn =
-                                          await MySharedPreferences
-                                              .getUserSkipLogIn();
-                                      User.userLogIn = await MySharedPreferences
-                                          .getUserSingIn();
-                                      User.isOnBording =
-                                          await MySharedPreferences
-                                              .getUserOnBording();
-
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                          builder: (_) => Wrapper(),
-                                        ),
-                                        (routes) => false,
-                                      );
-                                    },
-                                    child: Text(
-                                      "الدخول كزائر ؟",
-                                      style: AppTheme.headingColorBlue.copyWith(
-                                        fontWeight: FontWeight.w900,
-                                        color: customColor,
-                                        fontSize: 14,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-              ],
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
     );
   }
