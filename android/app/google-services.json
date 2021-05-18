@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:231480606240:android:9e5134bbcb3f9d4dc94645",
+        "android_client_info": {
+          "package_name": "com.ahmadalmosawi.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231480606240-aq7ogtf91hio4o867ig6lv6t4ab5h03a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahmadalmosawi.app",
+            "certificate_hash": "527c1b40ad81eb9a9335b6a87e6d554f2a38ab3e"
+          }
+        },
+        {
+          "client_id": "231480606240-dremg4ncj7ubm1fum8nunrcgevvogpu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7f2jXBLLVg6QwAK4iQ5ko8QqT27rWMts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231480606240-dremg4ncj7ubm1fum8nunrcgevvogpu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:231480606240:android:cbe270e1b308e329c94645",
         "android_client_info": {
           "package_name": "com.almosawi.almosawii"

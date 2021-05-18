@@ -60,6 +60,7 @@ dependencies:
   # firebase_auth: ^0.14.0+5
   # cloud_firestore: ^0.12.9+4
   provider: ^2.0.1
+  change_app_package_name:
   
   # flutter_spinkit:
   image_picker:
