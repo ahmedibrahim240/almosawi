@@ -84,6 +84,7 @@ class _ChoosePlanDetailesState extends State<ChoosePlanDetailes> {
                     );
                   },
                 ),
+          // ignore: deprecated_member_use
           RaisedButton(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),

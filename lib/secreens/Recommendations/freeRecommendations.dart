@@ -477,6 +477,7 @@ class _FreeRecommendationsState extends State<FreeRecommendations> {
           ),
           Align(
             alignment: Alignment.bottomLeft,
+            // ignore: deprecated_member_use
             child: RaisedButton(
               onPressed: () {
                 Navigator.of(context).push(

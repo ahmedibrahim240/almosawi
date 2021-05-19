@@ -488,6 +488,7 @@ class CustomAppBar extends StatelessWidget {
 
 /////////////////////////////////////////////////////////////////////////////////
 customRaiseButtom({String text, Function onTap}) {
+  // ignore: deprecated_member_use
   return RaisedButton(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),

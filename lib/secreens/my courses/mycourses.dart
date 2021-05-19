@@ -36,6 +36,7 @@ class _MyCoursesState extends State<MyCourses> {
           print(snapshot.data);
           return (snapshot.data == null || snapshot.data.isEmpty)
               ? Center(
+                  // ignore: deprecated_member_use
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.of(context).push(

@@ -59,7 +59,9 @@ class _ChatRomeState extends State<ChatRome> {
                                 return MessageTile(
                                   message: snapshot.data.comments[index]
                                       ['content'],
-                                  isSendByme: snapshot.data.name == "أنت",
+                                  isSendByme: snapshot.data.comments[index]
+                                          ['sender'] ==
+                                      "user",
                                   date: snapshot.data.comments[index]
                                       ['created_at'],
                                 );

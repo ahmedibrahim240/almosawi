@@ -150,20 +150,23 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                               FontWeight.w900,
                                                         ),
                                                       ),
-                                             (snapshot.data[index]
-                                                              .plan_time
-                                                              .toString()=='')?Container():   Text(
-                                                  'كل ' +
-                                                          (snapshot.data[index]
-                                                              .plan_time
-                                                              .toString()) ??
-                                                      "" ,
-                                                  style:
-                                                      AppTheme.heading.copyWith(
-                                                    fontSize: 14,
-                                                    color: customColor,
-                                                  ),
-                                                ),
+                                                (snapshot.data[index].plan_time
+                                                            .toString() ==
+                                                        '')
+                                                    ? Container()
+                                                    : Text(
+                                                        'كل ' +
+                                                                (snapshot
+                                                                    .data[index]
+                                                                    .plan_time
+                                                                    .toString()) ??
+                                                            "",
+                                                        style: AppTheme.heading
+                                                            .copyWith(
+                                                          fontSize: 14,
+                                                          color: customColor,
+                                                        ),
+                                                      ),
                                               ],
                                             ),
                                             (snapshot.data[index].features
@@ -211,6 +214,7 @@ class _ChoosePlanState extends State<ChoosePlan> {
                                                       ),
                                                     ),
                                                   ),
+                                            // ignore: deprecated_member_use
                                             RaisedButton(
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:

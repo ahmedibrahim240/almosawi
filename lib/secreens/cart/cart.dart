@@ -246,6 +246,7 @@ class _CartState extends State<Cart> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
                 ),
+                // ignore: deprecated_member_use
                 child: FlatButton.icon(
                   color: customColor,
                   shape: RoundedRectangleBorder(

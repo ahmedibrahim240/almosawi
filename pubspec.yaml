@@ -73,7 +73,7 @@ dependencies:
   assets_audio_player:
   
   gx_file_picker:
-  my_fatoorah: ^2.7.1
+  my_fatoorah:
   
   # file_picker:
   # assets_audio_player:

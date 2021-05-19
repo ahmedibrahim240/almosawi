@@ -39,6 +39,10 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   int id = 0;
+  String token =
+      "rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL";
+  String paymentToken =
+      "UXHBd3FzJmSSkBzAPfSRbTAHeKG7zYdvyivO6idxFbuHZ5Pctpi-1s8ahlHVqeol7fYgTx2Goqln2Jp6tw_PrPDbNLGp7KYXAWLGpsk3CAxDg2-pMIX7CbH4sQo2DWOXNA8MdbYEx0kY5wPIQCfjIRLZfbpLiSmSU2UIsNy9--ICRm_WNci8AK-PGYGEYlu0SoHOG_EGjwRAALvsnbSpKtfdkzrAaZyA6QfJ8XzYHhvK2ARwJj_EkDBPwgrobtDNd3jlvN9QOp8jJuaw087DElcmxiIk6vsva_1o_U8Ji40XDJ35p5S4AGePVqxRKIjwDd5fgtj-uJDDRAWSyCXPeq3CFnAEWGsjiNK5P1bKXVdgR-GT3vCMA5RxiSnqcFwe2lfmrYPEhadRPr4cpRtmhPMqhkwIvG7IK3QioNGczImhAYmuUk8w3F3dJFWxQfeJUXLdQv2yKgKwQCXm-6RPbSbCtoWKjaqwzyAQuCm7OuB-kX5qfFh4RRUKiiaPDHtzQmL8Y7QzQJyR49l-eLroaerAyQLPLZPnpA_Et_tKz9cVear3pXtuHl4F7fdJM4w5GHVZ4HLaju6ZEYLDPmjR9EE7QbXVcBx4HyIxe0gtY-zHnWWciOxa3lTkr3fct3AzrYB46AfFDeZmEWiCYOCwPfhCydx_gVEf4lgKb0htX3R4gv-VRFG5bEhcJbIcaKSBne-LGA";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,8 +69,7 @@ class _CheckOutState extends State<CheckOut> {
           return MyFatoorah(
             request: MyfatoorahRequest(
               url: "https://apitest.myfatoorah.com",
-              token:
-                  "rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL",
+              token: paymentToken,
               currencyIso: Country.UAE,
               successUrl:
                   "https://assets.materialup.com/uploads/473ef52c-8b96-46f7-9771-cac4b112ae28/preview.png",

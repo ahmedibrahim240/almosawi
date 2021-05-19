@@ -55,6 +55,7 @@ class _LastMessgesState extends State<LastMessges> {
                                     style: AppTheme.heading,
                                   ),
                                   SizedBox(height: 10),
+                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),

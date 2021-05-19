@@ -414,6 +414,7 @@ class _RecommendationsState extends State<Recommendations> {
           ),
           Align(
             alignment: Alignment.bottomLeft,
+            // ignore: deprecated_member_use
             child: RaisedButton(
               onPressed: () {},
               shape: RoundedRectangleBorder(
