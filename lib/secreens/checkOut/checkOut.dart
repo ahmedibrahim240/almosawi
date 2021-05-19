@@ -69,7 +69,7 @@ class _CheckOutState extends State<CheckOut> {
           return MyFatoorah(
             request: MyfatoorahRequest(
               url: "https://apitest.myfatoorah.com",
-              token: paymentToken,
+              token: token,
               currencyIso: Country.UAE,
               successUrl:
                   "https://assets.materialup.com/uploads/473ef52c-8b96-46f7-9771-cac4b112ae28/preview.png",

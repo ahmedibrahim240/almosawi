@@ -23,7 +23,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<ConnectivityStatus>(
-      builder: (context) => ConnectivityService().connectionStatusController,
+      initialData: null,
+      // builder: (context, wdiget) => Container(),
+      create: (context) =>
+          ConnectivityService().connectionStatusController.stream,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
