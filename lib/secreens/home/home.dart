@@ -67,15 +67,9 @@ class _HomeState extends State<Home> {
       Duration(seconds: 1),
       (timer) {
         setState(() {
-          if (counter > 0) {
-            counter--;
-          } else {
-            setState(() {
-              loading = false;
-            });
-            _timer.cancel();
-          }
+          loading = false;
         });
+        _timer.cancel();
       },
     );
   }
@@ -98,8 +92,8 @@ class _HomeState extends State<Home> {
       body: (loading)
           ? Container(
               child: Center(
-                child: CircularProgressIndicator(),
-              ),
+                  // child: CircularProgressIndicator(),
+                  ),
             )
           : ListView(
               shrinkWrap: true,

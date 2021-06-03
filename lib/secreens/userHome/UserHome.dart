@@ -30,15 +30,9 @@ class _UserHomeState extends State<UserHome> {
       Duration(seconds: 1),
       (timer) {
         setState(() {
-          if (counter > 0) {
-            counter--;
-          } else {
-            setState(() {
-              loading = false;
-            });
-            _timer.cancel();
-          }
+          loading = false;
         });
+        _timer.cancel();
       },
     );
   }
@@ -86,8 +80,8 @@ class _UserHomeState extends State<UserHome> {
       body: (loading)
           ? Container(
               child: Center(
-                child: CircularProgressIndicator(),
-              ),
+                  // child: CircularProgressIndicator(),
+                  ),
             )
           : SafeArea(
               child: ListView(
