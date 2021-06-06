@@ -9,7 +9,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Ahmad Almosawi"
+        android:label="Ahmad AlMosawi"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
        
