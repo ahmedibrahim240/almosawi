@@ -1,12 +1,14 @@
 import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
+import 'package:almosawii/services/homeProvider.dart';
 import 'package:almosawii/services/network_sensitive.dart';
 import 'package:almosawii/sharedPreferences.dart';
 import 'package:flutter/material.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import '../passwordRecovery.dart';
@@ -239,11 +241,15 @@ class _LogInState extends State<LogIn> {
       if (jsonData['status'] == 'success') {
         print('proChartRooms' + jsonData['UserData']['proChartRooms']);
         if (jsonData['UserData']['Recomendations'] == '0') {
+          Provider.of<CheckUserSubscriptionsProvider>(context, listen: false)
+              .checkUserSubscriptions(false);
           MySharedPreferences.saveUserSkipLogIn(true);
           User.userSkipLogIn = true;
 
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         } else {
+          Provider.of<CheckUserSubscriptionsProvider>(context, listen: false)
+              .checkUserSubscriptions(true);
           MySharedPreferences.saveUserSkipLogIn(false);
           User.userSkipLogIn = false;
 

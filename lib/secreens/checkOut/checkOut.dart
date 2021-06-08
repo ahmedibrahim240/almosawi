@@ -5,11 +5,13 @@ import 'package:almosawii/secreens/cart/cart.dart';
 
 import 'package:almosawii/secreens/wrapper/wrapper.dart';
 import 'package:almosawii/services/dbhelper.dart';
+import 'package:almosawii/services/homeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_fatoorah/my_fatoorah.dart';
 import 'package:almosawii/models/utils.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import '../../sharedPreferences.dart';
@@ -139,25 +141,24 @@ class _CheckOutState extends State<CheckOut> {
       var jsonData = json.decode(response.body);
 
       if (jsonData['status'] == 'success') {
+        print('proChartRooms' + jsonData['UserData']['proChartRooms']);
         if (jsonData['UserData']['Recomendations'] == '0') {
-          setState(() {
-            MySharedPreferences.saveUserSkipLogIn(true);
-            setState(() {
-              User.userSkipLogIn = true;
-            });
-          });
+          Provider.of<CheckUserSubscriptionsProvider>(context, listen: false)
+              .checkUserSubscriptions(false);
+          MySharedPreferences.saveUserSkipLogIn(true);
+          User.userSkipLogIn = true;
+
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         } else {
-          setState(() {
-            MySharedPreferences.saveUserSkipLogIn(false);
-            User.userSkipLogIn = false;
-          });
+          Provider.of<CheckUserSubscriptionsProvider>(context, listen: false)
+              .checkUserSubscriptions(true);
+          MySharedPreferences.saveUserSkipLogIn(false);
+          User.userSkipLogIn = false;
+
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         }
         User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
-      } else {
-        setState(() {});
-      }
+      } else {}
     } catch (e) {
       print('Cash wallpaper');
       setState(() {});

@@ -2,17 +2,19 @@ import 'package:almosawii/constants/constans.dart';
 import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/models/utils.dart';
-import 'package:almosawii/secreens/Recommendations/freeRecommendations.dart';
+import 'package:almosawii/secreens/Recommendations/recomendPage.dart';
 import 'package:almosawii/secreens/cart/cart.dart';
 import 'package:almosawii/secreens/courses/courses.dart';
 import 'package:almosawii/secreens/home/home.dart';
 import 'package:almosawii/secreens/more/more.dart';
 import 'package:almosawii/secreens/theBlog/bolg.dart';
+import 'package:almosawii/services/homeProvider.dart';
 import 'package:almosawii/services/network_sensitive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:provider/provider.dart';
 import '../../sharedPreferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -124,7 +126,7 @@ class _WrapperHomeState extends State<WrapperHome> {
 
   final List<Widget> _children = [
     NetworkSensitive(child: HomePages()),
-    NetworkSensitive(child: FreeRecommendations()),
+    NetworkSensitive(child: RecommendationsPages()),
     NetworkSensitive(child: Blog()),
     NetworkSensitive(child: CoursesPage()),
     NetworkSensitive(child: More()),
@@ -150,6 +152,8 @@ class _WrapperHomeState extends State<WrapperHome> {
       if (jsonData['status'] == 'success') {
         print('proChartRooms' + jsonData['UserData']['proChartRooms']);
         if (jsonData['UserData']['Recomendations'] == '0') {
+          Provider.of<CheckUserSubscriptionsProvider>(context, listen: false)
+              .checkUserSubscriptions(false);
           setState(() {
             MySharedPreferences.saveUserSkipLogIn(true);
             setState(() {
@@ -158,6 +162,8 @@ class _WrapperHomeState extends State<WrapperHome> {
           });
           User.userSkipLogIn = await MySharedPreferences.getUserSkipLogIn();
         } else {
+          Provider.of<CheckUserSubscriptionsProvider>(context, listen: false)
+              .checkUserSubscriptions(true);
           setState(() {
             MySharedPreferences.saveUserSkipLogIn(false);
             User.userSkipLogIn = false;
@@ -218,7 +224,10 @@ class _WrapperHomeState extends State<WrapperHome> {
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: ' التوصيات المجانيه',
+            label: (Provider.of<CheckUserSubscriptionsProvider>(context)
+                    .isUserPayPaln)
+                ? 'التوصيات '
+                : 'التوصيات المجانيه',
             icon: SvgPicture.asset(
               'lib/icons/stockUp.svg',
               color: (_currentIndex == 1) ? customColor : customColorGray,

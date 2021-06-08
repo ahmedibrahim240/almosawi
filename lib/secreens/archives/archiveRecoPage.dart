@@ -237,6 +237,8 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                 ],
                               )
                             : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     width: 85,
@@ -259,7 +261,7 @@ class _ArchiveRecomPageState extends State<ArchiveRecomPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  SizedBox(height: 20),
                                 ],
                               ),
                     SizedBox(height: 10),

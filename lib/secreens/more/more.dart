@@ -3,6 +3,7 @@ import 'package:almosawii/constants/themes.dart';
 import 'package:almosawii/models/contactUsApi.dart';
 import 'package:almosawii/models/userData.dart';
 import 'package:almosawii/secreens/ProChartVIP/proChartVIP.dart';
+import 'package:almosawii/secreens/Recommendations/freeRecommendations.dart';
 import 'package:almosawii/secreens/Recommendations/recommendations.dart';
 import 'package:almosawii/secreens/TradingAccount/tradingAccount.dart';
 import 'package:almosawii/secreens/aboutUs/aboutUs.dart';
@@ -14,9 +15,11 @@ import 'package:almosawii/secreens/lastMessges/lastMessges.dart';
 import 'package:almosawii/secreens/my%20courses/mycourses.dart';
 import 'package:almosawii/secreens/myplans/myPlans.dart';
 import 'package:almosawii/secreens/notifcations/notifcations.dart';
+import 'package:almosawii/services/homeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../sharedPreferences.dart';
 import '../splashscreen.dart';
@@ -70,18 +73,31 @@ class _MoreState extends State<More> {
                 ? Container()
                 : moreBody(
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => Recommendations(),
-                        ),
-                      );
+                      if (Provider.of<CheckUserSubscriptionsProvider>(context,
+                              listen: false)
+                          .isUserPayPaln) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => FreeRecommendations(),
+                          ),
+                        );
+                      } else {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => Recommendations(),
+                          ),
+                        );
+                      }
                     },
                     icon: SvgPicture.asset(
                       'lib/icons/stockUp.svg',
                       color: customColor,
                       height: 20,
                     ),
-                    tilte: 'التوصيات',
+                    tilte: (Provider.of<CheckUserSubscriptionsProvider>(context)
+                            .isUserPayPaln)
+                        ? 'التوصيات المجانيه'
+                        : 'التوصيات',
                   ),
             (User.userCantBuy == true) ? Container() : SizedBox(height: 20),
             moreBody(

@@ -14,7 +14,9 @@ import 'package:almosawii/secreens/contactUs/contactUs.dart';
 import 'package:almosawii/secreens/courses/coursesDetailes.dart';
 import 'package:almosawii/secreens/home/homeVideo.dart';
 import 'package:almosawii/secreens/userHome/UserHome.dart';
+import 'package:almosawii/services/homeProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../sharedPreferences.dart';
 
 class HomePages extends StatefulWidget {
@@ -42,10 +44,11 @@ class _HomePagesState extends State<HomePages> {
 
   @override
   Widget build(BuildContext context) {
-    if (User.userSkipLogIn == true) {
-      return Home();
-    } else {
+    print(Provider.of<CheckUserSubscriptionsProvider>(context).isUserPayPaln);
+    if (Provider.of<CheckUserSubscriptionsProvider>(context).isUserPayPaln) {
       return UserHome();
+    } else {
+      return Home();
     }
   }
 }
